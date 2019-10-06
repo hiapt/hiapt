@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="maintenance.model.vo.Bill, java.util.ArrayList" %>
+<%
+	ArrayList<Bill> list = (ArrayList<Bill>)request.getAttribute("list");
+%>
 <!-- 타이틀 시작 -->
 <div class="row">
 	<div id="breadcrumb" class="col-xs-12">
@@ -20,7 +24,7 @@
 <!-- 고지서목록 -->
 <div class="bs-callout bs-callout-info"
 	id="callout-tabs-extends-component">
-	<h4>고지서</h4>
+	<h4>고지서</h4><h6>전체 목록 : <%= list.size() %> 개</h6>
 </div>
 <br>
 <table class="table table-bordered">

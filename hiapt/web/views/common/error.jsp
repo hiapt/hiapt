@@ -12,6 +12,6 @@
 </head>
 <body>
 <h1>에러 발생 : <%= message %></h1>
-<h2><a href="/employee/index.jsp">홈으로 이동</a></h2>
+<h2><a href="/hiapt/index.jsp">홈으로 이동</a></h2>
 </body>
 </html>
