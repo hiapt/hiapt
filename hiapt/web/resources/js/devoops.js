@@ -789,11 +789,11 @@ LoadCalendarScript(DrawCalendar);
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 $(document).ready(function () {
-	$('body').on('click', '.show-sidebar', function (e) {
+	/*$('body').on('click', '.show-sidebar', function (e) {
 		e.preventDefault();
 		$('div#main').toggleClass('sidebar-show');
 		setTimeout(MessagesMenuWidth, 250);
-	});
+	});*/
 	var ajax_url = location.hash.replace(/^#/, '');
 	if (ajax_url.length < 1) {
 		ajax_url = '/Home/login';//'index.jsp';
@@ -1021,4 +1021,106 @@ function DrawChartistChart5(){
 	Chartist.Bar('#chartist-5', data, options);
 }
 
+//Dynamically load DataTables plugin
+//homepage: http://datatables.net v1.9.4 license - GPL or BSD
+//
+function LoadDataTablesScripts(callback){
+function LoadDatatables(){
+	$.getScript('/hiapt/resources/datatables/jquery.dataTables.js', function(){
+		$.getScript('/hiapt/resources/datatables/ZeroClipboard.js', function(){
+			$.getScript('/hiapt/resources/datatables/TableTools.js', function(){
+				$.getScript('/hiapt/resources/datatables/dataTables.bootstrap.js', callback);
+			});
+		});
+	});
+}
+if (!$.fn.dataTables){
+	LoadDatatables();
+}
+else {
+	if (callback && typeof(callback) === "function") {
+		callback();
+	}
+}
+}
+
+/*-------------------------------------------
+Scripts for DataTables page (tables_datatables.html)
+---------------------------------------------*/
+//
+//Function for table, located in element with id = datatable-1
+//
+function TestTable1(){
+$('#datatable-1').dataTable( {
+	"aaSorting": [[ 0, "asc" ]],
+	"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+	"sPaginationType": "bootstrap",
+	"oLanguage": {
+		"sSearch": "",
+		"sLengthMenu": '_MENU_'
+	}
+});
+}
+//
+//Function for table, located in element with id = datatable-2
+//
+function TestTable2(){
+var asInitVals = [];
+var oTable = $('#datatable-2').dataTable( {
+	"aaSorting": [[ 0, "asc" ]],
+	"sDom": "<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+	"sPaginationType": "bootstrap",
+	"oLanguage": {
+		"sSearch": "",
+		"sLengthMenu": '_MENU_'
+	},
+	bAutoWidth: false
+});
+var header_inputs = $("#datatable-2 thead input");
+header_inputs.on('keyup', function(){
+	/* Filter on the column (the index) of this element */
+	oTable.fnFilter( this.value, header_inputs.index(this) );
+})
+.on('focus', function(){
+	if ( this.className == "search_init" ){
+		this.className = "";
+		this.value = "";
+	}
+})
+.on('blur', function (i) {
+	if ( this.value == "" ){
+		this.className = "search_init";
+		this.value = asInitVals[header_inputs.index(this)];
+	}
+});
+header_inputs.each( function (i) {
+	asInitVals[i] = this.value;
+});
+}
+//
+//Function for table, located in element with id = datatable-3
+//
+function TestTable3(){
+$('#datatable-3').dataTable( {
+	"aaSorting": [[ 0, "asc" ]],
+	"sDom": "T<'box-content'<'col-sm-6'f><'col-sm-6 text-right'l><'clearfix'>>rt<'box-content'<'col-sm-6'i><'col-sm-6 text-right'p><'clearfix'>>",
+	"sPaginationType": "bootstrap",
+	"oLanguage": {
+		"sSearch": "",
+		"sLengthMenu": '_MENU_'
+	},
+	"oTableTools": {
+		"sSwfPath": "/hiapt/resources/datatables/copy_csv_xls_pdf.swf",
+		"aButtons": [
+			"copy",
+			"print",
+			{
+				"sExtends":    "collection",
+				"sButtonText": 'Save <span class="caret" />',
+				"aButtons":    [ "csv", "xls", "pdf" ]
+			}
+		]
+	}
+});
+}
 

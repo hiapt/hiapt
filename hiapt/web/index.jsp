@@ -195,8 +195,11 @@
 					</a>
 						<ul class="dropdown-menu">
 							<li><a class="ajax-link"
+								href="/hiapt/bwlist">고지서 조회
+							</a></li>
+							<li><a class="ajax-link"
 								href="/hiapt/views/employee/maintenance/BillList.jsp"> <span
-									class="hidden-xs">고지서 조회</span>
+									class="hidden-xs">고지서 상세 목록 조회</span>
 							</a></li>
 							<li><a class="ajax-link"
 								href="/hiapt/views/employee/maintenance/BillListDetailView.jsp">상세보기</a>
