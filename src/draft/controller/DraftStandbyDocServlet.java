@@ -37,7 +37,7 @@ public class DraftStandbyDocServlet extends HttpServlet {
 		RequestDispatcher view = null; 
 
 			
-			view = request.getRequestDispatcher("views/employee/approval/standbyDoc.jsp");
+			view = request.getRequestDispatcher("views/emp/approval/standbyDoc.jsp");
 
 			request.setAttribute("list", list);
 

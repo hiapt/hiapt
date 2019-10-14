@@ -847,6 +847,13 @@ $(document).ready(function () {
 			e.preventDefault();
 		}
 	});
+	var item2 = $('.main-menu li a[href$="' + ajax_url + '"]');
+	item2.addClass('active-parent active');
+	$('.dropdown:has(li:has(a.active)) > a').addClass('active-parent active');
+	$('.dropdown:has(li:has(a.active)) > ul').css("display", "block");
+	 
+	
+	
 	var height = window.innerHeight - 49;
 	$('#main').css('min-height', height)
 		.on('click', '.expand-link', function (e) {
@@ -914,7 +921,17 @@ $(document).ready(function () {
 			LoadAjaxContent(ajax_url);
 		}
 	});
-	
+	/*$('.pagination_b').on('click','a', function(e){
+		if ($(this).hasClass('ajax-link')) {					
+			//var url = $(this).attr('href');
+			//var item = $('a[href$="' + ajax_url + '"]');
+			var url = $(this).attr('a[href$="' + ajax_url + '"]');
+			window.location.hash = url;
+			LoadAjaxContent(url);
+		}
+	});
+	*/
+		
 });
 
 // 달력=======================================================================
@@ -1124,3 +1141,18 @@ $('#datatable-3').dataTable( {
 });
 }
 
+
+//////////////////////////////////////////////////////
+/*$(document).ready(function () {
+	$('.pagination').on('click', 'a', function (e) {
+		if ($(this).hasClass('ajax-link')) {
+			e.preventDefault();
+			var url = $(this).attr('href');
+			window.location.hash = url;
+			LoadAjaxContent(url);
+		}
+		if ($(this).attr('href') == '#') {
+			e.preventDefault();
+		}
+});
+});*/

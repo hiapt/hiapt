@@ -38,7 +38,7 @@ public class DraftReturnDocServlet extends HttpServlet {
 			
 			
 					
-					view = request.getRequestDispatcher("views/employee/approval/returnDoc.jsp");
+					view = request.getRequestDispatcher("views/emp/approval/returnDoc.jsp");
 
 					request.setAttribute("list", list);
 						

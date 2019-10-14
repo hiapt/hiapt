@@ -4314,7 +4314,7 @@ fieldset[disabled] .navbar-inverse .btn-link:focus {
   border-radius: 4px;
 }
 .pagination-centered {
-    text-align: center !important;
+   justify-content: center !important;
 }
 .pagination > li {
   display: inline;

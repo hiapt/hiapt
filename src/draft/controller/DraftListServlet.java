@@ -33,12 +33,13 @@ public class DraftListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 전자결재 목록
-		ArrayList<Draft> list = new DraftService().selectAll();
+		String empno = request.getParameter("empno");
+		ArrayList<Draft> list = new DraftService().selectAll(empno);
 		RequestDispatcher view = null; //아래 if else 둘 다에서 사용함 --> 미리 만들어놓음
 	
 		if(list.size() > 0) {
 			
-			view = request.getRequestDispatcher("views/employee/approval/docList.jsp");
+			view = request.getRequestDispatcher("views/emp/approval/docList.jsp");
 
 			request.setAttribute("list", list);
 				

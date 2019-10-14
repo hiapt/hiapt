@@ -86,10 +86,16 @@ public class BillViewDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
+		/*String query = "select * from ("
+				+ " select rownum rnum, merchant_uid, userid, amonut, arrears, arrears_find, after_amount, before_amount "
+				+ " from ( select * from bill_view order by userid asc, merchant_uid desc))"
+				+ " where rnum >= ? and rnum <= ?";*/
+		
 		String query = "select * from ("
-				+ " select rownum rnum, userid, arrears, merchant_uid "
-				+ "from ( select * from bill_view order by userid asc, merchant_uid desc))"
-				+ "where rnum >= ? and rnum <= ?";
+				+ " select A.*, ROWNUM AS RNUM "
+				+ " from ( select * from bill_view order by userid asc, merchant_uid desc "
+				+ ") A"
+				+ ") where rnum >= ? and rnum <= ?" ;
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -102,10 +108,10 @@ public class BillViewDao {
 				BillView bview = new BillView();
 				bview.setMerchantUid(rset.getLong("merchant_uid"));
 				bview.setUserId(rset.getString("userid"));
-				//bview.setAmount(rset.getInt("amount"));
+				bview.setAmount(rset.getInt("amount"));
 				bview.setArrears(rset.getInt("arrears"));
-				//bview.setArrearsFine(rset.getInt("arrears_fine"));
-				//bview.setAfterAmount(rset.getInt("after_amount"));
+				bview.setArrearsFine(rset.getInt("arrears_fine"));
+				bview.setAfterAmount(rset.getInt("after_amount"));
 				//bview.setBeforeAmount(rset.getInt("before_amount"));
 				
 				list.add(bview);

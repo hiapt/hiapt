@@ -174,7 +174,7 @@ COMMENT ON COLUMN SCHEDULE.SCH_TITLE IS '일정명';
 
 COMMENT ON COLUMN SCHEDULE.SCH_TYPE IS '구분';
 
-COMMENT ON COLUMN SCHEDULE.SCH_END IS '시작일';
+COMMENT ON COLUMN SCHEDULE.SCH_START IS '시작일';
 
 COMMENT ON COLUMN SCHEDULE.SCH_END IS '종료일';
 
@@ -206,29 +206,9 @@ INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '2단지 놀이터점검', DEFAULT, TO_DAT
 INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, 'CCTV점검', DEFAULT, TO_DATE(20191002), TO_DATE(20191002), 'CCTV 점검', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'S001'); 
 
 commit;
---전로하-----------------------------------------------------------------------------------------------
-DROP TABLE RECEIPT;
+--  관리비 및 결제  db 시작*********************************************************
 
-DROP TABLE PAYMENT;
-
-DROP TABLE BILL;
-
-DROP TABLE VBANK;
-
-DROP TABLE SMS;
-
-DROP VIEW RECEIPT_VIEW;
-
-DROP VIEW BASE_VIEW;
-
-DROP VIEW IMPOSE_VIEW;
-
-DROP VIEW IMPOSE_END_VIEW;
-
-DROP VIEW BILL_VIEW;
-
-commit;
-
+drop table bill cascade constraints;
 -- BILL 테이블 생성(NULL로)
 create table bill(
 	MERCHANT_UID NUMBER		NOT NULL,
@@ -470,8 +450,9 @@ BILL_SEQ.NEXTVAL,'202-101','허용순','2018/09/01',
   386, 15, 12, 4,DEFAULT, NULL,'110-23-0310818'
 );
 
-----------------------------------------------------------------------------
-DROP TABLE vbank;
+--================================================================================
+
+DROP TABLE VBANK cascade constraints;
 -- 가상계좌 테이블 생성
 CREATE TABLE VBANK (
 	VBANK_NUM	VARCHAR2(20) NOT NULL,
@@ -505,9 +486,10 @@ INSERT INTO VBANK VALUES(
 '402172-01-001467', '우체국', DEFAULT, '19/09/30'
 );
 
-----------------------------------------------------------------------------
--- SMS 테이블 생성\
-drop table sms;
+---=============================================================================
+-- SMS 테이블 생성
+
+drop table sms cascade constraints;
 
 CREATE TABLE SMS (
 	EMPNO	VARCHAR2(20) NOT NULL,
@@ -561,8 +543,10 @@ INSERT INTO SMS VALUES(
  DEFAULT, '성공', DEFAULT, '2000' 
 );
 
-------------------------------------------------------------------------------
+--============================================================================
 -- PAYMENT 테이블 생성
+
+drop table payment cascade constraints;
 
 CREATE TABLE PAYMENT (
 	MERCHANT_UID	NUMBER		NOT NULL,
@@ -666,7 +650,8 @@ INSERT INTO PAYMENT VALUES(
 NULL, '전로하', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
--------------------------------------------------------------------------------
+--=============================================================================
+drop table receipt cascade constraints;
 -- RECEIPT 테이블 생성
 CREATE TABLE RECEIPT (
 	imp_uid	VARCHAR2(40)		NOT NULL,
@@ -795,10 +780,10 @@ DEFAULT, '카드결제', 270690, '나이스정보통신', '2019/02/10',	NULL, '전로하', '01
 'dd55555bb@gmail.com', DEFAULT, '결제취소' 
 );
 
-------------------------------------------------------------------------------------
--- view 생성
-
+---============================================================================
 -- 결제 내역 출력용 view 쿼리
+DROP VIEW RECEIPT_VIEW;
+
 CREATE VIEW receipt_view
 AS
 SELECT A.USERID, A.USERNAME, L.BILL_YEAR_MONTH, R.PAID_AMOUNT
@@ -807,6 +792,7 @@ WHERE A.USERID = L.USERID AND L.MERCHANT_UID = R.MERCHANT_UID
 with read only;
 
 -------------------------------
+DROP VIEW BASE_VIEW;
 -- 부과기초작업 테이블
 CREATE VIEW BASE_VIEW
 AS
@@ -822,6 +808,7 @@ BILL_SEQ.NEXTVAL,'201-201','진행', '2019/10/01',
 );
 
 ---------------------------------
+DROP VIEW IMPOSE_VIEW;
 -- 관리비부과처리 뷰 테이블
 CREATE VIEW impose_VIEW
 AS
@@ -835,6 +822,8 @@ FROM BILL
 WITH CHECK OPTION;
 
 -----------------------------------
+DROP VIEW IMPOSE_END_VIEW;
+
 -- 부과마감등록 샘플 뷰 테이블
 CREATE VIEW impose_end_VIEW
 AS
@@ -847,30 +836,30 @@ FROM BILL
 WITH CHECK OPTION;
 
 ----------------------------------------
+DROP VIEW BILL_VIEW;
 -- 고지서 샘플 뷰 테이블
 CREATE VIEW bill_VIEW
 AS
-SELECT MERCHANT_UID as "고지서번호", USERID "동/호", 
+SELECT MERCHANT_UID, USERID, 
        SUM(GENERAL_COST + CLEAN_COST +	DISINFECT_COST +
         ELEVATOR_COST +	REPAIR_COST + GUARD_COST + 	FIREINSURANCE_COST + 
         COMMISSION + ELECTRIC_COST +	ALLELECTRIC_COAT + TV_COST +
-      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "부과금액",
-      ARREARS as "미납액", 
+      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "amount",
+      ARREARS, 
       SUM(GENERAL_COST + CLEAN_COST +	DISINFECT_COST +
         ELEVATOR_COST +	REPAIR_COST + GUARD_COST + 	FIREINSURANCE_COST + 
         COMMISSION + ELECTRIC_COST +	ALLELECTRIC_COAT + TV_COST +
-      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "납기내금액",
-      floor((NVL(ARREARS,0)*1.3)) AS "후연체료",
+      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "before_amount",
+      floor((NVL(ARREARS,0)*1.3)) AS "arrears_fine",
       floor((SUM(GENERAL_COST + CLEAN_COST +	DISINFECT_COST +
         ELEVATOR_COST +	REPAIR_COST + GUARD_COST + 	FIREINSURANCE_COST + 
         COMMISSION + ELECTRIC_COST +	ALLELECTRIC_COAT + TV_COST +
-      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS))*1.1) AS "납기후금액"      
+      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS))*1.1) AS "after_amount"      
 FROM BILL
 GROUP BY MERCHANT_UID, USERID, ARREARS
 with read only;
 
---------------------------------------------------
--- fk 조건 생성
+-- constranits 조건 생성 시작 ==========================================================================
 ALTER TABLE bill ADD CONSTRAINT FK_vbank_TO_bill_1 FOREIGN KEY (	vbank_num)
 REFERENCES vbank (	vbank_num);
 
@@ -882,8 +871,15 @@ REFERENCES bill (	merchant_uid) on delete cascade;;
 ALTER TABLE RECEIPT ADD CONSTRAINT FK_PAYMENT_TO_RECEIPT_1 FOREIGN KEY (	MERCHANT_UID)
 REFERENCES payment (	merchant_uid) on delete cascade;
 
+-- constranits 조건 생성 끝 ====================================================
+
 
 COMMIT;
+
+--  관리비 및 결제  db 끝*********************************************************
+
+
+
 
 --김은솔-----------------------------------------------------------------------------------------------------------
 

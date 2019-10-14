@@ -38,7 +38,7 @@ public class DraftDeferDocServlet extends HttpServlet {
 			
 			
 					
-					view = request.getRequestDispatcher("views/employee/approval/deferDoc.jsp");
+					view = request.getRequestDispatcher("views/emp/approval/deferDoc.jsp");
 
 					request.setAttribute("list", list);
 						

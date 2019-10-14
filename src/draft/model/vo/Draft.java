@@ -16,11 +16,15 @@ public class Draft implements java.io.Serializable{
 	private String progress;
 	private String display;
 	private String newcode;
+	private String formname;
+	private String empname;
+	private String empid;
 	
 	public Draft() {}
 
 	public Draft(int docno, String empno, int formcode, String doctitle, String doccontent, String originfile,
-			String renamefile, Date draftdate, String progress, String display, String newcode) {
+			String renamefile, Date draftdate, String progress, String display, String newcode, String formname,
+			String empname, String empid) {
 		super();
 		this.docno = docno;
 		this.empno = empno;
@@ -33,6 +37,9 @@ public class Draft implements java.io.Serializable{
 		this.progress = progress;
 		this.display = display;
 		this.newcode = newcode;
+		this.formname = formname;
+		this.empname = empname;
+		this.empid = empid;
 	}
 
 	public int getDocno() {
@@ -123,14 +130,37 @@ public class Draft implements java.io.Serializable{
 		this.newcode = newcode;
 	}
 
+	public String getFormname() {
+		return formname;
+	}
+
+	public void setFormname(String formname) {
+		this.formname = formname;
+	}
+
+	public String getEmpname() {
+		return empname;
+	}
+
+	public void setEmpname(String empname) {
+		this.empname = empname;
+	}
+
+	public String getEmpid() {
+		return empid;
+	}
+
+	public void setEmpid(String empid) {
+		this.empid = empid;
+	}
+
 	@Override
 	public String toString() {
 		return "Draft [docno=" + docno + ", empno=" + empno + ", formcode=" + formcode + ", doctitle=" + doctitle
 				+ ", doccontent=" + doccontent + ", originfile=" + originfile + ", renamefile=" + renamefile
 				+ ", draftdate=" + draftdate + ", progress=" + progress + ", display=" + display + ", newcode="
-				+ newcode + "]";
+				+ newcode + ", formname=" + formname + ", empname=" + empname + ", empid=" + empid + "]";
 	}
-
 	
 	
 	

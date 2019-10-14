@@ -29,28 +29,27 @@
 		
 		<div class="tab-content">
 			<div id="login1">   
-				
-				<form action="/hiapt/index2.jsp" method="post">
+				<form action="/hiapt/uin" method="post">
 					
 					<div class="field-wrap">
 						<label>
 							아이디<span class="req">*</span>
 						</label>
-						<input type="text"/>
-						<!-- <input type="text"required autocomplete="off"/> -->
+						<!-- <input type="text"/> -->
+						<input type="text" name="uid" required autocomplete="off"/>
 					</div>
 					
 					<div class="field-wrap">
 						<label>
 							비밀번호<span class="req">*</span>
 						</label>
-						<input type="password"/>
-						<!-- <input type="password"required autocomplete="off"/> -->
+						<!-- <input type="password"/> -->
+						<input type="password" name="upwd" required autocomplete="off"/>
 					</div>
 					
 					<p class="forgot"><a href="#">비밀번호찾기</a></p>
-					
-					<button class="button button-block"/>로그인</button>
+					<input type="submit" value="로그인">
+					<!-- <button class="button button-block"/>로그인</button> -->
 					
 				</form>
 
@@ -58,27 +57,27 @@
 			
 			<div id="login2">   
 				
-				<form action="/hiapt/index.jsp" method="post">
+				<form action="/hiapt/ein" method="post">
 					
 					<div class="field-wrap">
 						<label>
 							아이디<span class="req">*</span>
 						</label>
-						<input type="text"/>
-						<!-- <input type="text"required autocomplete="off"/> -->
+						
+						<input type="text" name="eid" required autocomplete="off"/>
 					</div>
 					
 					<div class="field-wrap">
 						<label>
 							비밀번호<span class="req">*</span>
 						</label>
-						<input type="password"/>
-						<!-- <input type="password"required autocomplete="off"/> -->
+						
+						<input type="password" name="epwd" required autocomplete="off"/>
 					</div>
 					
 					<p class="forgot"><a href="#">비밀번호찾기</a></p>
 					
-					<button class="button button-block"/>로그인</button>
+					<input type="submit" value="로그인">
 					
 				</form>
 

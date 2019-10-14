@@ -68,7 +68,7 @@ public class BillViewServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		
 		if(list.size() > 0 ) {
-			view = request.getRequestDispatcher("views/employee/maintenance/BillViewList.jsp");
+			view = request.getRequestDispatcher("views/emp/maintenance/BillViewList.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("currentPage", currentPage);

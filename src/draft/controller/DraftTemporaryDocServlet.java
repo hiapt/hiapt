@@ -37,7 +37,7 @@ public class DraftTemporaryDocServlet extends HttpServlet {
 				RequestDispatcher view = null; 
 
 					
-					view = request.getRequestDispatcher("views/employee/approval/temporaryDoc.jsp");
+					view = request.getRequestDispatcher("views/emp/approval/temporaryDoc.jsp");
 
 					request.setAttribute("list", list);
 

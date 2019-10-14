@@ -36,7 +36,7 @@ public class DraftDetailViewServlet extends HttpServlet {
 		Draft draft = new DraftService().selectOne(docno);
 		RequestDispatcher view = null; 
 		if(draft != null) {
-			view = request.getRequestDispatcher("views/employee/approval/draftDetailView.jsp");
+			view = request.getRequestDispatcher("views/emp/approval/draftDetailView.jsp");
 			request.setAttribute("draft", draft);
 			
 		}else {

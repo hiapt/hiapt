@@ -23,4 +23,22 @@ public class BillService {
 		return list;
 	}// end selectList()
 	
+	// 고지서 페이징 처리용 count
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = bdao.getListCount(conn);
+		close(conn);
+		
+		return listCount;
+	}
+	
+	// 페이징 처리용 시작과 끝 번호
+	public ArrayList<Bill> selectList(int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Bill> list = bdao.selectList(conn, startRow, endRow);
+		close(conn);
+		
+		return list;
+	}
+	
 }// end class

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<!-- 세대주 머리부분 공통부분 복사해서 쓰세요 시작========================================================================== -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>

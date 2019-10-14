@@ -1,6 +1,7 @@
 package draft.model.service;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import static common.JDBCTemplate.*;
@@ -14,9 +15,9 @@ public class DraftService {
 	
 
 	
-	public ArrayList<Draft> selectAll() {
+	public ArrayList<Draft> selectAll(String empno) {
 		Connection conn = getConnection();
-		ArrayList<Draft> list = ad.selectAll(conn);
+		ArrayList<Draft> list = ad.selectAll(conn, empno);
 		close(conn);
 		return list;
 	}
@@ -83,6 +84,45 @@ public class DraftService {
 	public ArrayList<Draft> selectTempDoc() {
 		Connection conn = getConnection();
 		ArrayList<Draft> list = ad.selectTempDoc(conn); 
+		close(conn);
+		return list;
+	}
+
+
+
+	public int tempSave(Draft draft) {
+		Connection conn = getConnection();
+		int result = ad.tempSave(conn, draft);
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public ArrayList<Draft> draftTitleSearch(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Draft> list = ad.draftTitleSearch(conn, keyword);
+		close(conn);
+		return list;
+	}
+	public ArrayList<Draft> draftWriterSearch(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Draft> list = ad.draftWriterSearch(conn, keyword);
+		close(conn);
+		return list;
+	}
+	public ArrayList<Draft> draftDateSearch(Date from, Date to) {
+		Connection conn = getConnection();
+		ArrayList<Draft> list = ad.draftDateSearch(conn, from, to);
+		close(conn);
+		return list;
+	}
+	public ArrayList<Draft> draftFormtypeSearch(String keyword) {
+		Connection conn = getConnection();
+		ArrayList<Draft> list = ad.draftFormtypeSearch(conn, keyword);
 		close(conn);
 		return list;
 	}

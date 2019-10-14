@@ -36,7 +36,7 @@ public class DraftApprovedDocServlet extends HttpServlet {
 				ArrayList<Draft> list = new DraftService().selectApprovedDoc();
 				RequestDispatcher view = null; 
 			
-					view = request.getRequestDispatcher("views/employee/approval/approvedDoc.jsp");
+					view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
 
 					request.setAttribute("list", list);
 					
