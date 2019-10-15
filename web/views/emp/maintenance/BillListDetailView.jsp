@@ -14,8 +14,7 @@
     <h4>관리비 납입영수증</h4>
  </div>
  <br>
-<table
-	class="table table-bordered">
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th colspan="2" class="danger">전기 에너지</th>

@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
-<body>
+    pageEncoding="UTF-8" import="aptuser.model.vo.Aptuser"%>
+<%
+   Aptuser aptuser = (Aptuser)session.getAttribute("aptuser");
+%>
 
 <div class="topbar clearfix">
     <div class="container">
       <div class="col-lg-12 text-right">
         <div class="social_buttons">
           
-          <a href="/hiapt/login.jsp" data-toggle="tooltip" data-placement="bottom"> *** 님 </a>
-          <span class="at_bar">|</span><a href="/hiapt/login.jsp" data-toggle="tooltip" data-placement="bottom"> 로그아웃 </a>
-          <!--span class="at_bar">|</span><a href="#" data-toggle="tooltip" data-placement="bottom" title="Dribbble"> 사이트맵 </a--> 
+          <span style="width:66px;padding: 16px;font-size: 16px;"><%= aptuser.getUserName() %></span>
+          <span class="at_bar">|</span><a href="/hiapt/uout">로그아웃 </a>
         </div>
       </div>
     </div>

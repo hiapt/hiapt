@@ -27,8 +27,5 @@
 
   <!-- Template Main Javascript File -->
   <script src="/hiapt/resources/js/main.js"></script>
-<!-- 세대주 아래 공통부분 복사해서 쓰세요 끝 =============================================================================== --> 
-</body>
-</html>
 
     

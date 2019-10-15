@@ -1,8 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
+
+<!DOCTYPE html>
+<html lang="ko">
+<!-- head 시작  -->
 <%@ include file="views/user/userhead.html" %>
+<!-- head 끝  -->
+
+<body>
+<!-- navi 시작  -->
 <%@ include file="views/user/userheader.jsp" %>
+<!-- navi 끝  -->
 
 <!-- /// 본문 시작////// -->
 
@@ -80,4 +88,8 @@
   
   <!--  /// 본문 끝//////  -->
 
+<!-- footer 시작 -->
  <%@ include file="views/user/userfooter.jsp" %>
+<!-- footer 끝  -->
+ </body>
+</html>
