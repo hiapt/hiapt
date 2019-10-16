@@ -59,9 +59,9 @@
 				<div id="employee" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/emplist">직원정보</a> <a
+						<a class="collapse-item" href="/hiapt/emplist">직원조회</a> <a
 							class="collapse-item"
-							href="/hiapt/views/emp/member/empenroll.html">직원등록</a> <a
+							href="/hiapt/views/emp/employee/empEnroll.jsp">직원등록</a> <a
 							class="collapse-item" href="utilities-animation.html">Animations</a>
 						<a class="collapse-item" href="utilities-other.html">Other</a>
 					</div>

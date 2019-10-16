@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="employee.model.vo.Employee, java.util.ArrayList" %>
-<%
-	ArrayList<Employee> list = (ArrayList<Employee>)request.getAttribute("list");
-%>    
+    pageEncoding="UTF-8" import= "employee.model.vo.Employee"%>
+<% 
+	Employee employee2 = (Employee)request.getAttribute("employee2");
+%>   
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
@@ -44,9 +43,40 @@
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
+
 <style>
 .check {
 	    display: inline-block !important;
+}
+
+/* #navi{
+	height: 30px;
+	/* width: 110px; */
+	display: block;
+	font-family:"굴림";
+	font-weight:600;
+	font-size:14px;
+	padding: 5px 25px;
+	margin : 5px 25px;
+	color: white;
+	background: #365873;
+	text-decoration: none;
+} */
+
+#userid{
+	background : lightgray;
+}
+
+th{
+	text-align: center;
+}
+
+#employee{
+	padding-left: 10px;
+}
+
+#date, #job {
+	height:25px;
 }
 </style>
 
@@ -83,56 +113,55 @@
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">직원 조회</h1>
-<div class="box-content">
-	<div class="input-group" style ="width: 25%;  float: right;">
-				<input type="text" class="form-control input-lg" placeholder="사번 검색">
-				<span class="input-group-btn">
-					<button class="btn btn-primary" type="button">
-						<i class="fa fa-search"></i>
-					</button>
-				</span>
-			</div>
-		<table class="table beauty-table table-hover"
-			style="text-align: center;">
-			<thead>
-				<tr>
-					<th width="10">
-						<!-- <div class="checkbox" style="margin: 0px; margin-left: 10px;">
-							<label> <input type="checkbox"> <i
-								class="fa fa-square-o small"></i>
-							</label>
-						</div> -->
-					</th>
-					<th style="text-align: center;">사번</th>
-					<th style="text-align: center;">이름</th>
-					<th style="text-align: center;">직급</th>
-					<th style="text-align: center;">입사년도</th>
-					<th style="text-align: center;">휴대전화</th>
-					<!-- <th style="text-align: center;"></th> -->
-					<th style="text-align: center;">이메일</th>
-					<th style="text-align: center;">급여명세서</th>
-					<th style="text-align: center;">상세정보</th>
-				</tr>
-			</thead>
-			<%
-			for(int i = 0; i < list.size(); i++) { 
-				Employee e = list.get(i);
-			%>
-			<tr>
-				<td><%= i + 1 %></td>
-				<td><%= e.getEmpNo() %></td>
-				<td><%= e.getEmpName() %></td>
-				<td><%= e.getEmpId() %></td>
-				<td><%= e.getEmpHireDate() %></td>
-				<td><%= e.getEmpPhone() %></td>
-				<td><%= e.getEmpEmail() %></td>
-				<td><a href="#">보기</a></td>
-				<td><a href="/hiapt/empdetail?empno=<%= e.getEmpNo() %>">보기</a></td>
-			</tr>
-			<% } %>
-		</table>
-		
+<h1 class="h3 mb-4 text-gray-800"><%= employee2.getEmpName() %> 상세정보</h1>
+
+<div class="card shadow mb-4">
+<form action="/hiapt/empupdate" method="post">
+<table class="table table-bordered dataTable">
+
+<tr><th style="text-align:center; width:150px;">사 번*</th>
+<td id="employee"><%= employee2.getEmpNo() %></td>
+
+<tr><th style="text-align:center;">이 름*</th>
+<td id="employee"><%= employee2.getEmpName() %></td></tr>
+
+<tr><th style="text-align:center;">직 급*</th>
+<td><%= employee2.getEmpId() %></td></tr>
+
+<tr><th style="text-align:center;">입사일</th>
+<td id="employee"><%= employee2.getEmpHireDate() %></td></tr>
+
+<tr><th style="text-align:center;">휴대전화</th>
+<td id="employee"><%= employee2.getEmpPhone() %></td></tr>
+
+
+
+<tr><th style="text-align:center;">주민등록번호</th>
+<td id="employee"><%= employee2.getEmpSSN() %></td></tr>
+
+<tr><th style="text-align:center;">주소</th>
+<td id="employee"><%= employee2.getEmpAddress() %></td></tr>
+
+<tr><th style="text-align:center;">이메일</th>
+<td id="employee"><%= employee2.getEmpEmail() %></td></tr>
+	 
+<tr><th style="text-align:center;">부양가족수</th>
+<td id="employee"><%= employee2.getEmpFamily() %></td>
+	 
+<tr><th style="text-align:center;">기타정보</th>
+<td id="employee"><%= employee2.getEmpEtc() %></td></tr>
+
+<tr><th colspan="2">
+		<a href="/hiapt/views/emp/employee/empUpdate.jsp">수정하기</a> &nbsp;
+		<a href="/hiapt/empdelete?empno=<%= employee2.getEmpNo() %>">삭제하기</a>
+		<a href="/hiapt/views/emp/employee/empList.jsp">돌아가기</a>
+</th></tr>
+
+</table>
+</form>
+</div>
+
+
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

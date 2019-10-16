@@ -196,7 +196,7 @@ public class Employee implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "Member [empNo=" + empNo + ", empPwd=" + empPwd + ", empName=" + empName + ", empId=" + empId
+		return "Employee [empNo=" + empNo + ", empPwd=" + empPwd + ", empName=" + empName + ", empId=" + empId
 				+ ", empHireDate=" + empHireDate + ", empPhone=" + empPhone + ", empSSN=" + empSSN + ", empAddress="
 				+ empAddress + ", empEmail=" + empEmail + ", empFamily=" + empFamily + ", salary=" + salary
 				+ ", pension=" + pension + ", insurance=" + insurance + ", longIns=" + longIns + ", hireIns=" + hireIns
