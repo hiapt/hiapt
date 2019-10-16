@@ -19,7 +19,7 @@ public class EmployeeService {
 		return employee;
 	}
 
-	public Employee selectMember(String empNo) {
+	public Employee selectEmployee(String empNo) {
 		Connection conn = getConnection();
 		Employee employee = edao.selectOne(conn, empNo);
 		close(conn);
@@ -27,9 +27,9 @@ public class EmployeeService {
 		
 	}
 
-	public int insertMember(Employee employee) {
+	public int insertEmployee(Employee employee) {
 		Connection conn = getConnection();
-		int result = edao.insertMember(conn, employee);
+		int result = edao.insertEmployee(conn, employee);
 		if(result > 0)
 			commit(conn);
 		else
@@ -38,9 +38,9 @@ public class EmployeeService {
 		return result;
 	}
 
-	public int updateMember(Employee employee) {
+	public int updateEmployee(Employee employee) {
 		Connection conn = getConnection();
-		int result = edao.updateMember(conn, employee);
+		int result = edao.updateEmployee(conn, employee);
 		if(result > 0)
 			commit(conn);
 		else
@@ -49,9 +49,9 @@ public class EmployeeService {
 		return result;
 	}
 
-	public int deleteMember(String empNo) {
+	public int deleteEmployee(String empNo) {
 		Connection conn = getConnection();
-		int result = edao.deleteMember(conn, empNo);
+		int result = edao.deleteEmployee(conn, empNo);
 		if(result > 0)
 			commit(conn);
 		else
@@ -66,6 +66,7 @@ public class EmployeeService {
 		close(conn);
 		return list;
 	}
+
 }
 
 //Servlet > Service > Dao
