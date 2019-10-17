@@ -86,7 +86,10 @@
 <h1 class="h3 mb-4 text-gray-800">직원 조회</h1>
 <div class="card shadow mb-4">
 <div class="card-body">
+<<<<<<< HEAD
+=======
 
+>>>>>>> branch 'master' of https://github.com/hiapt/hiapt.git
 <div class="box-content">
 	<div class="input-group" style ="width: 25%;  float: right;">
 				<input type="text" class="form-control input-lg" placeholder="사번 검색">
@@ -135,10 +138,15 @@
 			</tr>
 			<% } %>
 		</table>
+<<<<<<< HEAD
+	</div>
+	</div>	
+=======
 
 </div>
 </div>
 		
+>>>>>>> branch 'master' of https://github.com/hiapt/hiapt.git
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

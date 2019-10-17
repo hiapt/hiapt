@@ -154,7 +154,7 @@
          <div class="sidebar-heading">emp</div>
 <!-- ================================================================================= -->
          <li class="nav-item"><a class="nav-link"
-            href="z"> <i
+            href="/hiapt/views/common/schedule/schedulemain.jsp"> <i
                class="fas fa-fw fa-calendar-alt"></i> <span>Calendar</span></a>
          </li>
 <!--캘린더 끝 -->
