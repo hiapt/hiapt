@@ -168,11 +168,11 @@ $(function(){
 
 <tr><th style="text-align:center;">주소</th>
 <td id="employee">
-<input type="text" id="sample6_postcode" placeholder="우편번호">
+<input type="text" id="sample6_postcode" placeholder="우편번호" name="zipcode">
 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" id="sample6_address" placeholder="주소" name="empaddress1" width="200px"><br>
-<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="empaddress2">
-<input type="text" id="sample6_extraAddress" placeholder="참고항목" name="empaddress3">
+<input type="text" id="sample6_address" placeholder="주소" name="empaddress" size="43"><br>
+<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="empaddress">
+<input type="text" id="sample6_extraAddress" placeholder="참고항목" name="empaddress">
 
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
