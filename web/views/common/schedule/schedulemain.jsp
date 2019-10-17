@@ -101,11 +101,12 @@ $(function(){
 	var year = <%=year%>
 	var mon = <%=month%>
 	var month = Number(mon)+1;
-	var day;
 	
+	var day;
 	$(".intable td").on("click", function(){
 		
-		day=$(this).text();		
+		day=$(this).attr("id");
+		
 		str = year+"-"+month+"-"+day;
 		console.log(str);
 		
@@ -118,7 +119,7 @@ $(function(){
 	
 	
 	$.ajax({
-		url : "/third/schlist?year="+year+"&month="+month,
+		url : "/hiapt/schlist?year="+year+"&month="+month,
 		type : "get",
 		dataType : "json",
 		success : function(data){
@@ -128,25 +129,28 @@ $(function(){
 			var sday = "";
 			for(var i in json.list){
 				value += 
-				json.list[i].cnum+"<br>"+
-				decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"<br>"+				
-				decodeURIComponent(json.list[i].color).replace(/\+/gi," ")+"<br>"+
-				decodeURIComponent(json.list[i].cwriter).replace(/\+/gi," ")+"<br>";
-				sday += json.list[i].cstart.split("-")+"<br>"+
-				json.list[i].cend.split("-")+"<br>"
-				
-			//////
-			//var ss = "<div style='background-color:"
-			//+decodeURIComponent(json.list[i].color).replace(/\+/gi," ")
-			//+";'>"+decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"</div>"
-			//$("#4").html($("#4").html()+ss);
-			//	
+					json.list[i].cnum+"<br>"+
+					decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"<br>"+				
+					decodeURIComponent(json.list[i].color).replace(/\+/gi," ")+"<br>"+
+					decodeURIComponent(json.list[i].cwriter).replace(/\+/gi," ")+"<br>"+
+					json.list[i].cstart.split("-")+"<br>"+
+					json.list[i].cend.split("-")+"<br>";
+					
+						
+					var tt = json.list[i].cstart.split("-");
+					onlyday += tt[2]+",";
+					var dlist = onlyday.split(",");
+					
+					var div = "<div style='background-color:"+
+					decodeURIComponent(json.list[i].color).replace(/\+/gi," ")+";'>"+
+					decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"</div>";
+					
+					if(dlist[i].charAt(0)==0){
+						dlist[i] = dlist[i].substr(1);
+					}
+					
+					$("#"+dlist[i]).html($("#"+dlist[i]).html()+div);
 			}
-			//value 를 달력에 선택자로 div 추가 태그를 함
-			var ss ="<div style='background-color:#D25565;'>title</div>"
-			//var ss = "<div style='background-color:"+#D25565+";'>"+title+"</div>"
-			//$("#4").html($("#4").html()+ss+"<br>"+sday);
-			
 			
 			
 			$("#test").html(value+"<br>"+sday);
