@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@page import="employee.model.vo.Employee"%>
+<%
+	Employee emp = (Employee)session.getAttribute("employee");
+%>
     <% 
 	String y = request.getParameter("y"); 
     String m = request.getParameter("m"); 
@@ -51,7 +55,11 @@
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
 <script type="text/javascript">
-
+function cc(){
+	alert("등록완료");
+	opener.location.reload();
+	window.close();
+}
 $(function() {
     $(".testDatepicker").datepicker({
     	 changeMonth: true, 
@@ -118,7 +126,7 @@ function cancel(){
 <div class="card shadow mb-4">
 <div class="card-body">
 <h2 align="center">일정 등록 페이지</h2>
-<form action="/third/schin" method="post" onsubmit="return validation();">
+<form action="/hiapt/schin" method="post" onsubmit="return validation();">
 <input type="hidden" name="year" value="<%=y %>">
 <input type="hidden" name ="month" value="<%=m %>">
 <table align="center" width="400" cellspacing="0" cellpadding="8" border="1">
@@ -157,10 +165,10 @@ function cancel(){
 <td><input type="radio" name="importance" value="3">상&nbsp;
 <input type="radio" name="importance" value="2" checked>중&nbsp;
 <input type="radio" name="importance" value="1" >하</td></tr>
-<tr><th>작 성 자</th><td><input type="text" name="writer"></td></tr>
-<tr><th colspan="2"><input type="submit" value="일정 등록">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<tr><th>작 성 자</th><td><input type="text" name="writer" value="<%=emp.getEmpNo() %>" readonly></td></tr>
+<tr><th colspan="2"><input type="submit" value="등록" onclick="cc();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value="다시 작성">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="등록 취소" onclick="cancel();"></th></tr>
+<input type="button" value="취소" onclick="cancel();"></th></tr>
 </table>
 </form>
 
