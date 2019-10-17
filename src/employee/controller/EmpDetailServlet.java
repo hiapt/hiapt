@@ -33,12 +33,12 @@ public class EmpDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String empNo = request.getParameter("empno");
 		
-		Employee employee2 = new EmployeeService().selectEmployee(empNo);
+		Employee employee = new EmployeeService().selectEmployee(empNo);
 		
 		RequestDispatcher view = null;
-		if(employee2 != null) {
+		if(employee != null) {
 			view = request.getRequestDispatcher("views/emp/employee/empDetail.jsp");
-			request.setAttribute("employee2", employee2);
+			request.setAttribute("employee", employee);
 			view.forward(request, response);
 			
 		}else {

@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import employee.model.service.EmployeeService;
 import employee.model.vo.Employee;
@@ -38,7 +37,7 @@ public class EmpUpdateServlet extends HttpServlet {
 		Employee employee = new Employee();
 		
 		String empNo = request.getParameter("empno");
-		employee.setEmpNo(empNo);
+		/*employee.setEmpNo(empNo);
 		employee.setEmpId(request.getParameter("empid"));
 		employee.setEmpPhone(request.getParameter("empphone"));
 		employee.setEmpAddress(request.getParameter("empaddress"));
@@ -51,24 +50,23 @@ public class EmpUpdateServlet extends HttpServlet {
 		employee.setLongIns(Double.parseDouble(request.getParameter("longins")));
 		employee.setIncomeTax(Double.parseDouble(request.getParameter("incometax")));
 		employee.setLocalTax(Double.parseDouble(request.getParameter("localtax")));
-		employee.setEmpEtc(request.getParameter("empetc"));
+		employee.setEmpEtc(request.getParameter("empetc"));*/
 		
 		EmployeeService empservice = new EmployeeService();
-		int result = new EmployeeService().updateEmployee(employee);
+		Employee emp = new EmployeeService().selectEmployee(empNo);
 		
-		if(result > 0) {
-			HttpSession session = request.getSession(false);
-			Employee loginEmp = empservice.selectEmployee(empNo);
-			session.setAttribute("employee", employee);
+		RequestDispatcher view = null;
+		if(emp != null) {
+			view = request.getRequestDispatcher("views/emp/employee/empUpdate.jsp");
+			request.setAttribute("emp", emp);
 			
-			response.sendRedirect("/hipat/empdetail?empno=" + empNo);
-			
+			//response.sendRedirect("/hiapt/empdetail?empno=" + empNo);
+		
 		}else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
+			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", empNo + " 직원 정보 수정 실패");
-			view.forward(request, response);
 		}
-		
+		view.forward(request, response);
 	}
 
 	/**

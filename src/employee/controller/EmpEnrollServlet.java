@@ -36,22 +36,27 @@ public class EmpEnrollServlet extends HttpServlet {
 				request.setCharacterEncoding("utf-8");
 				
 				Employee employee = new Employee();
-				
+								
 				employee.setEmpName(request.getParameter("empname"));
 				employee.setEmpId(request.getParameter("empid"));
 				employee.setEmpHireDate(Date.valueOf(request.getParameter("emphiredate")));
 				employee.setEmpPhone(request.getParameter("empphone"));
 				employee.setEmpSSN(request.getParameter("empssn"));
-				employee.setEmpAddress(request.getParameter("empaddress1"));
+				employee.setEmpZipcode(Integer.parseInt(request.getParameter("zipcode")));
+				
+				String[] addressAll = request.getParameterValues("empaddress");
+				String address = String.join(",", addressAll);
+				employee.setEmpAddress(address);
+				
 				employee.setEmpEmail(request.getParameter("empemail"));
 				employee.setEmpFamily(Integer.parseInt(request.getParameter("empfamily")));
 				employee.setSalary(Integer.parseInt(request.getParameter("salary")));
-				employee.setPension(Double.parseDouble(request.getParameter("pension")));
-				employee.setInsurance(Double.parseDouble(request.getParameter("insurance")));
-				employee.setHireIns(Double.parseDouble(request.getParameter("hireins")));
-				employee.setLongIns(Double.parseDouble(request.getParameter("longins")));
-				employee.setIncomeTax(Double.parseDouble(request.getParameter("incometax")));
-				employee.setLocalTax(Double.parseDouble(request.getParameter("localtax")));
+				employee.setPension(Integer.parseInt(request.getParameter("pension")));
+				employee.setInsurance(Integer.parseInt(request.getParameter("insurance")));
+				employee.setHireIns(Integer.parseInt(request.getParameter("hireins")));
+				employee.setLongIns(Integer.parseInt(request.getParameter("longins")));
+				employee.setIncomeTax(Integer.parseInt(request.getParameter("incometax")));
+				employee.setLocalTax(Integer.parseInt(request.getParameter("localtax")));
 				employee.setEmpEtc(request.getParameter("empetc"));
 				
 				System.out.println("employee : " + employee);

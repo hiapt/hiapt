@@ -37,17 +37,18 @@ public class EmployeeDao {
 				employee.setEmpHireDate(rset.getDate("emphiredate"));
 				employee.setEmpPhone(rset.getString("empphone"));
 				employee.setEmpSSN(rset.getString("empssn"));
+				employee.setEmpZipcode(rset.getInt("empzipcode"));
 				employee.setEmpAddress(rset.getString("empaddress"));
 				employee.setEmpEmail(rset.getString("empemail"));
 				employee.setEmpFamily(rset.getInt("empfamily"));
 				employee.setEmpEtc(rset.getString("empetc"));
 				employee.setSalary(rset.getInt("salary"));
-				employee.setPension(rset.getDouble("pension"));
-				employee.setInsurance(rset.getDouble("insurance"));
-				employee.setLongIns(rset.getDouble("longins"));
-				employee.setHireIns(rset.getDouble("hireins"));
-				employee.setIncomeTax(rset.getDouble("incometax"));
-				employee.setLocalTax(rset.getDouble("localtax"));
+				employee.setPension(rset.getInt("pension"));
+				employee.setInsurance(rset.getInt("insurance"));
+				employee.setLongIns(rset.getInt("longins"));
+				employee.setHireIns(rset.getInt("hireins"));
+				employee.setIncomeTax(rset.getInt("incometax"));
+				employee.setLocalTax(rset.getInt("localtax"));
 			}
 			
 		} catch (SQLException e) {
@@ -83,17 +84,18 @@ public class EmployeeDao {
 				employee.setEmpHireDate(rset.getDate("emphiredate"));
 				employee.setEmpPhone(rset.getString("empphone"));
 				employee.setEmpSSN(rset.getString("empssn"));
+				employee.setEmpZipcode(rset.getInt("empzipcode"));
 				employee.setEmpAddress(rset.getString("empaddress"));
 				employee.setEmpEmail(rset.getString("empemail"));
 				employee.setEmpFamily(rset.getInt("empfamily"));
 				employee.setEmpEtc(rset.getString("empetc"));
 				employee.setSalary(rset.getInt("salary"));
-				employee.setPension(rset.getDouble("pension"));
-				employee.setInsurance(rset.getDouble("insurance"));
-				employee.setLongIns(rset.getDouble("longins"));
-				employee.setHireIns(rset.getDouble("hireins"));
-				employee.setIncomeTax(rset.getDouble("incometax"));
-				employee.setLocalTax(rset.getDouble("localtax"));
+				employee.setPension(rset.getInt("pension"));
+				employee.setInsurance(rset.getInt("insurance"));
+				employee.setLongIns(rset.getInt("longins"));
+				employee.setHireIns(rset.getInt("hireins"));
+				employee.setIncomeTax(rset.getInt("incometax"));
+				employee.setLocalTax(rset.getInt("localtax"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -113,19 +115,19 @@ public class EmployeeDao {
 		if(employee.getEmpId().equals("보안직원")) {
 			query = "insert into employee values ("
 					+ "seq_security.nextval, seq_security.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("경리")) {
 			query = "insert into employee values ("
 					+ "seq_accountancy.nextval, seq_accountancy.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("설비과장")) {
 			query = "insert into employee values ("
 					+ "seq_facility.nextval, seq_facility.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("검침기사")) {
 			query = "insert into employee values ("
 					+ "seq_reading.nextval, seq_reading.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}
 		
 		try {
@@ -135,18 +137,19 @@ public class EmployeeDao {
 			pstmt.setDate(3, employee.getEmpHireDate());
 			pstmt.setString(4, employee.getEmpPhone());
 			pstmt.setString(5, employee.getEmpSSN());
-			pstmt.setString(6, employee.getEmpAddress());
-			pstmt.setString(7, employee.getEmpEmail());
-			pstmt.setInt(8, employee.getEmpFamily());
-			pstmt.setInt(9, employee.getSalary());
-			pstmt.setDouble(10, employee.getPension());
-			pstmt.setDouble(11, employee.getInsurance());
-			pstmt.setDouble(12, employee.getLongIns());
-			pstmt.setDouble(13, employee.getHireIns());
-			pstmt.setDouble(14, employee.getIncomeTax());
-			pstmt.setDouble(15, employee.getLocalTax());
-			pstmt.setString(16, employee.getEmpEtc());
-					
+			pstmt.setInt(6, employee.getEmpZipcode());
+			pstmt.setString(7, employee.getEmpAddress());
+			pstmt.setString(8, employee.getEmpEmail());
+			pstmt.setInt(9, employee.getEmpFamily());
+			pstmt.setInt(10, employee.getSalary());
+			pstmt.setDouble(11, employee.getPension());
+			pstmt.setDouble(12, employee.getInsurance());
+			pstmt.setDouble(13, employee.getLongIns());
+			pstmt.setDouble(14, employee.getHireIns());
+			pstmt.setDouble(15, employee.getIncomeTax());
+			pstmt.setDouble(16, employee.getLocalTax());
+			pstmt.setString(17, employee.getEmpEtc());
+				
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -161,7 +164,7 @@ public class EmployeeDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update employee set empname = ?, empid = ?, empphone = ?, empssn = ?, empaddress = ?, empemail = ?, empfamily = ?,  salary = ?, empetc = ?";
+		String query = "update employee set empname = ?, empid = ?, empphone = ?, empssn = ?, empzipcode = ?, empaddress = ?, empemail = ?, empfamily = ?,  salary = ?, empetc = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -170,11 +173,12 @@ public class EmployeeDao {
 			pstmt.setString(2, employee.getEmpId());
 			pstmt.setString(3, employee.getEmpPhone());
 			pstmt.setString(4, employee.getEmpSSN());
-			pstmt.setString(5, employee.getEmpAddress());
-			pstmt.setString(6, employee.getEmpEmail());
-			pstmt.setInt(7, employee.getEmpFamily());
-			pstmt.setInt(8, employee.getSalary());
-			pstmt.setString(9, employee.getEmpEtc());
+			pstmt.setInt(5, employee.getEmpZipcode());
+			pstmt.setString(6, employee.getEmpAddress());
+			pstmt.setString(7, employee.getEmpEmail());
+			pstmt.setInt(8, employee.getEmpFamily());
+			pstmt.setInt(9, employee.getSalary());
+			pstmt.setString(10, employee.getEmpEtc());
 						
 			result = pstmt.executeUpdate();
 			//System.out.println("처리된 행 갯수 : " + result);
@@ -228,17 +232,18 @@ public class EmployeeDao {
 				employee.setEmpHireDate(rset.getDate("emphiredate"));
 				employee.setEmpPhone(rset.getString("empphone"));
 				//employee.setEmpSSN(rset.getString("empssn"));
+				employee.setEmpZipcode(rset.getInt("empzipcode"));
 				employee.setEmpAddress(rset.getString("empaddress"));
 				employee.setEmpEmail(rset.getString("empemail"));
 				//employee.setEmpFamily(rset.getInt("empfamily"));
 				employee.setSalary(rset.getInt("salary"));
 				employee.setEmpEtc(rset.getString("empetc"));
-				/*employee.setPension(rset.getDouble("pension"));
-				employee.setInsurance(rset.getDouble("insurance"));
-				employee.setLongIns(rset.getDouble("longins"));
-				employee.setHireIns(rset.getDouble("hireins"));
-				employee.setIncomeTax(rset.getDouble("incometax"));
-				employee.setLocalTax(rset.getDouble("localtax"));*/
+				/*employee.setPension(rset.getInt("pension"));
+				employee.setInsurance(rset.getInt("insurance"));
+				employee.setLongIns(rset.getInt("longins"));
+				employee.setHireIns(rset.getInt("hireins"));
+				employee.setIncomeTax(rset.getInt("incometax"));
+				employee.setLocalTax(rset.getInt("localtax"));*/
 				
 				list.add(employee);
 			}

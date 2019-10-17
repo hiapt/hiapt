@@ -1,7 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import= "employee.model.vo.Employee"%>
 <% 
-	Employee employee = (Employee)session.getAttribute("employee"); %>
+	Employee employee = (Employee)request.getAttribute("emp"); 
+	String[] addressAll = employee.getEmpAddress().split(",");
+	//String[] array = new String[3];
+
+	for(int i=0 ; i<addressAll.length ; i++)
+
+%>
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
@@ -214,11 +220,11 @@ $(function(){
 
 <tr><th style="text-align:center;">주소</th>
 <td id="employee">
-<input type="text" id="sample6_postcode" placeholder="우편번호">
+<input type="text" id="sample6_postcode" placeholder="우편번호" value="<%= employee.getEmpZipcode() %>">
 <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" id="sample6_address" placeholder="주소" name="empaddress1" width="200px" value="<%= employee.getEmpAddress() %>"><br>
-<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-<input type="text" id="sample6_extraAddress" placeholder="참고항목">
+<input type="text" id="sample6_address" placeholder="주소" name="empaddress1" size="43" value="<%= addressAll[0] %>"><br>
+<input type="text" id="sample6_detailAddress" placeholder="상세주소" value="<%= addressAll[1] %>">
+<input type="text" id="sample6_extraAddress" placeholder="참고항목" value="<%= addressAll[2] %>">
 
 </td></tr>
 
