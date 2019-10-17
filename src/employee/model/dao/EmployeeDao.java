@@ -31,9 +31,9 @@ public class EmployeeDao {
 				employee = new Employee();
 				
 				employee.setEmpNo(empNo);
-				employee.setEmpPwd(empPwd); 
-				employee.setEmpName(rset.getString("empname"));
+				employee.setEmpPwd(empPwd);
 				employee.setEmpId(rset.getString("empid"));
+				employee.setEmpName(rset.getString("empname"));
 				employee.setEmpHireDate(rset.getDate("emphiredate"));
 				employee.setEmpPhone(rset.getString("empphone"));
 				employee.setEmpSSN(rset.getString("empssn"));
@@ -79,6 +79,7 @@ public class EmployeeDao {
 				employee.setEmpNo(empNo);
 				employee.setEmpPwd(rset.getString("emppwd")); 
 				employee.setEmpId(rset.getString("empid"));
+				employee.setEmpName(rset.getString("empname"));
 				employee.setEmpHireDate(rset.getDate("emphiredate"));
 				employee.setEmpPhone(rset.getString("empphone"));
 				employee.setEmpSSN(rset.getString("empssn"));
@@ -103,32 +104,49 @@ public class EmployeeDao {
 		return employee;
 	}
 
-	public int insertMember(Connection conn, Employee employee) {
+	public int insertEmployee(Connection conn, Employee employee) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into employee values (?, ?, ?, ?, sysdate, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String query = null;
+		
+		if(employee.getEmpId().equals("보안직원")) {
+			query = "insert into employee values ("
+					+ "seq_security.nextval, seq_security.currval, "
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		}else if(employee.getEmpId().equals("경리")) {
+			query = "insert into employee values ("
+					+ "seq_accountancy.nextval, seq_accountancy.currval, "
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		}else if(employee.getEmpId().equals("설비과장")) {
+			query = "insert into employee values ("
+					+ "seq_facility.nextval, seq_facility.currval, "
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		}else if(employee.getEmpId().equals("검침기사")) {
+			query = "insert into employee values ("
+					+ "seq_reading.nextval, seq_reading.currval, "
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		}
 		
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, employee.getEmpNo());
-			pstmt.setString(2, employee.getEmpPwd());
-			pstmt.setString(3, employee.getEmpName());
-			pstmt.setString(4, employee.getEmpId()); //다음에 입사일
-			pstmt.setString(5, employee.getEmpPhone());
-			pstmt.setString(6, employee.getEmpSSN());
-			pstmt.setString(7, employee.getEmpAddress());
-			pstmt.setString(8, employee.getEmpEmail());
-			pstmt.setInt(9, employee.getEmpFamily());
-			pstmt.setString(10, employee.getEmpEtc());
-			pstmt.setInt(11, employee.getSalary());
-			pstmt.setDouble(12, employee.getPension());
-			pstmt.setDouble(13, employee.getInsurance());
-			pstmt.setDouble(14, employee.getLongIns());
-			pstmt.setDouble(15, employee.getHireIns());
-			pstmt.setDouble(16, employee.getIncomeTax());
-			pstmt.setDouble(17, employee.getLocalTax());
-						
+			pstmt.setString(1, employee.getEmpName());
+			pstmt.setString(2, employee.getEmpId());
+			pstmt.setDate(3, employee.getEmpHireDate());
+			pstmt.setString(4, employee.getEmpPhone());
+			pstmt.setString(5, employee.getEmpSSN());
+			pstmt.setString(6, employee.getEmpAddress());
+			pstmt.setString(7, employee.getEmpEmail());
+			pstmt.setInt(8, employee.getEmpFamily());
+			pstmt.setInt(9, employee.getSalary());
+			pstmt.setDouble(10, employee.getPension());
+			pstmt.setDouble(11, employee.getInsurance());
+			pstmt.setDouble(12, employee.getLongIns());
+			pstmt.setDouble(13, employee.getHireIns());
+			pstmt.setDouble(14, employee.getIncomeTax());
+			pstmt.setDouble(15, employee.getLocalTax());
+			pstmt.setString(16, employee.getEmpEtc());
+					
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -139,22 +157,24 @@ public class EmployeeDao {
 		return result;
 	}
 
-	public int updateMember(Connection conn, Employee employee) {
+	public int updateEmployee(Connection conn, Employee employee) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "update member set empid = ?, phone = ?, empaddress = ?, empemail = ?, empfamily = ?,  salary = ?, empetc = ?";
+		String query = "update employee set empname = ?, empid = ?, empphone = ?, empssn = ?, empaddress = ?, empemail = ?, empfamily = ?,  salary = ?, empetc = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			
-			pstmt.setString(1, employee.getEmpId());
-			pstmt.setString(2, employee.getEmpPhone());
-			pstmt.setString(3, employee.getEmpAddress());
-			pstmt.setString(4, employee.getEmpEmail());
-			pstmt.setInt(5, employee.getEmpFamily());
-			pstmt.setInt(6, employee.getSalary());
-			pstmt.setString(7, employee.getEmpEtc());
+			pstmt.setString(1, employee.getEmpName());
+			pstmt.setString(2, employee.getEmpId());
+			pstmt.setString(3, employee.getEmpPhone());
+			pstmt.setString(4, employee.getEmpSSN());
+			pstmt.setString(5, employee.getEmpAddress());
+			pstmt.setString(6, employee.getEmpEmail());
+			pstmt.setInt(7, employee.getEmpFamily());
+			pstmt.setInt(8, employee.getSalary());
+			pstmt.setString(9, employee.getEmpEtc());
 						
 			result = pstmt.executeUpdate();
 			//System.out.println("처리된 행 갯수 : " + result);
@@ -166,11 +186,11 @@ public class EmployeeDao {
 		return result;
 	}
 
-	public int deleteMember(Connection conn, String empNo) {
+	public int deleteEmployee(Connection conn, String empNo) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "delete from member where empno = ?";
+		String query = "delete from employee where empno = ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);

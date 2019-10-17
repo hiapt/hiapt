@@ -1,7 +1,6 @@
 package employee.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,16 +13,16 @@ import employee.model.service.EmployeeService;
 import employee.model.vo.Employee;
 
 /**
- * Servlet implementation class empListServlet
+ * Servlet implementation class EmpDetailServlet
  */
-@WebServlet("/emplist")
-public class empListServlet extends HttpServlet {
+@WebServlet(name = "Empdetail", urlPatterns = { "/empdetail" })
+public class EmpDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public empListServlet() {
+    public EmpDetailServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +31,19 @@ public class empListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-ArrayList<Employee> list = new EmployeeService().selectList();
-		System.out.println(list);
+		String empNo = request.getParameter("empno");
+		
+		Employee employee2 = new EmployeeService().selectEmployee(empNo);
+		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
-			view = request.getRequestDispatcher("views/emp/employee/empList.jsp");
-			request.setAttribute("list", list);
+		if(employee2 != null) {
+			view = request.getRequestDispatcher("views/emp/employee/empDetail.jsp");
+			request.setAttribute("employee2", employee2);
 			view.forward(request, response);
+			
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", "회원 전체 조회 실패!");
+			request.setAttribute("message", "직원상세정보 보기 요청 처리 실패함.");
 			view.forward(request, response);
 		}
 	}
