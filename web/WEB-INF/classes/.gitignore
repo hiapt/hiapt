@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+/vote/
+=======
+<<<<<<< HEAD
 /employee/
 =======
 /aptuser/
@@ -9,4 +12,5 @@
 /maintenance/
 /notice/
 /schedule/
+>>>>>>> branch 'master' of https://github.com/hiapt/hiapt.git
 >>>>>>> branch 'master' of https://github.com/hiapt/hiapt.git

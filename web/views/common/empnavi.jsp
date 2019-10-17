@@ -134,14 +134,15 @@
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#notice"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-bullhorn"></i> <span>공지사항</span>
+					class="fas fa-fw fa-bullhorn"></i> <span>행정관리</span>
 			</a>
 				<div id="notice" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/views/master/notice/noticeAdminListView.jsp">공지사항 목록</a> 
-						<a class="collapse-item" href="*">공지사항 대기목록 </a> 
-						<a class="collapse-item" href="*">공지사항2</a>
+						<a class="collapse-item" href="/hiapt/views/master/notice/noticeAdminListView.jsp">공지사항 관리</a> 
+						<a class="collapse-item" href="*">민원 관리 </a> 
+						<a class="collapse-item" href="/hiapt/vo.list">주민투표 관리</a>
+						<a class="collapse-item" href="*">자유게시판 관리</a>
 					</div>
 				</div>
 			</li>
