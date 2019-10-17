@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <!-- head 시작 -->
-<%@ include file ="./views/common/emphead.html" %>
+<%@ include file ="./views/common/emphead.html"%>
 
 <!-- head 시작 -->
 <body id="page-top">
