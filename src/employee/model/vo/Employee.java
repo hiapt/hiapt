@@ -12,23 +12,25 @@ public class Employee implements java.io.Serializable {
 	private java.sql.Date empHireDate;
 	private String empPhone;
 	private String empSSN;
+	private int empZipcode;
 	private String empAddress;
 	private String empEmail;
 	private int empFamily;
 	private int salary;
-	private Double pension;
-	private Double insurance;
-	private Double longIns;
-	private Double hireIns;
-	private Double incomeTax;
-	private Double localTax;
+	private int pension;
+	private int insurance;
+	private int longIns;
+	private int hireIns;
+	private int incomeTax;
+	private int localTax;
 	private String empEtc;
 	
 	public Employee() {}
 
 	public Employee(String empNo, String empPwd, String empName, String empId, Date empHireDate, String empPhone,
-			String empSSN, String empAddress, String empEmail, int empFamily, int salary, Double pension,
-			Double insurance, Double longIns, Double hireIns, Double incomeTax, Double localTax, String empEtc) {
+			String empSSN, int empZipcode, String empAddress, String empEmail, int empFamily, int salary,
+			int pension, int insurance, int longIns, int hireIns, int incomeTax, int localTax,
+			String empEtc) {
 		super();
 		this.empNo = empNo;
 		this.empPwd = empPwd;
@@ -37,6 +39,7 @@ public class Employee implements java.io.Serializable {
 		this.empHireDate = empHireDate;
 		this.empPhone = empPhone;
 		this.empSSN = empSSN;
+		this.empZipcode = empZipcode;
 		this.empAddress = empAddress;
 		this.empEmail = empEmail;
 		this.empFamily = empFamily;
@@ -106,6 +109,14 @@ public class Employee implements java.io.Serializable {
 		this.empSSN = empSSN;
 	}
 
+	public int getEmpZipcode() {
+		return empZipcode;
+	}
+
+	public void setEmpZipcode(int empZipcode) {
+		this.empZipcode = empZipcode;
+	}
+
 	public String getEmpAddress() {
 		return empAddress;
 	}
@@ -138,51 +149,51 @@ public class Employee implements java.io.Serializable {
 		this.salary = salary;
 	}
 
-	public Double getPension() {
+	public int getPension() {
 		return pension;
 	}
 
-	public void setPension(Double pension) {
+	public void setPension(int pension) {
 		this.pension = pension;
 	}
 
-	public Double getInsurance() {
+	public int getInsurance() {
 		return insurance;
 	}
 
-	public void setInsurance(Double insurance) {
+	public void setInsurance(int insurance) {
 		this.insurance = insurance;
 	}
 
-	public Double getLongIns() {
+	public int getLongIns() {
 		return longIns;
 	}
 
-	public void setLongIns(Double longIns) {
+	public void setLongIns(int longIns) {
 		this.longIns = longIns;
 	}
 
-	public Double getHireIns() {
+	public int getHireIns() {
 		return hireIns;
 	}
 
-	public void setHireIns(Double hireIns) {
+	public void setHireIns(int hireIns) {
 		this.hireIns = hireIns;
 	}
 
-	public Double getIncomeTax() {
+	public int getIncomeTax() {
 		return incomeTax;
 	}
 
-	public void setIncomeTax(Double incomeTax) {
+	public void setIncomeTax(int incomeTax) {
 		this.incomeTax = incomeTax;
 	}
 
-	public Double getLocalTax() {
+	public int getLocalTax() {
 		return localTax;
 	}
 
-	public void setLocalTax(Double localTax) {
+	public void setLocalTax(int localTax) {
 		this.localTax = localTax;
 	}
 
@@ -197,11 +208,14 @@ public class Employee implements java.io.Serializable {
 	@Override
 	public String toString() {
 		return "Employee [empNo=" + empNo + ", empPwd=" + empPwd + ", empName=" + empName + ", empId=" + empId
-				+ ", empHireDate=" + empHireDate + ", empPhone=" + empPhone + ", empSSN=" + empSSN + ", empAddress="
-				+ empAddress + ", empEmail=" + empEmail + ", empFamily=" + empFamily + ", salary=" + salary
-				+ ", pension=" + pension + ", insurance=" + insurance + ", longIns=" + longIns + ", hireIns=" + hireIns
-				+ ", incomeTax=" + incomeTax + ", localTax=" + localTax + ", empEtc=" + empEtc + "]";
+				+ ", empHireDate=" + empHireDate + ", empPhone=" + empPhone + ", empSSN=" + empSSN + ", empZipcode="
+				+ empZipcode + ", empAddress=" + empAddress + ", empEmail=" + empEmail + ", empFamily=" + empFamily
+				+ ", salary=" + salary + ", pension=" + pension + ", insurance=" + insurance + ", longIns=" + longIns
+				+ ", hireIns=" + hireIns + ", incomeTax=" + incomeTax + ", localTax=" + localTax + ", empEtc=" + empEtc
+				+ "]";
 	}
+
+		
 
 		
 }

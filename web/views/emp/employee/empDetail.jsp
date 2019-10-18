@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import= "employee.model.vo.Employee"%>
 <% 
-	Employee employee2 = (Employee)request.getAttribute("employee2");
+	Employee employee = (Employee)request.getAttribute("employee");
 %>   
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
@@ -113,47 +113,47 @@ th{
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800"><%= employee2.getEmpName() %> 상세정보</h1>
+<h1 class="h3 mb-4 text-gray-800"><%= employee.getEmpName() %> 상세정보</h1>
 
 <div class="card shadow mb-4">
 <form action="/hiapt/empupdate" method="post">
 <table class="table table-bordered dataTable">
 
 <tr><th style="text-align:center; width:150px;">사 번*</th>
-<td id="employee"><%= employee2.getEmpNo() %></td>
+<td id="employee"><%= employee.getEmpNo() %></td>
 
 <tr><th style="text-align:center;">이 름*</th>
-<td id="employee"><%= employee2.getEmpName() %></td></tr>
+<td id="employee"><%= employee.getEmpName() %></td></tr>
 
 <tr><th style="text-align:center;">직 급*</th>
-<td><%= employee2.getEmpId() %></td></tr>
+<td><%= employee.getEmpId() %></td></tr>
 
 <tr><th style="text-align:center;">입사일</th>
-<td id="employee"><%= employee2.getEmpHireDate() %></td></tr>
+<td id="employee"><%= employee.getEmpHireDate() %></td></tr>
 
 <tr><th style="text-align:center;">휴대전화</th>
-<td id="employee"><%= employee2.getEmpPhone() %></td></tr>
+<td id="employee"><%= employee.getEmpPhone() %></td></tr>
 
 
 
 <tr><th style="text-align:center;">주민등록번호</th>
-<td id="employee"><%= employee2.getEmpSSN() %></td></tr>
+<td id="employee"><%= employee.getEmpSSN() %></td></tr>
 
 <tr><th style="text-align:center;">주소</th>
-<td id="employee"><%= employee2.getEmpAddress() %></td></tr>
+<td id="employee"><%= employee.getEmpZipcode() %> <%= employee.getEmpAddress() %></td></tr>
 
 <tr><th style="text-align:center;">이메일</th>
-<td id="employee"><%= employee2.getEmpEmail() %></td></tr>
+<td id="employee"><%= employee.getEmpEmail() %></td></tr>
 	 
 <tr><th style="text-align:center;">부양가족수</th>
-<td id="employee"><%= employee2.getEmpFamily() %></td>
+<td id="employee"><%= employee.getEmpFamily() %></td>
 	 
 <tr><th style="text-align:center;">기타정보</th>
-<td id="employee"><%= employee2.getEmpEtc() %></td></tr>
+<td id="employee"><%= employee.getEmpEtc() %></td></tr>
 
 <tr><th colspan="2">
-		<a href="/hiapt/views/emp/employee/empUpdate.jsp">수정하기</a> &nbsp;
-		<a href="/hiapt/empdelete?empno=<%= employee2.getEmpNo() %>">삭제하기</a>
+		<a href="/hiapt/empupdate?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
+		<a href="/hiapt/empdelete?empno=<%= employee.getEmpNo() %>">삭제하기</a>
 		<a href="/hiapt/views/emp/employee/empList.jsp">돌아가기</a>
 </th></tr>
 

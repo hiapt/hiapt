@@ -165,7 +165,10 @@ style = "width: 100px; border: none; background: none; text-align: center; margi
 <br>
 </div>
 </div>
+<button onclick="print();"> 인 쇄 </button>
+<script type="text/javascript">
 
+</script>
 
 
 <!---//// 본문 내용 끝 ///////------------------->
