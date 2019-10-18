@@ -36,14 +36,8 @@
 				<div id="mail" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/views/emp/mail/writemail.jsp">메일쓰기</a>
-						<a class="collapse-item" href="/hiapt/views/emp/mail/selfwritemail.jsp">내게쓰기</a></a>
-						<a class="collapse-item" href="/hiapt/amlist?empemail=<%=emp.getEmpEmail()%>">전체메일함</a>
-						<a class="collapse-item" href="/hiapt/rlist?empemail=<%=emp.getEmpEmail()%>">받은메일함</a>
-						<a class="collapse-item" href="/hiapt/smlist?empemail=<%=emp.getEmpEmail()%>">보낸메일함</a></a>
-						<a class="collapse-item" href="/hiapt/tmlist?empemail=<%=emp.getEmpEmail()%>">임시보관함</a></a>
-						<a class="collapse-item" href="/hiapt/selfmlist?empemail=<%=emp.getEmpEmail()%>">내게 쓴 메일함</a>
-						<a class="collapse-item" href="/hiapt/wmlist?empemail=<%=emp.getEmpEmail()%>">휴지통</a>
+						<a class="collapse-item" href="/hiapt/views/emp/mail/allmail.jsp">전체메일함</a>
+						<a class="collapse-item" href="cards.html">메일2</a>
 					</div>
 				</div>
 			</li>
