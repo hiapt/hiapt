@@ -23,14 +23,17 @@ public class Employee implements java.io.Serializable {
 	private int hireIns;
 	private int incomeTax;
 	private int localTax;
+	private int salaryTot;
+	private int minusTot;
+	private int realSalary;
 	private String empEtc;
 	
 	public Employee() {}
 
 	public Employee(String empNo, String empPwd, String empName, String empId, Date empHireDate, String empPhone,
-			String empSSN, int empZipcode, String empAddress, String empEmail, int empFamily, int salary,
-			int pension, int insurance, int longIns, int hireIns, int incomeTax, int localTax,
-			String empEtc) {
+			String empSSN, int empZipcode, String empAddress, String empEmail, int empFamily, int salary, int pension,
+			int insurance, int longIns, int hireIns, int incomeTax, int localTax, int salaryTot, int minusTot,
+			int realSalary, String empEtc) {
 		super();
 		this.empNo = empNo;
 		this.empPwd = empPwd;
@@ -50,6 +53,9 @@ public class Employee implements java.io.Serializable {
 		this.hireIns = hireIns;
 		this.incomeTax = incomeTax;
 		this.localTax = localTax;
+		this.salaryTot = salaryTot;
+		this.minusTot = minusTot;
+		this.realSalary = realSalary;
 		this.empEtc = empEtc;
 	}
 
@@ -197,6 +203,30 @@ public class Employee implements java.io.Serializable {
 		this.localTax = localTax;
 	}
 
+	public int getSalaryTot() {
+		return salaryTot;
+	}
+
+	public void setSalaryTot(int salaryTot) {
+		this.salaryTot = salaryTot;
+	}
+
+	public int getMinusTot() {
+		return minusTot;
+	}
+
+	public void setMinusTot(int minusTot) {
+		this.minusTot = minusTot;
+	}
+
+	public int getRealSalary() {
+		return realSalary;
+	}
+
+	public void setRealSalary(int realSalary) {
+		this.realSalary = realSalary;
+	}
+
 	public String getEmpEtc() {
 		return empEtc;
 	}
@@ -211,11 +241,12 @@ public class Employee implements java.io.Serializable {
 				+ ", empHireDate=" + empHireDate + ", empPhone=" + empPhone + ", empSSN=" + empSSN + ", empZipcode="
 				+ empZipcode + ", empAddress=" + empAddress + ", empEmail=" + empEmail + ", empFamily=" + empFamily
 				+ ", salary=" + salary + ", pension=" + pension + ", insurance=" + insurance + ", longIns=" + longIns
-				+ ", hireIns=" + hireIns + ", incomeTax=" + incomeTax + ", localTax=" + localTax + ", empEtc=" + empEtc
-				+ "]";
+				+ ", hireIns=" + hireIns + ", incomeTax=" + incomeTax + ", localTax=" + localTax + ", salaryTot="
+				+ salaryTot + ", minusTot=" + minusTot + ", realSalary=" + realSalary + ", empEtc=" + empEtc + "]";
 	}
 
-		
+	
 
+	
 		
 }
