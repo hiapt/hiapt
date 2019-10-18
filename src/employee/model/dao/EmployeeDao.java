@@ -96,9 +96,6 @@ public class EmployeeDao {
 				employee.setHireIns(rset.getInt("hireins"));
 				employee.setIncomeTax(rset.getInt("incometax"));
 				employee.setLocalTax(rset.getInt("localtax"));
-				employee.setSalaryTot(rset.getInt("salarytot"));
-				employee.setMinusTot(rset.getInt("minustot"));
-				employee.setRealSalary(rset.getInt("realsalary"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -122,15 +119,15 @@ public class EmployeeDao {
 		}else if(employee.getEmpId().equals("경리")) {
 			query = "insert into employee values ("
 					+ "seq_accountancy.nextval, seq_accountancy.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("설비과장")) {
 			query = "insert into employee values ("
 					+ "seq_facility.nextval, seq_facility.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("검침기사")) {
 			query = "insert into employee values ("
 					+ "seq_reading.nextval, seq_reading.currval, "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}
 		
 		try {
@@ -144,18 +141,14 @@ public class EmployeeDao {
 			pstmt.setString(7, employee.getEmpAddress());
 			pstmt.setString(8, employee.getEmpEmail());
 			pstmt.setInt(9, employee.getEmpFamily());
-			pstmt.setString(10, employee.getEmpEtc());
-			pstmt.setInt(11,employee.getSalary());
-			pstmt.setInt(12, employee.getPension());
-			pstmt.setInt(13, employee.getInsurance());
-			pstmt.setInt(14, employee.getLongIns());
-			pstmt.setInt(15, employee.getHireIns());
-			pstmt.setInt(16, employee.getIncomeTax());
-			pstmt.setInt(17, employee.getLocalTax());
-			pstmt.setInt(18, employee.getSalaryTot());
-			pstmt.setInt(19, employee.getMinusTot());
-			pstmt.setInt(20, employee.getRealSalary());
-			
+			pstmt.setInt(10, employee.getSalary());
+			pstmt.setDouble(11, employee.getPension());
+			pstmt.setDouble(12, employee.getInsurance());
+			pstmt.setDouble(13, employee.getLongIns());
+			pstmt.setDouble(14, employee.getHireIns());
+			pstmt.setDouble(15, employee.getIncomeTax());
+			pstmt.setDouble(16, employee.getLocalTax());
+			pstmt.setString(17, employee.getEmpEtc());
 				
 			result = pstmt.executeUpdate();
 			
@@ -184,9 +177,8 @@ public class EmployeeDao {
 			pstmt.setString(6, employee.getEmpAddress());
 			pstmt.setString(7, employee.getEmpEmail());
 			pstmt.setInt(8, employee.getEmpFamily());
-			pstmt.setString(10, employee.getEmpEtc());
 			pstmt.setInt(9, employee.getSalary());
-			
+			pstmt.setString(10, employee.getEmpEtc());
 						
 			result = pstmt.executeUpdate();
 			//System.out.println("처리된 행 갯수 : " + result);

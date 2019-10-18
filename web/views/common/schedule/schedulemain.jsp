@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="java.util.Calendar, employee.model.vo.Employee"%>
+<%@page import="java.util.Calendar, employee.model.vo.Employee"%>
 <%
 	Employee emp = (Employee)session.getAttribute("employee");
 %>
@@ -59,7 +59,7 @@ align:center;
 table-layout : fixed;
 }
 </style>
-<script type="text/javascript" src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
+
 <script type="text/javascript">
 <%
 	Calendar tDay = Calendar.getInstance();//캘린더 객체 생성
