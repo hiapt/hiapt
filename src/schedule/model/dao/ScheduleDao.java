@@ -17,8 +17,7 @@ public class ScheduleDao {
 		ArrayList<Schedule> list = new ArrayList<Schedule>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from schedule where "
-				+ "substr(to_char(sch_start,'yyyy-mm-dd'),1,7)=?"
+		String query = "select * from schedule where substr(to_char(sch_start,'yyyy-mm-dd'),1,7)=?"
 				+ " and substr(to_char(sch_end,'yyyy-mm-dd'),1,7)=?"
 				+ " and empno = ?";
 		try {
@@ -50,7 +49,37 @@ public class ScheduleDao {
 			close(rset);
 			close(pstmt);
 		}
+		System.out.println("list dao : "+list.size());
 		return list;
+	}
+
+	public int insertCalendar(Connection conn, Schedule sch) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "insert into Schedule values(sch_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, sch.getSchTitle());
+			pstmt.setString(2, sch.getSchType());
+			pstmt.setDate(3, sch.getSchStart());
+			pstmt.setDate(4, sch.getSchEnd());
+			pstmt.setString(5, sch.getSchMemo());
+			pstmt.setString(6, sch.getSchOpen());
+			pstmt.setString(7, sch.getSchAlarm());
+			pstmt.setString(8, sch.getSchBgColor());
+			pstmt.setString(9, sch.getImportance());
+			pstmt.setString(10, sch.getWriter());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			// TODO: handle exception
+		} finally {
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
