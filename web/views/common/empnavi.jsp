@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
 <%@page import="employee.model.vo.Employee"%>
 <%
 	Employee emp = (Employee)session.getAttribute("employee");
 %>
-
 <!-- ============================================================= -->
 <!-- 왼쪽 메인 메뉴바 시작  --> 
 		<ul

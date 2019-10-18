@@ -42,7 +42,8 @@ public class ScheduleListServlet extends HttpServlet {
 		int year = Integer.parseInt(request.getParameter("year"));
 		int month = Integer.parseInt(request.getParameter("month"));
 		System.out.println("year : "+ year + ", month : "+month);
-		String writer = request.getParameter("writer");
+		String writer = request.getParameter("wr");
+		System.out.println("writer : "+writer);
 		//request.getParameter("month");
 		String ym = year+"-"+month;
 		ArrayList<Schedule> list = new ScheduleService().selectAll(ym, writer);
