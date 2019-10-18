@@ -26,10 +26,9 @@
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
-
+<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript" src="/hiapt/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
-
 $(function(){
     //전역변수선언
     var editor_object = [];
@@ -57,20 +56,12 @@ $(function(){
          
         //폼 submit
         $("#frm").submit();
-    })
-    
-       //전송버튼 클릭이벤트
-    $("#tempbutton").click(function(){
-        //id가 smarteditor인 textarea에 에디터에서 대입
-        
-        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-         
-        // 이부분에 에디터 validation 검증
-         
-        //폼 submit
-        $("#tmp").submit();
-    })
-})
+    });
+});
+</script>
+
+<script type="text/javascript">
+
 
 function formview() {
 	var width = '700';
@@ -81,7 +72,6 @@ function formview() {
 	window.open('/hiapt/views/emp/approval/formView.jsp' , '문서보기', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
 	
 }
-
 
 </script>
 
@@ -95,29 +85,29 @@ fieldset {
 }
 
 th {
-	border: solid 3px #fbfbf0;
+	border: solid 3px #fff;
 	border-collapse: collapse;
 	padding: 15px;
 	text-align: center;
 	font-size: 11pt;
 	height: 60px;
-	background-color: rgba(67, 110, 144, 0.9);
-	color: #fbfbf0;
+	background-color: rgba(87, 104, 173, 0.9);
+	color: #f8f9fc;
 	border-radius: 9px;
 }
 
 td {
-	border: solid 3px #fbfbf0;
+	border: solid 3px #fff;
 	border-collapse: collapse;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	text-align: center;
 	font-size: 10.5pt;
 	height: 60px;
-	color: #214c70;
+	color: #5a5c69;
 	font-weight: 600; 
 	border-radius: 9px;
-	background-color: rgba(67, 110, 144, 0.2);
+	background-color: rgba(87, 104, 173, 0.15);
 
 }
 
@@ -127,7 +117,7 @@ td {
 	width: 205px;
 	height: 28px;
 	padding-left: 5px;
-	color: #436E90;
+	color: #5a5c69;
 }
 
 #boxselect {
@@ -136,26 +126,40 @@ td {
 	width: 175px;
 	height: 28px;
 	padding-left: 5px;
-	color: #436E90;
+	color: #5a5c69;
 }
 legend {
 	font-weight: bold;
 	font-size: 13pt;
-	color: #436E90;
+	color: #5a5c69;
 	line-height: 45px;
 	margin-bottom: 15px;
-	border-bottom: dashed 1px #769fb3;
+	border-bottom: dashed 1px #5a5c69;
+	text-align: left;
 }
 </style>
 
 </head>
 
 <%@ include file="../../../top.jsp" %>
-
-<!-- 본문 타이틀 들어가는 부분 ---->
-<h1 class="h3 mb-4 text-gray-800">제목 샘플</h1>
 					
 <!--///////본문 내용 시작 ///////-------->
+<form action="/hiapt/dsend" method="post" id="frm">
+
+<div class="row" style="margin-left: 2px;">
+ 
+		<input type="button" value=" 기안하기 " class="btn btn-primary btn-icon-split" id="savebutton"
+		
+		style="padding: 7px;">
+		 
+		
+		<input type="button" value=" 임시저장 " class="btn btn-secondary btn-icon-split" id="tempbutton"
+		
+		style="padding: 7px; margin-left: 25px;">&nbsp;&nbsp;
+</div>
+<br>
+<div class="card shadow mb-4">
+		<div class="card-body" align="center">
 
 <div id="form">
 
@@ -166,7 +170,7 @@ legend {
 <table style="width:900px; height: 50px;" >
 
 <tr><th style=" width: 120px;">문서 종류</th>
-<td width="415px;" style="padding-bottom: 3px;" colspan="3">
+<td width="415px;" style="padding-bottom: 8px;" colspan="3">
 <select name="formtype" id="formselect">
 <option>공용</option>
 </select>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -177,7 +181,7 @@ legend {
 </select>
 &nbsp;&nbsp;&nbsp;
 <!-- <button style="height: 25px;">문서보기</button> -->
-<button onclick="formview();" class="btn btn-primary btn-xs" style="position: static;  letter-spacing: 2px;">문서보기</button>
+<button onclick="formview();" class="btn btn-secondary btn-icon-split btn-sm" style="padding: 4px;">문서보기</button>
 </td>
 <th style="width: 120px;">작성자</th>
 <td width="120px;" style="width: 120px;">
@@ -221,20 +225,20 @@ style = "width: 100px; border: none; background: none; text-align: center; margi
 </fieldset>
 
 <input type="text" placeholder="제목 입력" name= "drafttitle"  required="required"
-style="width: 900px; height: 30px; border: solid 1px #afafaf; border-radius: 5px; padding-left: 5px;">
+style="width: 900px; height: 35px; border: solid 1px #afafaf; border-radius: 5px; padding-left: 10px;">
 
-<div style="width:900px; height:450px; background-color: white; margin-top: 15px;">
-<textarea name="doccontent" id="smarteditor" rows="10" cols="100" style="width:897px; height:400px;" required="required"></textarea>
+<div style="width:900px; height:750px; background-color: white; margin-top: 15px;">
+<textarea name="doccontent" id="smarteditor" rows="10" cols="100" style="width:897px; height:700px;" required="required"></textarea>
 </div>
 </div>
 <fieldset style="margin-top: 20px;">
 <legend>파일 첨부</legend>
-<input type="file">
-</fieldset>
+<input type="file" style="float: left;" >
+</fieldset><br>
+</div></div>
 </form>
-</form> 
 
-
+</html>
 
 <!---//// 본문 내용 끝 ///////------------------->
 <%@ include file = "../../../footer.html" %>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
@@ -33,13 +34,9 @@ background-color: #fbfbf0;
 font-size: 12pt;
 }
 
-select, option{
-font-size: 10pt;
-width: 600px;
-}
 
 textarea {
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 </style>
@@ -47,18 +44,13 @@ textarea {
 
 </head>
 
-<%@ include file="../../../top.jsp" %>
-
-<!-- 본문 타이틀 들어가는 부분 ---->
-<h1 class="h3 mb-4 text-gray-800">제목 샘플</h1>
-					
 <!--///////본문 내용 시작 ///////-------->
 
 <div align="center" id="title"><h2>문서양식 미리보기</h2></div>
 <form>
 <div>
 <h3>문서양식 선택</h3>
-<select class="form-control" >
+<select class="form-control"  style="width: 500px;">
 <option>공용 - 일반 기안서</option>
 <option>공용 - 휴가 신청서</option>
 <option>업무일지 - 직원 업무 일지</option>
@@ -81,7 +73,7 @@ textarea {
 </div>
 <div>
 <h3>미리보기</h3>
-<textarea readonly="readonly" style="resize: none;" cols="88" rows="25">
+<textarea readonly="readonly" style="resize: none;" cols="80" rows="20">
 
 </textarea>
 </div>

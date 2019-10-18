@@ -37,6 +37,7 @@
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
 <style>
+
 table {
 	font-size: 10pt;
 	text-align: center;
@@ -63,8 +64,7 @@ table {
 		</select>
 	</div>
 	<div id="title">
-		<form action="/hiapt/dsearch" method="post" id="searchform">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
+		<form action="/hiapt/dsearch" method="get" id="searchform">
 			<input type="hidden" name="search" value="title">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
@@ -79,8 +79,7 @@ table {
 		</form>
 	</div>
 	<div id="writer">
-		<form action="/hiapt/dsearch" method="post" id="searchform2">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
+		<form action="/hiapt/dsearch" method="get" id="searchform2">
 			<input type="hidden" name="search" value="writer">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
@@ -96,8 +95,7 @@ table {
 		</form>
 	</div>
 	<div id="date">
-		<form action="/hiapt/dsearch" method="post" id="searchform3">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
+		<form action="/hiapt/dsearch" method="get" id="searchform3">
 			<input type="hidden" name="search" value="date">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="date" name="from" id="search"
@@ -116,8 +114,7 @@ table {
 		</form>
 	</div>
 	<div id="formtype">
-		<form action="/hiapt/dsearch" method="post" id="searchform4">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
+		<form action="/hiapt/dsearch" method="get" id="searchform4">
 			<input type="hidden" name="search" value="formtype">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
@@ -135,8 +132,9 @@ table {
 </div>
 <br>
 	<h5>
-		대기 문서 :
-		<%=count%>개	</h5>
+		전체 문서 :
+		<%=count%>개
+	</h5>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -144,7 +142,7 @@ table {
 				style="text-align: center; ">
 					<tr>
 						<th width="10" >
-								<label class="check">
+							<label class="check">
        					     <input type="checkbox" id="checkall">
          					 <span class="checkmark"></span>
           				 	 </label>
@@ -169,13 +167,20 @@ table {
         			    </label>
 						</td>
 						<td>
+						
 						<% if(d.getOriginfile() != null && !d.getOriginfile().equals("null")) { %>
 						<i class="fa fa-paperclip"></i>
 						<% } else { %>
 							
-						<% } %></td>
+						<% } %>
+				
+						</td>
 						<td><%=d.getDocno()%></td>
+						<% if(d.getProgress().equals("0") || d.getProgress().equals("3")){ %>
+						<td><a href="/hiapt/dsview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
+						<% } else { %>
 						<td><a href="/hiapt/dview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
+						<% } %>
 						<td><%=d.getEmpid()%>&nbsp;<%=d.getEmpname()%></td>
 						<td><%=d.getDraftdate()%></td>
 						<td><%=d.getFormname()%></td>
@@ -207,21 +212,21 @@ table {
 					<ul class="pagination" style="justify-content: center;">
 						<li class="paginate_button page-item previous"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1" aria-controls="dataTable"
+							<a href="/hiapt/dlist.ad?page=1" aria-controls="dataTable"
 							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
 						<%
 							if ((beginPage - 10) < 1) {
 						%>
 						<li class="paginate_button page-item previous back"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1" aria-controls="dataTable"
+							<a href="/hiapt/dlist.ad?page=1" aria-controls="dataTable"
 							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item active back"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=beginPage - 10%>"
+							<a href="/hiapt/dlist.ad?page=<%=beginPage - 10%>"
 							aria-controls="dataTable" data-dt-idx="<%=beginPage - 10%>"
 							tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 						<%
@@ -232,14 +237,14 @@ table {
 								if (p == currentPage) {
 						%>
 						<li class="paginate_button page-item active next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page<%=p%>"
+						<a href="/hiapt/dlist.ad?page=<%=p%>"
 							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
 							class="page-link"><%=p%></a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=p%>"
+						<a href="/hiapt/dlist.ad?page=<%=p%>"
 							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
 							class="page-link"><%=p%></a></li>
 						<%
@@ -250,21 +255,21 @@ table {
 							if ((endPage + 10) > maxPage) {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=maxPage%>"
+						<a href="/hiapt/dlist.ad?page=<%=maxPage%>"
 							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
 							class="page-link">&rsaquo;&rsaquo;</a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page<%=endPage + 10%>"
+						<a href="/hiapt/dlist.ad?page=<%=endPage + 10%>"
 							aria-controls="dataTable" data-dt-idx="<%=endPage + 10%>"
 							tabindex="0" class="page-link">&rsaquo;&rsaquo;</a></li>
 						<%
 							}
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=maxPage%>"
+						<a href="/hiapt/dlist.ad?page=<%=maxPage%>"
 							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
 							class="page-link">&rsaquo;</a></li>
 					</ul>
@@ -272,7 +277,6 @@ table {
 			</div>
 		</div>
 	</div>
-
 <script type="text/javascript">
 	$("#checkall").click(function() {
 
@@ -318,6 +322,23 @@ table {
 			$("#formtype").css("display", "block");
 		}
 	}
+	
+	
+	$(function() {
+		  $("#submitbtn").click(function(){
+		        $("#searchform").submit();
+		    });
+		  $("#submitbtn2").click(function(){
+		        $("#searchform2").submit();
+		    });
+		  $("#submitbtn3").click(function(){
+		        $("#searchform3").submit();
+		    });
+		  $("#submitbtn4").click(function(){
+		        $("#searchform4").submit();
+		    });
+		  
+	});
 </script>
 </html>
 <!---//// 본문 내용 끝 ///////------------------->

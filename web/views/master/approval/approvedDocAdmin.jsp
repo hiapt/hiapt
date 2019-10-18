@@ -135,8 +135,9 @@ table {
 </div>
 <br>
 	<h5>
-		대기 문서 :
-		<%=count%>개	</h5>
+		승인 문서 :
+		<%=count%>개
+	</h5>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -207,21 +208,21 @@ table {
 					<ul class="pagination" style="justify-content: center;">
 						<li class="paginate_button page-item previous"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1" aria-controls="dataTable"
+							<a href="/hiapt/dapproved.ad?page=1" aria-controls="dataTable"
 							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
 						<%
 							if ((beginPage - 10) < 1) {
 						%>
 						<li class="paginate_button page-item previous back"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1" aria-controls="dataTable"
+							<a href="/hiapt/dapproved.ad?page=1" aria-controls="dataTable"
 							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item active back"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=beginPage - 10%>"
+							<a href="/hiapt/dapproved.ad?page=<%=beginPage - 10%>"
 							aria-controls="dataTable" data-dt-idx="<%=beginPage - 10%>"
 							tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 						<%
@@ -232,14 +233,14 @@ table {
 								if (p == currentPage) {
 						%>
 						<li class="paginate_button page-item active next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page<%=p%>"
+						<a href="/hiapt/dapproved.ad?page<%=p%>"
 							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
 							class="page-link"><%=p%></a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=p%>"
+						<a href="/hiapt/dapproved.ad?page=<%=p%>"
 							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
 							class="page-link"><%=p%></a></li>
 						<%
@@ -250,21 +251,21 @@ table {
 							if ((endPage + 10) > maxPage) {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=maxPage%>"
+						<a href="/hiapt/dapproved.ad?page=<%=maxPage%>"
 							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
 							class="page-link">&rsaquo;&rsaquo;</a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page<%=endPage + 10%>"
+						<a href="/hiapt/dapproved.ad?page<%=endPage + 10%>"
 							aria-controls="dataTable" data-dt-idx="<%=endPage + 10%>"
 							tabindex="0" class="page-link">&rsaquo;&rsaquo;</a></li>
 						<%
 							}
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=maxPage%>"
+						<a href="/hiapt/dapproved.ad?page=<%=maxPage%>"
 							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
 							class="page-link">&rsaquo;</a></li>
 					</ul>
