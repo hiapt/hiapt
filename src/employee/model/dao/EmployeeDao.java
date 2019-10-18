@@ -49,9 +49,6 @@ public class EmployeeDao {
 				employee.setHireIns(rset.getInt("hireins"));
 				employee.setIncomeTax(rset.getInt("incometax"));
 				employee.setLocalTax(rset.getInt("localtax"));
-				employee.setSalaryTot(rset.getInt("salarytot"));
-				employee.setMinusTot(rset.getInt("minustot"));
-				employee.setRealSalary(rset.getInt("realsalary"));
 			}
 			
 		} catch (SQLException e) {
