@@ -1,10 +1,73 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-<%@page import="employee.model.vo.Employee"%>
+<%@page import="mail.model.vo.Mailm, java.util.ArrayList, employee.model.vo.Employee"%>
+
 <%
 	Employee emp = (Employee)session.getAttribute("employee");
-%>
+	Mailm mailm = (Mailm)request.getAttribute("mailm");
+	int currentPage = (Integer)request.getAttribute("currentPage");
+	String code = (String)request.getAttribute("code");
+	
+%>  
+  
+<!DOCTYPE html>
+<html>
+<!-- head 시작 -->
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>HIAPTProject</title>
+
+	<!-- Custom fonts for this template-->
+	<link href="/hiapt/resources/vendor/fontawesome-free/css/all.min.css"
+	rel="stylesheet" type="text/css">
+	<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
+	<!-- Custom styles for this template-->
+	<link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
+	<link href="/hiapt/resources/css/basic.css" rel="stylesheet">
+	
+	<!-- Bootstrap core JavaScript-->
+	<script src="/hiapt/resources/vendor/jquery/jquery.min.js"></script>
+	<script
+		src="/hiapt/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core plugin JavaScript-->
+	<script
+		src="/hiapt/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Custom scripts for all pages-->
+	<script src="/hiapt/resources/js/sb-admin-2.min.js"></script>
+
+	<!-- Page level plugins -->
+	<script src="/hiapt/resources/vendor/chart.js/Chart.min.js"></script>
+	<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
+
+<!--// css or jQuery or javaScript 삽입 부분    -->
+<script type="text/javascript">
+	function wastedel(){
+		location.href = "/hiapt/mdel?mailno=<%= mailm.getMailNo() %>&page=<%= currentPage %>&code=<%= code %>&empemail=<%= emp.getEmpEmail() %>";
+		return false;
+	}
+</script>
+
+
+
+</head>
+
+<!-- head 시작 -->
+<body id="page-top">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+<!-- 왼쪽 메인 메뉴바 시작 --> 
 
 <!-- ============================================================= -->
 <!-- 왼쪽 메인 메뉴바 시작  --> 
@@ -40,7 +103,7 @@
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="/hiapt/views/emp/mail/writemail.jsp">메일쓰기</a>
 						<a class="collapse-item" href="/hiapt/views/emp/mail/selfwritemail.jsp">내게쓰기</a></a>
-						<a class="collapse-item" href="/hiapt/amlist?empemail=<%=emp.getEmpEmail()%>">전체메일함</a>
+						<a class="collapse-item" href="/hiapt/views/emp/mail/allmail.jsp">전체메일함</a>
 						<a class="collapse-item" href="/hiapt/rlist?empemail=<%=emp.getEmpEmail()%>">받은메일함</a>
 						<a class="collapse-item" href="/hiapt/smlist?empemail=<%=emp.getEmpEmail()%>">보낸메일함</a></a>
 						<a class="collapse-item" href="/hiapt/tmlist?empemail=<%=emp.getEmpEmail()%>">임시보관함</a></a>
@@ -83,33 +146,6 @@
 		<!-- Heading 나중에 삭제부분-->
       	<div class="sidebar-heading">직원</div>
 <!-- ====================================================================================== -->	
-			<% if(emp != null && emp.getEmpNo().equals("admin")) { %>
-			
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#draft" aria-expanded="true"
-				aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-folder"></i> <span>전자결재</span>
-			</a>
-				<div id="draft" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="/hiapt/dlist.ad?page=1">전자결재 전체목록</a>
-							<a class="collapse-item" href="/hiapt/dstandby.ad?page=1">전자결재 대기목록</a> 
-							<a class="collapse-item" href="/hiapt/dapproved.ad?page=1">전자결재 승인목록</a> 
-							<a class="collapse-item" href="/hiapt/dreturn.ad?page=1">전자결재 반려목록</a> 
-							<a class="collapse-item" href="/hiapt/ddefer.ad?page=1">전자결재 보류목록</a>
-							<a class="collapse-item" href="/hiapt/flist?page=1">문서 양식함</a>
-							<a class="collapse-item" href="">업무일지 작성</a>
-							<a class="collapse-item" href="">직원 업무일지함</a>
-							<a class="collapse-item" href="">관리자 업무일지함</a>
-							
-					</div>
-				</div>
-			</li>
-			
-			<%} else { %>
-		
-			
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#draft" aria-expanded="true"
 				aria-controls="collapseUtilities"> <i
@@ -119,17 +155,16 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item"
-							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성</a> 
-							<a class="collapse-item" href="/hiapt/dtemp?empno=<%= emp.getEmpNo() %>&page=1">임시보관함</a> 
-							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>&page=1">전자결재 전체목록</a>
-							<a class="collapse-item" href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1">전자결재 대기목록</a> <a
-							class="collapse-item" href="/hiapt/dapproved?empno=<%= emp.getEmpNo() %>&page=1">전자결재 승인목록</a> <a
-							class="collapse-item" href="/hiapt/dreturn?empno=<%= emp.getEmpNo() %>&page=1">전자결재 반려목록</a> <a
-							class="collapse-item" href="/hiapt/ddefer?empno=<%= emp.getEmpNo() %>&page=1">전자결재 보류목록</a>
+							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성테스트</a> 
+							<a class="collapse-item" href="/hiapt/dtemp">임시보관함</a> 
+							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>">전자결재 전체목록</a>
+							<a class="collapse-item" href="/hiapt/dstandby">전자결재 대기목록</a> <a
+							class="collapse-item" href="/hiapt/dapproved">전자결재 승인목록</a> <a
+							class="collapse-item" href="/hiapt/dreturn">전자결재 반려목록</a> <a
+							class="collapse-item" href="/hiapt/ddefer">전자결재 보류목록</a>
 					</div>
 				</div>
 			</li>
-				<%}  %>
 <!-- 전자결재 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
@@ -168,15 +203,14 @@
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#notice"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-bullhorn"></i> <span>행정관리</span>
+					class="fas fa-fw fa-bullhorn"></i> <span>공지사항</span>
 			</a>
 				<div id="notice" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/views/master/notice/noticeAdminListView.jsp">공지사항 관리</a> 
-						<a class="collapse-item" href="*">민원 관리 </a> 
-						<a class="collapse-item" href="/hiapt/vo.list">주민투표 관리</a>
-						<a class="collapse-item" href="*">자유게시판 관리</a>
+						<a class="collapse-item" href="/hiapt/views/master/notice/noticeAdminListView.jsp">공지사항 목록</a> 
+						<a class="collapse-item" href="*">공지사항 대기목록 </a> 
+						<a class="collapse-item" href="*">공지사항2</a>
 					</div>
 				</div>
 			</li>
@@ -189,7 +223,7 @@
          <div class="sidebar-heading">emp</div>
 <!-- ================================================================================= -->
          <li class="nav-item"><a class="nav-link"
-            href="/hiapt/views/common/schedule/schedulemain.jsp"> <i
+            href="z"> <i
                class="fas fa-fw fa-calendar-alt"></i> <span>Calendar</span></a>
          </li>
 <!--캘린더 끝 -->
@@ -278,3 +312,49 @@
 		</ul>
 <!-- 왼쪽 메인 메뉴 끝 -->
 <!-- ================================================================================= -->
+
+<!-- 왼쪽 메인 메뉴바 끝  --> 
+<!-- ================================================================================= -->
+
+<!--- 중앙 전체 큰 틀 ---------------------------------------------->
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
+<!-- Main Content -->
+<div id="content">
+
+<!-- ================================================================================= -->
+<!---탑메뉴  시작 =================---------------------------->
+
+<%@ include file ="../../common/empTopNavi.jsp" %>
+<!---탑 메뉴 끝 ------------------------------------------->
+<!--========================================================================================== -->
+<!-- Begin Page Content -->
+<div class="container-fluid">
+<!-- 본문 타이틀 들어가는 부분 ---->					
+<!--///////본문 내용 시작 ///////-------->
+
+<h1>메일 상세보기</h1>
+<div class="card shadow mb-4">
+<div class="card-body">
+<input type="search" value="메일검색"> &nbsp;&nbsp; <span>받은메일함/</span><br>
+<input type="checkbox"> &nbsp; <button onclick="return wastedel();">영구삭제</button> 
+<button>이동</button><br><hr>
+<h5><%= mailm.getMailTitle() %></h5>
+<span><b>보낸사람</b></span>&nbsp;<span><%= mailm.getEmpEmail() %></span><br>
+<span><b>받는사람</b></span>&nbsp;<span><%= mailm.getRecipient() %></span><hr>
+<div align="center"><br><%= mailm.getMailContents() %><br></div>
+
+</div><!-- /.container-fluid -->				
+</div><!-- End of Main Content -->	
+<!---//// 본문 내용 끝 ///////------------------->
+<!-- footer 시작 -->
+<%@ include file = "../../common/empfooter.html" %>
+<!-- footer 시작 -->
+</div>	<!-- End of Content Wrapper -->
+</div>	<!-- End of Page Wrapper -->	
+<!--========================================================================================== -->
+<!-- top 버튼 -->
+<%@ include file = "../../common/topbutton.html" %>
+<!--========================================================================================== -->
+</body>
+</html>
