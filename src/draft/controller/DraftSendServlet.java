@@ -33,6 +33,7 @@ public class DraftSendServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 기안 전송
 		request.setCharacterEncoding("UTF-8");
+		String empno = request.getParameter("drafter");
 		Draft draft = new Draft();
 		draft.setEmpno(request.getParameter("drafter"));
 		draft.setDisplay(request.getParameter("display"));
@@ -46,7 +47,7 @@ public class DraftSendServlet extends HttpServlet {
 		int result = new DraftService().insert(draft);
 		
 		if(result > 0) {
-			response.sendRedirect("/hiapt/index.jsp?#/hiapt/dlist");
+			response.sendRedirect("/hiapt/dlist?empno=" + empno + "&page=1");
 		} else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "기안작성실패");

@@ -33,13 +33,47 @@ public class DraftApprovedDocServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 승인문서 리스트용 서블렛
-				ArrayList<Draft> list = new DraftService().selectApprovedDoc();
+		
+		String empno = request.getParameter("empno");
+		String progress = "1";
+		
+		int currentPage = 1;
+		if(request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		int limit = 10;  //한 페이지에 출력할 목록 갯수
+		DraftService dservice = new DraftService();
+		
+		int listCount = dservice.getListCountProgress(empno, progress);
+		//총 페이지 수 계산
+		int maxPage = listCount / limit;
+		if(listCount % limit > 0)
+			maxPage++;
+		
+		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
+		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
+		int beginPage = (currentPage / limit) * limit + 1;
+		int endPage = beginPage + 9;
+		if(endPage > maxPage)
+			endPage = maxPage;
+		
+		//currentPage 에 출력할 목록의 조회할 행 번호 계산
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+		
+	
+				ArrayList<Draft> list = new DraftService().selectProgress(startRow, endRow, empno, progress);
 				RequestDispatcher view = null; 
 			
 					view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
 
 					request.setAttribute("list", list);
-					
+					request.setAttribute("maxPage", maxPage);
+					request.setAttribute("currentPage", currentPage);
+					request.setAttribute("beginPage", beginPage);
+					request.setAttribute("endPage", endPage);
+					request.setAttribute("count", listCount);
 					view.forward(request, response);
 	}
 

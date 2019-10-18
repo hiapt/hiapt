@@ -32,6 +32,7 @@ public class ElogoutServlet extends HttpServlet {
 	      if(session != null) {
 	         session.invalidate();
 	         response.sendRedirect("/hiapt/login.jsp");
+	         System.out.println("로그아웃되었습니다.");
 	      }
 	}
 

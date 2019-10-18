@@ -75,6 +75,33 @@
 		<!-- Heading 나중에 삭제부분-->
       	<div class="sidebar-heading">직원</div>
 <!-- ====================================================================================== -->	
+			<% if(emp != null && emp.getEmpNo().equals("admin")) { %>
+			
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#draft" aria-expanded="true"
+				aria-controls="collapseUtilities"> <i
+					class="fas fa-fw fa-folder"></i> <span>전자결재</span>
+			</a>
+				<div id="draft" class="collapse"
+					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+							<a class="collapse-item" href="/hiapt/dlist.ad?page=1">전자결재 전체목록</a>
+							<a class="collapse-item" href="/hiapt/dstandby.ad?page=1">전자결재 대기목록</a> 
+							<a class="collapse-item" href="/hiapt/dapproved.ad?page=1">전자결재 승인목록</a> 
+							<a class="collapse-item" href="/hiapt/dreturn.ad?page=1">전자결재 반려목록</a> 
+							<a class="collapse-item" href="/hiapt/ddefer.ad?page=1">전자결재 보류목록</a>
+							<a class="collapse-item" href="/hiapt/flist?page=1">문서 양식함</a>
+							<a class="collapse-item" href="">업무일지 작성</a>
+							<a class="collapse-item" href="">직원 업무일지함</a>
+							<a class="collapse-item" href="">관리자 업무일지함</a>
+							
+					</div>
+				</div>
+			</li>
+			
+			<%} else { %>
+		
+			
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#draft" aria-expanded="true"
 				aria-controls="collapseUtilities"> <i
@@ -84,16 +111,17 @@
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item"
-							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성테스트</a> 
-							<a class="collapse-item" href="/hiapt/dtemp">임시보관함</a> 
-							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>">전자결재 전체목록</a>
-							<a class="collapse-item" href="/hiapt/dstandby">전자결재 대기목록</a> <a
-							class="collapse-item" href="/hiapt/dapproved">전자결재 승인목록</a> <a
-							class="collapse-item" href="/hiapt/dreturn">전자결재 반려목록</a> <a
-							class="collapse-item" href="/hiapt/ddefer">전자결재 보류목록</a>
+							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성</a> 
+							<a class="collapse-item" href="/hiapt/dtemp?empno=<%= emp.getEmpNo() %>&page=1">임시보관함</a> 
+							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>&page=1">전자결재 전체목록</a>
+							<a class="collapse-item" href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1">전자결재 대기목록</a> <a
+							class="collapse-item" href="/hiapt/dapproved?empno=<%= emp.getEmpNo() %>&page=1">전자결재 승인목록</a> <a
+							class="collapse-item" href="/hiapt/dreturn?empno=<%= emp.getEmpNo() %>&page=1">전자결재 반려목록</a> <a
+							class="collapse-item" href="/hiapt/ddefer?empno=<%= emp.getEmpNo() %>&page=1">전자결재 보류목록</a>
 					</div>
 				</div>
 			</li>
+				<%}  %>
 <!-- 전자결재 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
