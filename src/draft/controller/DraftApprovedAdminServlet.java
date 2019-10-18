@@ -14,16 +14,16 @@ import draft.model.service.DraftService;
 import draft.model.vo.Draft;
 
 /**
- * Servlet implementation class DraftApprovedDocServlet
+ * Servlet implementation class DraftApprovedAdminServlet
  */
-@WebServlet("/dapproved")
-public class DraftApprovedDocServlet extends HttpServlet {
+@WebServlet("/dapproved.ad")
+public class DraftApprovedAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DraftApprovedDocServlet() {
+    public DraftApprovedAdminServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,9 +32,8 @@ public class DraftApprovedDocServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 승인문서 리스트용 서블렛
+	// 승인문서 리스트용 서블렛
 		
-		String empno = request.getParameter("empno");
 		String progress = "1";
 		
 		int currentPage = 1;
@@ -45,7 +44,7 @@ public class DraftApprovedDocServlet extends HttpServlet {
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
 		DraftService dservice = new DraftService();
 		
-		int listCount = dservice.getListCountProgress(empno, progress);
+		int listCount = dservice.getListCountAdminProgress(progress);
 		//총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if(listCount % limit > 0)
@@ -63,10 +62,10 @@ public class DraftApprovedDocServlet extends HttpServlet {
 		int endRow = currentPage * limit;
 		
 	
-				ArrayList<Draft> list = new DraftService().selectProgress(startRow, endRow, empno, progress);
+				ArrayList<Draft> list = new DraftService().selectAdminProgress(startRow, endRow, progress);
 				RequestDispatcher view = null; 
 			
-					view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
+					view = request.getRequestDispatcher("views/master/approval/approvedDocAdmin.jsp");
 
 					request.setAttribute("list", list);
 					request.setAttribute("maxPage", maxPage);

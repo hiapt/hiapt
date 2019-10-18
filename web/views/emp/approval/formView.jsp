@@ -1,5 +1,10 @@
+<%@page import="java.util.ArrayList, formbox.model.vo.Formbox"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%
+    	ArrayList<Formbox> flist = (ArrayList<Formbox>) request.getAttribute("list");
+    %>
+    
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
@@ -33,13 +38,9 @@ background-color: #fbfbf0;
 font-size: 12pt;
 }
 
-select, option{
-font-size: 10pt;
-width: 600px;
-}
 
 textarea {
-	border-radius: 10px;
+	border-radius: 5px;
 }
 
 </style>
@@ -47,41 +48,13 @@ textarea {
 
 </head>
 
-<!-- head 시작 -->
-<body id="page-top">
-
-	<!-- Page Wrapper -->
-	<div id="wrapper">
-
-<!-- 왼쪽 메인 메뉴바 시작 --> 
-
-<%@ include file ="../../common/empnavi.jsp" %>
-
-<!-- 왼쪽 메인 메뉴바 끝  --> 
-<!-- ================================================================================= -->
-
-<!--- 중앙 전체 큰 틀 ---------------------------------------------->
-<!-- Content Wrapper -->
-<div id="content-wrapper" class="d-flex flex-column">
-<!-- Main Content -->
-<div id="content">
-
-<!-- ================================================================================= -->
-<!---탑메뉴  시작 =================---------------------------->
-
-<%@ include file ="../../common/empTopNavi.jsp" %>
-<!---탑 메뉴 끝 ------------------------------------------->
-<!--========================================================================================== -->
-<!-- Begin Page Content -->
-<div class="container-fluid">
-					
 <!--///////본문 내용 시작 ///////-------->
 
 <div align="center" id="title"><h2>문서양식 미리보기</h2></div>
 <form>
 <div>
 <h3>문서양식 선택</h3>
-<select class="form-control" >
+<select class="form-control"  style="width: 500px;">
 <option>공용 - 일반 기안서</option>
 <option>공용 - 휴가 신청서</option>
 <option>업무일지 - 직원 업무 일지</option>
@@ -104,7 +77,7 @@ textarea {
 </div>
 <div>
 <h3>미리보기</h3>
-<textarea readonly="readonly" style="resize: none;" cols="88" rows="25">
+<textarea readonly="readonly" style="resize: none;" cols="80" rows="20">
 
 </textarea>
 </div>

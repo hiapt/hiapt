@@ -1,20 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page import="draft.model.vo.Draft, java.util.ArrayList"%>
-
-<%
-	ArrayList<Draft> list = (ArrayList<Draft>) request.getAttribute("list");
+    pageEncoding="UTF-8"%>
+    <%@page import="formbox.model.vo.Formbox, java.util.ArrayList"%>
+    <%
+	ArrayList<Formbox> list = (ArrayList<Formbox>) request.getAttribute("list");
 	int currentPage = ((Integer) request.getAttribute("currentPage")).intValue();
 	int beginPage = ((Integer) request.getAttribute("beginPage")).intValue();
 	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
 %>
-
-<!--복사 시작 ////////////////////////////--------------------->
+    
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
@@ -37,6 +37,7 @@
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
 <style>
+
 table {
 	font-size: 10pt;
 	text-align: center;
@@ -48,8 +49,7 @@ table {
 
 <%@ include file="../../../top.jsp"%>
 
-
-<!--///////본문 내용 시작 ///////-------->
+<body>
 
 <div style="float: right; display: flex;">
 	<div>
@@ -57,13 +57,11 @@ table {
 			style="width: 100px; padding-left: 5px;"
 			class="form-control form-control-sm">
 			<option selected="selected">제목</option>
-			<option id="opt2">작성자</option>
-			<option id="opt3">날짜</option>
-			<option id="opt4">문서형식</option>
+			<option>양식분류</option>
 		</select>
 	</div>
 	<div id="title">
-		<form action="/hiapt/dsearch" method="post" id="searchform">
+		<form action="/hiapt/dsearch" method="get" id="searchform">
 			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
 			<input type="hidden" name="search" value="title">
 			<div class="input-group" style="margin-left: 5px;">
@@ -78,13 +76,13 @@ table {
 			</div>
 		</form>
 	</div>
-	<div id="writer">
-		<form action="/hiapt/dsearch" method="post" id="searchform2">
+	<div id="formtype">
+		<form action="/hiapt/dsearch" method="get" id="searchform2">
 			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
-			<input type="hidden" name="search" value="writer">
+			<input type="hidden" name="search" value="formtype">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="검색할 작성자를 입력하세요."
+					class="form-control form-control-sm" placeholder="검색할 문서형식을 입력하세요."
 					style="width: 250px;">
 				<div class="input-group-append">
 					<button class="btn btn-primary btn-sm" type="button"
@@ -95,48 +93,12 @@ table {
 			</div>
 		</form>
 	</div>
-	<div id="date">
-		<form action="/hiapt/dsearch" method="post" id="searchform3">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
-			<input type="hidden" name="search" value="date">
-			<div class="input-group" style="margin-left: 5px;">
-				<input type="date" name="from" id="search"
-					class="form-control form-control-sm"
-					style="width: 140px; border-radius: 3px;"> &nbsp; ～ &nbsp;<input
-					type="date" name="to" id="search"
-					class="form-control form-control-sm"
-					style="width: 140px; border-radius: 3px;">
-				<div class="input-group-append">
-					<button class="btn btn-primary btn-sm" type="button"
-						id="submitbtn3">
-						<i class="fas fa-search fa-sm"></i>
-					</button>
-				</div>
-			</div>
-		</form>
-	</div>
-	<div id="formtype">
-		<form action="/hiapt/dsearch" method="post" id="searchform4">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
-			<input type="hidden" name="search" value="formtype">
-			<div class="input-group" style="margin-left: 5px;">
-				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="검색할 문서형식을 입력하세요."
-					style="width: 250px;">
-				<div class="input-group-append">
-					<button class="btn btn-primary btn-sm" type="button"
-						id="submitbtn4">
-						<i class="fas fa-search fa-sm"></i>
-					</button>
-				</div>
-			</div>
-		</form>
-	</div>
 </div>
 <br>
-	<h5>
-		대기 문서 :
-		<%=count%>개	</h5>
+<h5>
+		전체 문서 :
+		<%=count%>개
+	</h5>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -144,22 +106,18 @@ table {
 				style="text-align: center; ">
 					<tr>
 						<th width="10" >
-								<label class="check">
+							<label class="check">
        					     <input type="checkbox" id="checkall">
          					 <span class="checkmark"></span>
           				 	 </label>
 						</th>
-						<th width="80">첨부파일</th>
-						<th width="100">문서번호</th>
-						<th>제목</th>
-						<th width="125">기안자</th>
-						<th width="100">기안일</th>
-						<th width="120">문서종류</th>
-						<th width="80">진행상태</th>
+						<th width="100">양식번호</th>
+						<th>양식명</th>
+						<th width="120">양식분류</th>
 					</tr>
 				<%
 					for (int i = 0; i < list.size(); i++) {
-						Draft d = list.get(i);
+						Formbox f = list.get(i);
 				%>
 					<tr>
 						<td>
@@ -168,37 +126,19 @@ table {
        					<span class="checkmark"></span>
         			    </label>
 						</td>
-						<td>
-						<% if(d.getOriginfile() != null && !d.getOriginfile().equals("null")) { %>
-						<i class="fa fa-paperclip"></i>
-						<% } else { %>
-							
-						<% } %></td>
-						<td><%=d.getDocno()%></td>
-						<td><a href="/hiapt/dview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
-						<td><%=d.getEmpid()%>&nbsp;<%=d.getEmpname()%></td>
-						<td><%=d.getDraftdate()%></td>
-						<td><%=d.getFormname()%></td>
-						<td>
-							<%
-								if (d.getProgress().equals("0")) {
-							%> 대기 <%
-								} else if (d.getProgress().equals("1")) {
-							%> 승인 <%
-								} else if (d.getProgress().equals("2")) {
-							%> 반려 <%
-								} else if (d.getProgress().equals("3")) {
-							%> 보류 <%
-								}
-							%>
-						</td>
+						
+						<td><%=f.getFormcode()%></td>
+						<td><%=f.getFormname()%></td>
+						<td><%=f.getFormtype()%></td>
 					</tr>
 				<%
 					}
 				%>
 			</table>
 			<div style="float: right;">
-				<input type="button" value="이동" class="btn btn-default btn-xs"
+				<input type="button" value="수정" class="btn btn-default btn-xs"
+					style="letter-spacing: 7px; padding-left: 10px;">
+					<input type="button" value="삭제" class="btn btn-default btn-xs"
 					style="letter-spacing: 7px; padding-left: 10px;">
 			</div>
 
@@ -207,21 +147,21 @@ table {
 					<ul class="pagination" style="justify-content: center;">
 						<li class="paginate_button page-item previous"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1" aria-controls="dataTable"
+							<a href="/hiapt/flist?page=1" aria-controls="dataTable"
 							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
 						<%
 							if ((beginPage - 10) < 1) {
 						%>
 						<li class="paginate_button page-item previous back"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1" aria-controls="dataTable"
+							<a href="/hiapt/flist?page=1" aria-controls="dataTable"
 							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item active back"
 							id="dataTable_previous">
-							<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=beginPage - 10%>"
+							<a href="/hiapt/flist?page=<%=beginPage - 10%>"
 							aria-controls="dataTable" data-dt-idx="<%=beginPage - 10%>"
 							tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 						<%
@@ -232,14 +172,14 @@ table {
 								if (p == currentPage) {
 						%>
 						<li class="paginate_button page-item active next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page<%=p%>"
+						<a href="/hiapt/flist?page=<%=p%>"
 							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
 							class="page-link"><%=p%></a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=p%>"
+						<a href="/hiapt/flist?page=<%=p%>"
 							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
 							class="page-link"><%=p%></a></li>
 						<%
@@ -250,21 +190,21 @@ table {
 							if ((endPage + 10) > maxPage) {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=maxPage%>"
+						<a href="/hiapt/flist?page=<%=maxPage%>"
 							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
 							class="page-link">&rsaquo;&rsaquo;</a></li>
 						<%
 							} else {
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page<%=endPage + 10%>"
+						<a href="/hiapt/flist?page=<%=endPage + 10%>"
 							aria-controls="dataTable" data-dt-idx="<%=endPage + 10%>"
 							tabindex="0" class="page-link">&rsaquo;&rsaquo;</a></li>
 						<%
 							}
 						%>
 						<li class="paginate_button page-item next" id="dataTable_next">
-						<a href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=<%=maxPage%>"
+						<a href="/hiapt/flist?page=<%=maxPage%>"
 							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
 							class="page-link">&rsaquo;</a></li>
 					</ul>
@@ -272,8 +212,7 @@ table {
 			</div>
 		</div>
 	</div>
-
-<script type="text/javascript">
+	<script type="text/javascript">
 	$("#checkall").click(function() {
 
 		if ($("#checkall").prop("checked")) {
@@ -295,30 +234,25 @@ table {
 	function showDiv() {
 		if ($("#searchselect option:eq(0)").is(":selected")) {
 			$("#title").css("display", "block");
-			$("#writer").css("display", "none");
-			$("#date").css("display", "none");
 			$("#formtype").css("display", "none");
 		}
 		if ($("#searchselect option:eq(1)").is(":selected")) {
 			$("#title").css("display", "none");
-			$("#writer").css("display", "block");
-			$("#date").css("display", "none");
-			$("#formtype").css("display", "none");
-		}
-		if ($("#searchselect option:eq(2)").is(":selected")) {
-			$("#title").css("display", "none");
-			$("#writer").css("display", "none");
-			$("#date").css("display", "block");
-			$("#formtype").css("display", "none");
-		}
-		if ($("#searchselect option:eq(3)").is(":selected")) {
-			$("#title").css("display", "none");
-			$("#writer").css("display", "none");
-			$("#date").css("display", "none");
 			$("#formtype").css("display", "block");
 		}
+		
 	}
+	
+	
+	$(function() {
+		  $("#submitbtn").click(function(){
+		        $("#searchform").submit();
+		    });
+		  $("#submitbtn2").click(function(){
+		        $("#searchform2").submit();
+		    });
+		  
+	});
 </script>
+</body>
 </html>
-<!---//// 본문 내용 끝 ///////------------------->
-<%@ include file="../../../footer.html"%>

@@ -14,30 +14,27 @@ import draft.model.service.DraftService;
 import draft.model.vo.Draft;
 
 /**
- * Servlet implementation class DraftReturnDocServlet
+ * Servlet implementation class DraftStandbyAdminServlet
  */
-@WebServlet("/dreturn")
-public class DraftReturnDocServlet extends HttpServlet {
+@WebServlet("/dstandby.ad")
+public class DraftStandbyAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public DraftStandbyAdminServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public DraftReturnDocServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 대기문서 리스트용 서블렛
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// 반려문서 목록
-
-		String empno = request.getParameter("empno");
-		String progress = "2";
+		String progress = "0";
 
 		int currentPage = 1;
 		if (request.getParameter("page") != null) {
@@ -47,7 +44,7 @@ public class DraftReturnDocServlet extends HttpServlet {
 		int limit = 10; // 한 페이지에 출력할 목록 갯수
 		DraftService dservice = new DraftService();
 
-		int listCount = dservice.getListCountProgress(empno, progress);
+		int listCount = dservice.getListCountAdminProgress(progress);
 		// 총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if (listCount % limit > 0)
@@ -64,10 +61,10 @@ public class DraftReturnDocServlet extends HttpServlet {
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
 
-		ArrayList<Draft> list = new DraftService().selectProgress(startRow, endRow, empno, progress);
+		ArrayList<Draft> list = new DraftService().selectAdminProgress(startRow, endRow, progress);
 		RequestDispatcher view = null;
 
-		view = request.getRequestDispatcher("views/emp/approval/returnDoc.jsp");
+		view = request.getRequestDispatcher("views/master/approval/standbyDocAdmin.jsp");
 
 		request.setAttribute("list", list);
 		request.setAttribute("maxPage", maxPage);
@@ -76,14 +73,13 @@ public class DraftReturnDocServlet extends HttpServlet {
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("count", listCount);
 		view.forward(request, response);
+	
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

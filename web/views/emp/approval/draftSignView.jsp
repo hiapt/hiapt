@@ -103,7 +103,22 @@ legend {
 
 					
 <!--///////본문 내용 시작 ///////-------->
-
+<form method="post">
+<div class="row" style="margin-left: 2px;">
+ 
+		<input type="button" value=" 승 인 " class="btn btn-primary btn-icon-split" id="savebutton"
+		
+		style="padding: 7px;">
+		 
+		
+		<input type="button" value=" 반 려 " class="btn btn-danger btn-icon-split" id="tempbutton"
+		
+		style="padding: 7px; margin-left: 25px;">
+			
+		<input type="button" value=" 보 류 " class="btn btn-warning btn-icon-split" id="tempbutton"
+		
+		style="padding: 7px; margin-left: 25px;">
+</div>
 <br>
 <div class="card shadow mb-4">
 		<div class="card-body" align="center">
@@ -159,16 +174,14 @@ style = "width: 100px; border: none; background: none; text-align: center; margi
 <hr width="895px" align="center" style="border: 1px dashed #5a5c69;"><br><br>
 <div  style="width:900px; height:200px; background: rgba(87, 104, 173, 0.9); text-align: center; border-radius: 10px; padding-top: 25px" >
 <div style="color: white; font-size: 12pt; font-weight: bolder; text-shadow: 1px 1px 1px  rgba(0, 0, 0, 0.3);"> 첨삭 및 의견 </div> 
-<textarea style="width:860px; height:120px; border: none;  ;margin-top: 15px; border-radius: 10px; resize: none; padding: 15px;" readonly="readonly">
+<textarea style="width:860px; height:120px; border: none;  ;margin-top: 15px; border-radius: 10px; resize: none; padding: 15px;">
 </textarea>
 </div>
 <br>
 </div>
 </div>
-<button onclick="print();"> 인 쇄 </button>
-<script type="text/javascript">
+</form>
 
-</script>
 
 
 <!---//// 본문 내용 끝 ///////------------------->

@@ -13,16 +13,16 @@ import draft.model.service.DraftService;
 import draft.model.vo.Draft;
 
 /**
- * Servlet implementation class DraftSendServlet
+ * Servlet implementation class DraftSignViewServlet
  */
-@WebServlet("/dsend")
-public class DraftSendServlet extends HttpServlet {
+@WebServlet("/dsview")
+public class DraftSignViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DraftSendServlet() {
+    public DraftSignViewServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,31 +31,19 @@ public class DraftSendServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 기안 전송
-		request.setCharacterEncoding("UTF-8");
-		String empno = request.getParameter("drafter");
-		Draft draft = new Draft();
-		draft.setEmpno(request.getParameter("drafter"));
-		draft.setDisplay(request.getParameter("display"));
-		draft.setDoctitle(request.getParameter("drafttitle"));
-		draft.setDoccontent(request.getParameter("doccontent"));
-		draft.setFormcode(Integer.parseInt(request.getParameter("formcode")));
-		draft.setProgress(request.getParameter("progress"));
+	int docno = Integer.parseInt(request.getParameter("docno"));
 		
-		System.out.println("draft : " + draft );
-
-		int result = new DraftService().insert(draft);
-		
-		if(result > 0) {
-			response.sendRedirect("/hiapt/dlist?empno=" + empno + "&page=1");
-		} else {
-			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", "기안작성실패");
-			view.forward(request, response);
+		Draft draft = new DraftService().selectOne(docno);
+		RequestDispatcher view = null; 
+		if(draft != null) {
+			view = request.getRequestDispatcher("views/emp/approval/draftSignView.jsp");
+			request.setAttribute("draft", draft);
+			
+		}else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", docno + "번 문서 상세보기 실패");
 		}
-		
-		
-		
+		view.forward(request, response);
 	}
 
 	/**
