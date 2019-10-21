@@ -3,6 +3,8 @@
 <%@ page import="employee.model.vo.Employee, java.util.ArrayList" %>
 <%
 	ArrayList<Employee> list = (ArrayList<Employee>)request.getAttribute("list");
+
+Employee employee = (Employee)request.getAttribute("employee");
 %>    
 
 <!--복사 시작 ////////////////////////////--------------------->
@@ -53,18 +55,6 @@
 
 </head>
 
-<script type="text/javascript"></script>
-<script>
-function formview() {
-	   var width = '1000';
-	   var height = '600';
-	   var left = Math.ceil((window.screen.width - width) / 2);
-	   var top = Math.ceil((window.screen.width - height) / 2);
-	   
-	   window.open('/hiapt/views/emp/employee/empSalary.jsp' , '문서보기', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
-	   
-}
-</script>
 
 <body id="page-top">
 
@@ -144,7 +134,7 @@ function formview() {
 				<td><%= e.getEmpHireDate() %></td>
 				<td><%= e.getEmpPhone() %></td>
 				<td><%= e.getEmpEmail() %></td>
-				<td><button onclick="formview();" class="btn btn-secondary btn-icon-split btn-sm" style="padding: 4px;">보기</button></td>
+				<td><a href="/hiapt/salary?empno=<%= e.getEmpNo() %>">보기</a></td>
 				<td><a href="/hiapt/empdetail?empno=<%= e.getEmpNo() %>">보기</a></td>
 			</tr>
 			<% } %>

@@ -120,6 +120,10 @@ public class EmployeeDao {
 		
 		if(employee.getEmpId().equals("보안직원")) {
 			query = "insert into employee values ("
+					+ "'관리자', '관리자', "
+					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		}else if(employee.getEmpId().equals("보안직원")) {
+			query = "insert into employee values ("
 					+ "seq_security.nextval, seq_security.currval, "
 					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("경리")) {
