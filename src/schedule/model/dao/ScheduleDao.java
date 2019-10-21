@@ -19,7 +19,7 @@ public class ScheduleDao {
 		ResultSet rset = null;
 		String query = "select * from schedule where substr(to_char(sch_start,'yyyy-mm-dd'),1,7)=?"
 				+ " and substr(to_char(sch_end,'yyyy-mm-dd'),1,7)=?"
-				+ " and empno = ?";
+				+ " and empno = ? or sch_open = 'Y'";
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, ym);
