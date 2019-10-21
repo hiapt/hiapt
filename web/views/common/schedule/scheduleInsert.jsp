@@ -57,8 +57,8 @@
 <script type="text/javascript">
 function cc(){
 	alert("등록완료");
-	opener.location.reload();
-	window.close();
+	self.close();
+	return true;
 }
 $(function() {
     $(".testDatepicker").datepicker({
@@ -84,15 +84,10 @@ $(function() {
 
     
 });
-
-
-function cancel(){
-	window.close();
-}
 </script>
 </head>
 
-<body id="page-top">
+<body id="page-top" onunload="javascript:opener.document.location.reload();">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
@@ -126,7 +121,7 @@ function cancel(){
 <div class="card shadow mb-4">
 <div class="card-body">
 <h2 align="center">일정 등록 페이지</h2>
-<form action="/hiapt/schin" method="post" onsubmit="return validation();">
+<form action="/hiapt/schin" method="post" onsubmit="return cc();">
 <input type="hidden" name="year" value="<%=y %>">
 <input type="hidden" name ="month" value="<%=m %>">
 <table align="center" width="400" cellspacing="0" cellpadding="8" border="1">
@@ -140,7 +135,7 @@ function cancel(){
 <tr><th>시작 일자</th><td>
 <input type="text" name="start" id="start" class="testDatepicker" value="<%=y%>-<%=m%>-<%=d%>"></td></tr>
 <tr><th>종료 일자</th><td>
-<input type="text" name="end" class="testDatepicker"></td></tr>
+<input type="text" name="end" class="testDatepicker"value="<%=y%>-<%=m%>-<%=d%>"></td></tr>
 <tr><th>일정 메모</th><td><textarea rows="3" cols="21" name="memo"></textarea></td></tr>
 <tr><th>공개 여부</th><td>
 <input type="radio" name="open" value="Y">공개&nbsp;&nbsp;
@@ -166,9 +161,9 @@ function cancel(){
 <input type="radio" name="importance" value="2" checked>중&nbsp;
 <input type="radio" name="importance" value="1" >하</td></tr>
 <tr><th>작 성 자</th><td><input type="text" name="writer" value="<%=emp.getEmpNo() %>" readonly></td></tr>
-<tr><th colspan="2"><input type="submit" value="등록" onclick="cc();">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<tr><th colspan="2"><input type="submit" value="등록">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value="다시 작성">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="취소" onclick="cancel();"></th></tr>
+<input type="button" value="취소" onclick="window.close();"></th></tr>
 </table>
 </form>
 

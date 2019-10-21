@@ -24,4 +24,16 @@ public class ScheduleService {
 		
 	}
 
+	public int insertSchedule(Schedule sch) {
+		Connection conn = getConnection();
+		int result = schDao.insertCalendar(conn, sch);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }

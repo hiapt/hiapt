@@ -1,9 +1,7 @@
-/aptuser/
-/common/
-/draft/
-/employee/
-/mail/
-/maintenance/
+/board/
+/complain/
 /notice/
-/schedule/
 /vote/
+/mail/
+/employee/
+/schedule/
