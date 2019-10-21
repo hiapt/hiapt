@@ -90,16 +90,16 @@ $(function(){
 		var salary = $("#salary").val();
 		var family = $("#family").val();
 		$("#pension").val(Math.round(Number(salary) * 0.045 / 10) * 10);
-		$("#insurance").val(Math.round(Number(salary) * 0.323/10) * 10);
-		$("#longins").val(Math.round(Number(salary) * 0.04255/10) * 10);
-		$("#hireins").val(Math.round(Number(salary) * 0.065/10) * 10);
+		$("#insurance").val(Math.round(Number(salary) * 0.0323/10) * 10);
+		$("#longins").val(Math.round(Number(salary) * 0.0851/10) * 10);
+		$("#hireins").val(Math.round(Number(salary) * 0.008/10) * 10);
 		$("#incometax").val(Math.round(Number(salary) * Number(family) * 1/10) * 10);
 		$("#localtax").val(Math.round(Number(salary) * Number(family) * 1/10) * 10);
 		
 		var pnum = $("#pension").val(Math.round(Number(salary) * 0.045/10) * 10).val();
-		var insnum = $("#insurance").val(Math.round(Number(salary) * 0.323/10) * 10).val();
-		var longnum = $("#longins").val(Math.round(Number(salary) * 0.04255/10) * 10).val();
-		var hirenum = $("#hireins").val(Math.round(Number(salary) * 0.065/10) * 10).val();
+		var insnum = $("#insurance").val(Math.round(Number(salary) * 0.0323/10) * 10).val();
+		var longnum = $("#longins").val(Math.round(Number(salary) * 0.0851/10) * 10).val();
+		var hirenum = $("#hireins").val(Math.round(Number(salary) * 0.008/10) * 10).val();
 		
 		
 		$("#minustot").val(Number(pnum) + Number(insnum) + Number(longnum) + Number(hirenum));
@@ -167,8 +167,17 @@ $(function(){
 	<option value="검침기사"> 검침기사</option>
 </select> -->
 	<td>
-	<% if(employee.getEmpId().equals("보안직원") == true){ %>
+	<% if(employee.getEmpId().equals("관리자") == true){ %>
 		<select>
+		<option value="관리자 " selected> 관리자</option>
+		<option value="보안직원"> 보안직원 </option>
+		<option value="경리" > 경리 </option>
+		<option value="설비과장" > 설비과장 </option>
+		<option value="검침기사" > 검침기사</option>
+		</select>
+	<% }else if(employee.getEmpId().equals("보안직원") == true){ %>
+		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" selected> 보안직원 </option>
 		<option value="경리" > 경리 </option>
 		<option value="설비과장" > 설비과장 </option>
@@ -176,6 +185,7 @@ $(function(){
 		</select>
 	<% }else if(employee.getEmpId().equals("경리") == true){ %>
 		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" > 보안직원 </option>
 		<option value="경리" selected> 경리 </option>
 		<option value="설비과장" > 설비과장 </option>
@@ -183,6 +193,7 @@ $(function(){
 		</select>
 	<% }else if(employee.getEmpId().equals("설비과장") == true){ %>
 		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" > 보안직원 </option>
 		<option value="경리" > 경리 </option>
 		<option value="설비과장" selected> 설비과장 </option>
@@ -190,6 +201,7 @@ $(function(){
 		</select>
 	<% }else { %>
 		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" > 보안직원 </option>
 		<option value="경리" > 경리 </option>
 		<option value="설비과장" > 설비과장 </option>

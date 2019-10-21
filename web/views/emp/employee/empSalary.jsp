@@ -3,6 +3,7 @@
 <% 
 	Employee employee = (Employee)request.getAttribute("empsalary");
 %> 
+<!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,8 +49,78 @@
 	    display: inline-block !important;
 }
 
-th{
-	text-align: center;
+#SalaryTitle {
+    height: 30px;
+    line-height: 30px;
+    background-color: #e9edf5;
+    border-color: #c4cfda;
+    border-left: 0.08em solid #c4cfda;
+    border-top: 0.08em solid #c4cfda;
+    border-right: 0.08em solid #c4cfda;
+    border-bottom: 0.08em solid #c4cfda;
+    text-align: center;
+    font-size: 10pt;
+}
+
+#SalaryItemData {
+    height: 30px;
+    border-color: #c4cfda;
+    border-left: 0.08em solid #c4cfda;
+    border-top: 0.08em solid #c4cfda;
+    border-right: 0.08em solid #c4cfda;
+    border-bottom: 0.08em solid #c4cfda;
+    padding-left: 5px;
+    text-align: left;
+    font-size: 10pt;
+}
+
+#SalaryAmtData {
+    height: 30px;
+    border-color: #c4cfda;
+    border-left: 0.08em solid #c4cfda;
+    border-top: 0.08em solid #c4cfda;
+    border-right: 0.08em solid #c4cfda;
+    border-bottom: 0.08em solid #c4cfda;
+    padding-right: 5px;
+    text-align: right;
+    font-size: 10pt;
+}
+
+#SalarySummaryTitle {
+    height: 30px;
+    line-height: 30px;
+    background-color: #e9edf5;
+    border-color: #c4cfda;
+    border-left: 0.08em solid #c4cfda;
+    border-top: 0.08em solid #c4cfda;
+    border-right: 0.08em solid #c4cfda;
+    border-bottom: 0.08em solid #c4cfda;
+    text-align: center;
+    font-size: 10pt;
+}
+
+#SalarySummaryAmtData {
+    height: 30px;
+    border-color: #c4cfda;
+    border-left: 0.08em solid #c4cfda;
+    border-top: 0.08em solid #c4cfda;
+    border-right: 0.08em solid #c4cfda;
+    border-bottom: 0.08em solid #c4cfda;
+    padding-right: 5px;
+    text-align: right;
+    font-weight: 500;
+    font-size: 10pt;
+}
+
+#SalaryItemHeaderData {
+    height: 30px;
+    border-color: #c4cfda;
+    border-left: 0.08em solid #c4cfda;
+    border-top: 0.08em solid #c4cfda;
+    border-right: 0.08em solid #c4cfda;
+    border-bottom: 0.08em solid #c4cfda;
+    text-align: center;
+    font-size: 10pt;
 }
 
 #employee{
@@ -64,7 +135,7 @@ th{
 </head>
 
 
-<script type="text/javascript"></script>
+<script type="text/javascript" src="/hiapt/resources/js/bootstrap.min.js"></script>
 <script>
 
 function info_print() {
@@ -91,6 +162,11 @@ function info_print() {
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
+<!-- 왼쪽 메인 메뉴바 시작 --> 
+
+<%@ include file ="../../common/empnavi.jsp" %>
+
+<!-- 왼쪽 메인 메뉴바 끝  --> 
 <!-- ================================================================================= -->
 
 <!--- 중앙 전체 큰 틀 ---------------------------------------------->
@@ -99,6 +175,11 @@ function info_print() {
 <!-- Main Content -->
 <div id="content">
 
+<!-- ================================================================================= -->
+<!---탑메뉴  시작 =================---------------------------->
+
+<%@ include file ="../../common/empTopNavi.jsp" %>
+<!---탑 메뉴 끝 ------------------------------------------->
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
@@ -107,51 +188,109 @@ function info_print() {
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800"><%= employee.getEmpName() %> 상세정보</h1>
 
 <div class="card shadow mb-4" id="print">
 <form action="/hiapt/salary" method="post">
-<table class="table table-bordered dataTable">
 
-<tr><th style="text-align:center; width:150px;">사 번*</th>
-<td id="employee"><%= employee.getEmpNo() %></td>
-
-<tr><th style="text-align:center;">이 름*</th>
-<td id="employee"><%= employee.getEmpName() %></td></tr>
-
-<tr><th style="text-align:center;">직 급*</th>
-<td><%= employee.getEmpId() %></td></tr>
-
-<tr><th style="text-align:center;">입사일</th>
-<td id="employee"><%= employee.getEmpHireDate() %></td></tr>
-
-<tr><th style="text-align:center;">휴대전화</th>
-<td id="employee"><%= employee.getEmpPhone() %></td></tr>
-
-
-
-<tr><th style="text-align:center;">주민등록번호</th>
-<td id="employee"><%= employee.getEmpSSN() %></td></tr>
-
-<tr><th style="text-align:center;">주소</th>
-<td id="employee"><%= employee.getEmpZipcode() %> <%= employee.getEmpAddress() %></td></tr>
-
-<tr><th style="text-align:center;">이메일</th>
-<td id="employee"><%= employee.getEmpEmail() %></td></tr>
-	 
-<tr><th style="text-align:center;">부양가족수</th>
-<td id="employee"><%= employee.getEmpFamily() %></td>
-	 
-<tr><th style="text-align:center;">기타정보</th>
-<td id="employee"><%= employee.getEmpEtc() %></td></tr>
-
-<tr><th colspan="2">
-		<a href="/hiapt/empupdate?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
-		<a href="/hiapt/empdelete?empno=<%= employee.getEmpNo() %>">삭제하기</a>
-		<a href="/hiapt/views/emp/employee/empList.jsp">돌아가기</a>
+<table style=" width:650px; border:0px; padding:20px; margin:auto;" cellpadding="0" cellspacing="1">
+		<tbody>
+		<tr>
+			<td align="center"><h3>급여명세서</h3></td><br>
+		</tr>
+		<tr>
+			<td><br>
+				<table style="width:100%; border-collapse: collapse; margin-bottom:10px;" border="1" cellpadding="0" cellspacing="1">
+					<tbody><tr style="border-top: 2px solid #000000;">
+						<td id="SalaryTitle" style="width: 50px;">사번</td>
+						<td id="SalaryItemHeaderData" style="width: 80px;"><%= employee.getEmpNo() %></td>
+						<td id="SalaryTitle" style="width: 50px;">성명</td>
+						<td id="SalaryItemHeaderData" style="width: 80px;"><%= employee.getEmpName() %></td>
+						<td id="SalaryTitle" style="width: 50px;">직급</td>
+						<td id="SalaryItemHeaderData" style="width: 80px;"><%= employee.getEmpId() %></td>
+					</tr>
+				</tbody></table>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" style="border-collapse:collapse;" border="1" cellpadding="0" cellspacing="1">
+					<tbody><tr style="border-top: 2px solid #000000;">
+						<td id="SalaryTitle" style="width: 80px;" rowspan="5">지급사항</td>
+						<td id="SalaryTitle">항목</td>
+						<td id="SalaryTitle">금액</td>
+						<td id="SalaryTitle">항목</td>
+						<td id="SalaryTitle">금액</td>
+					</tr>				
+					<tr>
+				<td id="SalaryItemData">기본급</td>
+				<td id="SalaryAmtData"><%= employee.getSalary() %></td>
+				<td id="SalaryItemData">6세미만보육수당</td>
+				<td id="SalaryAmtData"></td>
+			</tr>			<tr>
+				<td id="SalaryItemData">연장근무수당</td>
+				<td id="SalaryAmtData">17,483</td>
+				<td id="SalaryItemData">연구개발수당</td>
+				<td id="SalaryAmtData"></td>
+			</tr>			<tr>
+				<td id="SalaryItemData">휴일근무수당</td>
+				<td id="SalaryAmtData">17,483</td>
+				<td id="SalaryItemData">식대</td>
+				<td id="SalaryAmtData"></td>
+			</tr>			<tr>
+				<td id="SalarySummaryTitle" colspan="2">지급총액</td>
+				<td id="SalarySummaryAmtData" colspan="2"><%= employee.getSalaryTot() %></td>
+			</tr>
+			<tr style="border-top: 2px solid #000000;">
+				<td id="SalaryTitle"style="width: 80px;"" rowspan="6">공제사항</td>
+				<td id="SalaryTitle">항목</td>
+				<td id="SalaryTitle">금액</td>
+				<td id="SalaryTitle">항목</td>
+				<td id="SalaryTitle">금액</td>
+			</tr>			<tr>
+				<td id="SalaryItemData">국민연금</td>
+				<td id="SalaryAmtData"><%= employee.getPension() %></td>
+				<td id="SalaryItemData">고용보험</td>
+				<td id="SalaryAmtData"><%= employee.getInsurance() %></td>
+			</tr>			<tr>
+				<td id="SalaryItemData">건강보험</td>
+				<td id="SalaryAmtData"><%= employee.getLongIns() %></td>
+				<td id="SalaryItemData">소득세</td>
+				<td id="SalaryAmtData"><%= employee.getIncomeTax() %></td>
+			</tr>			<tr>
+				<td id="SalaryItemData">장기요양</td>
+				<td id="SalaryAmtData"><%= employee.getHireIns() %></td>
+				<td id="SalaryItemData">지방소득세</td>
+				<td id="SalaryAmtData"><%= employee.getLocalTax() %></td>
+			</tr>						<tr>
+							<td id="SalarySummaryTitle" colspan="2">공제총액</td>
+							<td id="SalarySummaryAmtData" colspan="2"><%= employee.getMinusTot() %></td>
+						</tr>
+						<tr>
+							<td id="SalarySummaryTitle" colspan="2">차감지급 금액</td>
+							<td id="SalarySummaryAmtData" colspan="2"><%= employee.getRealSalary() %></td>
+						</tr>
+					</tbody></table>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<div style="height: 20px; text-align: right; margin-right: 50px; margin-bottom: 5px; margin-top: 5px; font-size: 10pt;">* 수고하셨습니다</div>
+					<table width="100%" border="1" style="border-collapse: collapse;" cellpadding="0" cellspacing="1">
+						<tbody><tr style="border-top: 2px solid #000000;">
+							<td id="SalaryTitle" style="width: 55px; height:60px;">기타</td>
+							<td id="SalaryItemData"><input type="text" style="height: 40px; width:580px;"></td>
+						</tr>
+					</tbody></table>
+				</td>
+			</tr>
+			
+			<tr>
+			<td colspan="2">
+<input type="reset" value="취소"> &nbsp;
+<input type="submit" value="등록 ">
 </th></tr>
-
-</table>
+			
+		</tbody></table><br>
 </form>
 </div>
 
