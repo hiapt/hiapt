@@ -1,14 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.util.Calendar" %>
-
-<%@ page import="employee.model.vo.Employee"%>
+    <%@ page import="java.util.Calendar, employee.model.vo.Employee"%>
 <%
 	Employee emp = (Employee)session.getAttribute("employee");
 %>
-<%-- <%
-	Employee emp = (Employee)session.getAttribute("employee");
-%> --%>
   
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
@@ -18,16 +13,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
 
 <title>HIAPTProject</title>
 
 <!-- Custom fonts for this template-->
 <link href="/hiapt/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
+<link
+	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+	rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
-<!-- Page level plugins -->
+
+
 <script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
@@ -222,14 +223,8 @@ $(function(){
 				<div id="mail" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/views/emp/mail/writemail.jsp">메일쓰기</a>
-						<a class="collapse-item" href="/hiapt/views/emp/mail/selfwritemail.jsp">내게쓰기</a></a>
-						<a class="collapse-item" href="/hiapt/amlist?empemail=<%=emp.getEmpEmail()%>">전체메일함</a>
-						<a class="collapse-item" href="/hiapt/rlist?empemail=<%=emp.getEmpEmail()%>">받은메일함</a>
-						<a class="collapse-item" href="/hiapt/smlist?empemail=<%=emp.getEmpEmail()%>">보낸메일함</a></a>
-						<a class="collapse-item" href="/hiapt/tmlist?empemail=<%=emp.getEmpEmail()%>">임시보관함</a></a>
-						<a class="collapse-item" href="/hiapt/selfmlist?empemail=<%=emp.getEmpEmail()%>">내게 쓴 메일함</a>
-						<a class="collapse-item" href="/hiapt/wmlist?empemail=<%=emp.getEmpEmail()%>">휴지통</a>
+						<a class="collapse-item" href="/hiapt/views/emp/mail/allmail.jsp">전체메일함</a>
+						<a class="collapse-item" href="cards.html">메일2</a>
 					</div>
 				</div>
 			</li>
@@ -267,33 +262,6 @@ $(function(){
 		<!-- Heading 나중에 삭제부분-->
       	<div class="sidebar-heading">직원</div>
 <!-- ====================================================================================== -->	
-			<% if(emp != null && emp.getEmpNo().equals("admin")) { %>
-			
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#draft" aria-expanded="true"
-				aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-folder"></i> <span>전자결재</span>
-			</a>
-				<div id="draft" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-							<a class="collapse-item" href="/hiapt/dlist.ad?page=1">전자결재 전체목록</a>
-							<a class="collapse-item" href="/hiapt/dstandby.ad?page=1">전자결재 대기목록</a> 
-							<a class="collapse-item" href="/hiapt/dapproved.ad?page=1">전자결재 승인목록</a> 
-							<a class="collapse-item" href="/hiapt/dreturn.ad?page=1">전자결재 반려목록</a> 
-							<a class="collapse-item" href="/hiapt/ddefer.ad?page=1">전자결재 보류목록</a>
-							<a class="collapse-item" href="/hiapt/flist?page=1">문서 양식함</a>
-							<a class="collapse-item" href="">업무일지 작성</a>
-							<a class="collapse-item" href="">직원 업무일지함</a>
-							<a class="collapse-item" href="">관리자 업무일지함</a>
-							
-					</div>
-				</div>
-			</li>
-			
-			<%} else { %>
-		
-			
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#draft" aria-expanded="true"
 				aria-controls="collapseUtilities"> <i
@@ -303,17 +271,16 @@ $(function(){
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item"
-							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성</a> 
-							<a class="collapse-item" href="/hiapt/dtemp?empno=<%= emp.getEmpNo() %>&page=1">임시보관함</a> 
-							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>&page=1">전자결재 전체목록</a>
-							<a class="collapse-item" href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1">전자결재 대기목록</a> <a
-							class="collapse-item" href="/hiapt/dapproved?empno=<%= emp.getEmpNo() %>&page=1">전자결재 승인목록</a> <a
-							class="collapse-item" href="/hiapt/dreturn?empno=<%= emp.getEmpNo() %>&page=1">전자결재 반려목록</a> <a
-							class="collapse-item" href="/hiapt/ddefer?empno=<%= emp.getEmpNo() %>&page=1">전자결재 보류목록</a>
+							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성테스트</a> 
+							<a class="collapse-item" href="/hiapt/dtemp">임시보관함</a> 
+							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>">전자결재 전체목록</a>
+							<a class="collapse-item" href="/hiapt/dstandby">전자결재 대기목록</a> <a
+							class="collapse-item" href="/hiapt/dapproved">전자결재 승인목록</a> <a
+							class="collapse-item" href="/hiapt/dreturn">전자결재 반려목록</a> <a
+							class="collapse-item" href="/hiapt/ddefer">전자결재 보류목록</a>
 					</div>
 				</div>
 			</li>
-				<%}  %>
 <!-- 전자결재 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
@@ -380,7 +347,6 @@ $(function(){
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
 <!-- Nav Item - Pages Collapse Menu 삭제용 -->
-<hr class="sidebar-divider">
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
@@ -465,6 +431,7 @@ $(function(){
 <!-- ================================================================================= -->
 
 <!-- 왼쪽 메인 메뉴바 끝  --> 
+<!-- ================================================================================= -->
 
 <!--- 중앙 전체 큰 틀 ---------------------------------------------->
 <!-- Content Wrapper -->
