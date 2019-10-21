@@ -74,17 +74,17 @@ $(function(){
 	$("#cal").click(function(){
 		var salary = $("#salary").val();
 		var family = $("#family").val();
-		$("#pension").val(Number(salary) * 0.045);
-		$("#insurance").val(Number(salary) * 0.323);
-		$("#longins").val(Number(salary) * 0.04255);
-		$("#hireins").val(Number(salary) * 0.065);
-		$("#incometax").val(Number(salary) * Number(family) * 1);
-		$("#localtax").val(Number(salary) * Number(family) * 1);
+		$("#pension").val(Math.round(Number(salary) * 0.045 / 10) * 10);
+		$("#insurance").val(Math.round(Number(salary) * 0.0323/10) * 10);
+		$("#longins").val(Math.round(Number(salary) * 0.0851/10) * 10);
+		$("#hireins").val(Math.round(Number(salary) * 0.008/10) * 10);
+		$("#incometax").val(Math.round(Number(salary) * Number(family) * 1/10) * 10);
+		$("#localtax").val(Math.round(Number(salary) * Number(family) * 1/10) * 10);
 		
-		var pnum = $("#pension").val(Number(salary) * 0.045).val();
-		var insnum = $("#insurance").val(Number(salary) * 0.323).val();
-		var longnum = $("#longins").val(Number(salary) * 0.04255).val();
-		var hirenum = $("#hireins").val(Number(salary) * 0.065).val();
+		var pnum = $("#pension").val(Math.round(Number(salary) * 0.045/10) * 10).val();
+		var insnum = $("#insurance").val(Math.round(Number(salary) * 0.0323/10) * 10).val();
+		var longnum = $("#longins").val(Math.round(Number(salary) * 0.0851/10) * 10).val();
+		var hirenum = $("#hireins").val(Math.round(Number(salary) * 0.008/10) * 10).val();
 		
 		
 		$("#minustot").val(Number(pnum) + Number(insnum) + Number(longnum) + Number(hirenum));
@@ -148,6 +148,7 @@ $(function(){
 
 <tr><th style="text-align:center;">직 급*</th>
 <td id="employee"><select name="empid" id="job"> <!-- select : drop down으로 목록선택창 뜸 -->
+	<option value="관리자"> 관리자</option>
 	<option value="보안직원"> 보안직원</option>
 	<option value="경리"> 경리</option>
 	<option value="설비과장"> 설비과장</option>

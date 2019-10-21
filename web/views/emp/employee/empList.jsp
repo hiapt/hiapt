@@ -3,7 +3,10 @@
 <%@ page import="employee.model.vo.Employee, java.util.ArrayList" %>
 <%
 	ArrayList<Employee> list = (ArrayList<Employee>)request.getAttribute("list");
+
+Employee employee = (Employee)request.getAttribute("employee");
 %>    
+
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
@@ -130,7 +133,7 @@
 				<td><%= e.getEmpHireDate() %></td>
 				<td><%= e.getEmpPhone() %></td>
 				<td><%= e.getEmpEmail() %></td>
-				<td><a href="#">보기</a></td>
+				<td><a href="/hiapt/salary?empno=<%= e.getEmpNo() %>">보기</a></td>
 				<td><a href="/hiapt/empdetail?empno=<%= e.getEmpNo() %>">보기</a></td>
 			</tr>
 			<% } %>

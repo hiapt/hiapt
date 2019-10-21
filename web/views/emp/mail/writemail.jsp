@@ -88,8 +88,9 @@
 	<h4>편지쓰기</h4>
 
 <br>
-<button id="savebutton">보내기</button>
-<button id="tempbutton">임시저장</button>
+<form method="post" name="form">
+<input type="submit" value="보내기" id="savebutton" onclick="javascript: form.action='/hiapt/mwrite'">
+<input type="submit" value="임시저장" id="tempbutton" onclick="javascript: form.action='/hiapt/mtwrite'">
 <input type="hidden" name="email" value="<%= emp.getEmpEmail() %>">
 <table>
 	<tr>
@@ -115,6 +116,7 @@
 	</th>
 	</tr>
 </table>
+</form>
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

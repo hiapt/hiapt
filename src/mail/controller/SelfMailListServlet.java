@@ -65,7 +65,7 @@ request.setCharacterEncoding("UTF-8");
 		ArrayList<Mailm> list = mservice.selectListSelf(email, startRow, endRow);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
+		if(list.size() >= 0) {
 			view = request.getRequestDispatcher("views/emp/mail/selfmail.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("maxPage", maxPage);

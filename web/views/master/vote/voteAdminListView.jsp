@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="vote.model.vo.Vote, java.util.ArrayList"%>
+<%@page import="vote.model.vo.Vote, java.util.ArrayList, employee.model.vo.Employee
+				,java.util.*,java.text.*"%>
 <%
 	ArrayList<Vote> vlist = (ArrayList<Vote>)request.getAttribute("vlist");
 	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
@@ -9,8 +10,15 @@
 	int maxPage = ((Integer)request.getAttribute("maxPage")).intValue();
 	int pageSize = ((Integer)request.getAttribute("pageSize")).intValue();
 	String titleName = (String)request.getAttribute("titlename");
+	Employee employee = (Employee)session.getAttribute("employee");
 
+%>
 
+<%
+	Date date =new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String sysdate = simpleDate.format(date);
+	Date today = simpleDate.parse(sysdate);
 %>
 <!DOCTYPE html>
 <html>
@@ -66,7 +74,9 @@ function voteWrite(){
 		<input type="text" name="titlename">
 		<input type="submit" value="찾기">&nbsp;
 		</form>
+		<%if( employee.getEmpNo().equals("admin")) {%>
 		<button onclick="voteWrite();">작성하기</button>&nbsp;
+		<%} %>
 	</div>
 
 	<table class="table table-bordered" >
@@ -75,16 +85,24 @@ function voteWrite(){
 			<th>제목</th>
 			<th width = "150" >작성자</th>
 			<th width = "150" >작성일</th>
-			<th width = "150" >투표마감일</th>
+			<th width = "200" >투표마감일</th>
 			<th width = "80" >조회수</th>
 		</tr>
 		<% for(Vote v : vlist){ %>
 		<tr align="center">
 			<td><%= v.getVoteNo() %></td>
+			<%if( employee.getEmpNo().equals("admin")) {%>
+			<td><a href="/hiapt/vo.ad.view?vno=<%= v.getVoteNo() %>&page=<%= currentPage %>"><%= v.getVoteTitle() %></a></td>
+			<%}else{ %>
 			<td><a href="/hiapt/vo.view?vno=<%= v.getVoteNo() %>&page=<%= currentPage %>"><%= v.getVoteTitle() %></a></td>
+			<%} %>
 			<td><%= v.getVoteWrite() %></td>
 			<td><%= v.getVoteDate() %></td>
-			<td><%= v.getVoteFinalDate() %></td>
+ 			<%if(v.getVoteFinalDate().compareTo(today)>=0) {%> 
+			<td><%= v.getVoteFinalDate() %>(진행중)</td>
+			<%}else {%>
+			<td><%= v.getVoteFinalDate() %>(마감됨)</td>
+			<%} %> 
 			<td><%= v.getVoteReadCount() %></td>
 		</tr>
 		<%} %>

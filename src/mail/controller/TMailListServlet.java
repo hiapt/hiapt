@@ -65,7 +65,7 @@ public class TMailListServlet extends HttpServlet {
 		ArrayList<Mailm> list = mservice.selectListT(email, startRow, endRow);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
+		if(list.size() >= 0) {
 			view = request.getRequestDispatcher("views/emp/mail/temporarymail.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("maxPage", maxPage);

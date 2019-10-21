@@ -56,8 +56,8 @@
                 <li><a href="#">관리비결제</a></li>
                 <li><a href="#">민원접수</a></li>
                 <li><a href="#">공지사항</a></li>
-                <li><a href="#">주민투표</a></li>
-                <li><a href="#">자유게시판</a></li>
+                <li><a href="/hiapt/vo.list">주민투표</a></li>
+                <li><a href="/hiapt/bo.list">자유게시판</a></li>
               </ul>
             </div>
           </div>

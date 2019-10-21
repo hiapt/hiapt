@@ -33,26 +33,32 @@ public class VoteResultUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		int voteResultNo = Integer.parseInt(request.getParameter("voteresult"));
 		int voteNo = Integer.parseInt(request.getParameter("voteno"));
-		int voteCount = Integer.parseInt(request.getParameter("votecount"));
-		VoteService vservice= new VoteService();
-		vservice.updateVoteResult(voteNo,voteResultNo);
+		String userId = request.getParameter("userid");
+		String vSecret = request.getParameter("vsecret");//유기명무기명 체크를하기위한 변수 dao에서판단.
 
-		VoteResult voteResult = vservice.selectVoteResult(voteNo);
+		
+		VoteService vservice= new VoteService();
+		int doubleCheck = vservice.selectDoubleCheck(voteNo,userId);
+		VoteResult voteResult=null;
+		
+		if(doubleCheck!=1) {//중복체크결과가 없을경우(이미투표했으면 1)
+
+		vservice.insertDouBleCheck(voteNo,userId,voteResultNo,vSecret); //중복체크 인서트
+		vservice.updateVoteResult(voteNo,voteResultNo);//투표결과 업데이트
+		}
+		voteResult = vservice.selectVoteResult(voteNo);//투표결과조회
+		
 		JSONObject job = new JSONObject();
-		int vote1 = voteResult.getVoteOneResult();
-		int vote2 = voteResult.getVoteTwoResult();
-		int vote3 = voteResult.getVoteThreeResult();
-		int vote4 = voteResult.getVoteFourResult();
-		int vote5 = voteResult.getVoteFiveResult();
 
 		job.put("vre1", voteResult.getVoteOneResult());
 		job.put("vre2", voteResult.getVoteTwoResult());
 		job.put("vre3", voteResult.getVoteThreeResult());
 		job.put("vre4", voteResult.getVoteFourResult());
 		job.put("vre5", voteResult.getVoteFiveResult());
-		
+		job.put("dcheck", doubleCheck);
 		response.setContentType("text/html; charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(job.toJSONString());

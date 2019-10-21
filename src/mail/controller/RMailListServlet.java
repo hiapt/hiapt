@@ -65,7 +65,7 @@ public class RMailListServlet extends HttpServlet {
 		ArrayList<Mailm> list = mservice.selectListR(email, startRow, endRow);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
+		if(list.size() >= 0) {
 			view = request.getRequestDispatcher("views/emp/mail/receivemail.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("maxPage", maxPage);

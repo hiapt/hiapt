@@ -4,9 +4,7 @@
 	Employee employee = (Employee)request.getAttribute("emp"); 
 	String[] addressAll = employee.getEmpAddress().split(",");
 	//String[] array = new String[3];
-
 	for(int i=0 ; i<addressAll.length ; i++)
-
 %>
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
@@ -52,7 +50,6 @@
 .check {
 	    display: inline-block !important;
 }
-
 /* #navi{
 	height: 30px;
 	/* width: 110px; */
@@ -66,19 +63,15 @@
 	background: #365873;
 	text-decoration: none;
 } */
-
 #userid{
 	background : lightgray;
 }
-
 th{
 	text-align: center;
 }
-
 #employee{
 	padding-left: 10px;
 }
-
 #date, #job {
 	height:25px;
 }
@@ -96,17 +89,17 @@ $(function(){
 	$("#cal").click(function(){
 		var salary = $("#salary").val();
 		var family = $("#family").val();
-		$("#pension").val(Number(salary) * 0.045);
-		$("#insurance").val(Number(salary) * 0.323);
-		$("#longins").val(Number(salary) * 0.04255);
-		$("#hireins").val(Number(salary) * 0.065);
-		$("#incometax").val(Number(salary) * Number(family) * 1);
-		$("#localtax").val(Number(salary) * Number(family) * 1);
+		$("#pension").val(Math.round(Number(salary) * 0.045 / 10) * 10);
+		$("#insurance").val(Math.round(Number(salary) * 0.0323/10) * 10);
+		$("#longins").val(Math.round(Number(salary) * 0.0851/10) * 10);
+		$("#hireins").val(Math.round(Number(salary) * 0.008/10) * 10);
+		$("#incometax").val(Math.round(Number(salary) * Number(family) * 1/10) * 10);
+		$("#localtax").val(Math.round(Number(salary) * Number(family) * 1/10) * 10);
 		
-		var pnum = $("#pension").val(Number(salary) * 0.045).val();
-		var insnum = $("#insurance").val(Number(salary) * 0.323).val();
-		var longnum = $("#longins").val(Number(salary) * 0.04255).val();
-		var hirenum = $("#hireins").val(Number(salary) * 0.065).val();
+		var pnum = $("#pension").val(Math.round(Number(salary) * 0.045/10) * 10).val();
+		var insnum = $("#insurance").val(Math.round(Number(salary) * 0.0323/10) * 10).val();
+		var longnum = $("#longins").val(Math.round(Number(salary) * 0.0851/10) * 10).val();
+		var hirenum = $("#hireins").val(Math.round(Number(salary) * 0.008/10) * 10).val();
 		
 		
 		$("#minustot").val(Number(pnum) + Number(insnum) + Number(longnum) + Number(hirenum));
@@ -120,7 +113,6 @@ $(function(){
 		
 	});
 });
-
 </script>
 
 
@@ -175,8 +167,17 @@ $(function(){
 	<option value="검침기사"> 검침기사</option>
 </select> -->
 	<td>
-	<% if(employee.getEmpId().equals("보안직원") == true){ %>
+	<% if(employee.getEmpId().equals("관리자") == true){ %>
 		<select>
+		<option value="관리자 " selected> 관리자</option>
+		<option value="보안직원"> 보안직원 </option>
+		<option value="경리" > 경리 </option>
+		<option value="설비과장" > 설비과장 </option>
+		<option value="검침기사" > 검침기사</option>
+		</select>
+	<% }else if(employee.getEmpId().equals("보안직원") == true){ %>
+		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" selected> 보안직원 </option>
 		<option value="경리" > 경리 </option>
 		<option value="설비과장" > 설비과장 </option>
@@ -184,6 +185,7 @@ $(function(){
 		</select>
 	<% }else if(employee.getEmpId().equals("경리") == true){ %>
 		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" > 보안직원 </option>
 		<option value="경리" selected> 경리 </option>
 		<option value="설비과장" > 설비과장 </option>
@@ -191,6 +193,7 @@ $(function(){
 		</select>
 	<% }else if(employee.getEmpId().equals("설비과장") == true){ %>
 		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" > 보안직원 </option>
 		<option value="경리" > 경리 </option>
 		<option value="설비과장" selected> 설비과장 </option>
@@ -198,6 +201,7 @@ $(function(){
 		</select>
 	<% }else { %>
 		<select>
+		<option value="관리자 " hidden> 관리자</option>
 		<option value="보안직원" > 보안직원 </option>
 		<option value="경리" > 경리 </option>
 		<option value="설비과장" > 설비과장 </option>
@@ -267,18 +271,18 @@ $(function(){
 	<td id="employee">지방소득세 : <input type="text" name="localtax" id="localtax" readonly value="<%= employee.getLocalTax() %>"></td>
   </tr>
   <tr>
-	<td id="employee">지급총액 : <input type="text" id="salarytot" readonly></td>
-	<td id="employee">공제총액 : <input type="text" id="minustot" readonly></td>
+	<td id="employee">지급총액 : <input type="text" id="salarytot" readonly value="<%= employee.getSalaryTot() %>">></td>
+	<td id="employee">공제총액 : <input type="text" id="minustot" readonly value="<%= employee.getMinusTot() %>">></td>
   </tr>
   <tr>
-	<td colspan="2" align="center">실지급액 : <input type="text" id="realsalary" readonly></td>
+	<td colspan="2" align="center">실지급액 : <input type="text" id="realsalary" readonly value="<%= employee.getRealSalary() %>">></td>
 	
   </tr>
   </table></td></tr>
   
 
 <tr><th style="text-align:center;">기타정보</th>
-<td id="employee"><textarea name="empetc" rows="7" cols="75" value="<%= employee.getEmpEtc() %>"></textarea></td></tr>
+<td id="employee"><textarea name="empetc" rows="7" cols="75"><%= employee.getEmpEtc() %></textarea></td></tr>
 
 
 <tr><th colspan="2">

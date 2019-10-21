@@ -65,7 +65,7 @@ public class SMailListServlet extends HttpServlet {
 		ArrayList<Mailm> list = mservice.selectListS(email, startRow, endRow);
 		
 		RequestDispatcher view = null;
-		if(list.size() > 0) {
+		if(list.size() >= 0) {
 			view = request.getRequestDispatcher("views/emp/mail/sendmail.jsp");
 			request.setAttribute("list", list);
 			request.setAttribute("maxPage", maxPage);

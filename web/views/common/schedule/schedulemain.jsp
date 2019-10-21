@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@page import="java.util.Calendar, employee.model.vo.Employee"%>
+    <%@ page import="java.util.Calendar, employee.model.vo.Employee"%>
 <%
 	Employee emp = (Employee)session.getAttribute("employee");
 %>
@@ -28,19 +28,7 @@
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
 
-<!-- Bootstrap core JavaScript-->
-<script src="/hiapt/resources/vendor/jquery/jquery.min.js"></script>
-<script
-	src="/hiapt/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
-<script src="/hiapt/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-<!-- Custom scripts for all pages-->
-<script src="/hiapt/resources/js/sb-admin-2.min.js"></script>
-
-<!-- Page level plugins -->
-<script src="/hiapt/resources/vendor/chart.js/Chart.min.js"></script>
 <script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
@@ -59,7 +47,6 @@ align:center;
 table-layout : fixed;
 }
 </style>
-<script type="text/javascript" src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 <%
 	Calendar tDay = Calendar.getInstance();//캘린더 객체 생성
