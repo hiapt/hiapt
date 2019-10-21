@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 
 <!-- ================================================================================= -->
 <!---탑 메뉴  시작 =================---------------------------->
@@ -83,7 +83,7 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small">직원</span> <img
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%= emp.getEmpName()  %></span> <img
 								class="img-profile rounded-circle"
 								src="/hiapt/resources/images/avatar.png">
 						</a> <!-- Dropdown - User Information -->

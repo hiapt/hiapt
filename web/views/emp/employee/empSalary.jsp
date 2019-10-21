@@ -69,7 +69,6 @@ th{
 
 function info_print() {
     // 안보이게 할 영역 숨기기
-    $("#hide").hide();
     
     //인쇄
     var initBody = document.body.innerHTML;
@@ -83,7 +82,6 @@ function info_print() {
     window.print();
     
     // 인쇄창 끄면 다시 보이게
-    $("#hide").show();
  }
 </script>
 
@@ -109,38 +107,61 @@ function info_print() {
 
 			
 <!--///////본문 내용 시작 ///////-------->	
+<h1 class="h3 mb-4 text-gray-800"><%= employee.getEmpName() %> 상세정보</h1>
+
 <div class="card shadow mb-4" id="print">
-<div class="card-body">
+<form action="/hiapt/salary" method="post">
+<table class="table table-bordered dataTable">
 
-<div style="text-align: center; width: 900px; color: #214c70; " >
-<h2 >급여명세서</h2><br>
+<tr><th style="text-align:center; width:150px;">사 번*</th>
+<td id="employee"><%= employee.getEmpNo() %></td>
 
-<table style="width:900px; height: 50px;" >
+<tr><th style="text-align:center;">이 름*</th>
+<td id="employee"><%= employee.getEmpName() %></td></tr>
 
-<tr>
-<th style="text-align:center; width:150px;">사번</th>
-<td><%= employee.getEmpNo() %></td>
-<th>이름</th>
-<td><%= employee.getEmpName() %></td>
-</tr>
+<tr><th style="text-align:center;">직 급*</th>
+<td><%= employee.getEmpId() %></td></tr>
 
-<tr>
-<th>직급 </th>
-<td><%= employee.getEmpId() %></td>
-<th></th>
-<td></td>
-</tr>
+<tr><th style="text-align:center;">입사일</th>
+<td id="employee"><%= employee.getEmpHireDate() %></td></tr>
+
+<tr><th style="text-align:center;">휴대전화</th>
+<td id="employee"><%= employee.getEmpPhone() %></td></tr>
+
+
+
+<tr><th style="text-align:center;">주민등록번호</th>
+<td id="employee"><%= employee.getEmpSSN() %></td></tr>
+
+<tr><th style="text-align:center;">주소</th>
+<td id="employee"><%= employee.getEmpZipcode() %> <%= employee.getEmpAddress() %></td></tr>
+
+<tr><th style="text-align:center;">이메일</th>
+<td id="employee"><%= employee.getEmpEmail() %></td></tr>
+	 
+<tr><th style="text-align:center;">부양가족수</th>
+<td id="employee"><%= employee.getEmpFamily() %></td>
+	 
+<tr><th style="text-align:center;">기타정보</th>
+<td id="employee"><%= employee.getEmpEtc() %></td></tr>
+
+<tr><th colspan="2">
+		<a href="/hiapt/empupdate?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
+		<a href="/hiapt/empdelete?empno=<%= employee.getEmpNo() %>">삭제하기</a>
+		<a href="/hiapt/views/emp/employee/empList.jsp">돌아가기</a>
+</th></tr>
 
 </table>
+</form>
+</div>
 
-</div>
-</div>	
-</div>
 
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->
-
+<!-- footer 시작 -->
+<%@ include file = "../../common/empfooter.html" %>
+<!-- footer 시작 -->
 </div>	<!-- End of Content Wrapper -->
 </div>	<!-- End of Page Wrapper -->	
 <!--========================================================================================== -->

@@ -43,7 +43,7 @@ public class EmpSalaryServlet extends HttpServlet {
 			
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", "직원상세정보 보기 요청 처리 실패함.");
+			request.setAttribute("message", "급여명세서 출력 실패");
 			view.forward(request, response);
 		}
 	}

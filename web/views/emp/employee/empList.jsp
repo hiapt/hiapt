@@ -61,7 +61,7 @@ function formview() {
 	   var left = Math.ceil((window.screen.width - width) / 2);
 	   var top = Math.ceil((window.screen.width - height) / 2);
 	   
-	   window.open('/hiapt/views/emp/employee/empSalary.jsp' , '문서보기', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
+	   window.open('/hiapt/salary', '문서보기', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
 	   
 }
 </script>

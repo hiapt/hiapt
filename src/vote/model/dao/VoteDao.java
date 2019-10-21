@@ -300,4 +300,108 @@ public class VoteDao {
 		
 		return listCount;
 	}
+
+	public int deleteVote(Connection conn, int voteNo) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		
+		String query="delete from uservote where vote_No=?";	
+		try {
+
+			pstmt=conn.prepareStatement(query);
+			pstmt.setInt(1, voteNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int updateVote(Connection conn, Vote vote) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		
+		String query="update uservote set vote_title = ?, vote_final_date = ?,"
+				+ " vote_contents = ? where vote_no=?";	
+		try {
+
+			pstmt=conn.prepareStatement(query);
+			pstmt.setString(1, vote.getVoteTitle());
+			pstmt.setDate(2, vote.getVoteFinalDate());
+			pstmt.setString(3, vote.getVoteContents());
+			pstmt.setInt(4, vote.getVoteNo());
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	public int selectDoubleCheck(Connection conn, int voteNo, String userId) {
+		int doubleCheck =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select count(*) from votecheck where vote_no=? and userid=?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, voteNo);
+			pstmt.setString(2, userId);
+			rset=pstmt.executeQuery();
+			if(rset.next()) {
+				doubleCheck=rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return doubleCheck;
+	}
+
+	public int insertDouBleCheck(Connection conn, int voteNo, String userId, int voteResultNo, String vSecret) {
+		int result =0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into votecheck values(?, ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, userId);
+			pstmt.setInt(2, voteNo);
+			if(vSecret.equals("Y"))
+				pstmt.setInt(3, voteResultNo);
+			else 
+				pstmt.setString(3, "NULL");
+
+			
+			result=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
 }
+
+
+
+
+
+
