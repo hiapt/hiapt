@@ -34,9 +34,10 @@ public class DraftSignViewServlet extends HttpServlet {
 	int docno = Integer.parseInt(request.getParameter("docno"));
 		
 		Draft draft = new DraftService().selectOne(docno);
+		System.out.println("draft : " + draft);
 		RequestDispatcher view = null; 
 		if(draft != null) {
-			view = request.getRequestDispatcher("views/emp/approval/draftSignView.jsp");
+			view = request.getRequestDispatcher("views/master/approval/draftSignView.jsp");
 			request.setAttribute("draft", draft);
 			
 		}else {

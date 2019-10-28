@@ -13,18 +13,25 @@ public class Draft implements java.io.Serializable{
 	private String originfile;
 	private String renamefile;
 	private Date draftdate;
-	private String progress;
+	private String docstatus;
 	private String display;
-	private String newcode;
+	private String appempno;
+	private Date appdate;
+	private String feedback;
 	private String formname;
 	private String empname;
 	private String empid;
+	private String appname;
+	private String appid;
+	private Date deadline;
+	private int lineno;
 	
-	public Draft() {}
-
+	public Draft () {}
+	
 	public Draft(int docno, String empno, int formcode, String doctitle, String doccontent, String originfile,
-			String renamefile, Date draftdate, String progress, String display, String newcode, String formname,
-			String empname, String empid) {
+			String renamefile, Date draftdate, String docstatus, String display, String appempno, Date appdate,
+			String feedback, String formname, String empname, String empid, String appname, String appid, Date deadline,
+			int lineno) {
 		super();
 		this.docno = docno;
 		this.empno = empno;
@@ -34,12 +41,18 @@ public class Draft implements java.io.Serializable{
 		this.originfile = originfile;
 		this.renamefile = renamefile;
 		this.draftdate = draftdate;
-		this.progress = progress;
+		this.docstatus = docstatus;
 		this.display = display;
-		this.newcode = newcode;
+		this.appempno = appempno;
+		this.appdate = appdate;
+		this.feedback = feedback;
 		this.formname = formname;
 		this.empname = empname;
 		this.empid = empid;
+		this.appname = appname;
+		this.appid = appid;
+		this.deadline = deadline;
+		this.lineno = lineno;
 	}
 
 	public int getDocno() {
@@ -106,12 +119,12 @@ public class Draft implements java.io.Serializable{
 		this.draftdate = draftdate;
 	}
 
-	public String getProgress() {
-		return progress;
+	public String getDocstatus() {
+		return docstatus;
 	}
 
-	public void setProgress(String progress) {
-		this.progress = progress;
+	public void setDocstatus(String docstatus) {
+		this.docstatus = docstatus;
 	}
 
 	public String getDisplay() {
@@ -122,12 +135,28 @@ public class Draft implements java.io.Serializable{
 		this.display = display;
 	}
 
-	public String getNewcode() {
-		return newcode;
+	public String getAppempno() {
+		return appempno;
 	}
 
-	public void setNewcode(String newcode) {
-		this.newcode = newcode;
+	public void setAppempno(String appempno) {
+		this.appempno = appempno;
+	}
+
+	public Date getAppdate() {
+		return appdate;
+	}
+
+	public void setAppdate(Date appdate) {
+		this.appdate = appdate;
+	}
+
+	public String getFeedback() {
+		return feedback;
+	}
+
+	public void setFeedback(String feedback) {
+		this.feedback = feedback;
 	}
 
 	public String getFormname() {
@@ -154,14 +183,48 @@ public class Draft implements java.io.Serializable{
 		this.empid = empid;
 	}
 
+	public String getAppname() {
+		return appname;
+	}
+
+	public void setAppname(String appname) {
+		this.appname = appname;
+	}
+
+	public String getAppid() {
+		return appid;
+	}
+
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+
+	public Date getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
+	}
+
+	public int getLineno() {
+		return lineno;
+	}
+
+	public void setLineno(int lineno) {
+		this.lineno = lineno;
+	}
+
 	@Override
 	public String toString() {
 		return "Draft [docno=" + docno + ", empno=" + empno + ", formcode=" + formcode + ", doctitle=" + doctitle
 				+ ", doccontent=" + doccontent + ", originfile=" + originfile + ", renamefile=" + renamefile
-				+ ", draftdate=" + draftdate + ", progress=" + progress + ", display=" + display + ", newcode="
-				+ newcode + ", formname=" + formname + ", empname=" + empname + ", empid=" + empid + "]";
+				+ ", draftdate=" + draftdate + ", docstatus=" + docstatus + ", display=" + display + ", appempno="
+				+ appempno + ", appdate=" + appdate + ", feedback=" + feedback + ", formname=" + formname + ", empname="
+				+ empname + ", empid=" + empid + ", appname=" + appname + ", appid=" + appid + ", deadline=" + deadline
+				+ ", lineno=" + lineno + "]";
 	}
 	
 	
-	
+
 }

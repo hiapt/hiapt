@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	String code = new String("selfwrite");
+%>
 <!DOCTYPE html>
 <html>
 <!-- head 시작 -->
@@ -34,18 +37,17 @@
 <div class="container-fluid">
 <!-- 본문 타이틀 들어가는 부분 ---->					
 <!--///////본문 내용 시작 ///////-------->
-<h4>편지쓰기</h4>
+<h4>내게쓰기</h4>
 
+<div class="card shadow mb-4">
+<div class="card-body">
 <br>
-<button id="send">보내기</button>
-<button id="temp">임시저장</button>
-<input type="hidden" name="sender" value="<%= emp.getEmpNo() %>">
+<form method="post" name="form">
+<input type="submit" value="저장" id="savebutton" onclick="javascript: form.action='/hiapt/smwrite'">
+<input type="submit" value="임시저장" id="tempbutton" onclick="javascript: form.action='/hiapt/mtwrite'">
+<input type="hidden" name="email" value="<%= emp.getEmpEmail() %>">
+<input type="hidden" name="code" value="<%= code %>">
 <table>
-	<tr>
-		<th>받는사람</th>
-		<td><input type="text" name="recipient"></td>
-		<td><button>주소록</button></td>
-	</tr>
 	<tr>
 		<th>제목</th>
 		<td colspan="2"><input type="text" name="title"></td>
@@ -64,6 +66,9 @@
 	</th>
 	</tr>
 </table>
+</form>
+</div>
+</div>
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

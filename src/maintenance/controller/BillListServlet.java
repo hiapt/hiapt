@@ -67,6 +67,7 @@ public class BillListServlet extends HttpServlet {
 			request.setAttribute("beginPage", beginPage);
 			request.setAttribute("endPage", endPage);
 			view.forward(request, response);
+			System.out.println("list " + list);
 			
 		} else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

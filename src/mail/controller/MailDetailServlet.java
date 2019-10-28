@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mail.model.service.MailService;
+import mail.model.vo.MailFileBox;
 import mail.model.vo.Mailm;
 
 /**
@@ -34,18 +35,24 @@ public class MailDetailServlet extends HttpServlet {
 		int mailno = Integer.parseInt(request.getParameter("mailno"));
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 		String code = request.getParameter("code");
+		String allmail = request.getParameter("allmail");
 		
 		//3.
 		MailService mservice = new MailService();
 		Mailm mailm = mservice.selectOne(mailno);
+		MailFileBox mbf = mservice.selectFileOne(mailno); 
+
+		
 		
 		//4.
 		RequestDispatcher view = null;
 		if(mailm != null) {
 				view = request.getRequestDispatcher("views/emp/mail/maildetail.jsp");
 				request.setAttribute("mailm", mailm);
+				request.setAttribute("mbf", mbf);
 				request.setAttribute("currentPage", currentPage);
 				request.setAttribute("code", code);
+				request.setAttribute("allmail", allmail);
 				view.forward(request, response);			
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

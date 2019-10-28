@@ -45,9 +45,6 @@
 	    display: inline-block !important;
 }
 
-#userid{
-	background : lightgray;
-}
 
 th{
 	text-align: center;
@@ -148,23 +145,23 @@ $(function(){
 
 <tr><th style="text-align:center;">직 급*</th>
 <td id="employee"><select name="empid" id="job"> <!-- select : drop down으로 목록선택창 뜸 -->
-	<option value="관리자"> 관리자</option>
-	<option value="보안직원"> 보안직원</option>
-	<option value="경리"> 경리</option>
-	<option value="설비과장"> 설비과장</option>
-	<option value="검침기사"> 검침기사</option>
+	<option value="관리자">관리자</option>
+	<option value="보안직원">보안직원</option>
+	<option value="경리">경리</option>
+	<option value="설비과장">설비과장</option>
+	<option value="검침기사">검침기사</option>
 </select>
 </td></tr>
 
 <tr><th style="text-align:center;">입사일</th>
 <td id="employee"><input type="date" name="emphiredate" id="date"></td></tr>
 
-<tr><th style="text-align:center;">휴대전화</th>
+<tr><th style="text-align:center;">휴대전화*</th>
 <td id="employee"><input type="tel" name="empphone"> ("-" 를 포함해서 입력해주세요.)</td></tr>
 
 
 
-<tr><th style="text-align:center;">주민등록번호</th>
+<tr><th style="text-align:center;">주민등록번호*</th>
 <td id="employee"><input type="text" name="empssn"> ("-" 를 포함해서 입력해주세요.)</td></tr>
 
 <tr><th style="text-align:center;">주소</th>
@@ -231,7 +228,7 @@ $(function(){
 <td id="employee"><input type="email" name="empemail" placeholder="sample@naver.com"></td></tr>
 	 
 <tr><th style="text-align:center;">부양가족수</th>
-<td id="employee"><input type="number" id="family" name="empfamily" min="1"></td>
+<td id="employee"><input type="number" id="family" name="empfamily" min="0"></td>
 	 
 <tr><th style="text-align:center;">급여* <br>
 		<input type="button" id="cal" value="계산하기"><br>
@@ -266,11 +263,11 @@ $(function(){
 	<td id="employee">지방소득세 : <input type="text" name="localtax" id="localtax" ></td>
   </tr>
   <tr>
-	<td id="employee">지급총액 : <input type="text" id="salarytot" ></td>
-	<td id="employee">공제총액 : <input type="text" id="minustot" ></td>
+	<td id="employee">지급총액 : <input type="text" name="salarytot" id="salarytot"></td>
+	<td id="employee">공제총액 : <input type="text" name="minustot" id="minustot"></td>
   </tr>
   <tr>
-	<td colspan="2" align="center">실지급액 : <input type="text" id="realsalary" ></td>
+	<td colspan="2" align="center">실지급액 : <input type="text" name="realsalary" id="realsalary"></td>
 	
   </tr>
   </table></td></tr>
@@ -286,6 +283,7 @@ $(function(){
 
 </table>
 </form>
+
 </div>	
 </div>
 

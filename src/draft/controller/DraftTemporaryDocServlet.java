@@ -74,6 +74,7 @@ public class DraftTemporaryDocServlet extends HttpServlet {
 		request.setAttribute("beginPage", beginPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("count", listCount);
+		request.setAttribute("empno", empno);
 		view.forward(request, response);
 	}
 

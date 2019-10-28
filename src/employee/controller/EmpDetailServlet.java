@@ -38,7 +38,7 @@ public class EmpDetailServlet extends HttpServlet {
 		RequestDispatcher view = null;
 		if(employee != null) {
 			view = request.getRequestDispatcher("views/emp/employee/empDetail.jsp");
-			request.setAttribute("employee", employee);
+			request.setAttribute("empdetail", employee);
 			view.forward(request, response);
 			
 		}else {

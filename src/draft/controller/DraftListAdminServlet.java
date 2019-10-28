@@ -42,6 +42,7 @@ public class DraftListAdminServlet extends HttpServlet {
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
 		DraftService dservice = new DraftService();
 		
+		
 		int listCount = dservice.getListCountAdmin();  //테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
 		int maxPage = listCount / limit;
@@ -62,6 +63,7 @@ public class DraftListAdminServlet extends HttpServlet {
 		ArrayList<Draft> list = dservice.selectAllAdmin(startRow, endRow);
 		RequestDispatcher view = null; //아래 if else 둘 다에서 사용함 --> 미리 만들어놓음
 	
+		int newcount = dservice.getNewListCountAdmin();
 		
 		if(list.size() > 0) {
 			
@@ -73,6 +75,7 @@ public class DraftListAdminServlet extends HttpServlet {
 			request.setAttribute("beginPage", beginPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("count", listCount);
+			request.setAttribute("newcount", newcount);
 				
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

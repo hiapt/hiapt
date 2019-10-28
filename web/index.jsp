@@ -35,7 +35,29 @@
 <div class="container-fluid">
 <!-- 본문 타이틀 들어가는 부분 ---->					
 <!--///////본문 내용 시작 ///////-------->	
+<script type="text/javascript">
+function chatOpen(){
+	var settings ="width=350,height=700";
+	window.open("/hiapt/ch.view?empno=<%= emp.getEmpNo() %>","채팅",settings);
+	return false;
+};
+</script>
+<a href="#" role="button" onclick="chatOpen();"> 
+<i class="fas fa-comment-dots fa-fw"></i></a>
 
+<div class="dropdown">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Dropdown button
+  </button>
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+    <a class="dropdown-item" href="#">Action</a>
+    <a class="dropdown-item" href="#">Another action</a>
+    <a class="dropdown-item" href="#">Something else here</a>
+  </div>
+</div>
 
 
 

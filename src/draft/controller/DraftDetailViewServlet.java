@@ -32,8 +32,8 @@ public class DraftDetailViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int docno = Integer.parseInt(request.getParameter("docno"));
-		
 		Draft draft = new DraftService().selectOne(docno);
+		System.out.println("draft : " + draft);
 		RequestDispatcher view = null; 
 		if(draft != null) {
 			view = request.getRequestDispatcher("views/emp/approval/draftDetailView.jsp");

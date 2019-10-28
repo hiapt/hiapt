@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="mail.model.vo.Mailm, java.util.ArrayList, employee.model.vo.Employee"%>
+<%@page import="mail.model.vo.Mailm, mail.model.vo.MailFileBox, java.util.ArrayList, employee.model.vo.Employee"%>
 
 <%
 	Employee emp = (Employee)session.getAttribute("employee");
 	Mailm mailm = (Mailm)request.getAttribute("mailm");
+	MailFileBox mbf = (MailFileBox)request.getAttribute("mbf");
 	int currentPage = (Integer)request.getAttribute("currentPage");
 	int beginPage = (Integer)request.getAttribute("beginPage");
 	int endPage = (Integer)request.getAttribute("endPage");
 	int maxPage = (Integer)request.getAttribute("maxPage");
 	String code = (String)request.getAttribute("code");
+	String allmail = (String)request.getAttribute("allmail");
 	
 %>
 <!DOCTYPE html>
@@ -54,7 +56,7 @@
 <!--// css or jQuery or javaScript 삽입 부분    -->
 <script type="text/javascript">
 	function del(){
-		location.href = "/hiapt/movew?mailno=<%= mailm.getMailNo() %>&page=<%= currentPage %>&code=<%= code %>&empemail=<%= emp.getEmpEmail() %>";
+		location.href = "/hiapt/movew?mailno=<%= mailm.getMailNo() %>&page=<%= currentPage %>&code=<%= code %>&empemail=<%= emp.getEmpEmail() %>&allmail=<%= allmail %>";
 		return false;
 	}
 </script>
@@ -340,10 +342,18 @@
 <div class="card-body">
 <input type="search" value="메일검색"> &nbsp;&nbsp; <span>받은메일함/</span><br>
 <input type="checkbox"> &nbsp; <button onclick="return del();">삭제</button> 
-<button>답장</button> <button>이동</button><br><hr>
+<button class="btn btn-primary btn-sm shadow-sm">답장</button> <button class="btn btn-primary btn-sm shadow-sm">이동</button><br><hr>
 <h5><%= mailm.getMailTitle() %></h5>
+<% if(code.equals("self")){ %>
+<% }else{ %>
 <span><b>보낸사람</b></span>&nbsp;<span><%= mailm.getEmpEmail() %></span><br>
 <span><b>받는사람</b></span>&nbsp;<span><%= mailm.getRecipient() %></span><hr>
+<% } %>
+<span><b>파일 첨부</b></span>&nbsp;
+<a href="/hiapt/mfdown?ofile=<%= mbf.getOriginalfile() %>&rfile=<%= mbf.getRenamefile()%>">
+<%= mbf.getOriginalfile() %></a><br>
+<hr>
+
 <div align="center"><br><%= mailm.getMailContents() %><br></div>
 
 </div>

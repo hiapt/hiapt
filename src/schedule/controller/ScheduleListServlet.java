@@ -38,14 +38,16 @@ public class ScheduleListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//
 		
-		
-		int year = Integer.parseInt(request.getParameter("year"));
-		int month = Integer.parseInt(request.getParameter("month"));
-		System.out.println("year : "+ year + ", month : "+month);
 		String writer = request.getParameter("wr");
-		System.out.println("writer : "+writer);
-		//request.getParameter("month");
+		int year = Integer.parseInt(request.getParameter("year"));		
+		int mon = Integer.parseInt(request.getParameter("month"));
+		
+		String month = String.valueOf(mon);
+		if(month.length() == 1) {
+			month = "0"+month;
+		}
 		String ym = year+"-"+month;
+		System.out.println(ym);
 		ArrayList<Schedule> list = new ScheduleService().selectAll(ym, writer);
 	
 		JSONObject sendJSON = new  JSONObject();
@@ -66,7 +68,7 @@ public class ScheduleListServlet extends HttpServlet {
 		out.write(sendJSON.toJSONString());
 		out.flush();
 		out.close(); 
-		
+		System.out.println("list 서블릿 return");
 		 
 	}
 

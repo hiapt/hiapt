@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="draft.model.vo.Draft, java.util.ArrayList"%>
+<%@page import="draft.model.vo.Draft, java.util.ArrayList, java.sql.Date"%>
 
 <%
 	ArrayList<Draft> list = (ArrayList<Draft>) request.getAttribute("list");
@@ -9,6 +9,10 @@
 	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
+	String keyword = (String) request.getAttribute("keyword");
+	String begin = (String) request.getAttribute("begin");
+	String to = (String) request.getAttribute("to");
+	String empno = (String) request.getAttribute("empno");
 %>
 
 <head>
@@ -86,9 +90,9 @@ table {
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
+<% if(emp.getEmpNo().equals(empno)) { %>
 
 <!--///////본문 내용 시작 ///////-------->
-
 <div style="float: right; display: flex;">
 	<div>
 		<select id="searchselect" name="searchselect"
@@ -172,10 +176,21 @@ table {
 	</div>
 </div>
 <br>
-	<h5>
-		전체 문서 :
-		<%=count%>개
-	</h5>
+	<div style="display: flex;">
+		<div style="color: #444;">
+		［전체 문서 : <%=count%>개］
+		</div>
+</div>
+	<% if(keyword != null) { %>
+	<div align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색어 : <%= keyword %>］
+	</div>
+	<% } else if (begin != null && to != null) { %>
+	<div  align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색 날짜 : <%= begin %> ~ <%= to %>］
+	</div>
+	<% } %>
+	<br>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -223,14 +238,14 @@ table {
 						<td><%=d.getFormname()%></td>
 						<td>
 							<%
-								if (d.getProgress().equals("0")) {
-							%> 대기 <%
-								} else if (d.getProgress().equals("1")) {
-							%> 승인 <%
-								} else if (d.getProgress().equals("2")) {
-							%> 반려 <%
-								} else if (d.getProgress().equals("3")) {
-							%> 보류 <%
+								if (d.getDocstatus().equals("0")) {
+							%> 대기중 <%
+								} else if (d.getDocstatus().equals("1")) {
+							%> 진행중 <%
+								} else if (d.getDocstatus().equals("2")) {
+							%> 결재완료 <%
+								} else if (d.getDocstatus().equals("3")) {
+							%> 중지 <%
 								}
 							%>
 						</td>
@@ -239,10 +254,6 @@ table {
 					}
 				%>
 			</table>
-			<div style="float: right;">
-				<input type="button" value="이동" class="btn btn-default btn-xs"
-					style="letter-spacing: 7px; padding-left: 10px;">
-			</div>
 
 			<div class="col-sm-12">
 				<div class="paging_simple_numbers">
@@ -314,6 +325,14 @@ table {
 			</div>
 		</div>
 	</div>
+		<div style="float: right;">
+				<input type="button" value=" 이 동 " class="btn btn-secondary btn-icon-split" style="padding: 5px; padding-left: 6px;">
+			
+			</div>
+	<% } else { %>
+	<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 목록에 대한 접근 권한이 없습니다. </div>
+	<% } %>
+	
 <script type="text/javascript">
 	$("#checkall").click(function() {
 

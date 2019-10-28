@@ -3,6 +3,7 @@ package employee.model.service;
 import java.sql.*;
 import java.util.ArrayList;
 
+import draft.model.vo.Draft;
 import employee.model.dao.EmployeeDao;
 import employee.model.vo.Employee;
 import static common.JDBCTemplate.*;
@@ -60,11 +61,60 @@ public class EmployeeService {
 		return result;
 	}
 
-	public ArrayList<Employee> selectList() {
+	public ArrayList<Employee> selectList(int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<Employee> list = edao.selectList(conn);
+		ArrayList<Employee> list = edao.selectList(conn, startRow, endRow);
 		close(conn);
 		return list;
+	}
+
+	public ArrayList<Employee> selectNameSearch(String keyword, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Employee> list = edao.selectNameSearch(conn, keyword, startRow, endRow);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Employee> selectIdSearch(String keyword, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Employee> list = edao.selectIdSearch(conn, keyword, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<Employee> selectNoSearch(String keyword, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Employee> list = edao.selectNoSearch(conn, keyword, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public int getListCount() {
+		Connection conn = getConnection();
+		int listCount = edao.getListCount(conn);
+		close(conn);
+		return listCount;
+	}
+
+	public int getListCountName(String keyword) {
+		Connection conn = getConnection();
+		int listCount = edao.getListCountName(conn, keyword);
+		close(conn);
+		return listCount;
+	}
+	
+	public int getListCountNo(String keyword) {
+		Connection conn = getConnection();
+		int listCount = edao.getListCountNo(conn, keyword);
+		close(conn);
+		return listCount;
+	}
+	
+	public int getListCountId(String keyword) {
+		Connection conn = getConnection();
+		int listCount = edao.getListCountId(conn, keyword);
+		close(conn);
+		return listCount;
 	}
 
 }

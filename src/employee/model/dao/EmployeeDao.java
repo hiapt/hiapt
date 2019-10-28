@@ -120,10 +120,6 @@ public class EmployeeDao {
 		
 		if(employee.getEmpId().equals("보안직원")) {
 			query = "insert into employee values ("
-					+ "'관리자', '관리자', "
-					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		}else if(employee.getEmpId().equals("보안직원")) {
-			query = "insert into employee values ("
 					+ "seq_security.nextval, seq_security.currval, "
 					+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		}else if(employee.getEmpId().equals("경리")) {
@@ -177,23 +173,37 @@ public class EmployeeDao {
 	public int updateEmployee(Connection conn, Employee employee) {
 		int result = 0;
 		PreparedStatement pstmt = null;
+		System.out.println(employee.getEmpNo().length());
+		String query = "update employee "
+				+ "set empname = ?, empid = ?, empphone = ?, empzipcode = ?, empaddress = ?, empemail = ?, empfamily = ?, "
+				+ "salary = ?, pension = ?, insurance = ?, longins = ?, hireins = ?, incometax = ?, localtax = ?, salarytot = ?, minustot = ?, realsalary = ?, empetc = ? "
+				+ "where empno = ?";
 		
-		String query = "update employee set empname = ?, empid = ?, empphone = ?, empssn = ?, empzipcode = ?, empaddress = ?, empemail = ?, empfamily = ?,  salary = ?, empetc = ?";
-		
-		try {
+		try {	
 			pstmt = conn.prepareStatement(query);
-			
 			pstmt.setString(1, employee.getEmpName());
 			pstmt.setString(2, employee.getEmpId());
 			pstmt.setString(3, employee.getEmpPhone());
-			pstmt.setString(4, employee.getEmpSSN());
-			pstmt.setInt(5, employee.getEmpZipcode());
-			pstmt.setString(6, employee.getEmpAddress());
-			pstmt.setString(7, employee.getEmpEmail());
-			pstmt.setInt(8, employee.getEmpFamily());
-			pstmt.setString(10, employee.getEmpEtc());
-			pstmt.setInt(9, employee.getSalary());
-			
+			pstmt.setInt(4, employee.getEmpZipcode());
+			pstmt.setString(5, employee.getEmpAddress());
+			pstmt.setString(6, employee.getEmpEmail());
+			pstmt.setInt(7, employee.getEmpFamily());
+			pstmt.setInt(8,employee.getSalary());
+			pstmt.setInt(9, employee.getPension());
+			pstmt.setInt(10, employee.getInsurance());
+			pstmt.setInt(11, employee.getLongIns());
+			pstmt.setInt(12, employee.getHireIns());
+			pstmt.setInt(13, employee.getIncomeTax());
+			pstmt.setInt(14, employee.getLocalTax());
+			pstmt.setInt(15, employee.getSalaryTot());
+			pstmt.setInt(16, employee.getMinusTot());
+			pstmt.setInt(17, employee.getRealSalary());
+			pstmt.setString(18, employee.getEmpEtc());
+			pstmt.setString(19, employee.getEmpNo());
+				
+			result = pstmt.executeUpdate();
+			System.out.println("처리된 행 갯수 : " + result);
+
 						
 			result = pstmt.executeUpdate();
 			//System.out.println("처리된 행 갯수 : " + result);
@@ -225,17 +235,23 @@ public class EmployeeDao {
 		return result;
 	}
 
-	public ArrayList<Employee> selectList(Connection conn) {
+	public ArrayList<Employee> selectList(Connection conn, int startRow, int endRow) {
 		ArrayList<Employee> list = new ArrayList<Employee>();
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from employee";
+		String query = "select * from (select rownum rnum, empno, empname, empid, emphiredate, empphone, empzipcode, empaddress, "
+				+ "empemail, salary, empetc "
+				+ "from (select * from employee "
+				+ "order by emphiredate asc)) "
+				+ "where rnum >= ? and rnum <= ?";
 		
 		try {
-			stmt = conn.createStatement();
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
 			
-			rset = stmt.executeQuery(query);
+			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
 				Employee employee = new Employee();
@@ -266,9 +282,251 @@ public class EmployeeDao {
 			e.printStackTrace();
 		}finally {
 			close(rset);
-			close(stmt);
+			close(pstmt);
 		}
 		
 		return list;
+	}
+
+	public ArrayList<Employee> selectNameSearch(Connection conn, String keyword, int startRow, int endRow) {
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from (select rownum rnum, empno, empname, empid, emphiredate, empphone, empzipcode, empaddress, "
+				+ "empemail, salary, empetc "
+				+ "from (select * from employee where empname like ? "
+				+ "order by emphiredate asc)) "
+				+ "where rnum >= ? and rnum <= ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Employee employee = new Employee();
+				
+				employee.setEmpNo(rset.getString("empno"));
+				employee.setEmpName(rset.getString("empname"));
+				employee.setEmpId(rset.getString("empid"));
+				employee.setEmpHireDate(rset.getDate("emphiredate"));
+				employee.setEmpPhone(rset.getString("empphone"));
+				employee.setEmpZipcode(rset.getInt("empzipcode"));
+				employee.setEmpAddress(rset.getString("empaddress"));
+				employee.setEmpEmail(rset.getString("empemail"));
+				employee.setSalary(rset.getInt("salary"));
+				employee.setEmpEtc(rset.getString("empetc"));
+				
+				list.add(employee);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Employee> selectIdSearch(Connection conn, String keyword, int startRow, int endRow) {
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from (select rownum rnum, empno, empname, empid, emphiredate, empphone, empzipcode, empaddress, "
+				+ "empemail, salary, empetc "
+				+ "from (select * from employee where empid like ? "
+				+ "order by emphiredate asc)) "
+				+ "where rnum >= ? and rnum <= ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Employee employee = new Employee();
+				
+				employee.setEmpNo(rset.getString("empno"));
+				employee.setEmpName(rset.getString("empname"));
+				employee.setEmpId(rset.getString("empid"));
+				employee.setEmpHireDate(rset.getDate("emphiredate"));
+				employee.setEmpPhone(rset.getString("empphone"));
+				employee.setEmpZipcode(rset.getInt("empzipcode"));
+				employee.setEmpAddress(rset.getString("empaddress"));
+				employee.setEmpEmail(rset.getString("empemail"));
+				employee.setSalary(rset.getInt("salary"));
+				employee.setEmpEtc(rset.getString("empetc"));
+				
+				list.add(employee);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public ArrayList<Employee> selectNoSearch(Connection conn, String keyword, int startRow, int endRow) {
+		ArrayList<Employee> list = new ArrayList<Employee>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from (select rownum rnum, empno, empname, empid, emphiredate, empphone, empzipcode, empaddress, "
+				+ "empemail, salary, empetc "
+				+ "from (select * from employee where empno like ? "
+				+ "order by emphiredate asc)) "
+				+ "where rnum >= ? and rnum <= ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				Employee employee = new Employee();
+				
+				employee.setEmpNo(rset.getString("empno"));
+				employee.setEmpName(rset.getString("empname"));
+				employee.setEmpId(rset.getString("empid"));
+				employee.setEmpHireDate(rset.getDate("emphiredate"));
+				employee.setEmpPhone(rset.getString("empphone"));
+				employee.setEmpZipcode(rset.getInt("empzipcode"));
+				employee.setEmpAddress(rset.getString("empaddress"));
+				employee.setEmpEmail(rset.getString("empemail"));
+				employee.setSalary(rset.getInt("salary"));
+				employee.setEmpEtc(rset.getString("empetc"));
+				
+				list.add(employee);
+			}
+				
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
+
+	public int getListCount(Connection conn) {
+		int listCount = 0;
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = " select count(*) from employee";
+		
+		try {
+			stmt = conn.createStatement();
+			
+			rset = stmt.executeQuery(query);
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(stmt);
+		}
+		
+		return listCount;
+	}
+
+	public int getListCountName(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = " select count(*) from employee where empname like ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + keyword  + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int getListCountNo(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = " select count(*) from employee where empno like ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + keyword  + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
+	}
+	
+	public int getListCountId(Connection conn, String keyword) {
+		int listCount = 0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = " select count(*) from employee where empid like ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, "%" + keyword  + "%");
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return listCount;
 	}
 }

@@ -43,6 +43,7 @@
 	<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
+<script type="text/javascript" src="/hiapt/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 
 
 <style type="text/css">
@@ -55,7 +56,7 @@ fieldset {
 }
 
 th {
-	border: solid 3px #fff;
+	border: solid 1px #fff;
 	border-collapse: collapse;
 	padding: 15px;
 	text-align: center;
@@ -63,20 +64,18 @@ th {
 	height: 60px;
 	background-color: rgba(87, 104, 173, 0.9);
 	color: #f8f9fc;
-	border-radius: 9px;
 }
 
 td {
-	border: solid 3px #fff;
+	border: solid 1px #fff;
 	border-collapse: collapse;
 	padding-top: 15px;
 	padding-bottom: 15px;
 	text-align: center;
-	font-size: 10.5pt;
+	font-size: 11pt;
 	height: 60px;
 	color: #5a5c69;
 	font-weight: 600; 
-	border-radius: 9px;
 	background-color: rgba(87, 104, 173, 0.15);
 
 }
@@ -137,15 +136,18 @@ legend {
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
-					
-<!--///////본문 내용 시작 ///////-------->
 
+<!--///////본문 내용 시작 ///////-------->
+<% if (draft.getDisplay().contains(emp.getEmpNo()) || emp.getEmpNo().equals(draft.getEmpno()) || draft.getAppempno().contains(emp.getEmpNo())) { %>
+
+<button onclick="printDiv();" class="btn btn-secondary btn-icon-split" style="padding: 7px;">&nbsp;인 쇄&nbsp;</button>
 <br>
-<div class="card shadow mb-4">
+<br>
+<div class="card shadow mb-4" id="test">
 		<div class="card-body" align="center">
 <br>
 <div style="text-align: center; width: 900px; color: #214c70; " >
-<h2 >일반기안문서</h2><br>
+<h2 ><%= draft.getDocno() %> - <%= draft.getFormname() %></h2><br>
 <h2>제목 : <%= draft.getDoctitle()%></h2> <br>
 <table style="width:900px; height: 50px;" >
 
@@ -153,57 +155,86 @@ legend {
 
 <th style="width: 120px;">작성자</th>
 <td width="120px;" style="width: 120px;">
-<input type="text" name="drafter" value="" readonly 
-style = "width: 100px; border: none; background: none; text-align: center; margin-top: 1px;">
+<%= draft.getEmpid() %> <%= draft.getEmpname() %>
 </td>
 <th style="width: 120px;">결재자</th>
 <td width="120px;" style="width: 120px;">
-<input type="text" name="approver" value="관리자로 고정" readonly 
-style = "width: 100px; border: none; background: none; text-align: center; margin-top: 1px;">
+
+
 </td>
 </tr>
 <tr>
 <th style="width: 120px;">공개 여부</th>
 <td width="25%">
-<input type="radio" name="display" value="Y"	 required="required"> 공개 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="display" value="N" required="required" checked="checked"> 비공개</td>
+<% if(draft.getDisplay().equals("Y")) { %>
+전체 공개
+<% } else { %>
+비공개
+<% } %>
+</td>
 
-<th style="width: 120px;">문서함</th>
-<td width="25%">
-<select name="newbox" id="boxselect">
-<option >없음 (기본)</option>
-<option value="0">새 문서함1</option>
-<option value="1">새 문서함2</option>
-<option value="2">새 문서함3</option>
-<option value="3">새 문서함4</option>
-<option value="4">새 문서함5</option>
-</select>
+<th style="width: 120px;">결재 여부</th>
+<td width="25%" >
+<% if (draft.getDocstatus().equals("0")) { %> 
+	대기
+<% } else if (draft.getDocstatus().equals("1")) { %> 
+	승인
+<% } else if (draft.getDocstatus().equals("2")) { %> 
+	반려 
+<% } else if (draft.getDocstatus().equals("3")) { %> 
+	보류 
+<% }%>
 </td>
 
 
 </tr>
 </table>
 <div style="width:900px; height:450px; background-color: none; margin-top: 15px;" align="center">
-<textarea  style="width:895px; height:1000px; border-radius: 10px; border: 3px solid rgba(87, 104, 173, 0.9); ; resize: none; padding: 15px;" readonly="readonly">
-<%= draft.getDoccontent() %></textarea>
+<div id="smarteditor"  style="width:895px; height:1000px; border: 1px solid rgba(87, 104, 173, 0.9); ; resize: none; padding: 30px;">
+<%= draft.getDoccontent() %></div>
 </div>
 </div>
-
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-<div style="line-height: 1px; font-weight: bold; color: #5a5c69; float: left; margin-left: 25px;">첨부파일</div>
+<div id="hide" style="margin-top: 600px;">
+<div style="line-height: 1px; font-weight: bold; color: #5a5c69; float: left; margin-left: 25px;">첨부파일</div><br>
 <hr width="895px" align="center" style="border: 1px dashed #5a5c69;"><br><br>
-<div  style="width:900px; height:200px; background: rgba(87, 104, 173, 0.9); text-align: center; border-radius: 10px; padding-top: 25px" >
+<% if (draft.getFeedback() != null) { %>
+<div  style="width:900px; height:180px; background: #9598a3; text-align: center; padding-top: 25px" >
 <div style="color: white; font-size: 12pt; font-weight: bolder; text-shadow: 1px 1px 1px  rgba(0, 0, 0, 0.3);"> 첨삭 및 의견 </div> 
-<textarea style="width:860px; height:120px; border: none;  ;margin-top: 15px; border-radius: 10px; resize: none; padding: 15px;" readonly="readonly">
+<textarea style="width:870px; height:	100px; border: none;  ;margin-top: 15px; resize: none; padding: 15px;" readonly="readonly">
+<%= draft.getFeedback() %>
 </textarea>
 </div>
+</div>
+<% } %>
 <br>
 </div>
 </div>
-<button onclick="print();"> 인 쇄 </button>
-<script type="text/javascript">
 
+<%} else { %>
+<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 문서에 대한 접근 권한이 없습니다. </div>
+<%} %>
+
+<script type="text/javascript">
+function printDiv() {
+    // 안보이게 할 영역 숨기기
+    $("#hide").hide();
+    
+    //인쇄
+    var initBody = document.body.innerHTML;
+    window.onbeforeprint = function () {
+       document.body.innerHTML = document.getElementById("test").innerHTML;
+    }
+    window.onafterprint = function () {
+
+       document.body.innerHTML = initBody;
+    }
+    window.print();
+    
+    // 인쇄창 끄면 다시 보이게
+    $("#hide").show();
+ }
+ 
+ 
 </script>
 
 <!---//// 본문 내용 끝 ///////------------------->

@@ -30,21 +30,26 @@ public class MaildeleteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mailno = Integer.parseInt(request.getParameter("mailno"));
+		request.setCharacterEncoding("utf-8");
+		
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 		String code = request.getParameter("code");
 		String email = request.getParameter("empemail");
-		
-		int result = new MailService().deleteMail(mailno);
-		
+		int result = 0;
+		String[] array = request.getParameterValues("mailno");
+		for(int i = 0; i < array.length; i++) {
+			int mailno = Integer.parseInt(array[i]);		
+		result = new MailService().deleteMail(mailno);
+		}		
 		RequestDispatcher view = null;
 		if(result > 0) {
 			response.sendRedirect("/hiapt/wmlist?empemail=" + email + "&page=" + currentPage);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", mailno + "번 공지글 삭제 실패!");
+			request.setAttribute("message", "삭제 실패!");
 			view.forward(request, response);			
 		}
+	
 	}
 
 	/**

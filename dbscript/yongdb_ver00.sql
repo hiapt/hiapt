@@ -1,6 +1,6 @@
---Çã¿ë¼ø-----------------------------------------------------------------
+--ï¿½ï¿½ï¿½ï¿½-----------------------------------------------------------------
 
--- ¸ŞÀÏ¹øÈ£ ½ÃÄö½º
+-- ï¿½ï¿½ï¿½Ï¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 drop SEQUENCE mailno_seq;
 
 CREATE SEQUENCE mailno_seq
@@ -10,7 +10,7 @@ MINVALUE 1
 NOCYCLE
 NOCACHE;
 
---¸ŞÀÏÄÚµå ½ÃÄö½º
+--ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 drop SEQUENCE mailcode_seq;
 
 CREATE SEQUENCE mailcode_seq
@@ -21,7 +21,7 @@ NOCYCLE
 NOCACHE;
 
 
---ÁÖ¼Ò·ÏÄÚµå ½ÃÄö½º
+--ï¿½Ö¼Ò·ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 drop SEQUENCE addressbook_code_seq;
 
 CREATE SEQUENCE addressbook_code_seq
@@ -31,7 +31,7 @@ MINVALUE 1
 NOCYCLE
 NOCACHE;
 
---ÁÖ¼Ò·Ï¹øÈ£ ½ÃÄö½º
+--ï¿½Ö¼Ò·Ï¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 drop SEQUENCE addressbook_no_seq;
 
 CREATE SEQUENCE addressbook_no_seq
@@ -41,7 +41,7 @@ MINVALUE 1
 NOCYCLE
 NOCACHE;
 
--- ¸ŞÀÏÇÔ
+-- ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 drop table mailboxtype cascade CONSTRAINTS;
 drop table mail cascade CONSTRAINTS;
 drop table mailfilebox cascade CONSTRAINTS;
@@ -53,16 +53,16 @@ create table mailboxtype(
     constraint a primary key (mailcode, mailboxname)
 );
 
-insert into mailboxtype values(mailcode_seq.nextval, 'ÀÓ½ÃÆíÁöÇÔ', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '³»°Ô ¾´ ÆíÁöÇÔ', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, 'ÈŞÁöÅë', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '°¡Á·', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, 'È¸»ç', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '°Å·¡Ã³', 'abc@naver.com');
+insert into mailboxtype values(mailcode_seq.nextval, 'ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'abc@naver.com');
+insert into mailboxtype values(mailcode_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'abc@naver.com');
+insert into mailboxtype values(mailcode_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'abc@naver.com');
+insert into mailboxtype values(mailcode_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½', 'abc@naver.com');
+insert into mailboxtype values(mailcode_seq.nextval, 'È¸ï¿½ï¿½', 'abc@naver.com');
+insert into mailboxtype values(mailcode_seq.nextval, 'ï¿½Å·ï¿½Ã³', 'abc@naver.com');
 
 --select * from mailboxtype;
 
--- ¸ŞÀÏ
+-- ï¿½ï¿½ï¿½ï¿½
 
 create table mail(
   mailno number primary key,
@@ -75,31 +75,31 @@ create table mail(
   separator varchar2(50) references employee (empemail)
 );
 
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '³Ê¿¡°Ô·Î °¡´Â ±æ', '19/01/01',
-'³Ê¿¡°Ô·Î °¡´Â ±æ¿£ ÀÚÀÛ³ª¹« ½£ÀÌ ÀÖ°í', 'qwrds@daum.net', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '¾î¸Ó´Ï', '19/01/02',
-'µé·Î °¡½Å ¾ö¸¶ »ı°¢', 'rudfl@daum.net', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '¿î¹®»ç ºñ¹ĞÀÇ ½£', '19/01/03',
-'³ª, ´Ù½Ã ÅÂ¾î³­´Ù¸é', 'tjfql@gmail.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '¼ººÒ»çÀÇ ¹ã', '19/01/04',
-'¼ººÒ»ç ±íÀº ¹ã¿¡ ±×À¹ÇÑ Ç³°æ¼Ò¸®', 'rjacla@gmail.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '»ç¿ùÀÇ ³ë·¡', '19/01/05', '»ç¿ùÀÌ ¿À¸é »ç¿ùÀÌ ¿À¸ç´Â', NULL, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 1, 'abc@naver.com', 'ÀÓ½Ã ÆíÁöÇÔ', '19/01/06', 'ÀÓ½ÃÆíÁöÇÔ È®ÀÎ¿ëÀÔ´Ï´Ù.', 'qwrds@daum.net', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'qwrds@daum.net', '³ì½¼ °æÀÇ¼±', '19/01/07',
-'¼­¿ï, ºÎ»ê ½ÅÀÇÁÖ±îÁö', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'rudfl@daum.net', '´Ù½Ã ¸¸³¯±îºÁ', '19/01/08',
-'ÀÎ½ºÅ¸·Î ¸ô·¡ º¸´Â ³ÊÀÇ ÇÏ·çµé', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 2, 'abc@naver.com', '³»°Ô ¾´ÆíÁöÇÔ', '19/01/09', '³»°Ô ¾´ ÆíÁöÇÔ È®ÀÎ¿ëÀÔ´Ï´Ù.', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'qwrds@daum.net', 'Á¶±İ ÃëÇß¾î', '19/01/11',
-'³»°¡ ¸Á°¡Áö¸é ´Ï°¡ ³ª¸¦ º¼±î ºÁ','abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'rudfl@daum.net', '½Ãµç ²É¿¡ ¹°À» ÁÖµí', '19/01/21',
-'¾Æ¹«¸»µµ ¾Æ¹«°Íµµ ¿©ÀüÈ÷ ³Í ¿©±â ¾ø°í', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 3, 'abc@naver.com', 'ÈŞÁöÅë', '19/02/01', 'ÈŞÁöÅë È®ÀÎ¿ë ÀÔ´Ï´Ù.', null, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 4, 'abc@naver.com', '°¡Á·', '19/03/01', '¸ŞÀÏ ±×·ì È®ÀÎ¿ë ÀÔ´Ï´Ù.', null, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 5, 'abc@naver.com', 'È¸»ç', '19/04/01', '¸ŞÀÏ ±×·ì È®ÀÎ¿ë ÀÔ´Ï´Ù.', null, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 6, 'abc@naver.com', '°Å·¡Ã³', '19/05/01', '¸ŞÀÏ ±×·ì È®ÀÎ¿ë ÀÔ´Ï´Ù.', null, 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', 'ï¿½Ê¿ï¿½ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½', '19/01/01',
+'ï¿½Ê¿ï¿½ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½æ¿£ ï¿½ï¿½ï¿½Û³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°ï¿½', 'qwrds@daum.net', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', 'ï¿½ï¿½Ó´ï¿½', '19/01/02',
+'ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 'rudfl@daum.net', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', 'ï¿½î¹®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½', '19/01/03',
+'ï¿½ï¿½, ï¿½Ù½ï¿½ ï¿½Â¾î³­ï¿½Ù¸ï¿½', 'tjfql@gmail.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', 'ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ ï¿½ï¿½', '19/01/04',
+'ï¿½ï¿½ï¿½Ò»ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ã¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç³ï¿½ï¿½Ò¸ï¿½', 'rjacla@gmail.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë·¡', '19/01/05', 'ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½', NULL, 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, 1, 'abc@naver.com', 'ï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '19/01/06', 'ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ï¿½Ô´Ï´ï¿½.', 'qwrds@daum.net', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'qwrds@daum.net', 'ï¿½ì½¼ ï¿½ï¿½ï¿½Ç¼ï¿½', '19/01/07',
+'ï¿½ï¿½ï¿½ï¿½, ï¿½Î»ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½', 'abc@naver.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'rudfl@daum.net', 'ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '19/01/08',
+'ï¿½Î½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½', 'abc@naver.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, 2, 'abc@naver.com', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '19/01/09', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ï¿½Ô´Ï´ï¿½.', 'abc@naver.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'qwrds@daum.net', 'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß¾ï¿½', '19/01/11',
+'ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½','abc@naver.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'rudfl@daum.net', 'ï¿½Ãµï¿½ ï¿½É¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½', '19/01/21',
+'ï¿½Æ¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 'abc@naver.com', 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, 3, 'abc@naver.com', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '19/02/01', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È®ï¿½Î¿ï¿½ ï¿½Ô´Ï´ï¿½.', null, 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, 4, 'abc@naver.com', 'ï¿½ï¿½ï¿½ï¿½', '19/03/01', 'ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ È®ï¿½Î¿ï¿½ ï¿½Ô´Ï´ï¿½.', null, 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, 5, 'abc@naver.com', 'È¸ï¿½ï¿½', '19/04/01', 'ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ È®ï¿½Î¿ï¿½ ï¿½Ô´Ï´ï¿½.', null, 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, 6, 'abc@naver.com', 'ï¿½Å·ï¿½Ã³', '19/05/01', 'ï¿½ï¿½ï¿½ï¿½ ï¿½×·ï¿½ È®ï¿½Î¿ï¿½ ï¿½Ô´Ï´ï¿½.', null, 'abc@naver.com');
 
--- ¸ŞÀÏ ÆÄÀÏÇÔ
+-- ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 create table mailfilebox(
   mailno number references mail (mailno),
@@ -133,7 +133,7 @@ from(select rownum rnum, empemail, mailtitle, mailtime
         order by mailtime desc))
  where rnum >= 1 and rnum <= 3;
 
--- ÁÖ¼Ò·Ï ±×·ì
+-- ï¿½Ö¼Ò·ï¿½ ï¿½×·ï¿½
 
 drop table addressbook_type cascade constraints;
 
@@ -142,13 +142,13 @@ CREATE TABLE addressbook_type (
    addressbook_name   varchar2(50)   NOT NULL
 );
 
-insert into addressbook_type values(addressbook_code_seq.nextval, '°¡Á·');
-insert into addressbook_type values(addressbook_code_seq.nextval, 'Ä£±¸');
-insert into addressbook_type values(addressbook_code_seq.nextval, 'È¸»ç');
-insert into addressbook_type values(addressbook_code_seq.nextval, '°Å·¡Ã³');
-insert into addressbook_type values(addressbook_code_seq.nextval, '±³È¸');
+insert into addressbook_type values(addressbook_code_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½');
+insert into addressbook_type values(addressbook_code_seq.nextval, 'Ä£ï¿½ï¿½');
+insert into addressbook_type values(addressbook_code_seq.nextval, 'È¸ï¿½ï¿½');
+insert into addressbook_type values(addressbook_code_seq.nextval, 'ï¿½Å·ï¿½Ã³');
+insert into addressbook_type values(addressbook_code_seq.nextval, 'ï¿½ï¿½È¸');
 
--- ÁÖ¼Ò·Ï
+-- ï¿½Ö¼Ò·ï¿½
 drop table addressbook cascade CONSTRAINTS;
 
 CREATE TABLE addressbook (
@@ -162,11 +162,13 @@ CREATE TABLE addressbook (
    empno   varchar2(20)   NULL references employee (empno)
 );
 
-insert into addressbook values(addressbook_no_seq.nextval, '°æ±âµµ ¼º³²½Ã ¼öÁ¤±¸', '°¡Á·', 'È«±æµ¿', '010-1234-5678', 'tjfql@gmail.com', 1, null);
-insert into addressbook values(addressbook_no_seq.nextval, '°æ±âµµ ¼º³²½Ã Áß¿ø±¸', 'Ä£±¸', 'ÀÌ¼ø½Å', '010-3242-5678', 'soon@gmail.com', 2, null);
-insert into addressbook values(addressbook_no_seq.nextval, '°æ±âµµ ¼º³²½Ã ºĞ´ç±¸', 'È¸»ç', '½Å»çÀÓ´ç', '010-5432-5678', 'sin@gmail.com', 3, null);
-insert into addressbook values(addressbook_no_seq.nextval, '¼­¿ïÆ¯º°½Ã ³ë¿ø±¸', '°Å·¡Ã³', '¿ø±Õ', '010-8965-5678', 'won@gmail.com', 4, null);
-insert into addressbook values(addressbook_no_seq.nextval, '¼­¿ïÆ¯º°½Ã µµºÀ±¸', '±³È¸', 'À¯¼º·æ', '010-1232-5678', 'you@gmail.com', 5, null);
+insert into addressbook values(addressbook_no_seq.nextval, 'ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½ï¿½ï¿½', 'È«ï¿½æµ¿', '010-1234-5678', 'tjfql@gmail.com', 1, null);
+insert into addressbook values(addressbook_no_seq.nextval, 'ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß¿ï¿½ï¿½ï¿½', 'Ä£ï¿½ï¿½', 'ï¿½Ì¼ï¿½ï¿½ï¿½', '010-3242-5678', 'soon@gmail.com', 2, null);
+insert into addressbook values(addressbook_no_seq.nextval, 'ï¿½ï¿½âµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ğ´ç±¸', 'È¸ï¿½ï¿½', 'ï¿½Å»ï¿½ï¿½Ó´ï¿½', '010-5432-5678', 'sin@gmail.com', 3, null);
+insert into addressbook values(addressbook_no_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½Å·ï¿½Ã³', 'ï¿½ï¿½ï¿½ï¿½', '010-8965-5678', 'won@gmail.com', 4, null);
+insert into addressbook values(addressbook_no_seq.nextval, 'ï¿½ï¿½ï¿½ï¿½Æ¯ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', 'ï¿½ï¿½È¸', 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½', '010-1232-5678', 'you@gmail.com', 5, null);
+
+-----ì¶”ê°€
 
 
 COMMIT;

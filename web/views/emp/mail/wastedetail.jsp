@@ -338,7 +338,7 @@
 <div class="card-body">
 <input type="search" value="메일검색"> &nbsp;&nbsp; <span>받은메일함/</span><br>
 <input type="checkbox"> &nbsp; <button onclick="return wastedel();">영구삭제</button> 
-<button>이동</button><br><hr>
+<button class="btn btn-primary btn-sm shadow-sm">이동</button><br><hr>
 <h5><%= mailm.getMailTitle() %></h5>
 <span><b>보낸사람</b></span>&nbsp;<span><%= mailm.getEmpEmail() %></span><br>
 <span><b>받는사람</b></span>&nbsp;<span><%= mailm.getRecipient() %></span><hr>

@@ -52,7 +52,9 @@
 	id="callout-tabs-extends-component">
 	<h4>고지서</h4><h6>전체 목록 : <%= list.size() %> 개</h6>
 </div>
-<br>
+<div class="card shadow mb-4">
+<div class="card-body">
+
 <table class="table table-borderedz">
 	<thead>
 		<tr>
@@ -152,7 +154,7 @@
 		 --%>
 	
 
-<!---//// 본문 내용 끝 ///////------------------->
+</div></div>
 <!---//// 본문 내용 끝 ///////------------------->
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	

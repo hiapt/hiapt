@@ -2,13 +2,11 @@
     pageEncoding="UTF-8"%>
     <%@page import="employee.model.vo.Employee"%>
 <%
-	Employee emp = (Employee)session.getAttribute("employee");
-%>
-    <% 
+	Employee emp = (Employee)session.getAttribute("employee"); 
 	String y = request.getParameter("y"); 
     String m = request.getParameter("m"); 
     String d = request.getParameter("d"); 
-    %>   
+ %>   
   
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
@@ -18,8 +16,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="">
-<meta name="author" content="">
 
 <title>HIAPTProject</title>
 
@@ -32,21 +28,21 @@
 <!-- Custom styles for this template-->
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
-
 <!-- Bootstrap core JavaScript-->
-<script src="/hiapt/resources/vendor/jquery/jquery.min.js"></script>
+ <script src="/hiapt/resources/vendor/jquery/jquery.min.js"></script>
 <script
 	src="/hiapt/resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-<!-- Core plugin JavaScript-->
+<!-- Core plugin JavaScript -->
 <script src="/hiapt/resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
-<!-- Custom scripts for all pages-->
+<!-- Custom scripts for all pages -->
 <script src="/hiapt/resources/js/sb-admin-2.min.js"></script>
 
 <!-- Page level plugins -->
 <script src="/hiapt/resources/vendor/chart.js/Chart.min.js"></script>
-<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
+
+ <script type="text/javascript"src="/hiapt/resources/js/jquery-3.4.1.min.js"></script> 
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
@@ -54,14 +50,51 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
 
+
+ -->
+
+
+<!-- 
+<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
+ -->
 <script type="text/javascript">
-function cc(){
+
+function save(){
+	var title = $("#title");
+	
+	var startDatevalue = $("#start").val();
+	var endDatevalue = $("#end").val();
+	
+	var startDateArr = startDatevalue.split('-');
+	var endDateArr = endDatevalue.split('-');
+	
+	var startDate = new Date(startDateArr[0], parseInt(startDateArr[1])-1, startDateArr[2]);
+	var endDate = new Date(endDateArr[0], parseInt(endDateArr[1])-1, endDateArr[2]);
+	
+	if(startDate.getTime() > endDate.getTime()){
+		alert("끝 날짜가 시작 날짜보다 이전일 수 없습니다.");
+		$("#end").select();
+		return false;
+	}
+	
+	//var re = /^\S{2,10}/;
+	if(!(/^\S{2,10}/.test(title.val()))){
+		alert("제목은 2글자 이상 10글자 이하로 작성해주세요");
+		title.select();
+		return false;
+	}
+	
+	
+	
+
 	alert("등록완료");
 	self.close();
 	return true;
 }
+
 $(function() {
     $(".testDatepicker").datepicker({
+    	
     	 changeMonth: true, 
          changeYear: true,
          nextText: '다음 달',
@@ -74,16 +107,15 @@ $(function() {
          dayNames: ['월요일', '화요일', '수요일', '목요일', '금요일', '토요일', '일요일'],
          dayNamesMin: ['월', '화', '수', '목', '금', '토', '일'], 
          monthNamesShort: ['1','2','3','4','5','6','7','8','9','10','11','12'],
-         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']
+         monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'] 
     });
 
 	//var str = $("#str", opener.document).val();
 	//$("#start").attr("value",str);
-	
-  
+});
 
     
-});
+
 </script>
 </head>
 
@@ -121,21 +153,22 @@ $(function() {
 <div class="card shadow mb-4">
 <div class="card-body">
 <h2 align="center">일정 등록 페이지</h2>
-<form action="/hiapt/schin" method="post" onsubmit="return cc();">
+<form action="/hiapt/schin" method="post" onsubmit="return save();">
 <input type="hidden" name="year" value="<%=y %>">
 <input type="hidden" name ="month" value="<%=m %>">
 <table align="center" width="400" cellspacing="0" cellpadding="8" border="1">
 
-<tr><th>일정 제목</th><td><input type="text" name="title"></td></tr>
-<tr><th>일정 구분</th><td><input type="radio" value="worked" name="schtype" checked>업무&nbsp;&nbsp;
-<input type="radio" value="notworked" name="schtype">개인일정
+<tr><th>일정 제목</th><td><input type="text" name="title" id="title" required></td></tr>
+<tr><th>일정 구분</th><td>
+<input type="radio" value="work" name="schtype" checked>업무&nbsp;&nbsp;
+<input type="radio" value="private" name="schtype">개인일정
 
 </td></tr>
 
 <tr><th>시작 일자</th><td>
 <input type="text" name="start" id="start" class="testDatepicker" value="<%=y%>-<%=m%>-<%=d%>"></td></tr>
 <tr><th>종료 일자</th><td>
-<input type="text" name="end" class="testDatepicker"value="<%=y%>-<%=m%>-<%=d%>"></td></tr>
+<input type="text" name="end" id="end" class="testDatepicker"value="<%=y%>-<%=m%>-<%=d%>"></td></tr>
 <tr><th>일정 메모</th><td><textarea rows="3" cols="21" name="memo"></textarea></td></tr>
 <tr><th>공개 여부</th><td>
 <input type="radio" name="open" value="Y">공개&nbsp;&nbsp;
@@ -145,7 +178,7 @@ $(function() {
 <input type="radio" name="alarm" value="Y">설정&nbsp;&nbsp;
 <input type="radio" name="alarm" value="N" checked>미설정</td></tr>
 <tr><th>색&nbsp;&nbsp;&nbsp;&nbsp;상</th><td>
- <select class="" name="bgcolor" id="">
+ <select class="" name="bgcolor">
 <option value="#D25565" style="color:#D25565;">빨간색</option>
 <option value="#9775fa" style="color:#9775fa;">보라색</option>
 <option value="#ffa94d" style="color:#ffa94d;">주황색</option>
@@ -154,19 +187,19 @@ $(function() {
 <option value="#63e6be" style="color:#63e6be;">연두색</option>
 <option value="#a9e34b" style="color:#a9e34b;">초록색</option>
 <option value="#4d638c" style="color:#4d638c;">남   색</option>
-<option value="#495057" style="color:#495057;">검정색</option>
 </select></td></tr>
 <tr><th>중 요 도</th>
 <td><input type="radio" name="importance" value="3">상&nbsp;
 <input type="radio" name="importance" value="2" checked>중&nbsp;
 <input type="radio" name="importance" value="1" >하</td></tr>
-<tr><th>작 성 자</th><td><input type="text" name="writer" value="<%=emp.getEmpNo() %>" readonly></td></tr>
-<tr><th colspan="2"><input type="submit" value="등록">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<tr><th>작 성 자</th><td><input type="text" name="writer"value="<%=emp.getEmpNo() %>"></td></tr>
+
+<tr><th colspan="2"><input type="submit" value="일정 등록" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <input type="reset" value="다시 작성">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="취소" onclick="window.close();"></th></tr>
+<input type="button" value="등록 취소" onclick="window.close();"></th></tr>
 </table>
 </form>
-
 
 
 	</div>
@@ -181,7 +214,7 @@ $(function() {
 </div>	<!-- End of Page Wrapper -->	
 <!--========================================================================================== -->
 <!-- top 버튼 -->
-<%@ include file = "../../common/topbutton.html" %>
 <!--========================================================================================== -->
+
 </body>
 </html>

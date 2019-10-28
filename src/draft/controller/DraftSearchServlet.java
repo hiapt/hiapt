@@ -91,6 +91,7 @@ public class DraftSearchServlet extends HttpServlet {
 				request.setAttribute("beginPage", beginPage);
 				request.setAttribute("endPage", endPage);
 				request.setAttribute("count", listCount);
+				request.setAttribute("keyword", draftTitle);
 
 			} else {
 				view = request.getRequestDispatcher("views/common/error.jsp");
@@ -125,7 +126,8 @@ public class DraftSearchServlet extends HttpServlet {
 				request.setAttribute("beginPage", beginPage2);
 				request.setAttribute("endPage", endPage2);
 				request.setAttribute("count", listCount2);
-
+				request.setAttribute("keyword", draftWriter);
+				
 			} else {
 				view = request.getRequestDispatcher("views/common/error.jsp");
 				request.setAttribute("message", search + "해당 작성자가 존재하지 않습니다.");
@@ -160,7 +162,9 @@ public class DraftSearchServlet extends HttpServlet {
 				request.setAttribute("beginPage", beginPage3);
 				request.setAttribute("endPage", endPage3);
 				request.setAttribute("count", listCount3);
-
+				request.setAttribute("begin", beginDate.toString());
+				request.setAttribute("to", toDate.toString());
+				
 			} else {
 				view = request.getRequestDispatcher("views/common/error.jsp");
 				request.setAttribute("message", "해당 문서가 존재하지 않습니다.");
@@ -194,7 +198,8 @@ public class DraftSearchServlet extends HttpServlet {
 				request.setAttribute("beginPage", beginPage4);
 				request.setAttribute("endPage", endPage4);
 				request.setAttribute("count", listCount4);
-
+				request.setAttribute("keyword", draftFormname);
+				
 			} else {
 				view = request.getRequestDispatcher("views/common/error.jsp");
 				request.setAttribute("message", "해당 문서가 존재하지 않습니다.");
@@ -203,7 +208,6 @@ public class DraftSearchServlet extends HttpServlet {
 			
 		}
 
-		// 4.
 
 	}
 
