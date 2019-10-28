@@ -28,25 +28,22 @@
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
 
-
-<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
-
+<script type="text/javascript" src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 <!--// css or jQuery or javaScript 삽입 부분    -->
 <style>
 .check {
-
-	    display: inline-block !important;
+display: inline-block !important;
 }
-.intable{
-height:700px;
-border:1px;
+table > tbody> tr.intable, table > tbody> tr.intable > td{
+height:10rem;
 cellspacing:0;
 cellpadding:5;
-width:100%;
 align:center;
 table-layout : fixed;
 }
 </style>
+
+<script type="text/javascript" src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 <%
 	Calendar tDay = Calendar.getInstance();//캘린더 객체 생성
@@ -76,44 +73,22 @@ tDay.set(year, month, 1);//현재 년월 1일을 객체에 저장
 
 int start = tDay.get(Calendar.DAY_OF_WEEK);//현재 년월 1일의 요일을 yo에 저장 일요일 : 1, 월요일:2, 화요일:3..
 int lastday = tDay.getActualMaximum(Calendar.DAY_OF_MONTH);//매월이 가질 수 있는 값의 최대값을 마지막일자로 저장함
-
-
-
 %>
-
+var div="";
 var str="";
 var popup;
-
 $(function(){
 	$("td:nth-child(1)").css("color","red");
 	$("td:nth-child(7)").css("color","blue");
 	$(".intable").css("text-align","right").css("valign","top");
-	
-	
+	var writer ='<%= emp.getEmpNo()%>';
 	var year = <%=year%>
 	var mon = <%=month%>
 	var month = Number(mon)+1;
-	
 	var day;
-	$(".intable td").on("click", function(){
-		
-		day=$(this).attr("id");
-		
-	
-		str = year+"-"+month+"-"+day;
-		console.log(str);
-		
-		var url ="scheduleInsert.jsp?y="+year+"&m="+month+"&d="+day;
-		var name = "schedule insert";
-		var option = "width=500, height=500, top= 100, left = 200, location=no";
-		popup = window.open(url, name, option );
-		
-				
-	})
-	
-	
+	//일정 db에서 끌어오기
 	$.ajax({
-		url : "/hiapt/schlist?year="+year+"&month="+month+"&wr=<%=emp.getEmpNo()%>",
+		url : "/hiapt/schlist?year="+year+"&month="+month+"&wr="+writer,
 		type : "get",
 		dataType : "json",
 		success : function(data){
@@ -122,9 +97,11 @@ $(function(){
 			
 			var value = "";
 			
-			var onlyday = "";
+			var onlySday = "";
+			var onlyEday = "";
 			
 			for(var i in json.list){
+				//가져온 json 변수에 담기
 				value += 
 				json.list[i].cnum+"<br>"+
 				decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"<br>"+				
@@ -133,39 +110,54 @@ $(function(){
 				json.list[i].cstart.split("-")+"<br>"+
 				json.list[i].cend.split("-")+"<br>";
 				
+				//시작일자 나눠서 변수에 담기	
+				var startdays = json.list[i].cstart.split("-");
+				var enddays = json.list[i].cend.split("-");
+				
+				//일(day)만 String 변수에 담기
+				onlySday += startdays[2]+",";
+				onlyEday += enddays[2]+",";
+				//일(dat)만 array 변수에 담기
+				var sDlist = onlySday.split(",");
+				var eDlist = onlyEday.split(",");
+				
+				if(sDlist[i] == eDlist[i]){//시작일자 끝일자 동일하다면 
+					var div = "<div class='div' id='"+
+					json.list[i].cnum+
+					"'style='z-index:1000; cursor:pointer; diplay:block; color:#ffffff; background-color:"+
+					decodeURIComponent(json.list[i].color).replace(/\+/gi," ")+";'>"+
+					decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"</div>";
 					
-				var tt = json.list[i].cstart.split("-");
-				onlyday += tt[2]+",";
-				var dlist = onlyday.split(",");
-				
-				var div = "<div style='background-color:"+
-				decodeURIComponent(json.list[i].color).replace(/\+/gi," ")+";'>"+
-				decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"</div>";
-				
-				if(dlist[i].charAt(0)==0){
-					dlist[i] = dlist[i].substr(1);
+					if(sDlist[i].charAt(0)==0){
+						sDlist[i] = sDlist[i].substr(1);
+					}
+					
+					$("#"+sDlist[i]).html($("#"+sDlist[i]).html()+div);
+				}else{//시작일자와 끝일자 동일하지 않다면
+					var div = "<div class='div' id='" + json.list[i].cnum+
+					"'style='z-index:1000; cursor:pointer; diplay:block; color:#ffffff; background-color:"+
+					decodeURIComponent(json.list[i].color).replace(/\+/gi," ")+";'>"+
+					decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"</div>";
+					
+					if(sDlist[i].charAt(0)==0){
+						sDlist[i] = sDlist[i].substr(1);
+					}else if(eDlist[i].charAt(0)==0){
+						eDlist[i] = eDlist[i].substr(1);
+					}
+					
+					
+					$("#"+sDlist[i]).html($("#"+sDlist[i]).html()+div);
+					$("#"+eDlist[i]).html($("#"+eDlist[i]).html()+div);
 				}
 				
-				$("#"+dlist[i]).html($("#"+dlist[i]).html()+div);
 				
-			//////
-			
-			//var ss = "<div style='background-color:"
-			//+decodeURIComponent(json.list[i].color).replace(/\+/gi," ")
-			//+";'>"+decodeURIComponent(json.list[i].ctitle).replace(/\+/gi," ")+"</div>"
-			//$("#4").html($("#4").html()+ss);
 			
 			}//for in문 종료
 			
-			var dlist = onlyday.split(",");
-			for(var i in dlist){
+			var dlist = onlySday.split(",");
+			for(var i in onlySday){
 				console.log(dlist[i]);
 			}
-			//test중
-			//value 를 달력에 선택자로 div 추가 태그를 함
-//			var ss ="<div style='background-color:#D25565;'>title</div>"
-//			$("#2").html($("#2").html()+ss);
-			
 			//받아온 json 출력
 			$("#test").html(value+"<br>");
 			
@@ -174,12 +166,37 @@ $(function(){
 			console.log("error : "+jqXHR+", "+textStatus+", "+errorThrown);
 		}
 		
+	})//ajax 종료	
+	
+	$(".intable").click(function(event){
+		if($(event.target).is(".div")){//클릭한 타겟이 div 클래스라면
+			div=$(event.target).attr("id");
+
+			var url ="/hiapt/schdetail?snum="+div;
+			var name = "schedule detail";
+			var option = "width=600, height=600, top= 100, left = 200, location=no";
+			window.open(url, name, option );
+		}else if($(event.target).is("td")){
+			day=$(event.target).attr("id");
+			if(day != null){
+				if(month.toString().length == 1){
+					month = "0"+month.toString();
+				}			
+				if(day.length == 1){
+					day = "0"+day;
+				}		
+				
+				str = year+"-"+month+"-"+day;			
+				console.log(str);
+				
+				var url ="scheduleInsert.jsp?y="+year+"&m="+month+"&d="+day;
+				var name = "schedule insert";
+				var option = "width=600, height=600, top= 100, left = 200, location=no";
+				popup = window.open(url, name, option );
+			}
+		}
 	})
-	
-	
-
-})
-
+});
 </script>
 </head>
 
@@ -454,39 +471,35 @@ $(function(){
 <!--///////본문 내용 시작 ///////-------->	
 <h1 class="h3 mb-4 text-gray-800">Schedule</h1>
 <div class="card shadow mb-4">
-<div class="card-body">
-<table width="100%"  border="0" cellspacing="0" cellpadding="5">
+<div class="card-body">	
+<table class="table">
 		<tr>
 			<td align="left"colspan="2">
-				<button><a href="schedulemain.jsp?year=<%out.print(year-1);%>&month=<%out.print(month);%>">◀</a></button>
-				<button><a href="schedulemain.jsp?year=<%out.print(year+1);%>&month=<%out.print(month);%>">▶</a></button>
-	
-				
+				<button class="btn btn-primary btn-sm"><a href="schedulemain.jsp?year=<%out.print(year-1);%>&month=<%out.print(month);%>"><span class="text-white">◀</span></a></button>
+				<button class="btn btn-primary btn-sm"><a href="schedulemain.jsp?year=<%out.print(year+1);%>&month=<%out.print(month);%>"><span class="text-white">▶</span></a></button>
 			</td>
 			<td align="center"colspan="3">
-				<button><a href="schedulemain.jsp?year=<%out.print(year);%>&month=<%out.print(month-1);%>">◁</a></button>
-						<span style="font-size:20pt;"><% out.print(year); %>년<% out.print(month+1); %>월</span>
-		
-				<button><a href="schedulemain.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>">▷</a></button>
-			
-			
+			<button class="btn btn-primary btn-sm"><a href="schedulemain.jsp?year=<%out.print(year);%>&month=<%out.print(month-1);%>"><span class="text-white">◁</span></a></button>
+			<span style="font-size:20pt;"><% out.print(year); %>년<% out.print(month+1); %>월</span>
+			<button class="btn btn-primary btn-sm"><a href="schedulemain.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>"><span class="text-white">▷</span></a></button>
 			</td>
-			<td align=right colspan="2"><button id="schin">일정 등록</button></td>
+			<td align=right colspan="2"><button class="btn btn-primary btn-sm" id="schin" onclick="ww();">오늘 날짜</button></td>
 		</tr>
 	</table>
-  	<table border=1 cellspacing=0 cellpadding="5" width="100%" align="center"> 
-		<tr align="center">
-    		<td>일</td> <!-- 일=1 -->
-   		 	<td>월</td> <!-- 월=2 -->
-    		<td>화</td> <!-- 화=3 -->
-    		<td>수</td> <!-- 수=4 -->
-   			<td>목</td> <!-- 목=5 -->
-   			<td>금</td> <!-- 금=6 -->
-   			<td>토</td> <!-- 토=7 -->
-		</tr>
-	</table>
-  	<table class="intable" border="1" valign="top"> 
-		<tr>
+  	<table class="table table-bordered">
+		<thead class="thead-dark">
+   		<tr class="text-center">
+     		<th scope="col">일</th><!-- 일=1 -->
+      		<th scope="col">월</th><!-- 월=2 -->
+      		<th scope="col">화</th><!-- 화=3 -->
+      		<th scope="col">수</th><!-- 수=4 -->
+      		<th scope="col">목</th><!-- 목=5 -->
+      		<th scope="col">금</th><!-- 금=6 -->
+      		<th scope="col">토</th><!-- 토=7 -->
+    	</tr>
+  		</thead>
+  <tbody>
+		<tr class="intable">
 		<%
 			int br = 0;
 			for(int i = 0; i < (start-1); i++){
@@ -498,10 +511,10 @@ $(function(){
 			}
 			
 			for(int i = 1; i <= lastday; i++){
-				out.println("<td id='"+i+"'>"+i+"</td>");
+				out.println("<td style='z-index:100;' id='"+i+"'>"+i+"</td>");
 				br++;
 				if((br%7) == 0 && i != lastday){
-					out.println("</tr><tr>");
+					out.println("</tr><tr class='intable'>");
 				}
 			}
 			while((br++) % 7 != 0){
@@ -511,6 +524,7 @@ $(function(){
 		%>	
 		</tr>
 
+	</tbody>
 	</table>
 	<div id="test"></div>
 
