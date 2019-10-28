@@ -19,7 +19,7 @@
 <script type="text/javascript">
 	var addCount = 0;
 	var addVote = document.getElementsByClassName("addvote");
-
+	var inputVote = document.getElementsByClassName("inputvote");
 	function voteAddFunction() {
 		if (addCount === -1)
 			addCount++;
@@ -34,15 +34,13 @@
 	}
 
 	function voteDeleteFunction() {
-
-		if (addCount === 3)
-			addCount--;
-
+		addCount--;
 		if (addCount < 0) {
 			alert("더이상 삭제 할 수 없습니다.");
 		} else {
 			addVote[addCount].style.display = "none";
-			addCount--;
+			inputVote[addCount].value="";
+
 		}
 		return false;
 	}
@@ -119,17 +117,17 @@
 					<input type="button" onclick="voteAddFunction();" value="추가">&nbsp;
 					<input type="button" onclick="voteDeleteFunction();" value="삭제"></td>
 			</tr>
-			<tr class="addvote" style="display: none">
+			<tr id ="de" class="addvote" style="display: none">
 				<th>투표3</th>
-				<td><input type="text" name="vote3" ></td>
+				<td><input class="inputvote" type="text" name="vote3" ></td>
 			</tr>
 			<tr class="addvote" style="display: none">
 				<th>투표4</th>
-				<td><input type="text" name="vote4" ></td>
+				<td><input class="inputvote" type="text" name="vote4" ></td>
 			</tr>
 			<tr class="addvote" style="display: none">
 				<th>투표5</th>
-				<td><input type="text" name="vote5" ></td>
+				<td><input class="inputvote" type="text" name="vote5" ></td>
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 

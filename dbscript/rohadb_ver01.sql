@@ -1,7 +1,7 @@
---  °ü¸®ºñ ¹× °áÁ¦  db ½ÃÀÛ*********************************************************
+--  ê´€ë¦¬ë¹„ ë° ê²°ì œ  db ì‹œì‘*********************************************************
 
 drop table bill cascade constraints;
--- BILL Å×ÀÌºí »ı¼º(NULL·Î)
+-- BILL í…Œì´ë¸” ìƒì„±(NULLë¡œ)
 CREATE TABLE BILL(
 	MERCHANT_UID NUMBER		NOT NULL,
   USERID 	VARCHAR2(10)		NULL,
@@ -46,51 +46,51 @@ CREATE TABLE BILL(
 );
 
 --  BILL COMMENT
-COMMENT ON COLUMN bill.merchant_uid IS '°íÀ¯°íÁö¼­¹øÈ£';
-COMMENT ON COLUMN bill.userid IS 'µ¿/È£¼ö';
-COMMENT ON COLUMN BILL.USERNAME IS 'ÀÌ¸§';
-COMMENT ON COLUMN BILL.BILL_YEAR_MONTH IS '°íÁö¼­ºÎ°ú¿ù';
-COMMENT ON COLUMN BILL.CALCULATE_START_DAY IS '»êÃâ±â°£½ÃÀÛÀÏ';
-COMMENT ON COLUMN BILL.CALCULATE_END_DAY IS '»êÃâ±â°£¸¶°¨ÀÏ';
-COMMENT ON COLUMN BILL.IMPOSE_END_DATE IS 'ºÎ°ú¸¶°¨ÀÏ';
-COMMENT ON COLUMN bill.accept_date IS 'Ãâ·ÂÀÇ·ÚÀÏ½Ã';
-COMMENT ON COLUMN bill.cutoff_date IS '³³ºÎ¸¶°¨ÀÏ';
-COMMENT ON COLUMN bill.impose_status IS 'ºÎ°úÁøÇà';
-COMMENT ON COLUMN bill.impose_count IS 'ºÎ°ú¸¶°¨È½¼ö';
-COMMENT ON COLUMN BILL.IMPOSE_FINISH IS 'ºÎ°ú¿Ï·á';
-COMMENT ON COLUMN bill.general_cost IS 'ÀÏ¹İ°ü¸®ºñ';
-COMMENT ON COLUMN bill.clean_cost IS 'Ã»¼Òºñ';
-COMMENT ON COLUMN bill.disinfect_cost IS '¼Òµ¶ºñ';
-COMMENT ON COLUMN bill.elevator_cost IS '½Â°­±âÀ¯Áöºñ';
-COMMENT ON COLUMN bill.repair_cost IS '¼ö¼±À¯Áöºñ';
-COMMENT ON COLUMN BILL.GUARD_COST IS '°æºñºñ';
-COMMENT ON COLUMN bill.fireinsurance_cost IS 'È­Àçº¸Çè·á';
-COMMENT ON COLUMN BILL.COMMISSION IS 'À§Å¹°ü¸®¼ö¼ö·á';
-COMMENT ON COLUMN BILL.ELECTRIC_COST IS '¼¼´ëÀü±â·á';
-COMMENT ON COLUMN bill.allelectric_cost IS '°øµ¿Àü±â·á';
-COMMENT ON COLUMN bill.tv_cost IS 'TV¼ö½Å·á';
-COMMENT ON COLUMN bill.heating_cost IS '³­¹æ»ç¿ë·á';
-COMMENT ON COLUMN bill.hwater_cost IS '¿Â¼ö»ç¿ë·á';
-COMMENT ON COLUMN bill.water_cost IS '¼¼´ë¼öµµ·á';
-COMMENT ON COLUMN BILL.ALLWATER_COST IS '°øµ¿¼öµµ·á';
-COMMENT ON COLUMN bill.electric_usage IS 'Àü±â»ç¿ë·®';
-COMMENT ON COLUMN bill.heating_usage IS '³­¹æ»ç¿ë·®';
-COMMENT ON COLUMN BILL.HWATER_USAGE IS '¿Â¼ö»ç¿ë·®';
-COMMENT ON COLUMN bill.water_usage IS '¼öµµ»ç¿ë·®';
-COMMENT ON COLUMN bill.arrears IS '¹Ì³³¾×';
-COMMENT ON COLUMN BILL.ETC IS 'ºñ°í';
-COMMENT ON COLUMN BILL.VBANK_NUM IS '°èÁÂ¹øÈ£';
+COMMENT ON COLUMN bill.merchant_uid IS 'ê³ ìœ ê³ ì§€ì„œë²ˆí˜¸';
+COMMENT ON COLUMN bill.userid IS 'ë™/í˜¸ìˆ˜';
+COMMENT ON COLUMN BILL.USERNAME IS 'ì´ë¦„';
+COMMENT ON COLUMN BILL.BILL_YEAR_MONTH IS 'ê³ ì§€ì„œë¶€ê³¼ì›”';
+COMMENT ON COLUMN BILL.CALCULATE_START_DAY IS 'ì‚°ì¶œê¸°ê°„ì‹œì‘ì¼';
+COMMENT ON COLUMN BILL.CALCULATE_END_DAY IS 'ì‚°ì¶œê¸°ê°„ë§ˆê°ì¼';
+COMMENT ON COLUMN BILL.IMPOSE_END_DATE IS 'ë¶€ê³¼ë§ˆê°ì¼';
+COMMENT ON COLUMN bill.accept_date IS 'ì¶œë ¥ì˜ë¢°ì¼ì‹œ';
+COMMENT ON COLUMN bill.cutoff_date IS 'ë‚©ë¶€ë§ˆê°ì¼';
+COMMENT ON COLUMN bill.impose_status IS 'ë¶€ê³¼ì§„í–‰';
+COMMENT ON COLUMN bill.impose_count IS 'ë¶€ê³¼ë§ˆê°íšŸìˆ˜';
+COMMENT ON COLUMN BILL.IMPOSE_FINISH IS 'ë¶€ê³¼ì™„ë£Œ';
+COMMENT ON COLUMN bill.general_cost IS 'ì¼ë°˜ê´€ë¦¬ë¹„';
+COMMENT ON COLUMN bill.clean_cost IS 'ì²­ì†Œë¹„';
+COMMENT ON COLUMN bill.disinfect_cost IS 'ì†Œë…ë¹„';
+COMMENT ON COLUMN bill.elevator_cost IS 'ìŠ¹ê°•ê¸°ìœ ì§€ë¹„';
+COMMENT ON COLUMN bill.repair_cost IS 'ìˆ˜ì„ ìœ ì§€ë¹„';
+COMMENT ON COLUMN BILL.GUARD_COST IS 'ê²½ë¹„ë¹„';
+COMMENT ON COLUMN bill.fireinsurance_cost IS 'í™”ì¬ë³´í—˜ë£Œ';
+COMMENT ON COLUMN BILL.COMMISSION IS 'ìœ„íƒê´€ë¦¬ìˆ˜ìˆ˜ë£Œ';
+COMMENT ON COLUMN BILL.ELECTRIC_COST IS 'ì„¸ëŒ€ì „ê¸°ë£Œ';
+COMMENT ON COLUMN bill.allelectric_cost IS 'ê³µë™ì „ê¸°ë£Œ';
+COMMENT ON COLUMN bill.tv_cost IS 'TVìˆ˜ì‹ ë£Œ';
+COMMENT ON COLUMN bill.heating_cost IS 'ë‚œë°©ì‚¬ìš©ë£Œ';
+COMMENT ON COLUMN bill.hwater_cost IS 'ì˜¨ìˆ˜ì‚¬ìš©ë£Œ';
+COMMENT ON COLUMN bill.water_cost IS 'ì„¸ëŒ€ìˆ˜ë„ë£Œ';
+COMMENT ON COLUMN BILL.ALLWATER_COST IS 'ê³µë™ìˆ˜ë„ë£Œ';
+COMMENT ON COLUMN bill.electric_usage IS 'ì „ê¸°ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN bill.heating_usage IS 'ë‚œë°©ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN BILL.HWATER_USAGE IS 'ì˜¨ìˆ˜ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN bill.water_usage IS 'ìˆ˜ë„ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN bill.arrears IS 'ë¯¸ë‚©ì•¡';
+COMMENT ON COLUMN BILL.ETC IS 'ë¹„ê³ ';
+COMMENT ON COLUMN BILL.VBANK_NUM IS 'ê³„ì¢Œë²ˆí˜¸';
 
-COMMENT ON COLUMN bill.arrears_fine IS '¹Ì³³ÈÄ±İ¾×';
+COMMENT ON COLUMN bill.arrears_fine IS 'ë¯¸ë‚©í›„ê¸ˆì•¡';
 
-COMMENT ON COLUMN bill.after_amount IS '³³±âÈÄ±İ¾×';
+COMMENT ON COLUMN bill.after_amount IS 'ë‚©ê¸°í›„ê¸ˆì•¡';
 
-COMMENT ON COLUMN BILL.AMOUNT IS 'ºÎ°ú±İ¾×';
+COMMENT ON COLUMN BILL.AMOUNT IS 'ë¶€ê³¼ê¸ˆì•¡';
 
-COMMENT ON COLUMN BILL.before_AMOUNT IS '³³±â³»±İ¾×';
+COMMENT ON COLUMN BILL.before_AMOUNT IS 'ë‚©ê¸°ë‚´ê¸ˆì•¡';
 --------------------------------------------------------------
 DROP SEQUENCE BILL_SEQ;
---BILL ½ÃÄö½º »ı¼º
+--BILL ì‹œí€€ìŠ¤ ìƒì„±
 CREATE SEQUENCE BILL_SEQ
 START WITH 10000000000001
 INCREMENT BY 1
@@ -101,9 +101,9 @@ NOCACHE;
 
 -- bill insert
 INSERT INTO BILL VALUES(
- BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/09/01',
+ BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/09/01',
 '2019/08/01','2019/08/31','2019/08/31','2019/08/31','2019/09/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   73510, 13970, DEFAULT, 0, 0, 1710, 860,
   404, 15, 0, 0,DEFAULT, NULL,'110-23-0310818',
@@ -111,99 +111,99 @@ INSERT INTO BILL VALUES(
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/08/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/08/01',
 '2019/07/01','2019/07/31','2019/07/31','2019/07/31','2019/08/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20520, 20870, 13500, 770, 3920, 2080, 650, 960,
   73510, 2140, DEFAULT, 0, 0, 1710, 860,
   404, 32, 0, 0,DEFAULT, NULL,'110-23-0310818',0, 0, 0, 0
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'202-101','Çã¿ë¼ø','2019/08/01',
+BILL_SEQ.NEXTVAL,'202-101','í—ˆìš©ìˆœ','2019/08/01',
 '2019/07/01','2019/07/31','2019/07/31','2019/07/31','2019/08/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   29040, 29530, 19110, 1080, 4660, 2940, 2570, 910,
   73510, 2140, DEFAULT, 0, 0, 1710, 860,
   404, 32, 0, 0,DEFAULT, NULL,'110-23-0310818',141490, 141490, 0,	155639
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/07/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/07/01',
 '2019/06/01','2019/06/30','2019/06/30','2019/06/30','2019/07/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20390, 20870, 13500, 770, 3290, 1810, 650, 810,
   73510, 13830, DEFAULT, 0, 0, 1610, 890,
   404, 15, 0, 0,DEFAULT, NULL,'110-23-0310818',168060, 168060,	0,	184866
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/06/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/06/01',
 '2019/05/01','2019/05/31','2019/05/31','2019/05/31','2019/06/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   73510, 13830, DEFAULT, 0, 0, 1850, 860,
   404, 15, 0, 0,DEFAULT, NULL,'110-23-0310818',151930,	151930,	0,	167123
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/05/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/05/01',
 '2019/04/01','2019/04/30','2019/04/30','2019/04/30','2019/05/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   73510, 13830, DEFAULT, 0, 0, 1850, 860,
   404, 15, 0, 0,DEFAULT, NULL,'110-23-0310818',152560,	152560,	0,	167816
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/04/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/04/01',
 '2019/03/01','2019/03/31','2019/03/31','2019/03/31','2019/04/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   73510, 13830, DEFAULT, 9680, 23100, 1850, 860,
   404, 15,1.2, 5.5,DEFAULT, NULL,'110-23-0310818',152560,	152560,	0,	167816
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/03/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/03/01',
 '2019/02/01','2019/02/28','2019/02/28','2019/02/28','2019/03/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   73510, 13830, DEFAULT, 12280, 31820, 1850, 860,
   404, 15,1.5, 6.5,DEFAULT, NULL,'110-23-0310818',185340,185340,	0,	203874
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/02/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/02/01',
 '2019/01/01','2019/01/31','2019/01/31','2019/01/31','2019/02/28',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   86410, 16300, DEFAULT, 60760, 42000, 1850, 860,
   410, 27, 37, 12,DEFAULT, NULL,'110-23-0310818',196660,	196660,	0,	216326
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/01/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2019/01/01',
 '2018/12/01','2018/12/31','2018/12/31','2018/12/31','2019/01/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   86410, 16300, DEFAULT, 60760, 42000, 1850, 860,
   410, 27, 37, 12,DEFAULT, NULL,'110-23-0310818',270690,	270690,	0,	297759
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2018/12/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2018/12/01',
 '2018/11/01','2018/11/30','2018/11/30','2018/11/30','2018/12/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   86410, 16300, DEFAULT, 23547, 15034, 1850, 860,
   410, 27, 17, 5,DEFAULT, NULL,'110-23-0310818',270690,270690,	0,	297759
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2018/11/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2018/11/01',
 '2018/10/01','2018/10/31','2018/10/31','2018/10/31','2018/11/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   86410, 16300, DEFAULT, 15300, 12000, 1850, 860,
   410, 27, 12, 10,DEFAULT, NULL,'110-23-0310818',206511,206511,	0,	227162
@@ -211,45 +211,45 @@ BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2018/11/01',
 
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2018/10/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2018/10/01',
 '2018/09/01','2018/09/30','2018/09/30','2018/09/30','2018/10/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   52770, 20850, DEFAULT, 4470, 6090, 1850, 860,
   386, 15, 12, 4,DEFAULT, NULL,'110-23-0310818',195230, 195230,	0,	214753
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2018/09/01',
+BILL_SEQ.NEXTVAL,'201-201','ì „ë¡œí•˜','2018/09/01',
 '2018/08/01','2018/08/31','2018/08/31','2018/08/31','2018/09/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   52770, 20850, DEFAULT, 4470, 6090, 1850, 860,
   386, 15, 12, 4,DEFAULT, NULL,'110-23-0310818',149400,	149400,	0,	164340
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'202-101','Çã¿ë¼ø','2018/11/01',
+BILL_SEQ.NEXTVAL,'202-101','í—ˆìš©ìˆœ','2018/11/01',
 '2018/10/01','2018/10/31','2018/10/31','2018/10/31','2018/11/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
  29290, 29310, 19110, 1080, 4660, 2950, 2420, 1200,
   86410, 16300, DEFAULT, 15300, 12000, 1850, 860,
   410, 27, 12, 10,DEFAULT, NULL,'110-23-0310818',149400,149400,	0,	164340
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'202-101','Çã¿ë¼ø','2018/10/01',
+BILL_SEQ.NEXTVAL,'202-101','í—ˆìš©ìˆœ','2018/10/01',
 '2018/09/01','2018/09/30','2018/09/30','2018/09/30','2018/10/31',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   20690, 20600, 13470, 760, 3290, 2090, 650, 960,
   52770, 20850, DEFAULT, 4470, 6090, 1850, 860,
   386, 15, 12, 4,DEFAULT, NULL,'110-23-0310818',222740,222740,	0,	245014
 );
 
 INSERT INTO BILL VALUES(
-BILL_SEQ.NEXTVAL,'202-101','Çã¿ë¼ø','2018/09/01',
+BILL_SEQ.NEXTVAL,'202-101','í—ˆìš©ìˆœ','2018/09/01',
 '2018/08/01','2018/08/31','2018/08/31','2018/08/31','2018/09/30',
-  '¿Ï·á',1,'Y',
+  'ì™„ë£Œ',1,'Y',
   29290, 29310, 19110, 1080, 4660, 2950, 2420, 1200,
   52770, 20850, DEFAULT, 4470, 6090, 1850, 860,
   386, 15, 12, 4,DEFAULT, NULL,'110-23-0310818',149400,	149400,	0,	164340
@@ -257,41 +257,41 @@ BILL_SEQ.NEXTVAL,'202-101','Çã¿ë¼ø','2018/09/01',
 --==========================================================================
 
 DROP TABLE VBANK cascade constraints;
--- °¡»ó°èÁÂ Å×ÀÌºí »ı¼º
+-- ê°€ìƒê³„ì¢Œ í…Œì´ë¸” ìƒì„±
 CREATE TABLE VBANK (
 	VBANK_NUM	VARCHAR2(20) NOT NULL,
 	VBANK_NAME VARCHAR2(20) NOT NULL,
-	VBANK_HOLDER VARCHAR2(15) DEFAULT 'ÇÏÀÌ¾ÆÆÄÆ®'	NOT NULL,
+	VBANK_HOLDER VARCHAR2(15) DEFAULT 'í•˜ì´ì•„íŒŒíŠ¸'	NOT NULL,
 	VBANK_DATE DATE NULL,
   CONSTRAINT PK_VB PRIMARY KEY(VBANK_NUM)
 );
 
--- COMMENT »ğÀÔ
-COMMENT ON COLUMN vbank.vbank_num IS '°èÁÂ¹øÈ£';
-COMMENT ON COLUMN vbank.vbank_name IS 'ÀºÇà¸í';
-COMMENT ON COLUMN VBANK.VBANK_HOLDER IS '¿¹±İÁÖ';
-COMMENT ON COLUMN VBANK.VBANK_DATE IS 'ÀÔ±İ±âÇÑ';
+-- COMMENT ì‚½ì…
+COMMENT ON COLUMN vbank.vbank_num IS 'ê³„ì¢Œë²ˆí˜¸';
+COMMENT ON COLUMN vbank.vbank_name IS 'ì€í–‰ëª…';
+COMMENT ON COLUMN VBANK.VBANK_HOLDER IS 'ì˜ˆê¸ˆì£¼';
+COMMENT ON COLUMN VBANK.VBANK_DATE IS 'ì…ê¸ˆê¸°í•œ';
 
 -- vbank insert
 
 INSERT INTO VBANK VALUES(
-'110-23-0310818', '½ÅÇÑÀºÇà', DEFAULT, '19/09/30'
+'110-23-0310818', 'ì‹ í•œì€í–‰', DEFAULT, '19/09/30'
 );
 
 INSERT INTO VBANK VALUES(
-'763201-01-148210', '±¹¹ÎÀºÇà', DEFAULT, '19/09/30'
+'763201-01-148210', 'êµ­ë¯¼ì€í–‰', DEFAULT, '19/09/30'
 );
 
 INSERT INTO VBANK VALUES(
-'175320-51-018603', 'ÇÏ³ªÀºÇà', DEFAULT, '19/09/30'
+'175320-51-018603', 'í•˜ë‚˜ì€í–‰', DEFAULT, '19/09/30'
 );
 
 INSERT INTO VBANK VALUES(
-'402172-01-001467', '¿ìÃ¼±¹', DEFAULT, '19/09/30'
+'402172-01-001467', 'ìš°ì²´êµ­', DEFAULT, '19/09/30'
 );
 
 ---=============================================================================
--- SMS Å×ÀÌºí »ı¼º
+-- SMS í…Œì´ë¸” ìƒì„±
 
 drop table sms cascade constraints;
 
@@ -307,54 +307,24 @@ CREATE TABLE SMS (
   CONSTRAINT FK_EMPLOYEE FOREIGN KEY(EMPNO) REFERENCES EMPLOYEE(EMPNO) ON DELETE CASCADE
 );
 
-COMMENT ON COLUMN SMS.EMPNO IS '»ç¹ø';
-COMMENT ON COLUMN SMS.TEL IS '°ü¸®¼Ò´ëÇ¥¹øÈ£';
-COMMENT ON COLUMN SMS.userphone IS '¹ß½ÅÀÚ¹øÈ£';
-COMMENT ON COLUMN SMS.text IS '¸Ş¼¼Áö';
-COMMENT ON COLUMN SMS.type IS '¸Ş¼¼ÁöÅ¸ÀÔ';
-COMMENT ON COLUMN SMS.state_message IS 'Á¢¼ö»óÅÂ';
-COMMENT ON COLUMN SMS.COUNTRY IS '±¹°¡¹øÈ£';
-COMMENT ON COLUMN SMS.status_code IS 'Á¢¼öÄÚµå';
+COMMENT ON COLUMN SMS.EMPNO IS 'ì‚¬ë²ˆ';
+COMMENT ON COLUMN SMS.TEL IS 'ê´€ë¦¬ì†ŒëŒ€í‘œë²ˆí˜¸';
+COMMENT ON COLUMN SMS.userphone IS 'ë°œì‹ ìë²ˆí˜¸';
+COMMENT ON COLUMN SMS.text IS 'ë©”ì„¸ì§€';
+COMMENT ON COLUMN SMS.type IS 'ë©”ì„¸ì§€íƒ€ì…';
+COMMENT ON COLUMN SMS.state_message IS 'ì ‘ìˆ˜ìƒíƒœ';
+COMMENT ON COLUMN SMS.COUNTRY IS 'êµ­ê°€ë²ˆí˜¸';
+COMMENT ON COLUMN SMS.status_code IS 'ì ‘ìˆ˜ì½”ë“œ';
 
--- insert sms
---INSERT INTO SMS VALUES(
--- 'S001', DEFAULT, '010-6547-3214', 
--- '2019³â08¿ùºĞ °ü¸®ºñ°íÁö¼­ÀÔ´Ï´Ù.',
--- DEFAULT, '¼º°ø', DEFAULT, '2000' 
---);
---
---INSERT INTO SMS VALUES(
--- 'S001', DEFAULT, '010-6547-3214', 
--- '2019³â07¿ùºĞ °ü¸®ºñ°íÁö¼­ÀÔ´Ï´Ù.',
--- DEFAULT, '¼º°ø', DEFAULT, '2000' 
---);
---
---INSERT INTO SMS VALUES(
--- 'S001', DEFAULT, '010-6547-3214', 
--- '2019³â06¿ùºĞ °ü¸®ºñ°íÁö¼­ÀÔ´Ï´Ù.',
--- DEFAULT, '¼º°ø', DEFAULT, '2000' 
---);
---
---INSERT INTO SMS VALUES(
--- 'S001', DEFAULT, '010-6547-3214', 
--- '2019³â05¿ùºĞ °ü¸®ºñ°íÁö¼­ÀÔ´Ï´Ù.',
--- DEFAULT, '¼º°ø', DEFAULT, '2000' 
---);
---
---INSERT INTO SMS VALUES(
--- 'S001', DEFAULT, '010-6547-3214', 
--- '2019³â04¿ùºĞ °ü¸®ºñ°íÁö¼­ÀÔ´Ï´Ù.',
--- DEFAULT, '¼º°ø', DEFAULT, '2000' 
---);
 
 --============================================================================
--- PAYMENT Å×ÀÌºí »ı¼º
+-- PAYMENT í…Œì´ë¸” ìƒì„±
 
 drop table payment cascade constraints;
 
 CREATE TABLE PAYMENT (
 	MERCHANT_UID	NUMBER		NOT NULL,
-	name	VARCHAR2(20)	DEFAULT '°ü¸®ºñ°íÁö¼­'	NOT NULL,
+	name	VARCHAR2(20)	DEFAULT 'ê´€ë¦¬ë¹„ê³ ì§€ì„œ'	NOT NULL,
 	AMOUNT	NUMBER		NOT NULL,
 	currency	VARCHAR2(10)	DEFAULT 'KRW'	NOT NULL,
 	PG	VARCHAR2(30)		NOT NULL,
@@ -366,103 +336,103 @@ CREATE TABLE PAYMENT (
 );
 
 -- comment
-COMMENT ON COLUMN payment.merchant_uid IS '°íÀ¯°íÁö¼­¹øÈ£';
-COMMENT ON COLUMN payment.name IS '°íÁö¼­¸í';
-COMMENT ON COLUMN payment.amount IS '°áÁ¦±İ¾×';
-COMMENT ON COLUMN payment.currency IS 'È­Æó´ÜÀ§';
+COMMENT ON COLUMN payment.merchant_uid IS 'ê³ ìœ ê³ ì§€ì„œë²ˆí˜¸';
+COMMENT ON COLUMN payment.name IS 'ê³ ì§€ì„œëª…';
+COMMENT ON COLUMN payment.amount IS 'ê²°ì œê¸ˆì•¡';
+COMMENT ON COLUMN payment.currency IS 'í™”íë‹¨ìœ„';
 COMMENT ON COLUMN payment.pg IS 'PG';
-COMMENT ON COLUMN payment.pay_method IS '°áÁ¦¼ö´Ü';
-COMMENT ON COLUMN payment.card_quota IS 'ÇÒºÎ±İ¾×';
-COMMENT ON COLUMN payment.buyer_name IS '°áÁ¦ÀÚÀÌ¸§';
-COMMENT ON COLUMN PAYMENT.BUYER_TEL IS '°áÁ¦ÀÚ¿¬¶ôÃ³';
-COMMENT ON COLUMN payment.buyer_email IS '°áÁ¦ÀÚÀÌ¸ŞÀÏ';
+COMMENT ON COLUMN payment.pay_method IS 'ê²°ì œìˆ˜ë‹¨';
+COMMENT ON COLUMN payment.card_quota IS 'í• ë¶€ê¸ˆì•¡';
+COMMENT ON COLUMN payment.buyer_name IS 'ê²°ì œìì´ë¦„';
+COMMENT ON COLUMN PAYMENT.BUYER_TEL IS 'ê²°ì œìì—°ë½ì²˜';
+COMMENT ON COLUMN payment.buyer_email IS 'ê²°ì œìì´ë©”ì¼';
 
 -- INSERT PAYMENT
 
 INSERT INTO PAYMENT VALUES(
-'10000000000001', DEFAULT, 152560, DEFAULT, 'PG', '°¡»ó°èÁÂ',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000001', DEFAULT, 152560, DEFAULT, 'PG', 'ê°€ìƒê³„ì¢Œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000002', DEFAULT, 141490, DEFAULT, 'Ä«Ä«¿ÀÆäÀÌ', '°£Æí°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000002', DEFAULT, 141490, DEFAULT, 'ì¹´ì¹´ì˜¤í˜ì´', 'ê°„í¸ê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000003', DEFAULT, 168060, DEFAULT, '³ªÀÌ½ºÁ¤º¸Åë½Å', '°¡»ó°èÁÂ',
-NULL, 'Çã¿ë¼ø', '010-2685-4111', 'horse4797@naver.com'
+'10000000000003', DEFAULT, 168060, DEFAULT, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', 'ê°€ìƒê³„ì¢Œ',
+NULL, 'í—ˆìš©ìˆœ', '010-2685-4111', 'horse4797@naver.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000004', DEFAULT, 151930, DEFAULT, 'ÀÌ´Ï½Ã½º', 'Ä«µå°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000004', DEFAULT, 151930, DEFAULT, 'ì´ë‹ˆì‹œìŠ¤', 'ì¹´ë“œê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000005', DEFAULT, 152560, DEFAULT, '³ªÀÌ½ºÁ¤º¸Åë½Å', 'Ä«µå°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000005', DEFAULT, 152560, DEFAULT, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', 'ì¹´ë“œê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000006', DEFAULT, 152560, DEFAULT, 'PAYCO', '°£Æí°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000006', DEFAULT, 152560, DEFAULT, 'PAYCO', 'ê°„í¸ê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000007', DEFAULT, 185340, DEFAULT, 'PAYCO', '°£Æí°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000007', DEFAULT, 185340, DEFAULT, 'PAYCO', 'ê°„í¸ê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000008', DEFAULT, 196660, DEFAULT, 'LGU+', 'Ä«µå¼ö±â°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000008', DEFAULT, 196660, DEFAULT, 'LGU+', 'ì¹´ë“œìˆ˜ê¸°ê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000009', DEFAULT, 270690, DEFAULT, '³ªÀÌ½ºÁ¤º¸Åë½Å', 'Ä«µå°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000009', DEFAULT, 270690, DEFAULT, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', 'ì¹´ë“œê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000010', DEFAULT, 270690, DEFAULT, 'PG', '°¡»ó°èÁÂ',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000010', DEFAULT, 270690, DEFAULT, 'PG', 'ê°€ìƒê³„ì¢Œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000011', DEFAULT, 206511, DEFAULT, '³ªÀÌ½ºÁ¤º¸Åë½Å', 'Ä«µå°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000011', DEFAULT, 206511, DEFAULT, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', 'ì¹´ë“œê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000012', DEFAULT, 195230, DEFAULT, '´Ù³¯', '½Ç½Ã°£°èÁÂÀÌÃ¼',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000012', DEFAULT, 195230, DEFAULT, 'ë‹¤ë‚ ', 'ì‹¤ì‹œê°„ê³„ì¢Œì´ì²´',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000013', DEFAULT, 149400, DEFAULT, 'LGU+', 'Ä«µå°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000013', DEFAULT, 149400, DEFAULT, 'LGU+', 'ì¹´ë“œê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000014', DEFAULT, 149400, DEFAULT, 'KCP', 'Ä«µå°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000014', DEFAULT, 149400, DEFAULT, 'KCP', 'ì¹´ë“œê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 INSERT INTO PAYMENT VALUES(
-'10000000000015', DEFAULT, 222740, DEFAULT, 'Ä«Ä«¿ÀÆäÀÌ', '°£Æí°áÁ¦',
-NULL, 'Àü·ÎÇÏ', '010-8001-6812', 'dd55555bb@gmail.com'
+'10000000000015', DEFAULT, 222740, DEFAULT, 'ì¹´ì¹´ì˜¤í˜ì´', 'ê°„í¸ê²°ì œ',
+NULL, 'ì „ë¡œí•˜', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
 --=============================================================================
 drop table receipt cascade constraints;
--- RECEIPT Å×ÀÌºí »ı¼º
+-- RECEIPT í…Œì´ë¸” ìƒì„±
 CREATE TABLE RECEIPT (
 	imp_uid	VARCHAR2(40)		NOT NULL,
   MERCHANT_UID NUMBER		NOT NULL,
 	apply_num	VARCHAR2(40)		NULL,
 	VBANK_NUM	VARCHAR2(20)		NULL,
-	NAME	VARCHAR2(20)	DEFAULT '°ü¸®ºñ°íÁö¼­'	NOT NULL,
+	NAME	VARCHAR2(20)	DEFAULT 'ê´€ë¦¬ë¹„ê³ ì§€ì„œ'	NOT NULL,
 	pay_method	VARCHAR2(30)	DEFAULT 'card'	NOT NULL,
 	PAID_AMOUNT	NUMBER		NOT NULL,
 	PG_PROVIDER	VARCHAR2(40)		NOT NULL,
@@ -471,121 +441,121 @@ CREATE TABLE RECEIPT (
 	buyer_name	VARCHAR2(20)		NULL,
 	buyer_tel	VARCHAR2(20)		NOT NULL,
 	BUYER_EMAIL	VARCHAR2(30)		NULL,
-	company	VARCHAR2(15)	DEFAULT 'ÇÏÀÌ¾ÆÆÄÆ®'	NOT NULL,
+	company	VARCHAR2(15)	DEFAULT 'í•˜ì´ì•„íŒŒíŠ¸'	NOT NULL,
 	STATUS	VARCHAR2(20)		NOT NULL,	
   CONSTRAINT PK_RECEIPT PRIMARY KEY(IMP_UID)
 );
 
 --COMMIT
-COMMENT ON COLUMN receipt.imp_uid IS '°íÀ¯¿µ¼öÁõID';
-COMMENT ON COLUMN receipt.apply_num IS 'Ä«µå½ÂÀÎ¹øÈ£';
-COMMENT ON COLUMN receipt.vbank_num IS '°¡»ó°èÁËÀÔ±İ¹øÈ£';
-COMMENT ON COLUMN receipt.name IS '°íÁö¼­¸í';
-COMMENT ON COLUMN receipt.pay_method IS '°áÁ¦¼ö´Ü';
-COMMENT ON COLUMN receipt.paid_amount IS '°áÁ¦±İ¾×';
-COMMENT ON COLUMN RECEIPT.PG_PROVIDER IS '°áÁ¦PGÁ¾·ù';
-COMMENT ON COLUMN receipt.pai_dat IS '°áÁ¦½ÂÀÎ½Ã°¢';
-COMMENT ON COLUMN receipt.receipt_url IS '¸ÅÃâÀüÇ¥URL';
-COMMENT ON COLUMN receipt.buyer_name IS '°áÁ¦ÀÚÀÌ¸§';
-COMMENT ON COLUMN receipt.buyer_tel IS '°áÁ¦ÀÚÀüÈ­¹øÈ£';
-COMMENT ON COLUMN receipt.buyer_email IS '°áÁ¦ÀÚÀÌ¸ŞÀÏ';
-COMMENT ON COLUMN receipt.company IS '¾ÆÆÄÆ®¸í';
-COMMENT ON COLUMN RECEIPT.STATUS IS '°áÁ¦»óÅÂ';
-COMMENT ON COLUMN receipt.merchant_uid IS '°íÀ¯°íÁö¼­¹øÈ£';
+COMMENT ON COLUMN receipt.imp_uid IS 'ê³ ìœ ì˜ìˆ˜ì¦ID';
+COMMENT ON COLUMN receipt.apply_num IS 'ì¹´ë“œìŠ¹ì¸ë²ˆí˜¸';
+COMMENT ON COLUMN receipt.vbank_num IS 'ê°€ìƒê³„ì£„ì…ê¸ˆë²ˆí˜¸';
+COMMENT ON COLUMN receipt.name IS 'ê³ ì§€ì„œëª…';
+COMMENT ON COLUMN receipt.pay_method IS 'ê²°ì œìˆ˜ë‹¨';
+COMMENT ON COLUMN receipt.paid_amount IS 'ê²°ì œê¸ˆì•¡';
+COMMENT ON COLUMN RECEIPT.PG_PROVIDER IS 'ê²°ì œPGì¢…ë¥˜';
+COMMENT ON COLUMN receipt.pai_dat IS 'ê²°ì œìŠ¹ì¸ì‹œê°';
+COMMENT ON COLUMN receipt.receipt_url IS 'ë§¤ì¶œì „í‘œURL';
+COMMENT ON COLUMN receipt.buyer_name IS 'ê²°ì œìì´ë¦„';
+COMMENT ON COLUMN receipt.buyer_tel IS 'ê²°ì œìì „í™”ë²ˆí˜¸';
+COMMENT ON COLUMN receipt.buyer_email IS 'ê²°ì œìì´ë©”ì¼';
+COMMENT ON COLUMN receipt.company IS 'ì•„íŒŒíŠ¸ëª…';
+COMMENT ON COLUMN RECEIPT.STATUS IS 'ê²°ì œìƒíƒœ';
+COMMENT ON COLUMN receipt.merchant_uid IS 'ê³ ìœ ê³ ì§€ì„œë²ˆí˜¸';
 
 -- INSERT
 
 INSERT INTO RECEIPT VALUES(
 '5d8b920eb1b56e000675bc59', 10000000000015, NULL, NULL, 	
-DEFAULT, '°£Æí°áÁ¦', 222740, 'Ä«Ä«¿ÀÆäÀÌ', '2018/11/10',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ê°„í¸ê²°ì œ', 222740, 'ì¹´ì¹´ì˜¤í˜ì´', '2018/11/10',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d8b920eb1b56e000675bc57', 10000000000014, '5d8b920eb1b56e000675bc59', NULL, 	
-DEFAULT, 'Ä«µå°áÁ¦', 149400, 'KCP', '2018/09/11',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì¹´ë“œê²°ì œ', 149400, 'KCP', '2018/09/11',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d8b904eb1b56e000675bbbd', 10000000000013, '5d8b920eb1b56e000675bc59', NULL, 	
-DEFAULT, 'Ä«µå°áÁ¦', 149400, 'LGU+', '2018/10/05',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì¹´ë“œê²°ì œ', 149400, 'LGU+', '2018/10/05',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d8b95aeb1b56e000675bd6d', 10000000000012, NULL, '110-23-0310818', 	
-DEFAULT, '½Ç½Ã°£°èÁÂÀÌÃ¼', 195230, '´Ù³¯', '2018/11/23',	NULL, 'Àü·ÎÇÏ', '010-1234-2222',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì‹¤ì‹œê°„ê³„ì¢Œì´ì²´', 195230, 'ë‹¤ë‚ ', '2018/11/23',	NULL, 'ì „ë¡œí•˜', '010-1234-2222',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d8b8a28b1b56e000675ba80', 10000000000011, '5d8b8a28b1b56e000675ba80', NULL, 	
-DEFAULT, 'Ä«µå°áÁ¦', 206511, '³ªÀÌ½ºÁ¤º¸Åë½Å', '2018/12/23',	NULL, 'Àü·ÎÇÏ', '010-1234-2222',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì¹´ë“œê²°ì œ', 206511, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', '2018/12/23',	NULL, 'ì „ë¡œí•˜', '010-1234-2222',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c71bb1b56e00068008de', 10000000000010, NULL, '110-23-0310818',	
-DEFAULT, '°¡»ó°èÁÂ', 270690, 'PG', '2019/01/23',	NULL, 'Àü·ÎÇÏ', '010-1234-2222',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ê°€ìƒê³„ì¢Œ', 270690, 'PG', '2019/01/23',	NULL, 'ì „ë¡œí•˜', '010-1234-2222',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c599b1b56e00068006b9', 10000000000001, NULL, '110-23-0310818',	
-DEFAULT, '°¡»ó°èÁÂ', 152560, 'PG', '2019/09/23',	NULL, 'Àü·ÎÇÏ', '010-1234-2222',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ê°€ìƒê³„ì¢Œ', 152560, 'PG', '2019/09/23',	NULL, 'ì „ë¡œí•˜', '010-1234-2222',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c4e8b1b56e0006800558', 10000000000002, NULL, NULL, 	
-DEFAULT, '°£Æí°áÁ¦', 141490, 'Ä«Ä«¿ÀÆäÀÌ', '2019/08/10',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ê°„í¸ê²°ì œ', 141490, 'ì¹´ì¹´ì˜¤í˜ì´', '2019/08/10',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c6e1b1b56e0006800871', 10000000000003, NULL,'110-23-0310818',	
-DEFAULT, '°¡»ó°èÁÂ', 168060, '³ªÀÌ½ºÁ¤º¸Åë½Å', '2019/08/10',	NULL, 'Çã¿ë¼ø', '010-2685-4111', 'horse4797@naver.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ê°€ìƒê³„ì¢Œ', 168060, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', '2019/08/10',	NULL, 'í—ˆìš©ìˆœ', '010-2685-4111', 'horse4797@naver.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c4e8b1b56e000680055f', 10000000000004, '5d95c4e8b1b56e000680055f', NULL, 	
-DEFAULT, 'Ä«µå°áÁ¦', 151930, 'ÀÌ´Ï½Ã½º', '2019/07/23',	NULL, 'Àü·ÎÇÏ', '010-1234-2222',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì¹´ë“œê²°ì œ', 151930, 'ì´ë‹ˆì‹œìŠ¤', '2019/07/23',	NULL, 'ì „ë¡œí•˜', '010-1234-2222',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c5f4b1b56e0006800720', 10000000000005, '5d95c5f4b1b56e0006800720', NULL, 	
-DEFAULT, 'Ä«µå°áÁ¦', 152560, '³ªÀÌ½ºÁ¤º¸Åë½Å', '2019/06/06',	NULL, 'Àü·ÎÇÏ', '010-1234-2222',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì¹´ë“œê²°ì œ', 152560, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', '2019/06/06',	NULL, 'ì „ë¡œí•˜', '010-1234-2222',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c533b1b56e00068005de', 10000000000006, NULL, NULL, 	
-DEFAULT, '°£Æí°áÁ¦', 152560, 'PAYCO', '2019/05/10',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ê°„í¸ê²°ì œ', 152560, 'PAYCO', '2019/05/10',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c484b1b56e00068004b8', 10000000000007, NULL, NULL, 	
-DEFAULT, '°£Æí°áÁ¦', 185340, 'PAYCO', '2019/04/10',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦Ãë¼Ò' 
+DEFAULT, 'ê°„í¸ê²°ì œ', 185340, 'PAYCO', '2019/04/10',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì·¨ì†Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c2b3b1b56e00068001d9', 10000000000008, NULL, NULL, 	
-DEFAULT, 'Ä«µå¼ö±â°áÁ¦', 196660, 'LGU+', '2019/03/07',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦¿Ï·á' 
+DEFAULT, 'ì¹´ë“œìˆ˜ê¸°ê²°ì œ', 196660, 'LGU+', '2019/03/07',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì™„ë£Œ' 
 );
 
 INSERT INTO RECEIPT VALUES(
 '5d95c074b1b56e00067ffe79', 10000000000009, NULL, NULL, 	
-DEFAULT, 'Ä«µå°áÁ¦', 270690, '³ªÀÌ½ºÁ¤º¸Åë½Å', '2019/02/10',	NULL, 'Àü·ÎÇÏ', '010-8001-6812',
-'dd55555bb@gmail.com', DEFAULT, '°áÁ¦Ãë¼Ò' 
+DEFAULT, 'ì¹´ë“œê²°ì œ', 270690, 'ë‚˜ì´ìŠ¤ì •ë³´í†µì‹ ', '2019/02/10',	NULL, 'ì „ë¡œí•˜', '010-8001-6812',
+'dd55555bb@gmail.com', DEFAULT, 'ê²°ì œì·¨ì†Œ' 
 );
 
 ---============================================================================
--- °áÁ¦ ³»¿ª Ãâ·Â¿ë view Äõ¸®
+-- ê²°ì œ ë‚´ì—­ ì¶œë ¥ìš© view ì¿¼ë¦¬
 DROP VIEW RECEIPT_VIEW;
 
 CREATE VIEW receipt_view
@@ -597,7 +567,7 @@ with read only;
 
 -------------------------------
 DROP VIEW BASE_VIEW;
--- ºÎ°ú±âÃÊÀÛ¾÷ Å×ÀÌºí
+-- ë¶€ê³¼ê¸°ì´ˆì‘ì—… í…Œì´ë¸”
 CREATE VIEW BASE_VIEW
 AS
 SELECT MERCHANT_UID, IMPOSE_STATUS, BILL_YEAR_MONTH, 
@@ -607,14 +577,14 @@ FROM BILL
 WITH CHECK OPTION;
 
 INSERT INTO BASE_VIEW VALUES(
-BILL_SEQ.NEXTVAL,'ÁøÇà', '2019/11/01',
+BILL_SEQ.NEXTVAL,'ì§„í–‰', '2019/11/01',
 '2019/10/01','2019/10/30','2019/10/30',
 '2019/10/30','2019/10/30',1  
 );
 
 ---------------------------------
 DROP VIEW IMPOSE_VIEW;
--- °ü¸®ºñµî·Ï Ã³¸® ºä Å×ÀÌºí
+-- ê´€ë¦¬ë¹„ë“±ë¡ ì²˜ë¦¬ ë·° í…Œì´ë¸”
 CREATE VIEW impose_VIEW
 AS
 SELECT MERCHANT_UID, USERID, username, BILL_YEAR_MONTH,
@@ -627,43 +597,32 @@ SELECT MERCHANT_UID, USERID, username, BILL_YEAR_MONTH,
 FROM BILL
 WITH CHECK OPTION;
 
-COMMENT ON COLUMN IMPOSE_VIEW.MERCHANT_UID IS '°íÁö¼­¹øÈ£';
-COMMENT ON COLUMN IMPOSE_VIEW.USERID IS 'µ¿/È£';
-COMMENT ON COLUMN IMPOSE_VIEW.username IS '¼¼´ëÁÖ¸í';
-COMMENT ON COLUMN IMPOSE_VIEW.BILL_YEAR_MONTH IS 'ºÎ°ú³â¿ù';
-COMMENT ON COLUMN IMPOSE_VIEW.GENERAL_COST IS 'ÀÏ¹İ°ü¸®ºñ';
-COMMENT ON COLUMN IMPOSE_VIEW.CLEAN_COST IS 'Ã»¼Òºñ';
-COMMENT ON COLUMN IMPOSE_VIEW.DISINFECT_COST IS '¼Òµ¶ºñ';
-COMMENT ON COLUMN IMPOSE_VIEW.ELEVATOR_COST IS '½Â°­±âÀ¯Áöºñ';
-COMMENT ON COLUMN IMPOSE_VIEW.REPAIR_COST IS '¼ö¼±À¯Áöºñ';
-COMMENT ON COLUMN IMPOSE_VIEW.GUARD_COST IS '°æºñºñ';
-COMMENT ON COLUMN IMPOSE_VIEW.FIREINSURANCE_COST IS 'È­Àçº¸Çè·á';
-COMMENT ON COLUMN IMPOSE_VIEW.COMMISSION IS 'À§Å¹°ü¸®¼ö¼ö·á';
-COMMENT ON COLUMN IMPOSE_VIEW.ELECTRIC_COST IS '¼¼´ëÀü±â·á';
-COMMENT ON COLUMN IMPOSE_VIEW.ALLELECTRIC_COsT IS '°øµ¿Àü±â·á';
-COMMENT ON COLUMN IMPOSE_VIEW.TV_COST IS 'TV¼ö½Å·á';
-COMMENT ON COLUMN IMPOSE_VIEW.HEATING_COST IS '³­¹æ»ç¿ë·á';
-COMMENT ON COLUMN IMPOSE_VIEW.HWATER_COST IS '¿Â¼ö»ç¿ë·á';
-COMMENT ON COLUMN IMPOSE_VIEW.WATER_COST IS '¼¼´ë¼öµµ·á';
-COMMENT ON COLUMN IMPOSE_VIEW.ALLWATER_COST IS '°øµ¿¼öµµ·á';
-COMMENT ON COLUMN IMPOSE_VIEW.ELECTRIC_USAGE IS 'Àü±â»ç¿ë·®';
-COMMENT ON COLUMN IMPOSE_VIEW.HEATING_USAGE IS '³­¹æ»ç¿ë·®';
-COMMENT ON COLUMN IMPOSE_VIEW.HWATER_USAGE IS '¿Â¼ö»ç¿ë·®';
-COMMENT ON COLUMN IMPOSE_VIEW.WATER_USAGE IS '¼öµµ»ç¿ë·®';
-COMMENT ON COLUMN IMPOSE_VIEW.amount IS '³³ºÎ±İ¾×';
+COMMENT ON COLUMN IMPOSE_VIEW.MERCHANT_UID IS 'ê³ ì§€ì„œë²ˆí˜¸';
+COMMENT ON COLUMN IMPOSE_VIEW.USERID IS 'ë™/í˜¸';
+COMMENT ON COLUMN IMPOSE_VIEW.username IS 'ì„¸ëŒ€ì£¼ëª…';
+COMMENT ON COLUMN IMPOSE_VIEW.BILL_YEAR_MONTH IS 'ë¶€ê³¼ë…„ì›”';
+COMMENT ON COLUMN IMPOSE_VIEW.GENERAL_COST IS 'ì¼ë°˜ê´€ë¦¬ë¹„';
+COMMENT ON COLUMN IMPOSE_VIEW.CLEAN_COST IS 'ì²­ì†Œë¹„';
+COMMENT ON COLUMN IMPOSE_VIEW.DISINFECT_COST IS 'ì†Œë…ë¹„';
+COMMENT ON COLUMN IMPOSE_VIEW.ELEVATOR_COST IS 'ìŠ¹ê°•ê¸°ìœ ì§€ë¹„';
+COMMENT ON COLUMN IMPOSE_VIEW.REPAIR_COST IS 'ìˆ˜ì„ ìœ ì§€ë¹„';
+COMMENT ON COLUMN IMPOSE_VIEW.GUARD_COST IS 'ê²½ë¹„ë¹„';
+COMMENT ON COLUMN IMPOSE_VIEW.FIREINSURANCE_COST IS 'í™”ì¬ë³´í—˜ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.COMMISSION IS 'ìœ„íƒê´€ë¦¬ìˆ˜ìˆ˜ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.ELECTRIC_COST IS 'ì„¸ëŒ€ì „ê¸°ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.ALLELECTRIC_COsT IS 'ê³µë™ì „ê¸°ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.TV_COST IS 'TVìˆ˜ì‹ ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.HEATING_COST IS 'ë‚œë°©ì‚¬ìš©ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.HWATER_COST IS 'ì˜¨ìˆ˜ì‚¬ìš©ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.WATER_COST IS 'ì„¸ëŒ€ìˆ˜ë„ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.ALLWATER_COST IS 'ê³µë™ìˆ˜ë„ë£Œ';
+COMMENT ON COLUMN IMPOSE_VIEW.ELECTRIC_USAGE IS 'ì „ê¸°ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN IMPOSE_VIEW.HEATING_USAGE IS 'ë‚œë°©ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN IMPOSE_VIEW.HWATER_USAGE IS 'ì˜¨ìˆ˜ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN IMPOSE_VIEW.WATER_USAGE IS 'ìˆ˜ë„ì‚¬ìš©ëŸ‰';
+COMMENT ON COLUMN IMPOSE_VIEW.amount IS 'ë‚©ë¶€ê¸ˆì•¡';
 
--- insert
-INSERT INTO IMPOSE_VIEW VALUES( 
-BILL_SEQ.NEXTVAL,'201-201','Àü·ÎÇÏ','2019/11/01',
-  20690, 20600, 13470, 760, 
-  3290, 2090, 650, 960,
-  86410, 16300, 2500, 15300, 
-  12000, 1850, 860,
-  410, 27, 12, 10,
-  206511
-);
-
--- °íÁö¼­ ±İ¾× µî·Ï½Ã ÀÔÁÖÀÚ °Ë»ö¿ë
+-- ê³ ì§€ì„œ ê¸ˆì•¡ ë“±ë¡ì‹œ ì…ì£¼ì ê²€ìƒ‰ìš©
 DROP VIEW IMPOSE_VIEW_aptuser;
 
 CREATE VIEW impose_VIEW_aptuser
@@ -672,44 +631,27 @@ SELECT DISTINCT USERID, USERNAME, USERPHONE
 FROM aptuser
 WITH READ ONLY;
 
-COMMENT ON COLUMN IMPOSE_VIEW_SEARCH.USERID IS 'µ¿/È£';
-COMMENT ON COLUMN IMPOSE_VIEW_SEARCH.USERNAME IS '¼¼´ëÁÖ¸í';
-comment on column impose_view_search.USERPHONE is 'ÀüÈ­¹øÈ£';
-
---select distinct * from impose_view_aptuser;
---SELECT DISTINCT * FROM IMPOSE_VIEW_APTUSER where userid Like '%101-101';
---select count(*) from impose_view_aptuser;
---select * from(
---SELECT ROWNUM RNUM, USERID, USERNAME, USERPHONE
---FROM(
---SELECT * FROM IMPOSE_VIEW_APTUSER
---ORDER BY USERID ASC))
---where rnum >= 1 and rnum <=5;
-
---select * from(
---SELECT ROWNUM RNUM, USERID, USERNAME, USERPHONE
---FROM(
---SELECT * FROM IMPOSE_VIEW_APTUSER where userid Like '%101-101'
---ORDER BY USERID ASC))
---where rnum >= 1 and rnum <=5;
+COMMENT ON COLUMN IMPOSE_VIEW_SEARCH.USERID IS 'ë™/í˜¸';
+COMMENT ON COLUMN IMPOSE_VIEW_SEARCH.USERNAME IS 'ì„¸ëŒ€ì£¼ëª…';
+comment on column impose_view_search.USERPHONE is 'ì „í™”ë²ˆí˜¸';
 
 -----------------------------------
 DROP VIEW IMPOSE_END_VIEW;
 
--- ºÎ°ú¸¶°¨µî·Ï »ùÇÃ ºä Å×ÀÌºí
+-- ë¶€ê³¼ë§ˆê°ë“±ë¡ ìƒ˜í”Œ ë·° í…Œì´ë¸”
 CREATE VIEW impose_end_VIEW
 AS
 SELECT MERCHANT_UID, USERID, 
         IMPOSE_STATUS, BILL_YEAR_MONTH, 
         CALCULATE_START_DAY, CALCULATE_END_DAY,
-        IMPOSE_FINISH as "ºÎ°úÁøÇà",
+        IMPOSE_FINISH as "ë¶€ê³¼ì§„í–‰",
         CUTOFF_DATE, IMPOSE_END_DATE, IMPOSE_COUNT, accept_date
 FROM BILL
 WITH CHECK OPTION;
 
 ----------------------------------------
 DROP VIEW BILL_VIEW;
--- °íÁö¼­ »ùÇÃ ºä Å×ÀÌºí
+-- ê³ ì§€ì„œ ìƒ˜í”Œ ë·° í…Œì´ë¸”
 CREATE VIEW bill_VIEW
 AS
 SELECT MERCHANT_UID, USERID,AMOUNT, ARREARS, 
@@ -717,28 +659,17 @@ SELECT MERCHANT_UID, USERID,AMOUNT, ARREARS,
 FROM BILL
 with read only;
 
---SELECT * FROM BILL_VIEW order by merchant_uid asc;
-DROP VIEW amount;
---Create Table payment_end();
+---------------------------------------
+DROP VIEW BILL_VIEW;
 
--- ¼ö³³Ã³¸® Å×ÀÌºí ¸¸µé±â receiptf
---userId : String
+CREATE VIEW bill_VIEW
+AS
+SELECT MERCHANT_UID, USERID,AMOUNT, ARREARS, 
+      before_amount, arrears_fine, after_amount  
+FROM BILL
+with read only;
 
--- merchantUid : long
-
--- billYearMonth : Date
-
--- amout : int
-
--- arrears : int
-
--- paidAmount : int
-
--- -status : String
-
--- payMethod : String
-
--- constranits Á¶°Ç »ı¼º ½ÃÀÛ ==========================================================================
+-- constranits ==========================================================================
 
 ALTER TABLE bill ADD CONSTRAINT FK_vbank_TO_bill_1 FOREIGN KEY (	vbank_num)
 REFERENCES vbank (	vbank_num);
@@ -753,7 +684,7 @@ REFERENCES PAYMENT (	MERCHANT_UID) ON DELETE CASCADE;
 
 
 
--- constranits Á¶°Ç »ı¼º ³¡ ====================================================
+-- constranits  ====================================================
 
 
 COMMIT;

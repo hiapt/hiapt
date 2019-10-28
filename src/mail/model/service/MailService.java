@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import mail.model.dao.MailDao;
+import mail.model.vo.MailBoxType;
+import mail.model.vo.MailFileBox;
 import mail.model.vo.Mailm;
 import static common.JDBCTemplate.*;
 
@@ -123,6 +125,170 @@ public class MailService {
 		close(conn);
 		return result;
 	}
+
+	public int writeMail(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.writeMail(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int writeMailC(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.writeMailC(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int writeMailT(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.writeMailT(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selfWriteMail(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.selfWriteMail(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int completeMail(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.completeMail(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int completeMailC(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.completeMailC(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int completeMailS(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.completeMailS(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int updateMailT(Mailm mailm) {
+		Connection conn = getConnection();
+		int result = mdao.updateMailT(conn, mailm);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectMailNo() {
+		Connection conn = getConnection();
+		int mailNo = mdao.selectMailNo(conn);
+		close(conn);
+		return mailNo;
+	}
+
+	public ArrayList<MailBoxType> selectMailBoxList(String email) {
+		Connection conn = getConnection();
+		ArrayList<MailBoxType> list = mdao.selectMailBoxList(conn, email);
+		close(conn);
+		return list;
+	}
+
+	public int enrollMailBox(String mbox, String email) {
+		Connection conn = getConnection();
+		int result = mdao.enrollMailBox(conn, mbox, email);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int getListCountSearchT(String email, String title) {
+		Connection conn = getConnection();
+		int listCount = mdao.getListCountSearchT(conn, email, title);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Mailm> selectListSearchT(String email, String title, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Mailm> list = mdao.selectListSearchT(conn, email, title, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public ArrayList<MailBoxType> selectMailBoxListAll(String email) {
+		Connection conn = getConnection();
+		ArrayList<MailBoxType> list = mdao.selectMailBoxListAll(conn, email);
+		close(conn);
+		return list;
+	}
+
+	public int addFile(int mailno1, String originalFileName, String renameFileName) {
+		Connection conn = getConnection();
+		int result = mdao.addFile(conn, mailno1, originalFileName, renameFileName);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int addFileC(int mailno2, String originalFileName, String renameFileName2) {
+		Connection conn = getConnection();
+		int result = mdao.addFileC(conn, mailno2, originalFileName, renameFileName2);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public MailFileBox selectFileOne(int mailno) {
+		Connection conn = getConnection();
+		MailFileBox mbf = mdao.selectFileOne(conn, mailno);
+		close(conn);
+		return mbf;
+	}
+
 
 	
 

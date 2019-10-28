@@ -9,6 +9,7 @@
 	int endPage = (Integer)request.getAttribute("endPage");
 	int maxPage = (Integer)request.getAttribute("maxPage");
 	String code = new String("send"); 
+	String allmail = new String("mail");
 %>
 <!DOCTYPE html>
 <html>
@@ -49,8 +50,13 @@
 <div class="card shadow mb-4">
 <div class="card-body">
 <input type="search" value="메일검색"> &nbsp;&nbsp; <span>보낸메일함/</span><br>
-<input type="checkbox"> &nbsp; <button>삭제</button> 
-<button>답장</button> <button>이동</button><br>
+<input type="checkbox" id="checkall"> &nbsp; 
+<form method="post" name="form">
+<input type="submit" value="삭제" onclick="javascript: form.action='/hiapt/movew'" class="btn btn-primary btn-sm shadow-sm" >
+<input type="submit" value="이동" onclick="javascript: form.action='/hiapt/mtwrite'" class="btn btn-primary btn-sm shadow-sm" >
+<input type="hidden" name="page" value="<%= currentPage %>">
+<input type="hidden" name="empemail" value="<%= emp.getEmpEmail() %>">
+<input type="hidden" name="code" value="<%= code %>">
 <table class="table beauty-table table-hover" style="text-align: center;">
 					<thead>
 						<tr>
@@ -69,56 +75,74 @@
 						<% for(Mailm m : list){ %>						
 						<tr><td><input type="checkbox"></td>
 						<td><%= m.getRecipient() %></td>
-						<td><a href="/hiapt/mdetail?mailno=<%= m.getMailNo() %>&page=<%= currentPage %>&code=<%= code %>"><%= m.getMailTitle() %></a></td>
+						<td><a href="/hiapt/mdetail?mailno=<%= m.getMailNo() %>&page=<%= currentPage %>&code=<%= code %>&allmail=<%= allmail %>"><%= m.getMailTitle() %></a></td>
 						<td><%= m.getMailTime() %></td>
 						</tr>
 						<% } %>
 					</thead>
 					</table>
-</div>
-</div>
+</form>
 
 <div class="col-sm-12">
 			<div class="paging_simple_numbers">
 				<ul class="pagination" style="justify-content: center;">
 					<li class="paginate_button page-item previous disabled"
-						id="dataTable_previous"><a href="/hiapt/smlist?page=1" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/smlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
 					<% if((beginPage - 10) < 1){ %>
 					<li class="paginate_button page-item previous back"
-						id="dataTable_previous"><a href="/hiapt/smlist?page=1" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/smlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 					<% } else { %>
 					<li class="paginate_button page-item active back"
-						id="dataTable_previous"><a href="/hiapt/smlist?page=<%= beginPage -10 %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/smlist?page=<%= beginPage -10 %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
 						data-dt-idx="<%= beginPage - 10 %>" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 					<% } %>
+					<% if(currentPage == 0){ %>
+					<li class="paginate_button page-item active"
+						id="dataTable_previous"><a href="/hiapt/selfmlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
+					<% }else{ %>
 					<% for(int p = beginPage; p <= endPage; p++){
 						if(p == currentPage){	
 					%>
-					<li class="paginate_button page-item active next"><a href="/hiapt/smlist?page<%= p %>"
+					<li class="paginate_button page-item active next"><a href="/hiapt/amlist?page<%= p %>&empemail=<%= emp.getEmpEmail() %>"
 						aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
 						class="page-link"><%= p %></a></li>
 					<% } else { %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/smlist?page=<%= p %>" aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
+						href="/hiapt/amlist?page=<%= p %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
 						class="page-link"><%= p %></a></li>
 					<% }} %>
+					<% } %>
 					<% if((endPage + 10) > maxPage ) { %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/smlist?page=<%= maxPage %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
+						href="/hiapt/smlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
 						class="page-link">&rsaquo;&rsaquo;</a></li>
 					<% } else { %>	
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/smlist?page<%= endPage + 10 %>" aria-controls="dataTable" data-dt-idx="<%= endPage + 10 %>" tabindex="0"
+						href="/hiapt/smlist?page<%= endPage + 10 %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= endPage + 10 %>" tabindex="0"
 						class="page-link">&rsaquo;&rsaquo;</a></li>
 					<% } %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/smlist?page=<%= maxPage %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
+						href="/hiapt/smlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
 						class="page-link">&rsaquo;</a></li>
 				</ul>
 			</div>
-		</div>	
+		</div>
+		</div>
+</div>	
+<script type="text/javascript">
+	$("#checkall").click(function() {
+
+		if ($("#checkall").prop("checked")) {
+
+			$("input[type=checkbox]").prop("checked", true);
+		} else {
+			$("input[type=checkbox]").prop("checked", false);
+		}
+	});
+</script>		
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

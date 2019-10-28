@@ -50,32 +50,11 @@
 <!--========================================================================================== -->
 <!-- 채팅 알림창   -->
 <!--========================================================================================== -->
-						<li class="nav-item dropdown no-arrow mx-1"><a
-							class="nav-link dropdown-toggle" href="#" id="messagesDropdown"
-							role="button" data-toggle="dropdown" aria-haspopup="true"
-							aria-expanded="false"> <i class="fas fa-comment-dots fa-fw"></i>
-								<!-- Counter - Messages --> <span
-								class="badge badge-danger badge-counter">7</span>
-						</a> <!-- Dropdown - Messages -->
-							<div
-								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-								aria-labelledby="messagesDropdown">
-								<h6 class="dropdown-header">채팅</h6>
-								<a class="dropdown-item d-flex align-items-center" href="#">
-									<div class="dropdown-list-image mr-3">
-										<img class="rounded-circle"
-											src="https://source.unsplash.com/fn_BT9fwg_E/60x60" alt="">
-										<div class="status-indicator bg-success"></div>
-									</div>
-									<div class="font-weight-bold">
-										<div class="text-truncate">채팅 메세지 샘플</div>
-										<div class="small text-gray-500">로하 · 58m</div>
-									</div>
-								</a> <a class="dropdown-item text-center small text-gray-500"
-									href="#">채팅 더하기</a>
-							</div></li>
+			<li class="nav-item dropdown no-arrow mx-1"><a class="nav-link dropdown-toggle" 
+						href="#" id="messagesDropdown" role="button"
+						onclick="window.open('/hiapt/views/emp/chat/chatManager.jsp?empno=<%= emp.getEmpNo() %>','name(채팅)','width=350,height=700')"
+						> <i class="fas fa-comment-dots fa-fw"></i></a></li>
 
-						<div class="topbar-divider d-none d-sm-block"></div>
 <!--========================================================================================== -->
 <!-- 개인정보 창  -->
 <!--========================================================================================== -->
@@ -83,7 +62,7 @@
 							class="nav-link dropdown-toggle" href="#" id="userDropdown"
 							role="button" data-toggle="dropdown" aria-haspopup="true"
 							aria-expanded="false"> <span
-								class="mr-2 d-none d-lg-inline text-gray-600 small"><%= emp.getEmpName()  %></span> <img
+								class="mr-2 d-none d-lg-inline text-gray-600 small"><%= emp.getEmpName() %></span> <img
 								class="img-profile rounded-circle"
 								src="/hiapt/resources/images/avatar.png">
 						</a> <!-- Dropdown - User Information -->

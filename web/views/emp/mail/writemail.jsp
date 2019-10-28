@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="employee.model.vo.Employee"%>
-
+<%
+	String code = new String("write");
+%>
 <!DOCTYPE html>
 <html>
 <!-- head 시작 -->
@@ -65,7 +67,6 @@
 <!-- 왼쪽 메인 메뉴바 시작 --> 
 
 <%@ include file ="../../common/empnavi.jsp" %>
-
 <!-- 왼쪽 메인 메뉴바 끝  --> 
 <!-- ================================================================================= -->
 
@@ -87,24 +88,27 @@
 <!--///////본문 내용 시작 ///////-------->
 	<h4>편지쓰기</h4>
 
+<div class="card shadow mb-4">
+<div class="card-body">
 <br>
-<form method="post" name="form">
+<form method="post" name="form" enctype="multipart/form-data">
 <input type="submit" value="보내기" id="savebutton" onclick="javascript: form.action='/hiapt/mwrite'">
 <input type="submit" value="임시저장" id="tempbutton" onclick="javascript: form.action='/hiapt/mtwrite'">
 <input type="hidden" name="email" value="<%= emp.getEmpEmail() %>">
+<input type="hidden" name="code" value="<%= code %>">
 <table>
 	<tr>
 		<th>받는사람</th>
-		<td><input type="text" name="recipient"></td>
-		<td><button>주소록</button></td>
+		<td><input type="text" id="recipient" name="recipient" value=""></td>
+		<td><button class="btn btn-primary btn-sm shadow-sm">주소록</button></td>
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td colspan="2"><input type="text" name="title"></td>
+		<td colspan="2"><input type="text" id="title" name="title"></td>
 	</tr>
 	<tr>
 		<th>파일첨부</th>
-		<td><input type="file"></td>
+		<td><input type="file" name="file"></td> 
 	</tr>
 	<tr>
 	<th colspan="2">
@@ -117,6 +121,8 @@
 	</tr>
 </table>
 </form>
+</div>
+</div>
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

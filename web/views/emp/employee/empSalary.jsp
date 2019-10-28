@@ -188,10 +188,8 @@ function info_print() {
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-
 <div class="card shadow mb-4" id="print">
 <form action="/hiapt/salary" method="post">
-
 <table style=" width:650px; border:0px; padding:20px; margin:auto;" cellpadding="0" cellspacing="1">
 		<tbody>
 		<tr>
@@ -293,7 +291,6 @@ function info_print() {
 		</tbody></table><br>
 </form>
 </div>
-
 
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	

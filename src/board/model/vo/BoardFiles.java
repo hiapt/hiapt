@@ -6,14 +6,16 @@ public class BoardFiles implements java.io.Serializable{
 	private int boardNo;
 	private String boardOriginalFileName;
 	private String boardRnameFileName;
+	private String boardFileSize;
 	
 	public BoardFiles() {}
 	
-	public BoardFiles(int boardNo, String boardOriginalFileName, String boardRnameFileName) {
+	public BoardFiles(int boardNo, String boardOriginalFileName, String boardRnameFileName, String boardFileSize) {
 		super();
 		this.boardNo = boardNo;
 		this.boardOriginalFileName = boardOriginalFileName;
 		this.boardRnameFileName = boardRnameFileName;
+		this.boardFileSize = boardFileSize;
 	}
 
 	public int getBoardNo() {
@@ -40,11 +42,21 @@ public class BoardFiles implements java.io.Serializable{
 		this.boardRnameFileName = boardRnameFileName;
 	}
 
+	public String getBoardFileSize() {
+		return boardFileSize;
+	}
+
+	public void setBoardFileSize(String boardFileSize) {
+		this.boardFileSize = boardFileSize;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardFiles [boardNo=" + boardNo + ", boardOriginalFileName=" + boardOriginalFileName
-				+ ", boardRnameFileName=" + boardRnameFileName + "]";
+				+ ", boardRnameFileName=" + boardRnameFileName + ", boardFileSize=" + boardFileSize + "]";
 	}
+	
+	
 	
 	
 	

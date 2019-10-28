@@ -57,6 +57,10 @@ public class EmpEnrollServlet extends HttpServlet {
 				employee.setLongIns(Integer.parseInt(request.getParameter("longins")));
 				employee.setIncomeTax(Integer.parseInt(request.getParameter("incometax")));
 				employee.setLocalTax(Integer.parseInt(request.getParameter("localtax")));
+				employee.setSalaryTot(Integer.parseInt(request.getParameter("salarytot")));
+				employee.setMinusTot(Integer.parseInt(request.getParameter("minustot")));
+				employee.setRealSalary(Integer.parseInt(request.getParameter("realsalary")));
+				
 				employee.setEmpEtc(request.getParameter("empetc"));
 				
 				System.out.println("employee : " + employee);
@@ -64,7 +68,7 @@ public class EmpEnrollServlet extends HttpServlet {
 				int result = new EmployeeService().insertEmployee(employee);
 				
 				if(result > 0) {
-					response.sendRedirect("/hiapt/index.jsp");
+					response.sendRedirect("/hiapt/emplist");
 				}else {
 					RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 					request.setAttribute("message", "회원 가입 실패!");

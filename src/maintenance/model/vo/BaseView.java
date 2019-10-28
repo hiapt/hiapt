@@ -109,7 +109,9 @@ public class BaseView implements java.io.Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
+	
+	
+	
 	@Override
 	public String toString() {
 		return "BaseView [imposeStatus=" + imposeStatus + ", billYearMonth=" + billYearMonth + ", calculateStartDay="
@@ -118,6 +120,8 @@ public class BaseView implements java.io.Serializable{
 				+ ", merchantUid=" + merchantUid + "]";
 	}
 
+	
+	
 	
 	
 	

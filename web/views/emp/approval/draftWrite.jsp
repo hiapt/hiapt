@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="draft.model.vo.Draft"%>
-
+<%@page import="draft.model.vo.Draft, java.util.ArrayList, formbox.model.vo.Formbox, employee.model.vo.Employee"%>
+<%
+	ArrayList<Formbox> flist = (ArrayList<Formbox>) request.getAttribute("list");
+	ArrayList<Employee> elist =  (ArrayList<Employee>) request.getAttribute("list2");
+%>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -39,9 +42,13 @@
 	<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 
 <script type="text/javascript" src="/hiapt/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 <script type="text/javascript">
+
+
+
 $(function(){
     //전역변수선언
     var editor_object = [];
@@ -64,13 +71,40 @@ $(function(){
     $("#savebutton").click(function(){
         //id가 smarteditor인 textarea에 에디터에서 대입
         editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
-         
+
+
         // 이부분에 에디터 validation 검증
-         
+        var con = document.getElementById("smarteditor").value;
+        var title = document.getElementById("title").value;
+        if( title == ""  || title == null )  {
+            alert("제목을 입력하세요.");
+      return;
+       }
+        if(title.length > 50){
+            alert("제목은 한글 50글자 이상 입력할 수 없습니다.");
+            return;
+        }
+        if( con== ""  || con == null || con == '&nbsp;' || con == '<br>' || con == '<br />' ||  con == '<p>&nbsp;</p>')  {
+             alert("내용을 입력하세요.");
+             oEditors.getById["smarteditor"].exec("FOCUS"); 
+             return;
+        }
+        
+  
+        
         //폼 submit
-        $("#frm").submit();
+      
+        
+        var a = confirm("기안 하시겠습니까?");
+        if(a) {
+        	  $("#frm").submit();
+        }else {
+        	
+        }
     });
 });
+
+
 </script>
 
 <script type="text/javascript">
@@ -82,9 +116,11 @@ function formview() {
 	var left = Math.ceil((window.screen.width - width) / 2);
 	var top = Math.ceil((window.screen.width - height) / 2);
 	
-	window.open('/hiapt/views/emp/approval/formView.jsp' , '문서보기', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
+	window.open('/hiapt/fview' , '문서보기', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
 	
 }
+
+
 
 </script>
 
@@ -98,7 +134,7 @@ fieldset {
 }
 
 th {
-	border: solid 3px #fff;
+	border: solid 1px white;
 	border-collapse: collapse;
 	padding: 15px;
 	text-align: center;
@@ -106,11 +142,10 @@ th {
 	height: 60px;
 	background-color: rgba(87, 104, 173, 0.9);
 	color: #f8f9fc;
-	border-radius: 9px;
 }
 
 td {
-	border: solid 3px #fff;
+	border: solid 1px white;
 	border-collapse: collapse;
 	padding-top: 15px;
 	padding-bottom: 15px;
@@ -119,7 +154,6 @@ td {
 	height: 60px;
 	color: #5a5c69;
 	font-weight: 600; 
-	border-radius: 9px;
 	background-color: rgba(87, 104, 173, 0.15);
 
 }
@@ -184,14 +218,10 @@ legend {
 <form action="/hiapt/dsend" method="post" id="frm">
 
 <div class="row" style="margin-left: 2px;">
- 
 		<input type="button" value=" 기안하기 " class="btn btn-primary btn-icon-split" id="savebutton"
-		
-		style="padding: 7px;">
+		style="padding: 7px;" onclick="send();">
 		 
-		
 		<input type="button" value=" 임시저장 " class="btn btn-secondary btn-icon-split" id="tempbutton"
-		
 		style="padding: 7px; margin-left: 25px;">&nbsp;&nbsp;
 </div>
 <br>
@@ -209,12 +239,20 @@ legend {
 <tr><th style=" width: 120px;">문서 종류</th>
 <td width="415px;" style="padding-bottom: 8px;" colspan="3">
 <select name="formtype" id="formselect">
+
+
 <option>공용</option>
 </select>&nbsp;&nbsp;&nbsp;&nbsp;
 <select name="formcode" id="formselect">
-<option value="100">일반 기안서</option>
-<option value="110">휴가 신청서</option>
-<option value="120">기타1</option>
+
+<%
+for (int i = 0; i < flist.size(); i++) { 
+	 Formbox f = flist.get(i); 
+	 %>
+	 
+<option value="<%= f.getFormcode() %>"><%= f.getFormname() %></option>
+<% } %>
+
 </select>
 &nbsp;&nbsp;&nbsp;
 <!-- <button style="height: 25px;">문서보기</button> -->
@@ -227,32 +265,32 @@ style = "width: 100px; border: none; background: none; text-align: center; margi
 <%= emp.getEmpId() %>  <%= emp.getEmpName() %>
 </td>
 </tr>
+
 <tr id="tab2">
-<th style="width: 120px;">공개 여부</th>
-<td width="25%">
-<input type="radio" name="display" value="Y"	 required="required"> 공개 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="radio" name="display" value="N" required="required" checked="checked"> 비공개</td>
-
-<th style="width: 120px;">문서함</th>
-<td width="25%">
-<select name="newbox" id="boxselect">
-<option >없음 (기본)</option>
-<option value="0">새 문서함1</option>
-<option value="1">새 문서함2</option>
-<option value="2">새 문서함3</option>
-<option value="3">새 문서함4</option>
-<option value="4">새 문서함5</option>
-</select>
-</td>
-
-<th style="width: 120px;">결재자</th>
-<td width="120px;" style="width: 120px;">
-<input type="text" name="approver" value="관리자로 고정" readonly 
-style = "width: 100px; border: none; background: none; text-align: center; margin-top: 1px;">
+<th>결재선 지정</th>
+<td colspan="5">
+<input type="hidden" name="approver" value="admin">
+관리자
 </td>
 </tr>
+<tr>
+<th>공람 지정</th>
+<td colspan="5">
+
+<select multiple="multiple" class="form-control"  id="selectdisplay" style="width: 670px;">
+<%
+for (int i = 0; i < elist.size(); i++) { 
+	 Employee e = elist.get(i); 
+	 %>
+ <option value="<%= e.getEmpNo() %>"><%= e.getEmpId() %> <%= e.getEmpName() %></option>
+ <% } %>
+</select>&nbsp;&nbsp;
+<button>상세지정</button>
+</tr>
+
 </table>
 </fieldset>
+
 
 <br>
 
@@ -261,7 +299,7 @@ style = "width: 100px; border: none; background: none; text-align: center; margi
 <legend>상세 설정</legend>
 </fieldset>
 
-<input type="text" placeholder="제목 입력" name= "drafttitle"  required="required"
+<input type="text" id="title" placeholder="제목 입력" name= "drafttitle"  required="required"
 style="width: 900px; height: 35px; border: solid 1px #afafaf; border-radius: 5px; padding-left: 10px;">
 
 <div style="width:900px; height:750px; background-color: white; margin-top: 15px;">
@@ -288,5 +326,19 @@ style="width: 900px; height: 35px; border: solid 1px #afafaf; border-radius: 5px
 <!-- top 버튼 -->
 <%@ include file = "../../common/topbutton.html" %>
 <!--========================================================================================== -->
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<!-- select2 javascript cdn -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
+<script>
+// select2 초기화
+$('#selectdisplay').select2();
+$('#selectdisplay').select2({
+	maximumSelectionLength: 5
+	});
+
+</script>
+
+
+
 </body>
 </html>

@@ -42,13 +42,15 @@
 	<script src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
+<script type="text/javascript">
+</script>
 
 <style type="text/css">
 
 body{
 text-align: center;
-background-color: #fbfbf0;
-font-size: 12pt;
+background-color: #f8f9fc;
+color: #444;
 }
 
 
@@ -63,44 +65,39 @@ textarea {
 
 <!--///////본문 내용 시작 ///////-------->
 
-<div align="center" id="title"><h2>문서양식 미리보기</h2></div>
+<div align="center" id="title">문서양식 미리보기</div>
 <form>
 <div>
-<h3>문서양식 선택</h3>
-<select class="form-control"  style="width: 500px;">
-<option>공용 - 일반 기안서</option>
-<option>공용 - 휴가 신청서</option>
-<option>업무일지 - 직원 업무 일지</option>
-<option>업무일지 - 관리자 업무 일지</option>
-<option>기타문서 - 기타1</option>
-<option>기타문서 - 기타2</option>
-<option>기타문서 - 기타3</option>
-<option>기타문서 - 기타4</option>
-<option>기타문서 - 기타5</option>
-<option>기타문서 - 기타6</option>
-<option>기타문서 - 기타7</option>
-<option>기타문서 - 기타8</option>
-<option>기타문서 - 기타9</option>
-<option>기타문서 - 기타11</option>
-<option>기타문서 - 기타12</option>
-<option>기타문서 - 기타13</option>
-<option>기타문서 - 기타14</option>
-<option>기타문서 - 기타15</option>
+문서양식 선택<br>
+<select class="form-control"  style="width: 614px;">
+
+<%
+for (int i = 0; i < flist.size(); i++) { 
+	 Formbox f = flist.get(i); 
+	 %>
+	 
+<option value="<%= f.getFormcode() %>"><%= f.getFormtype() %> - <%= f.getFormname() %></option>
+<% } %>
 </select>
 </div>
 <div>
-<h3>미리보기</h3>
-<textarea readonly="readonly" style="resize: none;" cols="80" rows="20">
+
+미리보기
+<br>
+
+<textarea readonly="readonly" style="resize: none;" cols="75" rows="24">
 
 </textarea>
 </div>
+<br>
 <div>
-<button>선택</button>
+<button>선택</button> &nbsp;
 <button>취소</button>
 </div>
 
 
 </form>
+
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- select2 javascript cdn -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/js/select2.min.js"></script>
@@ -110,15 +107,8 @@ $('select').select2();
 </script>
 
 <!---//// 본문 내용 끝 ///////------------------->
-</div><!-- /.container-fluid -->				
-</div><!-- End of Main Content -->	
-<!---//// 본문 내용 끝 ///////------------------->
-
-</div>	<!-- End of Content Wrapper -->
-</div>	<!-- End of Page Wrapper -->	
 <!--========================================================================================== -->
 <!-- top 버튼 -->
-<%@ include file = "../../common/topbutton.html" %>
 <!--========================================================================================== -->
 </body>
 </html>

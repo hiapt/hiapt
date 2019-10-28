@@ -9,6 +9,10 @@
 	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
+	String keyword = (String) request.getAttribute("keyword");
+	String begin = (String) request.getAttribute("begin");
+	String to = (String) request.getAttribute("to");
+	String empno = (String) request.getAttribute("empno");
 %>
 
 <head>
@@ -86,6 +90,7 @@ table {
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
+<% if(emp.getEmpNo().equals(empno)) { %>
 
 <!--///////본문 내용 시작 ///////-------->
 
@@ -101,7 +106,7 @@ table {
 		</select>
 	</div>
 	<div id="title">
-		<form action="/hiapt/dsearch" method="post" id="searchform">
+		<form action="/hiapt/dsearchapp" method="get" id="searchform">
 			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
 			<input type="hidden" name="search" value="title">
 			<div class="input-group" style="margin-left: 5px;">
@@ -117,7 +122,7 @@ table {
 		</form>
 	</div>
 	<div id="writer">
-		<form action="/hiapt/dsearch" method="post" id="searchform2">
+		<form action="/hiapt/dsearchapp" method="get" id="searchform2">
 			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
 			<input type="hidden" name="search" value="writer">
 			<div class="input-group" style="margin-left: 5px;">
@@ -134,7 +139,7 @@ table {
 		</form>
 	</div>
 	<div id="date">
-		<form action="/hiapt/dsearch" method="post" id="searchform3">
+		<form action="/hiapt/dsearchapp" method="get" id="searchform3">
 			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
 			<input type="hidden" name="search" value="date">
 			<div class="input-group" style="margin-left: 5px;">
@@ -154,7 +159,7 @@ table {
 		</form>
 	</div>
 	<div id="formtype">
-		<form action="/hiapt/dsearch" method="post" id="searchform4">
+		<form action="/hiapt/dsearchapp" method="get" id="searchform4">
 			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
 			<input type="hidden" name="search" value="formtype">
 			<div class="input-group" style="margin-left: 5px;">
@@ -172,10 +177,20 @@ table {
 	</div>
 </div>
 <br>
-	<h5>
-		승인 문서 :
-		<%=count%>개
-	</h5>
+<div style="display: flex;">
+		<div style="color: #444;">
+		［승인 문서 : <%=count%>개］
+		</div>
+</div>
+<% if(keyword != null) { %>
+	<div align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색어 : <%= keyword %>］
+	</div>
+	<% } else if (begin != null && to != null) { %>
+	<div  align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색 날짜 : <%= begin %> ~ <%= to %>］
+	</div>
+	<% } %><br>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -311,7 +326,9 @@ table {
 			</div>
 		</div>
 	</div>
-
+	<% } else { %>
+	<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 목록에 대한 접근 권한이 없습니다. </div>
+	<% } %>
 <script type="text/javascript">
 	$("#checkall").click(function() {
 
@@ -357,6 +374,22 @@ table {
 			$("#formtype").css("display", "block");
 		}
 	}
+
+	$(function() {
+		  $("#submitbtn").click(function(){
+		        $("#searchform").submit();
+		    });
+		  $("#submitbtn2").click(function(){
+		        $("#searchform2").submit();
+		    });
+		  $("#submitbtn3").click(function(){
+		        $("#searchform3").submit();
+		    });
+		  $("#submitbtn4").click(function(){
+		        $("#searchform4").submit();
+		    });
+		  
+	});
 </script>
 
 <!---//// 본문 내용 끝 ///////------------------->

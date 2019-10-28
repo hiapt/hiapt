@@ -15,6 +15,14 @@
 <!-- head 시작  -->
 <%@ include file="../userhead.html" %>
 <!-- head 끝  -->
+
+<script type="text/javascript">
+function boardWrite(){
+	window.location.href="/hiapt/views/user/board/boardWriteForm.jsp";
+	return false;
+};	
+
+</script>
 <body>
 <!-- navi 시작  -->
 <%@ include file="../userheader.jsp" %>
@@ -50,7 +58,7 @@
 	<% for(Board b : blist){ %>
 		<tr align="center">
 			<td><%= b.getBoardNo() %></td>
-			<td><%-- <a href="/hiapt/vo.ad.view?vno=<%= v.getVoteNo() %>&page=<%= currentPage %>"> --%><%= b.getBoardTitle() %><!-- </a> --></td>
+			<td><a href="/hiapt/bo.view?uporview=view&bno=<%= b.getBoardNo() %>&page=<%= currentPage %>"><%= b.getBoardTitle() %></a></td>
 			<td><%= b.getBoardWriter() %></td>
 			<td><%= b.getBoardDate() %></td>
  			<td><%= b.getBoardReadCount() %></td>
@@ -80,7 +88,9 @@
 <% } %> &nbsp;
 <a href="/hiapt/bo.list?page=<%= maxPage %>">▷|</a>
 	
-	
+	<div align="right">
+	<button onclick="boardWrite();">작성하기</button>&nbsp;
+	</div>
     </div>
     </div>
 </section>

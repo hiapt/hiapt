@@ -64,7 +64,7 @@ public class EmpUpdateServlet extends HttpServlet {
 		
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", empNo + " 직원 정보 수정 실패");
+			request.setAttribute("message", " 직원 정보 수정 실패");
 		}
 		view.forward(request, response);
 	}

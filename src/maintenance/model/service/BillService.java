@@ -20,8 +20,10 @@ public class BillService {
 		Connection conn = getConnection();
 		ArrayList<Bill> list = bdao.selectList(conn);
 		close(conn);
+		System.out.println("sevice list : " + list);
 		return list;
 	}// end selectList()
+	
 	
 	// 고지서 페이징 처리용 count
 	public int getListCount() {
@@ -37,7 +39,7 @@ public class BillService {
 		Connection conn = getConnection();
 		ArrayList<Bill> list = bdao.selectList(conn, startRow, endRow);
 		close(conn);
-		
+		System.out.println("list service : " + list);
 		return list;
 	}
 	

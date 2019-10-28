@@ -33,5 +33,38 @@ public class FormboxService {
 		close(conn);
 		return listCount;
 	}
+	public ArrayList<Formbox> selectList () {
+		Connection conn = getConnection();
+		ArrayList<Formbox> list = fdao.selectList(conn);
+		close(conn);
+		return list;
+	}
 
+	public int getFormListSearchT(String keyword) {
+		Connection conn = getConnection();
+		int listCount = fdao.getFormListSearchT(conn, keyword);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Formbox> draftFormSearchName(String keyword, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Formbox> list = fdao.draftFormSearchName(conn, keyword, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public int getFormListSearchF(String keyword) {
+		Connection conn = getConnection();
+		int listCount = fdao.getFormListSearchF(conn, keyword);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Formbox> draftFormSearchType(String keyword, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Formbox> list = fdao.draftFormSearchType(conn, keyword, startRow, endRow);
+		close(conn);
+		return list;
+	}
 }

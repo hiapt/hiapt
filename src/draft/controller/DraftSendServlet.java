@@ -41,6 +41,7 @@ public class DraftSendServlet extends HttpServlet {
 		draft.setDoccontent(request.getParameter("doccontent"));
 		draft.setFormcode(Integer.parseInt(request.getParameter("formcode")));
 		draft.setProgress(request.getParameter("progress"));
+		draft.setAppempno(request.getParameter("approver"));
 		
 		System.out.println("draft : " + draft );
 

@@ -5,7 +5,7 @@ import java.sql.Date;
 public class Bill implements java.io.Serializable {
 	private static final long serialVersionUID = 100001L;
 	
-	private int merchantUid; // 고유고지서번호
+	private long merchantUid; // 고유고지서번호
 	private String userId; // 동/홍수
 	private String userName; // 이름
 	private java.sql.Date billYearMonth; // 부과년월
@@ -16,7 +16,7 @@ public class Bill implements java.io.Serializable {
 	private java.sql.Date cutoffDate; // 납부마감일
 	private String imposeStatus; // 부과진행
 	private int imposeCount; // 부과마감 횟수
-	private String imposeFinish;	 // 부과완료
+	private String imposeFinish;	 // 부과완료(char)
 	private int generalCost; // 일반관리비
 	private int guardCost; // 경비비
 	private int cleanCost;//	청소비
@@ -39,16 +39,21 @@ public class Bill implements java.io.Serializable {
 	private int arrears;//	미납액
 	private String etc;//	비고
 	private String vbankNum; //	계좌번호
+	private int amount; // 부과금액
+	private double beforeAmount; // 납기내 금액
+	private double afterAmount; // 납기후 금액
+	private double arrearsFine; // 미납후금액
 	
 	// 기본 생성자
 	public Bill(){}
 
-	public Bill(int merchantUid, String userId, String userName, Date billYearMonth, Date calculateStartDay,
+	public Bill(long merchantUid, String userId, String userName, Date billYearMonth, Date calculateStartDay,
 			Date calculateEndDay, Date imposeEndDay, Date acceptDate, Date cutoffDate, String imposeStatus,
 			int imposeCount, String imposeFinish, int generalCost, int guardCost, int cleanCost, int disinfectCost,
 			int elevatorCost, int repairCost, int commission, int fireInsuranceCost, int electricCost, int tvCost,
 			int waterCost, int heatingCost, int hwaterCost, int allElectricCost, int allWaterCost, int electricUsage,
-			int waterUsage, double heatingUsage, double hwaterUsage, int arrears, String etc, String vbankNum) {
+			int waterUsage, double heatingUsage, double hwaterUsage, int arrears, String etc, String vbankNum,
+			int amount, double beforeAmount, double afterAmount, double arrearsFine) {
 		super();
 		this.merchantUid = merchantUid;
 		this.userId = userId;
@@ -84,13 +89,17 @@ public class Bill implements java.io.Serializable {
 		this.arrears = arrears;
 		this.etc = etc;
 		this.vbankNum = vbankNum;
+		this.amount = amount;
+		this.beforeAmount = beforeAmount;
+		this.afterAmount = afterAmount;
+		this.arrearsFine = arrearsFine;
 	}
 
-	public int getMerchantUid() {
+	public long getMerchantUid() {
 		return merchantUid;
 	}
 
-	public void setMerchantUid(int merchantUid) {
+	public void setMerchantUid(long merchantUid) {
 		this.merchantUid = merchantUid;
 	}
 
@@ -358,6 +367,38 @@ public class Bill implements java.io.Serializable {
 		this.vbankNum = vbankNum;
 	}
 
+	public int getAmount() {
+		return amount;
+	}
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+	public double getBeforeAmount() {
+		return beforeAmount;
+	}
+
+	public void setBeforeAmount(double beforeAmount) {
+		this.beforeAmount = beforeAmount;
+	}
+
+	public double getAfterAmount() {
+		return afterAmount;
+	}
+
+	public void setAfterAmount(double afterAmount) {
+		this.afterAmount = afterAmount;
+	}
+
+	public double getArrearsFine() {
+		return arrearsFine;
+	}
+
+	public void setArrearsFine(double arrearsFine) {
+		this.arrearsFine = arrearsFine;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -375,8 +416,10 @@ public class Bill implements java.io.Serializable {
 				+ ", hwaterCost=" + hwaterCost + ", allElectricCost=" + allElectricCost + ", allWaterCost="
 				+ allWaterCost + ", electricUsage=" + electricUsage + ", waterUsage=" + waterUsage + ", heatingUsage="
 				+ heatingUsage + ", hwaterUsage=" + hwaterUsage + ", arrears=" + arrears + ", etc=" + etc
-				+ ", vbankNum=" + vbankNum + "]";
+				+ ", vbankNum=" + vbankNum + ", amount=" + amount + ", beforeAmount=" + beforeAmount + ", afterAmount="
+				+ afterAmount + ", arrearsFine=" + arrearsFine + "]";
 	}
+
 	
 	
 }

@@ -1,0 +1,27 @@
+-- 관리자 계정에서 실행
+-- 사용자 계정 생성
+CREATE USER hiapt IDENTIFIED BY hiapt;
+
+-- 계정 생성 확인
+SELECT USERNAME FROM ALL_USERS;
+
+-- 계정 비밀번호 변경
+-- ALTER USER hiapt IDENTIFIED BY [NEW PASSWORD];
+
+-- 데이터베이스 접속 권한
+GRANT CREATE SESSION TO hiapt;
+
+-- connect(접속을 하기 위한 권한) resource(모든 권한을 묶어 놓은 Role)
+GRANT CONNECT, RESOURCE TO hiapt;
+
+-- 뷰 생성권한
+GRANT CREATE VIEW TO hiapt;
+
+-- 시퀀스 생성 권한
+GRANT CREATE SEQUENCE TO hiapt;
+
+-- 계정에 삭제하기
+drop user 사용자계정 cascade;
+
+-- 권한 몇깨 묶여 한꺼번에 주기
+GRANT CREATE user, CREATE table, CREATE sequence, CREATE view, CREATE session to hiapt;

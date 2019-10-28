@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import= "employee.model.vo.Employee"%>
 <% 
-	Employee employee = (Employee)request.getAttribute("employee");
+	Employee employee = (Employee)request.getAttribute("empdetail");
 %>   
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
@@ -90,7 +90,6 @@ th{
 <!-- 왼쪽 메인 메뉴바 시작 --> 
 
 <%@ include file ="../../common/empnavi.jsp" %>
-
 <!-- 왼쪽 메인 메뉴바 끝  --> 
 <!-- ================================================================================= -->
 
@@ -151,11 +150,16 @@ th{
 <tr><th style="text-align:center;">기타정보</th>
 <td id="employee"><%= employee.getEmpEtc() %></td></tr>
 
-<tr><th colspan="2">
+<tr>
+	<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
+	<th colspan="2">
 		<a href="/hiapt/empupdate?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
 		<a href="/hiapt/empdelete?empno=<%= employee.getEmpNo() %>">삭제하기</a>
-		<a href="/hiapt/views/emp/employee/empList.jsp">돌아가기</a>
-</th></tr>
+		<a href="javascript:history.go(-1);">돌아가기</a>
+	</th>
+	<% }else{ %>
+	<% } %>
+</tr>
 
 </table>
 </form>

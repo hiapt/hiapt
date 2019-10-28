@@ -75,6 +75,7 @@ public class DraftListServlet extends HttpServlet {
 			request.setAttribute("beginPage", beginPage);
 			request.setAttribute("endPage", endPage);
 			request.setAttribute("count", listCount);
+			request.setAttribute("empno", empno);
 				
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
