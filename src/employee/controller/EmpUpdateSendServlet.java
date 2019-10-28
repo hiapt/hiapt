@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import employee.model.service.EmployeeService;
 import employee.model.vo.Employee;
@@ -77,7 +76,7 @@ public class EmpUpdateSendServlet extends HttpServlet {
 			Employee loginMember = empservice.selectEmployee(empNo);
 			session.setAttribute("loginMember", loginMember);*/
 			
-			response.sendRedirect("/hiapt/emplist");
+			response.sendRedirect("/hiapt/empdetail?empno=" + empNo);
 			
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");

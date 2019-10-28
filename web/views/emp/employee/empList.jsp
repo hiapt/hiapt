@@ -213,12 +213,18 @@ $(function() {
 					<th style="text-align: center;">사번</th>
 					<th style="text-align: center;">이름</th>
 					<th style="text-align: center;">직급</th>
+					<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
 					<th style="text-align: center;">입사년도</th>
+					<% }else{ %>
+					<% } %>
 					<th style="text-align: center;">휴대전화</th>
 					<!-- <th style="text-align: center;"></th> -->
 					<th style="text-align: center;">이메일</th>
+					<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
 					<th style="text-align: center;">급여명세서</th>
 					<th style="text-align: center;">상세정보</th>
+					<% }else{ %>
+					<% } %>
 				</tr>
 			</thead>
 			<%
@@ -230,11 +236,17 @@ $(function() {
 				<td><%= e.getEmpNo() %></td>
 				<td><%= e.getEmpName() %></td>
 				<td><%= e.getEmpId() %></td>
+				<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
 				<td><%= e.getEmpHireDate() %></td>
+				<% }else{ %>
+					<% } %>
 				<td><%= e.getEmpPhone() %></td>
 				<td><%= e.getEmpEmail() %></td>
+				<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
 				<td><a href="/hiapt/salary?empno=<%= e.getEmpNo() %>">보기</a></td>
 				<td><a href="/hiapt/empdetail?empno=<%= e.getEmpNo() %>">보기</a></td>
+				<% }else{ %>
+				<% } %>
 			</tr>
 			<% } %>
 		</table>
