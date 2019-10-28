@@ -1,8 +1,11 @@
-
-/schedule/
-/vote/
-/formbox/
+/aptuser/
+/board/
+/common/
 /draft/
 /employee/
+/formbox/
 /mail/
-/employee/
+/maintenance/
+/notice/
+/schedule/
+/vote/

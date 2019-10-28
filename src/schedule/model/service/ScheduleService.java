@@ -36,4 +36,35 @@ public class ScheduleService {
 		return result;
 	}
 
+	public Schedule selectOne(String snum) {
+		Connection conn = getConnection();
+		Schedule sch = schDao.selectOne(conn, snum);
+		close(conn);
+		return sch;
+	}
+
+	public int deleteSchedule(String schNo) {
+		Connection conn = getConnection();
+		int result = schDao.deleteSchedule(conn, schNo);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+	public int updateSchedule(Schedule sch) {
+		Connection conn = getConnection();
+		int result = schDao.updateSchedule(conn, sch);
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
 }
