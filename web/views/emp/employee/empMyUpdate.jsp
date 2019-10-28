@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import= "employee.model.vo.Employee"%>
 <% 
-	Employee employee = (Employee)request.getAttribute("empdetail");
-%>   
+	Employee employee = (Employee)request.getAttribute("emp"); 
+	String[] addressAll = employee.getEmpAddress().split(",");
+	//String[] array = new String[3];
+	for(int i=0 ; i<addressAll.length ; i++)
+%>
 <!--복사 시작 ////////////////////////////--------------------->
 <!DOCTYPE html>
 <html>
@@ -43,12 +46,10 @@
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
-
 <style>
 .check {
 	    display: inline-block !important;
 }
-
 /* #navi{
 	height: 30px;
 	/* width: 110px; */
@@ -62,19 +63,15 @@
 	background: #365873;
 	text-decoration: none;
 } */
-
 #userid{
 	background : lightgray;
 }
-
 th{
 	text-align: center;
 }
-
 #employee{
 	padding-left: 10px;
 }
-
 #date, #job {
 	height:25px;
 }
@@ -82,12 +79,23 @@ th{
 
 </head>
 
+<script type="text/javascript" src="/hiapt/resources/js/bootstrap.min.js"></script>
+<script>
+function validation(){
+	return true; //전송함
+}
+
+
+</script>
+
+
 <body id="page-top">
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
 
 <!-- 왼쪽 메인 메뉴바 시작 --> 
+
 
 <%@ include file ="../../common/empnavi.jsp" %>
 <!-- 왼쪽 메인 메뉴바 끝  --> 
@@ -112,66 +120,102 @@ th{
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800"><%= employee.getEmpName() %> 상세정보</h1>
+<h1 class="h3 mb-4 text-gray-800">내정보 수정</h1>
 
 <div class="card shadow mb-4">
-<form action="/hiapt/empupdate" method="post">
+<form action="/hiapt/myupdsend" method="post">
 <table class="table table-bordered dataTable">
 
 <tr><th style="text-align:center; width:150px;">사 번*</th>
-<td id="employee"><%= employee.getEmpNo() %></td>
+<td id="employee"> <input type="text" name="empno" id="empno" readonly value="<%= employee.getEmpNo() %>"></td></tr>
 
 <tr><th style="text-align:center;">이 름*</th>
-<td id="employee"><%= employee.getEmpName() %></td></tr>
+<td id="employee"><input type="text" name="empname" value="<%= employee.getEmpName() %>"></td></tr>
 
 <tr><th style="text-align:center;">직 급*</th>
-<td><%= employee.getEmpId() %></td></tr>
+<!-- <td id="employee"><select name="empid" id="job"> select : drop down으로 목록선택창 뜸
+	<option value="보안직원"> 보안직원</option>
+	<option value="경리"> 경리</option>
+	<option value="설비과장"> 설비과장</option>
+	<option value="검침기사"> 검침기사</option>
+</select> -->
+	<td>
+	<% 
+	if(employee.getEmpId().equals("관리자") == true){ %>
+		<select name="empid">
+		<option value="관리자" selected> 관리자</option>
+		<option value="보안직원" hidden> 보안직원 </option>
+		<option value="경리" hidden> 경리 </option>
+		<option value="설비과장" hidden> 설비과장 </option>
+		<option value="검침기사" hidden> 검침기사</option>
+		</select>
+	<% }else if(employee.getEmpId().equals("보안직원") == true){ %>
+		<select name="empid">
+		<option value="관리자" hidden> 관리자</option>
+		<option value="보안직원" selected> 보안직원 </option>
+		<option value="경리" hidden> 경리 </option>
+		<option value="설비과장" hidden> 설비과장 </option>
+		<option value="검침기사" hidden> 검침기사</option>
+		</select>
+	<% }else if(employee.getEmpId().equals("경리") == true){ %>
+		<select name="empid">
+		<option value="관리자" hidden> 관리자</option>
+		<option value="보안직원" hidden> 보안직원 </option>
+		<option value="경리" selected> 경리 </option>
+		<option value="설비과장" hidden> 설비과장 </option>
+		<option value="검침기사" hidden> 검침기사</option>
+		</select>
+	<% }else if(employee.getEmpId().equals("설비과장") == true){ %>
+		<select name="empid" hidden>
+		<option value="관리자 " hidden> 관리자</option>
+		<option value="보안직원" hidden> 보안직원 </option>
+		<option value="경리" hidden> 경리 </option>
+		<option value="설비과장" selected> 설비과장 </option>
+		<option value="검침기사" hidden> 검침기사</option>
+		</select>
+	<% }else if(employee.getEmpId().equals("검침기사") == true){ %>
+		<select name="empid">
+		<option value="관리자 " hidden> 관리자</option>
+		<option value="보안직원" hidden> 보안직원 </option>
+		<option value="경리" hidden> 경리 </option>
+		<option value="설비과장" hidden> 설비과장 </option>
+		<option value="검침기사" selected> 검침기사</option>
+		</select>
+	<% } %>
+
+</td></tr>
 
 <tr><th style="text-align:center;">입사일</th>
-<td id="employee"><%= employee.getEmpHireDate() %></td></tr>
+<td id="employee"><input type="date" name="emphiredate" id="date" value="<%= employee.getEmpHireDate() %>" readonly></td></tr>
 
 <tr><th style="text-align:center;">휴대전화</th>
-<td id="employee"><%= employee.getEmpPhone() %></td></tr>
-
+<td id="employee"><input type="tel" name="empphone" value="<%= employee.getEmpPhone() %>"></td></tr>
 
 
 <tr><th style="text-align:center;">주민등록번호</th>
-<td id="employee"><%= employee.getEmpSSN() %></td></tr>
+<td id="employee"><input type="text" name="empssn" value="<%= employee.getEmpSSN() %>"></td></tr>
 
 <tr><th style="text-align:center;">주소</th>
-<td id="employee"><%= employee.getEmpZipcode() %> <%= employee.getEmpAddress() %></td></tr>
+<td id="employee">
+<input type="text" id="sample6_postcode" placeholder="우편번호" name="zipcode" value="<%= employee.getEmpZipcode() %>">
+<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+<input type="text" id="sample6_address" placeholder="주소" name="empaddress" size="43" value="<%= addressAll[0] %>"><br>
+<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="empaddress" value="<%= addressAll[1] %>">
+<input type="text" id="sample6_extraAddress" placeholder="참고항목" name="empaddress" value="<%= addressAll[2] %>">
+
+</td></tr>
 
 <tr><th style="text-align:center;">이메일</th>
-<td id="employee"><%= employee.getEmpEmail() %></td></tr>
-	 
-<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
-<tr><th style="text-align:center;">부양가족수</th>
-<td id="employee"><%= employee.getEmpFamily() %></td>
-	 
-<tr><th style="text-align:center;">기타정보</th>
-<td id="employee"><%= employee.getEmpEtc() %></td></tr>
+<td id="employee"><input type="email" name="empemail" value="<%= employee.getEmpEmail() %>"></td></tr>
 
-<tr>
-<% }else{ %>
-	<% } %>	
-	<th colspan="2">
-		<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
-		<a href="/hiapt/empupdate?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
-		<a href="/hiapt/empdelete?empno=<%= employee.getEmpNo() %>">삭제하기</a>
-		<a href="javascript:history.go(-1);">돌아가기</a>
-		<% }else{ %>
-	
-		<a href="/hiapt/myupd?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
-		<a href="javascript:history.go(-1);">돌아가기</a>
-		<% } %>
-	</th>
-	
-</tr>
+<tr><th colspan="2">
+<input type="reset" value="취소"> &nbsp;
+<input type="submit" value="수정">
+</th></tr>
 
 </table>
 </form>
 </div>
-
 
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
