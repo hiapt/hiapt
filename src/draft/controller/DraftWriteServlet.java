@@ -1,6 +1,8 @@
 package draft.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -9,6 +11,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONObject;
 
 import employee.model.service.EmployeeService;
 import employee.model.vo.Employee;
@@ -34,20 +38,23 @@ public class DraftWriteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FormboxService fservice = new FormboxService();
+		
 		EmployeeService eservice = new EmployeeService();
-
+		FormboxService fservice = new FormboxService();
 		ArrayList<Formbox> list = fservice.selectList();
-		ArrayList<Employee> elist = eservice.selectList();
-		RequestDispatcher view = null; //아래 if else 둘 다에서 사용함 --> 미리 만들어놓음
-	
-			view = request.getRequestDispatcher("views/emp/approval/draftWrite.jsp");
+		int startRow = 1;
+		int endRow = 1000000;
+		ArrayList<Employee> elist = eservice.selectList(startRow, endRow);
 
+		RequestDispatcher view = null; //아래 if else 둘 다에서 사용함 --> 미리 만들어놓음
+		
+			view = request.getRequestDispatcher("views/emp/approval/draftWrite.jsp");
+			
 			request.setAttribute("list", list);
 			request.setAttribute("list2", elist);
-			
+
 			view.forward(request, response);
-			
+
 	}
 
 	/**
@@ -59,3 +66,4 @@ public class DraftWriteServlet extends HttpServlet {
 	}
 
 }
+

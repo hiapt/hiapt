@@ -33,33 +33,22 @@ public class MoveWasteServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		
 		int currentPage = Integer.parseInt(request.getParameter("page"));
-		String allmail = request.getParameter("allmail");
-		String code = request.getParameter("code");
+		/*int mcode = Integer.parseInt(request.getParameter("mcode"));*/
+		int code = Integer.parseInt(request.getParameter("code"));
 		String email = request.getParameter("empemail");
 		int result = 0;
 		String[] array = request.getParameterValues("mailno");
 		for(int i = 0; i < array.length; i++) {
-			int mailno = Integer.parseInt(array[i]);		
+			int mailno = Integer.parseInt(array[i]);
 		result = new MailService().moveWaste(mailno);
 		}
 		if(result > 0) {
-			if(allmail.equals("allmail"))
-				response.sendRedirect("/hiapt/amlist?page=" + currentPage + "&empemail=" + email);
-			else if(code.equals("all"))
-			response.sendRedirect("/hiapt/amlist?page=" + currentPage + "&empemail=" + email);
-			else if(code.equals("receive"))
-				response.sendRedirect("/hiapt/rlist?page=" + currentPage + "&empemail=" + email);
-			else if(code.equals("send"))
-				response.sendRedirect("/hiapt/smlist?page=" + currentPage + "&empemail=" + email);
-			else if(code.equals("self"))
-				response.sendRedirect("/hiapt/selfmlist?page=" + currentPage + "&empemail=" + email);
-			//서블릿에서 서블릿 sendredirect
+			response.sendRedirect("/hiapt/mlist?page=" + currentPage + "&empemail=" + email + "&mcode=" + code);
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "글 수정 실패");
 			view.forward(request, response);
 		}
-		
 	}
 
 	/**

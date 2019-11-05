@@ -56,7 +56,7 @@ public class AptEnrollServlet extends HttpServlet {
 		int result = new UloginService().insertAptuser(aptuser);
 		
 		if(result > 0) {
-			response.sendRedirect("/hiapt/index.jsp");
+			response.sendRedirect("/hiapt/aptlist");
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "세대주등록 실패!");

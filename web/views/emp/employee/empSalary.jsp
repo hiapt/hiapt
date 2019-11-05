@@ -19,9 +19,7 @@
 <!-- Custom fonts for this template-->
 <link href="/hiapt/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
+
 <!-- Custom styles for this template-->
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
@@ -140,11 +138,12 @@
 
 function info_print() {
     // 안보이게 할 영역 숨기기
+    $("#hide").hide();
     
     //인쇄
     var initBody = document.body.innerHTML;
     window.onbeforeprint = function () {
-       document.body.innerHTML = document.getElementById("#print").innerHTML;
+       document.body.innerHTML = document.getElementById("print").innerHTML;
     }
     window.onafterprint = function () {
 
@@ -153,6 +152,7 @@ function info_print() {
     window.print();
     
     // 인쇄창 끄면 다시 보이게
+    $("#hide").show();
  }
 </script>
 
@@ -222,17 +222,17 @@ function info_print() {
 					<tr>
 				<td id="SalaryItemData">기본급</td>
 				<td id="SalaryAmtData"><%= employee.getSalary() %></td>
-				<td id="SalaryItemData">6세미만보육수당</td>
+				<td id="SalaryItemData"></td>
 				<td id="SalaryAmtData"></td>
 			</tr>			<tr>
-				<td id="SalaryItemData">연장근무수당</td>
-				<td id="SalaryAmtData">17,483</td>
-				<td id="SalaryItemData">연구개발수당</td>
+				<td id="SalaryItemData"></td>
+				<td id="SalaryAmtData"></td>
+				<td id="SalaryItemData"></td>
 				<td id="SalaryAmtData"></td>
 			</tr>			<tr>
-				<td id="SalaryItemData">휴일근무수당</td>
-				<td id="SalaryAmtData">17,483</td>
-				<td id="SalaryItemData">식대</td>
+				<td id="SalaryItemData"></td>
+				<td id="SalaryAmtData"></td>
+				<td id="SalaryItemData"></td>
 				<td id="SalaryAmtData"></td>
 			</tr>			<tr>
 				<td id="SalarySummaryTitle" colspan="2">지급총액</td>
@@ -284,9 +284,10 @@ function info_print() {
 			
 			<tr>
 			<td colspan="2">
-<input type="reset" value="취소"> &nbsp;
-<input type="submit" value="등록 ">
-</th></tr>
+<<th id="button" colspan="2" style="text-align:center;">
+		<input type="button" value="인쇄하기"  class="btn btn-primary btn-icon-split" style=" width:50px; height:30px; text-align:center;"
+onclick="info_print();">
+</tr>
 			
 		</tbody></table><br>
 </form>

@@ -11,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import chat.model.service.ChatService;
-import chat.model.vo.ChatList;
+import chat.model.vo.ChatMessage;
 import chat.model.vo.ChatPerson;
+import chat.model.vo.ChatRoomPerson;
 
 /**
  * Servlet implementation class ChatViewServlet
@@ -37,13 +38,16 @@ public class ChatViewServlet extends HttpServlet {
 		ChatService cservice = new ChatService();
 		
 		ArrayList<ChatPerson> clist = cservice.selectAll(empNo);//채팅목록 인원가져오기.
-		ArrayList<ChatList> crmlist = cservice.selectChatList(empNo);///채팅목록,마지막메세지가져오기
+		ArrayList<ChatRoomPerson> crplist = cservice.selectCRPList(empNo);///보관된 방목록가져오기.
+		ArrayList<ChatMessage> cmlist = cservice.selectCMList(empNo); //채팅내용가져오기 순서대로..
 		ArrayList<int[]> crpCountlist = cservice.selectCount(empNo);//채팅방인원수 가져오기
+		
 		RequestDispatcher view = null;
 		if(clist!=null /*&& crplist!=null && crpCountlist!=null && cmlist !=null*/) {
 			view=request.getRequestDispatcher("views/emp/chat/chatManager.jsp");
 			request.setAttribute("clist", clist);
-			request.setAttribute("crmlist", crmlist);
+			request.setAttribute("crplist", crplist);
+			request.setAttribute("cmlist", cmlist);
 			request.setAttribute("crpCountlist", crpCountlist);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

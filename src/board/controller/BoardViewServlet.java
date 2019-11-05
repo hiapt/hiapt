@@ -9,11 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
 import board.model.vo.BoardFiles;
+import board.model.vo.BoardReply;
 
 
 /**
@@ -45,6 +45,8 @@ public class BoardViewServlet extends HttpServlet {
 		}//업데이트일경우 조회수랑 페이지 생성x
 		Board board = bservice.selectView(bNo);//게시판
 		ArrayList<BoardFiles> bfiles = bservice.selectFile(bNo);//파일목록
+		ArrayList<BoardReply> brlist = bservice.selectReply(bNo);//댓글목록
+		int replyCount = bservice.replyCount(bNo);//댓글갯수
 		RequestDispatcher view = null;
 			if(board != null) {
 				if(upORview.equals("view"))//상세보기일겨우
@@ -54,10 +56,12 @@ public class BoardViewServlet extends HttpServlet {
 				
 				request.setAttribute("board", board);
 				request.setAttribute("bfiles", bfiles);
+				request.setAttribute("brlist", brlist);
+				request.setAttribute("replycount", replyCount);
 				request.setAttribute("currentPage", currentPage);
 			}else {
 				view = request.getRequestDispatcher("views/common/user404.jsp");
-				request.setAttribute("message", "상세조회 실패!");
+				request.setAttribute("message", "게시판 상세조회 실패!");
 			}
 			view.forward(request, response);
 		}

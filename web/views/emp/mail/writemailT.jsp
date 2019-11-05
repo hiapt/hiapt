@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="employee.model.vo.Employee, mail.model.vo.Mailm" %>
+<%@ page import="employee.model.vo.Employee, mail.model.vo.Mailm, mail.model.vo.MailFileBox" %>
 <%
 	Mailm mailm = (Mailm)request.getAttribute("mailm");
+	MailFileBox mbf = (MailFileBox)request.getAttribute("mbf");
 %>
 
 <!DOCTYPE html>
@@ -99,11 +100,10 @@ $(function(){
 <!-- 본문 타이틀 들어가는 부분 ---->					
 <!--///////본문 내용 시작 ///////-------->
 	<h4>편지쓰기</h4>
-
 <div class="card shadow mb-4">
 <div class="card-body">
 <br>
-<form method="post" name="form">
+<form method="post" name="form"><!-- enctype="multipart/form-data" -->
 <input type="hidden" value="<%= mailm.getMailNo() %>" name="mailno">
 <input type="submit" value="보내기" id="savebutton" onclick="javascript: form.action='/hiapt/mwriteft'">
 <input type="submit" value="임시저장" id="tempbutton" onclick="javascript: form.action='/hiapt/mtwriteft'">
@@ -118,10 +118,15 @@ $(function(){
 		<th>제목</th>
 		<td colspan="2"><input type="text" id="title" name="title"></td>
 	</tr>
-	<tr>
+	<%-- <tr>
 		<th>파일첨부</th>
-		<td><input type="file"></td>
-	</tr>
+		<td><input type="file" name="file" id="file">
+		<% if(mbf != null){ %>
+		<a href="/hiapt/mfdown?ofile=<%= mbf.getOriginalfile() %>&rfile=<%= mbf.getRenamefile()%>" id="f">
+		<%= mbf.getOriginalfile() %></a><br>
+		<% } %>
+		</td>
+	</tr> --%>
 	<tr>
 	<th colspan="2">
 	<div

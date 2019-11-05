@@ -4,7 +4,7 @@
 
 <%
 	ArrayList<Mailm> list = (ArrayList<Mailm>)request.getAttribute("list");
-	ArrayList<MailBoxType> list2 = (ArrayList<MailBoxType>)request.getAttribute("list2");
+	/* ArrayList<MailBoxType> list2 = (ArrayList<MailBoxType>)request.getAttribute("list2"); */
 	int currentPage = (Integer)request.getAttribute("currentPage");
 	int beginPage = (Integer)request.getAttribute("beginPage");
 	int endPage = (Integer)request.getAttribute("endPage");
@@ -48,11 +48,10 @@
 <!--///////본문 내용 시작 ///////-------->	
 
 
-<h3><%= title %> 검색(제목) 결과 : (<%= listCount %>)건</h3>
+<h5><%= title %> 검색(제목) 결과 : (<%= listCount %>)건</h5>
 <hr>
 <div class="card shadow mb-4">
 <div class="card-body">
-<input type="checkbox" id="checkall"> &nbsp;
 <form method="post" name="form">
 <input type="submit" value="삭제" onclick="javascript: form.action='/hiapt/movew'" class="btn btn-primary btn-sm shadow-sm" >
 <input type="submit" value="이동" onclick="javascript: form.action='/hiapt/mtwrite'" class="btn btn-primary btn-sm shadow-sm" >
@@ -62,11 +61,8 @@
 					<thead>
 						<tr>
 							<th width="10">
-							<div class="checkbox" style="margin:0px; margin-left: 10px;">
-							<label>
-								<i class="fa fa-square-o small"></i>
-							</label>
-							</div></th>
+							<input type="checkbox" id="checkall">
+							</th>
 							<th width="75" style="text-align: center;">보낸사람</th>
 							<!-- <th width="100" style="text-align: center;">제목</th> -->
 							<th style="text-align: center;">제목</th>
@@ -76,7 +72,7 @@
 						<% for(Mailm m : list){ %>						
 						<tr><td><input type="checkbox" name="mailno" value="<%= m.getMailNo() %>"></td>
 						<td><%= m.getEmpEmail() %></td>
-						<td><a href="/hiapt/mdetail?mailno=<%= m.getMailNo() %>&page=<%= currentPage %>&code=<%= code2 %>&allmail=<%= allmail %>">
+						<td>[<%= m.getMailBoxName() %>]<a href="/hiapt/mdetail?mailno=<%= m.getMailNo() %>&page=<%= currentPage %>"><%-- &code=<%= code2 %>&allmail=<%= allmail %> --%>
 						<%= m.getMailTitle() %></a></td>   
 						<td><%= m.getMailTime() %></td>
 						</tr>
@@ -91,46 +87,46 @@
 		<div class="col-sm-12">
 			<div class="paging_simple_numbers">
 				<ul class="pagination" style="justify-content: center;">
-					<li class="paginate_button page-item previous disabled"
-						id="dataTable_previous"><a href="/hiapt/amlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+					<li class="paginate_button page-item previous"
+						id="dataTable_previous"><a href="/hiapt/mtsearch?page=1&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
 					<% if((beginPage - 10) < 1){ %>
 					<li class="paginate_button page-item previous back"
-						id="dataTable_previous"><a href="/hiapt/amlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/mtsearch?page=1&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 					<% } else { %>
 					<li class="paginate_button page-item active back"
-						id="dataTable_previous"><a href="/hiapt/amlist?page=<%= beginPage -10 %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/mtsearch?page=<%= beginPage -10 %>&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable"
 						data-dt-idx="<%= beginPage - 10 %>" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 					<% } %>
 					<% if(currentPage == 0){ %>
 					<li class="paginate_button page-item active"
-						id="dataTable_previous"><a href="/hiapt/selfmlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/mtsearch?page=1&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
 					<% }else{ %>
 					<% for(int p = beginPage; p <= endPage; p++){
 						if(p == currentPage){	
 					%>
-					<li class="paginate_button page-item active next"><a href="/hiapt/amlist?page<%= p %>&empemail=<%= emp.getEmpEmail() %>"
+					<li class="paginate_button page-item active next"><a href="/hiapt/mtsearch?page<%= p %>&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>"
 						aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
 						class="page-link"><%= p %></a></li>
 					<% } else { %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/amlist?page=<%= p %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
+						href="/hiapt/mtsearch?page=<%= p %>&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
 						class="page-link"><%= p %></a></li>
 					<% }} %>
 					<% } %>
 					<% if((endPage + 10) > maxPage ) { %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/amlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
+						href="/hiapt/mtsearch?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
 						class="page-link">&rsaquo;&rsaquo;</a></li>
 					<% } else { %>	
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/amlist?page<%= endPage + 10 %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= endPage + 10 %>" tabindex="0"
+						href="/hiapt/mtsearch?page=<%= endPage + 10 %>&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable" data-dt-idx="<%= endPage + 10 %>" tabindex="0"
 						class="page-link">&rsaquo;&rsaquo;</a></li>
 					<% } %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/amlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
+						href="/hiapt/mtsearch?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>&title=<%= title %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
 						class="page-link">&rsaquo;</a></li>
 				</ul>
 			</div>

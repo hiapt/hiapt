@@ -7,6 +7,7 @@ import draft.model.vo.Draft;
 import employee.model.dao.EmployeeDao;
 import employee.model.vo.Employee;
 import static common.JDBCTemplate.*;
+import employee.model.vo.Family;
 
 public class EmployeeService {
 	private EmployeeDao edao = new EmployeeDao();
@@ -117,6 +118,75 @@ public class EmployeeService {
 		return listCount;
 	}
 
+	public int insertFamily(int empno, Family family) {
+		Connection conn = getConnection();
+		int result = edao.insertFamily(conn, empno, family);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int selectEmpno(String empId) {
+		Connection conn = getConnection();
+		int result = edao.selectEmpno(conn, empId);
+		close(conn);
+		return result;
+	}
+
+	public int updateFamily(Family family) {
+		Connection conn = getConnection();
+		int result = edao.updateFamily(conn, family);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public Family selectFamily(String empNo) {
+		Connection conn = getConnection();
+		Family family = edao.selectFamily(conn, empNo);
+		close(conn);
+		return family;
+	}
+
+	public ArrayList<Family> selectListFamily(String empNo) {
+		Connection conn = getConnection();
+		ArrayList<Family> list = edao.selectListFamily(conn, empNo);
+		close(conn);
+		return list;
+	}
+	
+	// 로그인 처리
+	public int checkId(String id) {
+		Connection conn = getConnection();
+		int result = edao.checkId(conn, id);
+		close(conn);
+		return result;
+
+	}
+
+	public int updatePassword(String id, String password) {
+		Connection conn = getConnection();
+		int result = edao.updatePassword(conn, id, password);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;	
+	}
+
+	public ArrayList<Employee> empEmailList() {
+		Connection conn = getConnection();
+		ArrayList<Employee> list = edao.empEmailList(conn);
+		close(conn);
+		return list;
+	}
 }
 
 //Servlet > Service > Dao

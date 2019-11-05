@@ -1,11 +1,10 @@
 package chat.model.vo;
 
-import java.sql.Date;
 
 public class ChatMessage implements java.io.Serializable{
 	private static final long serialVersionUID =3271L;
 	
-	private java.sql.Date chatWriteDate;
+	private String chatWriteDate;
 	private String chatContents;
 	private int chatOrder;
 	private int chatNo;
@@ -14,7 +13,7 @@ public class ChatMessage implements java.io.Serializable{
 	
 	public ChatMessage() {}
 
-	public ChatMessage(Date chatWriteDate, String chatContents, int chatOrder, int chatNo, String empNo,
+	public ChatMessage(String chatWriteDate, String chatContents, int chatOrder, int chatNo, String empNo,
 			String empName) {
 		super();
 		this.chatWriteDate = chatWriteDate;
@@ -25,11 +24,11 @@ public class ChatMessage implements java.io.Serializable{
 		this.empName = empName;
 	}
 
-	public java.sql.Date getChatWriteDate() {
+	public String getChatWriteDate() {
 		return chatWriteDate;
 	}
 
-	public void setChatWriteDate(java.sql.Date chatWriteDate) {
+	public void setChatWriteDate(String chatWriteDate) {
 		this.chatWriteDate = chatWriteDate;
 	}
 

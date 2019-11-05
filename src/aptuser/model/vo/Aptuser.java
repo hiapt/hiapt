@@ -2,8 +2,8 @@ package aptuser.model.vo;
 
 import java.sql.Date;
 
-public class Aptuser implements java.io.Serializable{
-	private static final Long SerialversionUID = 1002L;
+public class Aptuser implements java.io.Serializable {
+	private static final long serialVersionUID = 522L;
 	
 	private String userId;
 	private String userPwd;

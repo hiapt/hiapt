@@ -1,6 +1,7 @@
 package employee.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,7 +44,7 @@ public class EmpMyUpdateSendServlet extends HttpServlet {
 		emp.setEmpName(request.getParameter("empname"));
 		emp.setEmpId(request.getParameter("empid"));
 		emp.setEmpPhone(request.getParameter("empphone"));
-		emp.setEmpZipcode(Integer.parseInt(request.getParameter("zipcode")));
+		emp.setEmpZipcode(request.getParameter("zipcode"));
 
 		emp.setEmpAddress(String.join(",", request.getParameterValues("empaddress")));
 
@@ -54,8 +55,54 @@ public class EmpMyUpdateSendServlet extends HttpServlet {
 		EmployeeService empservice = new EmployeeService();
 		int result = new EmployeeService().updateEmployee(emp);
 		
+		//4.
+		Employee family = new Employee();
+		
+		String[] fre = request.getParameterValues("frelation");
+
+		String[] fssn = request.getParameterValues("fssn");
+		String[] fn = request.getParameterValues("fname");
+		String[] fdis = request.getParameterValues("fdisability");
+		String[] fde = request.getParameterValues("fdeduction");
+		String[] fto = request.getParameterValues("ftogether");
+		String[] ftax = request.getParameterValues("ftax");
+		String[] fch = request.getParameterValues("fchild");
+		
+		
+		ArrayList<Employee> farr = new ArrayList<Employee>();
+		
+		for(int i = 0; i <fre.length; i++) {
+			
+			
+			farr.add(new Employee(empNo, fre[i], fssn[i], fn[i], fdis[i], fde[i], fto[i], ftax[i], fch[i]));
+			System.out.println("hi"+i);
+			System.out.println("dd : "+farr);
+			
+		}
+		int result2=0;
+		for(Employee e : farr) {		
+		family.setfRelation(e.getfRelation());
+		family.setfSSN(e.getfSSN());
+		family.setfName(e.getfName());
+		family.setfDisability(e.getfDisability());
+		family.setfDeduction(e.getfDeduction());
+		family.setfTogether(e.getfTogether());
+		family.setfTax(e.getfTax());
+		family.setfChild(e.getfChild());
+		System.out.println("family: " + family);
+		
+		result2 = new EmployeeService().updateFamily(family);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
 		//4. 수정이 성공했을 때
-		if(result > 0) {
+		if(result > 0 && result2 >0) {
 			//수정된 회원 정보를 세션에 다시 기록하기 위해 세션 객체 가지고 옴.
 			HttpSession session = request.getSession(false); //없으면 null 리턴
 			//수정된 회원 정보 조회해서 세션에 다시 기록함.

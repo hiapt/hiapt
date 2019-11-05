@@ -130,29 +130,7 @@
 			</div>
 		</div>
 		
-		<%-- <div id="pagebox" align="center">
-		<a href="/hiapt/bwlist?page=1">|◁</a> &nbsp;
-		<% if((beginPage - 10) < 1){ %>
-		<a href="/hiapt/bwlist?page=1">◀◀</a>
-		<% } else { %>
-		<a href="/hiapt/bwlist?page=<%= beginPage - 10 %>">◀◀</a>
-		<% } %> &nbsp;
-		<% for(int p = beginPage; p <= endPage; p++){
-			if(p == currentPage){
-			%>
-			<a href="/hiapt/bwlist?page=<%= p %>"><font color="red"><b>[ <%= p %> ]</b></font></a>
-		<% } else { %>
-		<a href="/hiapt/bwlist?page=<%= p %>"><%= p %></a>
-		<% }} %> &nbsp;
-		<% if((endPage + 10) > maxPage ){ %>
-		<a href="/hiapt/bwlist?page=<%= maxPage %>">▶▶</a>
-		<% } else { %>
-		<a href="/hiapt/bwlist?page=<%= endPage + 10 %>">▶▶</a>
-		<% } %> &nbsp;
-		<a href="/hiapt/bwlist?page=<%= maxPage %>">▷|</a>
-		</div>
-		 --%>
-	
+		
 
 </div></div>
 <!---//// 본문 내용 끝 ///////------------------->

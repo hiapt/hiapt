@@ -1,6 +1,7 @@
 package vote.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import vote.model.service.VoteService;
 import vote.model.vo.Vote;
-import vote.model.vo.VoteResult;
 
 /**
  * Servlet implementation class VoteAdminWriteServlet
@@ -35,17 +35,36 @@ public class VoteAdminWriteServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		Vote vote = new Vote();
 		
-		String vtitle = request.getParameter("vtitle");
-		vote.setVoteTitle(vtitle);
+		vote.setVoteTitle(request.getParameter("vtitle"));
 		vote.setVoteWrite(request.getParameter("vwrite"));
 		vote.setVoteFinalDate(java.sql.Date.valueOf(request.getParameter("vfinaldate")));
 		vote.setVoteSecret(request.getParameter("vsecret"));
 		vote.setVoteContents(request.getParameter("vcontent"));
 		vote.setVoteOne(request.getParameter("vote1"));
 		vote.setVoteTwo(request.getParameter("vote2"));
-		vote.setVoteThree(request.getParameter("vote3"));
-		vote.setVoteFour(request.getParameter("vote4"));
-		vote.setVoteFive(request.getParameter("vote5"));
+
+		String v3 = request.getParameter("vote3");
+		String v4 = request.getParameter("vote4");
+		String v5 = request.getParameter("vote5");
+		
+		if(v3=="") {
+			v3 = request.getParameter("vote4");
+			v4 = request.getParameter("vote5");
+			v5 = null;
+			if(v3=="") {
+				v3 = request.getParameter("vote5");
+				v4 = null;
+				v5 = null;
+			}
+		}
+		if(v4=="") {
+			v4 = request.getParameter("vote5");
+			v5 = null;
+		}
+		
+		vote.setVoteThree(v3);
+		vote.setVoteFour(v4);
+		vote.setVoteFive(v5);
 		
 		int result =  new VoteService().insertVote(vote);
 		

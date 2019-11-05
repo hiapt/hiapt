@@ -35,11 +35,12 @@
 display: inline-block !important;
 }
 table > tbody> tr.intable, table > tbody> tr.intable > td{
-height:10rem;
+height:7rem;
 cellspacing:0;
 cellpadding:5;
 align:center;
 table-layout : fixed;
+padding:0;
 }
 </style>
 
@@ -76,7 +77,8 @@ int lastday = tDay.getActualMaximum(Calendar.DAY_OF_MONTH);//매월이 가질 �
 %>
 var div="";
 var str="";
-var popup;
+
+
 $(function(){
 	$("td:nth-child(1)").css("color","red");
 	$("td:nth-child(7)").css("color","blue");
@@ -154,9 +156,9 @@ $(function(){
 			
 			}//for in문 종료
 			
-			var dlist = onlySday.split(",");
-			for(var i in onlySday){
-				console.log(dlist[i]);
+			var sslist = onlySday.split(",");
+			for(var i in sslist){
+				console.log(sslist[i]);
 			}
 			//받아온 json 출력
 			$("#test").html(value+"<br>");
@@ -196,7 +198,16 @@ $(function(){
 			}
 		}
 	})
-});
+	
+	$("#schin").on("click",function(){
+		
+		location.href="/hiapt/views/common/schedule/schedulemain.jsp?year=<%=cy%>&month=<%=cm%>";
+		return false;
+	})
+	
+});//도큐멘트 리드
+
+
 </script>
 </head>
 
@@ -204,9 +215,6 @@ $(function(){
 
 	<!-- Page Wrapper -->
 	<div id="wrapper">
-
-<!-- 왼쪽 메인 메뉴바 시작 --> 
-
 
 <!-- ============================================================= -->
 <!-- 왼쪽 메인 메뉴바 시작  --> 
@@ -229,46 +237,109 @@ $(function(){
 <!-- ============================================================= -->		
 		<hr class="sidebar-divider">
 		<!-- Heading 나중에 삭제부분-->
-      	<div class="sidebar-heading">직원</div>
 <!-- ============================================================= -->
 <!-- 메일 시작 -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#mail"
-				aria-expanded="true" aria-controls="collapseTwo"> <i
-					class="fas fa-fw fa-envelope-open"></i> <span>메일(직원)</span>
-			</a>
-				<div id="mail" class="collapse"
-					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/views/emp/mail/allmail.jsp">전체메일함</a>
-						<a class="collapse-item" href="cards.html">메일2</a>
-					</div>
-				</div>
-			</li>
-<!-- 메일 끝 -->
+	<li class="nav-item"><a class="nav-link collapsed" href="#"
+		data-toggle="collapse" data-target="#mail" aria-expanded="true"
+		aria-controls="collapseTwo"> <i class="fas fa-fw fa-envelope-open"></i>
+			<span>메일</span>
+	</a>
+		<div id="mail" class="collapse" aria-labelledby="headingUtilities"
+			data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<a class="collapse-item" href="/hiapt/views/emp/mail/writemail.jsp">메일쓰기</a>
+				<a class="collapse-item"
+					href="/hiapt/views/emp/mail/selfwritemail.jsp">내게쓰기</a></a> <a
+					class="collapse-item"
+					href="/hiapt/amlist?empemail=<%=emp.getEmpEmail()%>">전체메일함</a> <a
+					class="collapse-item"
+					href="/hiapt/rlist?empemail=<%=emp.getEmpEmail()%>">받은메일함</a> <a
+					class="collapse-item"
+					href="/hiapt/smlist?empemail=<%=emp.getEmpEmail()%>">보낸메일함</a></a> <a
+					class="collapse-item"
+					href="/hiapt/tmlist?empemail=<%=emp.getEmpEmail()%>">임시보관함</a></a> <a
+					class="collapse-item"
+					href="/hiapt/selfmlist?empemail=<%=emp.getEmpEmail()%>">내게 쓴
+					메일함</a> <a class="collapse-item"
+					href="/hiapt/wmlist?empemail=<%=emp.getEmpEmail()%>">휴지통</a>
+				<hr>
+				
+				 <div class="dropdown" style="display:inline-block;">
+  							&nbsp;<button class="btn btn-link btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
+  							</button><span>내 메일함</span>&nbsp;
+  							<div id="a" class="dropdown-menu">  							
+  							</div>
+						</div>
+				<!-- <button id="insert"><i class="fas fa-plus fa-fw fa-envelope-open"></i></button> -->
+				<!-- Button trigger modal -->
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					<i class="fas fa-plus fa-fw fa-envelope-open"></i>  
+				</button>
+
+
+
+				<!-- <div>
+						<a class="collapse-item" style="display:inline-block;">내 메일함</a>&nbsp;<a href="#"><i class="fas fa-plus fa-fw fa-envelope-open"></i></a>
+						</div> -->
+
+			</div>
+		</div></li>
+
+	<!-- 메일 끝 -->
 <!-- ====================================================================================== -->
 <!-- ====================================================================================== -->			
 <!--인사정보 시작 -->
 		<hr class="sidebar-divider">
 		<!-- Heading 나중에 삭제부분-->
-      	<div class="sidebar-heading">직원</div>
 <!-- ====================================================================================== -->	      	
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#employee" aria-expanded="true"
-				aria-controls="collapseUtilities"> <i
-					class="fas fa-fw fa-address-card"></i> <span>인사</span>
+			<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
+			<li class="nav-item">
+			<a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#employee" 
+				aria-expanded="true" aria-controls="collapseUtilities"> 
+				<i class="fas fa-fw fa-address-card"></i> 
+				<span>인사</span>
 			</a>
 				<div id="employee" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/emplist">직원조회</a> <a
-							class="collapse-item"
-							href="/hiapt/views/emp/employee/empEnroll.jsp">직원등록</a> <a
-							class="collapse-item" href="utilities-animation.html">Animations</a>
-						<a class="collapse-item" href="utilities-other.html">Other</a>
+						<a class="collapse-item" href="/hiapt/emplist">직원조회</a> 
+						<a class="collapse-item" href="/hiapt/views/emp/employee/empEnroll.jsp">직원등록</a> 
+						<a class="collapse-item" href="/hiapt/views/apt/aptEnroll.jsp">입주자등록</a> 
+						<a class="collapse-item" href="/hiapt/aptlist">입주자조회</a>
 					</div>
 				</div>
 			</li>
+			<% }else{ %>
+			<li class="nav-item">
+			<a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#employee" 
+				aria-expanded="true" aria-controls="collapseUtilities"> 
+				<i class="fas fa-fw fa-address-card"></i> 
+				<span>인사</span>
+			</a>
+				<div id="employee" class="collapse"
+					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+						<a class="collapse-item" href="/hiapt/empdetail?empno=<%= emp.getEmpNo() %>">내정보보기</a> 
+						<a class="collapse-item" href="/hiapt/emplist">직원조회</a> 
+						<a class="collapse-item" href="/hiapt/views/user/apt/aptEnroll.jsp">입주자등록</a> 
+						<a class="collapse-item" href="/hiapt/aptlist">입주자조회</a>
+					</div>
+				</div>
+			</li>
+			
+			
+			<%-- <li class="nav-item">
+			<a class="nav-link collapsed" href="#" 
+				data-toggle="collapse" data-target="#employee" 
+				aria-expanded="true" aria-controls="collapseUtilities"> 
+				<i class="fas fa-fw fa-address-card"></i> 
+				<a href="/hiapt/empdetail?empno=<%= emp.getEmpNo() %>"><span>내정보보기</span></a>
+			</a>
+			</li> --%>
+			<% } %>
+			
 
 <!-- 인사정보 끝 -->
 <!-- ================================================================================= -->
@@ -277,8 +348,34 @@ $(function(){
 <!--전자결재 시작 -->
 		<hr class="sidebar-divider">
 		<!-- Heading 나중에 삭제부분-->
-      	<div class="sidebar-heading">직원</div>
 <!-- ====================================================================================== -->	
+			<% if(emp != null && emp.getEmpNo().equals("admin")) { %>
+			
+			<li class="nav-item"><a class="nav-link collapsed" href="#"
+				data-toggle="collapse" data-target="#draft" aria-expanded="true"
+				aria-controls="collapseUtilities"> <i
+					class="fas fa-fw fa-folder"></i> <span>전자결재</span>
+			</a>
+				<div id="draft" class="collapse"
+					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+					<div class="bg-white py-2 collapse-inner rounded">
+							<a class="collapse-item" href="/hiapt/dlist.ad?page=1">전자결재 전체목록</a>
+							<a class="collapse-item" href="/hiapt/dstandby.ad?page=1">전자결재 대기목록</a> 
+							<a class="collapse-item" href="/hiapt/dapproved.ad?page=1">전자결재 승인목록</a> 
+							<a class="collapse-item" href="/hiapt/dreturn.ad?page=1">전자결재 반려목록</a> 
+							<a class="collapse-item" href="/hiapt/ddefer.ad?page=1">전자결재 보류목록</a>
+							<a class="collapse-item" href="/hiapt/flist?page=1">문서 양식함</a>
+							<a class="collapse-item" href="">업무일지 작성</a>
+							<a class="collapse-item" href="">직원 업무일지함</a>
+							<a class="collapse-item" href="">관리자 업무일지함</a>
+							
+					</div>
+				</div>
+			</li>
+			
+			<%} else { %>
+		
+			
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#draft" aria-expanded="true"
 				aria-controls="collapseUtilities"> <i
@@ -288,23 +385,23 @@ $(function(){
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item"
-							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성테스트</a> 
-							<a class="collapse-item" href="/hiapt/dtemp">임시보관함</a> 
-							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>">전자결재 전체목록</a>
-							<a class="collapse-item" href="/hiapt/dstandby">전자결재 대기목록</a> <a
-							class="collapse-item" href="/hiapt/dapproved">전자결재 승인목록</a> <a
-							class="collapse-item" href="/hiapt/dreturn">전자결재 반려목록</a> <a
-							class="collapse-item" href="/hiapt/ddefer">전자결재 보류목록</a>
+							href="/hiapt/views/emp/approval/draftWrite.jsp">기안작성</a> 
+							<a class="collapse-item" href="/hiapt/dtemp?empno=<%= emp.getEmpNo() %>&page=1">임시보관함</a> 
+							<a class="collapse-item" href="/hiapt/dlist?empno=<%= emp.getEmpNo() %>&page=1">전자결재 전체목록</a>
+							<a class="collapse-item" href="/hiapt/dstandby?empno=<%= emp.getEmpNo() %>&page=1">전자결재 대기목록</a> <a
+							class="collapse-item" href="/hiapt/dapproved?empno=<%= emp.getEmpNo() %>&page=1">전자결재 승인목록</a> <a
+							class="collapse-item" href="/hiapt/dreturn?empno=<%= emp.getEmpNo() %>&page=1">전자결재 반려목록</a> <a
+							class="collapse-item" href="/hiapt/ddefer?empno=<%= emp.getEmpNo() %>&page=1">전자결재 보류목록</a>
 					</div>
 				</div>
 			</li>
+				<%}  %>
 <!-- 전자결재 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
 <!--관리비 시작 -->
 		<hr class="sidebar-divider">
 		<!-- Heading 나중에 삭제부분-->
-      	<div class="sidebar-heading">직원</div>
 <!-- ====================================================================================== -->	
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#maintenance"
@@ -315,24 +412,25 @@ $(function(){
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
 						<a class="collapse-item" href="/hiapt/bwlist">일반관리비 목록 </a> <a
-							class="collapse-item" href="/hiapt/bilist">고지서 목록 </a> <a
+							class="collapse-item" href="/hiapt/bilist">고지서(전부) 목록 </a> <a
 							class="collapse-item"
 							href="/hiapt/views/emp/maintenance/BillList.jsp">고지서 상세 목록 조회</a>
 						<a class="collapse-item"
 							href="/hiapt/views/emp/maintenance/BillListDetailView.jsp">상세보기</a>
-						<a class="collapse-item" href="/hiapt/bvilis">부과기초작업</a> <a
-							class="collapse-item" href="*">4</a>
+						<a class="collapse-item" href="/hiapt/bvis">부과기초작업</a> <a
+							class="collapse-item" href="/hiapt/imvas">연습용</a>
 					</div>
 				</div>
 			</li>
 <!-- 관리비 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
+	
 <!--공지사항 시작 -->
 		<hr class="sidebar-divider">
 	  	<!-- Heading 나중에 삭제부분-->
-      	<div class="sidebar-heading">관리자</div>
 <!-- ================================================================================= -->
+
 			<li class="nav-item"><a class="nav-link collapsed" href="#"
 				data-toggle="collapse" data-target="#notice"
 				aria-expanded="true" aria-controls="collapseUtilities"> <i
@@ -341,20 +439,20 @@ $(function(){
 				<div id="notice" class="collapse"
 					aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 					<div class="bg-white py-2 collapse-inner rounded">
-						<a class="collapse-item" href="/hiapt/views/master/notice/noticeAdminListView.jsp">공지사항 관리</a> 
+						<a class="collapse-item" href="/hiapt/no.list">공지사항 관리</a> 
 						<a class="collapse-item" href="*">민원 관리 </a> 
 						<a class="collapse-item" href="/hiapt/vo.list">주민투표 관리</a>
 						<a class="collapse-item" href="*">자유게시판 관리</a>
 					</div>
 				</div>
 			</li>
+	
 <!--공지사항 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
 <!--캘린더 시작 -->
       <hr class="sidebar-divider">
         <!-- Heading 나중에 삭제부분-->
-         <div class="sidebar-heading">emp</div>
 <!-- ================================================================================= -->
          <li class="nav-item"><a class="nav-link"
             href="/hiapt/views/common/schedule/schedulemain.jsp"> <i
@@ -363,78 +461,6 @@ $(function(){
 <!--캘린더 끝 -->
 <!-- ================================================================================= -->
 <!-- ================================================================================= -->
-<!-- Nav Item - Pages Collapse Menu 삭제용 -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Components</span>
-        </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Components:</h6>
-            <a class="collapse-item" href="/hiapt/views/ex/buttons.html">Buttons</a>
-            <a class="collapse-item" href="/hiapt/views/ex/cards.html">Cards</a>
-          </div>
-        </div>
-      </li>
-
-      <!-- Nav Item - Utilities Collapse Menu -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Custom Utilities:</h6>
-            <a class="collapse-item" href="/hiapt/views/ex/utilities-color.html">Colors</a>
-            <a class="collapse-item" href="/hiapt/views/ex/utilities-border.html">Borders</a>
-            <a class="collapse-item" href="/hiapt/views/ex/utilities-animation.html">Animations</a>
-            <a class="collapse-item" href="/hiapt/views/ex/utilities-other.html">Other</a>
-          </div>
-        </div>
-      </li>
-<!--page 시작(삭제용) -->
-<hr class="sidebar-divider">
-			<!-- Nav Item - Pages Collapse Menu -->
-			<li class="nav-item"><a class="nav-link collapsed" href="#"
-				data-toggle="collapse" data-target="#page"
-				aria-expanded="true" aria-controls="collapsePages"> <i
-					class="fas fa-fw fa-folder"></i> <span>Pages</span>
-			</a>
-				<div id="page" class="collapse"
-					aria-labelledby="headingPages" data-parent="#accordionSidebar">
-					<div class="bg-white py-2 collapse-inner rounded">
-						<h6 class="collapse-header">Login Screens:</h6>
-						<a class="collapse-item" href="/hiapt/views/ex/login.html">Login</a>
-						<a class="collapse-item" href="/hiapt/views/ex/register.html">Register</a>
-						<a class="collapse-item"
-							href="/hiapt/views/ex/forgot-password.html">Forgot Password</a>
-						<div class="collapse-divider"></div>
-						<h6 class="collapse-header">Other Pages:</h6>
-						<a class="collapse-item" href="/hiapt/views/ex/404.html">404
-							Page</a> <a class="collapse-item" href="/hiapt/views/ex/blank.html">Blank
-							Page</a>
-					</div>
-				</div>
-			</li>
-<!--page 끝 -->
-<!-- ================================================================================= -->
-<!-- ================================================================================= -->
-<!-- charts 시작(삭제용) -->		
-			<li class="nav-item"><a class="nav-link"
-				href="/hiapt/views/ex/charts.html"> <i
-					class="fas fa-fw fa-chart-area"></i> <span>Charts</span></a>
-			</li>
-
-			<!-- Nav Item - Tables -->
-			<li class="nav-item"><a class="nav-link"
-				href="/hiapt/views/ex/tables.html"> <i
-					class="fas fa-fw fa-table"></i> <span>Tables</span></a>
-			</li>
-<!-- charts 끝 -->
-<!-- ================================================================================= -->
-
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
 
@@ -446,7 +472,6 @@ $(function(){
 		</ul>
 <!-- 왼쪽 메인 메뉴 끝 -->
 <!-- ================================================================================= -->
-
 <!-- 왼쪽 메인 메뉴바 끝  --> 
 <!-- ================================================================================= -->
 
@@ -483,20 +508,21 @@ $(function(){
 			<span style="font-size:20pt;"><% out.print(year); %>년<% out.print(month+1); %>월</span>
 			<button class="btn btn-primary btn-sm"><a href="schedulemain.jsp?year=<%out.print(year);%>&month=<%out.print(month+1);%>"><span class="text-white">▷</span></a></button>
 			</td>
-			<td align=right colspan="2"><button class="btn btn-primary btn-sm" id="schin" onclick="ww();">오늘 날짜</button></td>
+			<td align=right colspan="2"><button class="btn btn-sm btn-outline-primary shadow-sm" id="schin" >
+			오늘 날짜</button></td>
 		</tr>
 	</table>
   	<table class="table table-bordered">
 		<thead class="thead-dark">
    		<tr class="text-center">
-     		<th scope="col">일</th><!-- 일=1 -->
-      		<th scope="col">월</th><!-- 월=2 -->
-      		<th scope="col">화</th><!-- 화=3 -->
-      		<th scope="col">수</th><!-- 수=4 -->
-      		<th scope="col">목</th><!-- 목=5 -->
-      		<th scope="col">금</th><!-- 금=6 -->
-      		<th scope="col">토</th><!-- 토=7 -->
-    	</tr>
+     		<th scope="col" style="width:13.5%">일</th><!-- 일=1 -->
+      		<th scope="col"style="width:14%">월</th><!-- 월=2 -->
+      		<th scope="col"style="width:14%">화</th><!-- 화=3 -->
+      		<th scope="col"style="width:14%">수</th><!-- 수=4 -->
+      		<th scope="col"style="width:14%">목</th><!-- 목=5 -->
+      		<th scope="col"style="width:14%">금</th><!-- 금=6 -->
+      		<th scope="col" style="width:13.5%">토</th><!-- 토=7 -->
+    	</tr> 
   		</thead>
   <tbody>
 		<tr class="intable">
@@ -511,8 +537,15 @@ $(function(){
 			}
 			
 			for(int i = 1; i <= lastday; i++){
-				out.println("<td style='z-index:100;' id='"+i+"'>"+i+"</td>");
+				
+				if(year == cy && month == cm&& i==cd){
+					
+					out.println("<td style='z-index:100; background:#FCF8E3;' id='"+i+"'>"+i+"</td>");
+				}else{
+					out.println("<td style='z-index:100;' id='"+i+"'>"+i+"</td>");
+				}
 				br++;
+				
 				if((br%7) == 0 && i != lastday){
 					out.println("</tr><tr class='intable'>");
 				}

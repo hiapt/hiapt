@@ -32,9 +32,11 @@ public class FormViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		FormboxService fservice = new FormboxService();
 
+		FormboxService fservice = new FormboxService();
+		
 		ArrayList<Formbox> list = fservice.selectList();
+
 		RequestDispatcher view = null; //아래 if else 둘 다에서 사용함 --> 미리 만들어놓음
 	
 		if(list.size() > 0) {
@@ -42,7 +44,7 @@ public class FormViewServlet extends HttpServlet {
 			view = request.getRequestDispatcher("views/emp/approval/formView.jsp");
 
 			request.setAttribute("list", list);
-
+		
 				
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

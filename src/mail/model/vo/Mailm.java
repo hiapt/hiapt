@@ -14,11 +14,12 @@ public class Mailm implements java.io.Serializable{
 	private String recipient;
 	private String mailBoxName;
 	private String separator;
+	private String fileYN;
 	
 	public Mailm() {}
 
 	public Mailm(int mailNo, int mailCode, String empEmail, String mailTitle, Date mailTime, String mailContents,
-			String recipient, String mailBoxName, String separator) {
+			String recipient, String mailBoxName, String separator, String fileYN) {
 		super();
 		this.mailNo = mailNo;
 		this.mailCode = mailCode;
@@ -29,6 +30,7 @@ public class Mailm implements java.io.Serializable{
 		this.recipient = recipient;
 		this.mailBoxName = mailBoxName;
 		this.separator = separator;
+		this.fileYN = fileYN;
 	}
 
 	public int getMailNo() {
@@ -103,14 +105,20 @@ public class Mailm implements java.io.Serializable{
 		this.separator = separator;
 	}
 
+	public String getFileYN() {
+		return fileYN;
+	}
+
+	public void setFileYN(String fileYN) {
+		this.fileYN = fileYN;
+	}
+
 	@Override
 	public String toString() {
 		return "Mailm [mailNo=" + mailNo + ", mailCode=" + mailCode + ", empEmail=" + empEmail + ", mailTitle="
 				+ mailTitle + ", mailTime=" + mailTime + ", mailContents=" + mailContents + ", recipient=" + recipient
-				+ ", mailBoxName=" + mailBoxName + ", separator=" + separator + "]";
+				+ ", mailBoxName=" + mailBoxName + ", separator=" + separator + ", fileYN=" + fileYN + "]";
 	}
 
-	
-	
 	
 }

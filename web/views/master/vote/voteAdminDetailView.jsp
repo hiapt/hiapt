@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="vote.model.vo.Vote,vote.model.vo.VoteResult,java.util.*,java.text.*"%>
+<%@ page import="employee.model.vo.Employee,vote.model.vo.Vote,vote.model.vo.VoteResult,java.util.*,java.text.*"%>
 <%
+	Employee employee = (Employee)session.getAttribute("employee");
 	Vote vote = (Vote)request.getAttribute("vote");
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	String vote1 = vote.getVoteOne();
 	String vote2 = vote.getVoteTwo();
 	String vote3 = vote.getVoteThree();
@@ -31,16 +33,38 @@
 
 <script type="text/javascript" src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-
+	
 function vdelete(){
+	var voteNo ="<%= vote.getVoteNo() %>";
+	if(voteNo==1){
+		alert("테스트글은 삭제 할 수 없습니다.");
+	}else{
 	var yn = confirm("정말로 삭제하시겠습니까?")
 	if(yn==true)
-	window.location.href="/hiapt/vo.ad.delete?voteno=<%= vote.getVoteNo() %>";
+	window.location.href="/hiapt/vo.ad.delete?voteno="+voteNo;
+	}
 	return false;
 };
 function vupdate(){
-	window.location.href="/hiapt/vo.ad.upview?vno=<%= vote.getVoteNo() %>";
+	var voteNo ="<%= vote.getVoteNo() %>";
+	if(voteNo==1)
+		alert("테스트글은 수정 할 수 없습니다.");
+	else
+		window.location.href="/hiapt/vo.ad.upview?vno="+voteNo;
+	return false;
 };
+
+function vcheck(){
+	var voteNo ="<%= vote.getVoteNo() %>";
+	var voteSecret = "<%= vote.getVoteSecret() %>";
+	window.open("/hiapt/vo.vrpcheck?voteno="+voteNo+"&votesecret="+voteSecret,"voteCheck","width=330,height=500");
+	return false;
+}
+
+function vList(){
+	window.location.href="/hiapt/vo.list?page=<%= currentPage %>";
+	return false;
+}
 </script>
 </head>
 <body id="page-top">
@@ -79,30 +103,39 @@ function vupdate(){
 
 
 <table class="table table-bordered">
-<tr align="center"><th width="300">제목</th><td><%= vote.getVoteTitle() %></td></tr>
-<tr align="center"><th>작성자</th><td><%= vote.getVoteWrite() %></td></tr>
-<tr align="center"><th>작성날짜</th><td><%= vote.getVoteDate() %></td></tr>
-<%if(vote.getVoteFinalDate().compareTo(today)>=0) {%> 
-<tr align="center"><th>투표마감날짜</th><td><%= vote.getVoteFinalDate() %>(진행중)</td></tr>
-<%}else{ %>
-<tr align="center"><th>투표마감날짜</th><td><%= vote.getVoteFinalDate() %>(마감됨)</td></tr>
-<%} %>
-<tr align="center"><th>유기명여부(Y/N)</th><td><%= vote.getVoteSecret() %></td></tr>
-<tr align="center"><th>조회수</th><td><%= vote.getVoteReadCount() %></td></tr>
-<tr align="center"><th>투표내용</th><td><%= vote.getVoteContents() %></td></tr>
+	<tr align="center">
+		<td width="50"><%= vote.getVoteNo() %></td>
+		<th><%= vote.getVoteTitle() %></th>
+		<td width="80">관리자</td>
+		<td width="400">투표 진행일 : <%= vote.getVoteDate() %> ~
+		<%if(vote.getVoteFinalDate().compareTo(today)>=0) {%> 
+		<%= vote.getVoteFinalDate() %>(진행중)
+		<%}else{ %>
+		<%= vote.getVoteFinalDate() %>(마감됨)
+		<%} %></td>
+		<td width="80"><%if(vote.getVoteSecret().equals("Y")) {%>
+		유기명
+		<%}else{ %>
+		무기명
+		<%} %>
+		</td>		
+	<tr align="center"><td colspan="5"><%= vote.getVoteContents() %></td></tr>
 </table>
 <table class="table table-bordered">
 <tr align="center"><th width="300">투표목록</th><th>투표결과</th></tr>
 <%for(int i=0; i<5; i++) {
 		if(voteName[i]==null)
-				break;
+			break;
 %><tr align="center"><td> 
 	<%=i+1%> : <%=voteName[i] %></td><td><%=voteResultName[i]%></td></tr>
 <%} %>
 <tr align="center"><td colspan="2">
+<%if( employee.getEmpNo().equals("admin")) {%>
 <button onclick="vupdate();">수정</button>&nbsp;&nbsp;&nbsp;
 <button onclick="vdelete();">삭제</button>&nbsp;&nbsp;&nbsp;
-<button onclick="javascript:window.history.go(-1);">목록</button>
+<button onclick="vcheck();">투표인원확인</button>&nbsp;&nbsp;&nbsp;
+<%} %>
+<button onclick="vList();">목록</button>
 </td></tr>
 
 </table>

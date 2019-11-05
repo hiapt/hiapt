@@ -37,8 +37,8 @@
 
 <center>
 <h2>작성하신 메일이 임시 저장되었습니다.</h2>
-<a href="/hiapt/rlist?empemail=<%=emp.getEmpEmail()%>">받은메일함 가기</a>&nbsp;|&nbsp;
-<a href="/hiapt/tmlist?empemail=<%=emp.getEmpEmail()%>">임시저장 메일함 가기</a>
+<a href="/hiapt/mlist?empemail=<%=emp.getEmpEmail()%>&mcode=1">받은메일함 가기</a>&nbsp;|&nbsp;
+<a href="/hiapt/mlist?empemail=<%=emp.getEmpEmail()%>&mcode=3">임시저장 메일함 가기</a>
 </center>
 
 </div><!-- /.container-fluid -->				

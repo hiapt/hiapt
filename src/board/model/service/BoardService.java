@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import board.model.dao.BoardDao;
 import board.model.vo.Board;
 import board.model.vo.BoardFiles;
+import board.model.vo.BoardReply;
+import complain.model.vo.Complain;
 import vote.model.vo.Vote;
 
 public class BoardService {
@@ -94,10 +96,73 @@ public class BoardService {
 		close(conn);
 		return result;
 	}
-
+	//수정
 	public int updateBoard(Board board) {
 		Connection conn = getConnection();
 		int result =bdao.updateBoard(conn, board);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+	//파일삭제
+	public void deleteFile(String renameFileName) {
+		Connection conn = getConnection();
+		int result =bdao.deleteFile(conn, renameFileName);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+	}
+	//제목검색목록갯수
+	public int getSearchTitleListCount(String searchText) {
+		Connection conn = getConnection();
+		int listCount = bdao.getSearchTitleListCount(conn, searchText);
+		close(conn);
+		return listCount;
+	}
+	//제목으로검색
+	public ArrayList<Board> searchTitle(int startlist, int endlist, String searchText) {
+		Connection conn = getConnection();
+		ArrayList<Board> blist = bdao.searchTitle(conn, startlist, endlist, searchText);
+		close(conn);
+		return blist;
+	}
+	//작성자검색목록갯수
+	public int getSearchUserNameListCount(String searchText) {
+		Connection conn = getConnection();
+		int listCount = bdao.getSearchUserNameListCount(conn, searchText);
+		close(conn);
+		return listCount;
+	}
+	//작성자로검색
+	public ArrayList<Board> searchUserName(int startlist, int endlist, String searchText) {
+		Connection conn = getConnection();
+		ArrayList<Board> blist = bdao.searchUserName(conn, startlist, endlist, searchText);
+		close(conn);
+		return blist;
+	}
+	//댓글 조회
+	public ArrayList<BoardReply> selectReply(int bNo) {
+		Connection conn = getConnection();
+		ArrayList<BoardReply> brlist = bdao.selectReply(conn, bNo);
+		close(conn);
+		return brlist;
+	}
+	//댓글 갯수조회
+	public int replyCount(int bNo) {
+		Connection conn = getConnection();
+		int replyCount = bdao.replyCount(conn,bNo);
+		close(conn);
+		return replyCount;
+	}
+	//0번계층 댓글작성.
+	public int insertBoardReply(int bNo, String brContent,String userid) {
+		Connection conn = getConnection();
+		int result =bdao.insertBoardReply(conn, bNo, brContent,userid);
 		if(result > 0)
 			commit(conn);
 		else

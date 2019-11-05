@@ -35,17 +35,17 @@ public class DraftSignServlet extends HttpServlet {
 
 		Draft draft =new Draft();
 		int docno = Integer.parseInt(request.getParameter("docno"));
+		String empno = request.getParameter("empno");
 		draft.setDocno(docno);
-		String progress = request.getParameter("progress");
-		draft.setProgress(progress);
-		draft.setAppempno(request.getParameter("appempno"));
+		String sresult = request.getParameter("sresult");
+		draft.setApprover(empno);
 		draft.setFeedback(request.getParameter("feedback"));
-		draft.setDisplay(request.getParameter("display"));
+		draft.setSresult(sresult);
 		
-		int result = new DraftService().signDraft(draft, progress);
+		int result = new DraftService().signDraft(draft, docno, empno, sresult);
 		System.out.println("draft : " + draft );
 		if(result > 0) {
-			response.sendRedirect("/hiapt/dview?docno=" + docno );
+			response.sendRedirect("/hiapt/dview?empno=" + empno + "&docno=" + docno );
 		}else {
 			RequestDispatcher view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "결재 실패");

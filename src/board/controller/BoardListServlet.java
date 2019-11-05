@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import board.model.service.BoardService;
 import board.model.vo.Board;
+import employee.model.vo.Employee;
 
 
 /**
@@ -34,7 +35,21 @@ public class BoardListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int listCount = new BoardService().getListCount();
+		request.setCharacterEncoding("utf-8");
+		
+		BoardService bservice = new BoardService();
+		String searchText = request.getParameter("searchtext");
+		String selectOption = request.getParameter("selectoption");
+		
+		int listCount = 0;
+		if(selectOption != null) { //검색입력시. 목록갯수
+			if(selectOption.equals("title"))
+				listCount = bservice.getSearchTitleListCount(searchText);
+			else
+				listCount = bservice.getSearchUserNameListCount(searchText);
+		}else { //입력 안했을시.
+			listCount = bservice.getListCount();
+		}
 
 		int listSize = 10; // 페이지당 목록수 3개
 		int pageSize = 10; // 페이징바당 페이지개수 3개
@@ -62,22 +77,44 @@ public class BoardListServlet extends HttpServlet {
 		int startlist = (currentPage * listSize) - (listSize - 1); // 시작목록 1 4
 		int endlist = currentPage * listSize; // 마지막목록 3 6
 
-		ArrayList<Board> blist = new BoardService().selectList(startlist, endlist);
-
+		ArrayList<Board> blist = null;
+		if(selectOption != null) { //검색입력시.
+			if(selectOption.equals("title"))
+				blist = bservice.searchTitle(startlist, endlist, searchText);	
+			else
+				blist = bservice.searchUserName(startlist, endlist, searchText);
+		}else { //입력 안했을시.
+			blist = bservice.selectList(startlist, endlist);
+		}
+		
+		Employee employee = (Employee) request.getSession().getAttribute("employee");
 		RequestDispatcher view = null;
+		
+		request.setAttribute("blist", blist);
+		request.setAttribute("maxPage", maxPage);
+		request.setAttribute("currentPage", currentPage);
+		request.setAttribute("beginPage", beginPage);
+		request.setAttribute("endPage", endPage);
+		request.setAttribute("pageSize", pageSize);
+		request.setAttribute("selectoption", selectOption);
+		request.setAttribute("searchtext", searchText);
 
-		if (blist.size() > 0) {
-			view = request.getRequestDispatcher("views/user/board/boardListView.jsp");
-			request.setAttribute("blist", blist);
-			request.setAttribute("maxPage", maxPage);
-			request.setAttribute("currentPage", currentPage);
-			request.setAttribute("beginPage", beginPage);
-			request.setAttribute("endPage", endPage);
-			request.setAttribute("pageSize", pageSize);
+		if(employee != null) {//직원접속
+			if (blist.size() > 0) {
+				view = request.getRequestDispatcher("views/master/board/boardAdminListView.jsp");
 
-		} else {
-			view = request.getRequestDispatcher("views/common/user404.jsp");
-			request.setAttribute("message", "주민투표 리스트 조회 실패");
+			} else {
+				view = request.getRequestDispatcher("views/common/error.jsp");
+				request.setAttribute("message", "자유게시판 리스트 조회 실패");
+			}
+		}else {//세대주접속
+			if (blist.size() > 0) {
+				view = request.getRequestDispatcher("views/user/board/boardListView.jsp");
+
+			} else {
+				view = request.getRequestDispatcher("views/common/user404.jsp");
+				request.setAttribute("message", "자유게시판 리스트 조회 실패");
+			}	
 		}
 		view.forward(request, response);
 	}

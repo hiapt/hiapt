@@ -17,7 +17,7 @@ public class MyboxDao {
 		ArrayList<Mybox> list = new ArrayList<Mybox>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from myboxlist where empno = ? ";
+		String query = "select * from myboxlist where empno = ? order by myboxcode asc";
 		
 
 		try {
@@ -48,16 +48,16 @@ public class MyboxDao {
 		ArrayList<Mybox> list = new ArrayList<Mybox>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String query = "select * from ( select rownum rnum, myboxcode, myboxname, docno, empno, "
-							+ "doctitle, doccontent, empid, empname, draftdate, progress, originfile, formname "
-							+ "from (select m.myboxcode, l.myboxname, m.docno, m.empno, d.doctitle, d.doccontent,  "
-							+ "e.empid, e.empname, d.draftdate, d.progress, d.originfile, f.formname "
+		String query = "select * from ( select rownum rnum, myboxcode, myboxname, docno, empno, savedate, "
+							+ "doctitle, doccontent, empid, empname, draftdate, docstatus, originfile, formname "
+							+ "from (select m.myboxcode, l.myboxname, m.docno, m.empno, m.savedate, d.doctitle, d.doccontent,  "
+							+ "e.empid, e.empname, d.draftdate, d.docstatus, d.originfile, f.formname "
 							+ "from mybox m "
 							+ "join draft d on (m.docno = d.docno) "
 							+ "join employee e on (m.empno = e.empno) "
-							+ "join formbox f on (m.formcode = f.formcode) "
 							+ "join myboxlist l on (l.myboxcode = m.myboxcode) "
-							+ "where m.empno = ? and m.myboxcode = ? order by m.docno desc )) "
+							+ "join formbox f on (d.formcode = f.formcode) "
+							+ "where m.empno = ? and m.myboxcode = ? order by m.savedate desc, m.docno desc )) "
 							+ "where rnum >= ? and rnum <= ?";
 
 		try {
@@ -75,15 +75,15 @@ public class MyboxDao {
 				my.setMyboxname(rset.getString(3));
 				my.setDocno(rset.getInt(4));
 				my.setEmpno(rset.getString(5));
-				my.setDoctitle(rset.getString(6));
-				my.setDoccontent(rset.getString(7));
-				my.setEmpid(rset.getString(8));
-				my.setEmpname(rset.getString(9));
-				my.setDraftdate(rset.getDate(10));
-				my.setProgress(rset.getString(11));
-				my.setOriginfile(rset.getString(12));
-				my.setFormname(rset.getString(13));
-				
+				my.setSavedate(rset.getDate(6));
+				my.setDoctitle(rset.getString(7));
+				my.setDoccontent(rset.getString(8));
+				my.setEmpid(rset.getString(9));
+				my.setEmpname(rset.getString(10));
+				my.setDraftdate(rset.getDate(11));
+				my.setDocstatus(rset.getString(12));
+				my.setOriginfile(rset.getString(13));
+				my.setFormname(rset.getString(14));
 				list.add(my);
 			}
 			
@@ -105,11 +105,10 @@ public class MyboxDao {
 		
 		String query = "select count(*) " + 
 							"from mybox m " + 
-							"join draft d on (m.docno = d.docno) " + 
+							"join draft d using (docno) " + 
 							"join employee e on (m.empno = e.empno) " + 
-							"join formbox f on (m.formcode = f.formcode) " + 
-							"join myboxlist l on (l.myboxcode = m.myboxcode) " + 
-							 "where m.empno = ? and m.myboxcode = ? order by m.docno desc";
+							"join formbox f using (formcode) " + 
+							 "where empno = ? and myboxcode = ? ";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
@@ -155,5 +154,27 @@ public class MyboxDao {
 		
 		return result;
 	}
+	public int insertMybox(Connection conn, Mybox mbox) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String query = "insert into mybox values (?, ?, ?, sysdate)";
 
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, mbox.getMyboxcode());
+			pstmt.setString(2, mbox.getEmpno());
+			pstmt.setInt(3, mbox.getDocno());
+			
+			result = pstmt.executeUpdate();
+			System.out.println("처리된 행 개수 : " + result);
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
 }

@@ -39,18 +39,12 @@ public class MyboxListEmpServlet extends HttpServlet {
 		ArrayList<Mybox> list = mservice.selectAll(empno);
 		RequestDispatcher view = null; 
 
-		 if(list.size() > 0) {
-			
 			view = request.getRequestDispatcher("views/emp/approval/empMyboxList.jsp");
 
 			request.setAttribute("list", list);
 			request.setAttribute("empno", empno);
 				
-		}else {
-			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", "생성한 문서함이 없습니다.");
-		}
-		view.forward(request, response);
+			view.forward(request, response);
 		
 	}
 

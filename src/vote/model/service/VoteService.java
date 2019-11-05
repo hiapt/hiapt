@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import vote.model.dao.VoteDao;
 import vote.model.vo.Vote;
+import vote.model.vo.VoteCheck;
 import vote.model.vo.VoteResult;
 
 import static common.JDBCTemplate.*;
@@ -130,6 +131,13 @@ public class VoteService {
 			rollback(conn);
 		close(conn);
 		
+	}
+
+	public ArrayList<VoteCheck> selectVoteCheck(int voteNo) {
+		Connection conn = getConnection();
+		ArrayList<VoteCheck> vclist = vdao.selectVoteCheck(conn, voteNo);
+		close(conn);
+		return vclist;
 	}
 
 

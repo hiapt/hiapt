@@ -226,22 +226,22 @@ table {
 						<% } else { %>
 							
 						<% } %>
-				
+						
 						</td>
 						<td><%=m.getDocno()%></td>
 						<td><a href="/hiapt/dview?docno=<%=m.getDocno()%>"><%=m.getDoctitle()%></a></td>
 						<td><%=m.getEmpid()%>&nbsp;<%=m.getEmpname()%></td>
 						<td><%=m.getDraftdate()%></td>
-						<td><%=m.getFormname()%></td>
+						<td><%= m.getFormname() %></td>
 						<td>
 							<%
-								if (m.getProgress().equals("0")) {
+								if (m.getDocstatus().equals("0")) {
 							%> 대기 <%
-								} else if (m.getProgress().equals("1")) {
+								} else if (m.getDocstatus().equals("1")) {
 							%> 승인 <%
-								} else if (m.getProgress().equals("2")) {
+								} else if (m.getDocstatus().equals("2")) {
 							%> 반려 <%
-								} else if (m.getProgress().equals("3")) {
+								} else if (m.getDocstatus().equals("3")) {
 							%> 보류 <%
 								}
 							%>

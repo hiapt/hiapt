@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import vote.model.vo.Vote;
+import vote.model.vo.VoteCheck;
 import vote.model.vo.VoteResult;
 public class VoteDao {
 	
@@ -395,6 +396,39 @@ public class VoteDao {
 		}
 		
 		return result;
+	}
+
+	public ArrayList<VoteCheck> selectVoteCheck(Connection conn, int voteNo) {
+		ArrayList<VoteCheck> vclist = new ArrayList<VoteCheck>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String query ="select userid, username, vote_no, vote_result from votecheck"
+				+ " join aptuser using(userid)"
+				+ " where vote_no = ?";
+		
+		try {
+			pstmt =conn.prepareStatement(query);
+			pstmt.setInt(1, voteNo);
+			rset=pstmt.executeQuery();
+
+			while(rset.next()) {
+				VoteCheck vc = new VoteCheck();
+				
+				vc.setUserId(rset.getString(1));
+				vc.setUserName(rset.getString(2));
+				vc.setVoteNo(rset.getInt(3));
+				vc.setVoteResult(rset.getString(4));
+				
+				vclist.add(vc);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+
+		return vclist;
 	}
 	
 	
