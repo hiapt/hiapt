@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="java.util.*,java.text.*"%>
+<%
+	Date date =new Date();
+	SimpleDateFormat simpleDate = new SimpleDateFormat("yyyy-MM-dd");
+	String sysdate = simpleDate.format(date);
+%>   
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +21,6 @@
 <!-- Custom fonts for this template-->
 <link href="/hiapt/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
@@ -100,6 +103,77 @@ border :  solid 3px #fff;
 function validation(){
 	return true; //전송함
 }
+
+$('input[type="text"]').keydown(function() {
+    if (eventkeyCode === 13) {
+        event.preventDefault();
+    }
+});
+function moveFocus(next){
+	if(eventkeycode == 13){
+		document.getElementById(next).Focus();
+	}
+}
+
+$(function(){
+	$('#aptenroll').on('submit', function(event){
+	var dong = $("#dong");
+	var ho = $("#ho");
+	var username = $('input[name=username]');
+	var userphone = $('input[name=userphone]');
+	
+	var dongVal = $("#dong").val();
+	var hoVal = $("#ho").val();
+	var usernameVal = $('input[name=username]').val();
+	var userphoneVal = $('input[name=userphone]').val();
+	
+	
+	if(dongVal == ""){
+		alert('동을 입력하세요');
+		dong.focus();
+		return false;
+	}
+	
+	 if(hoVal == ""){
+		alert('호수를 입력하세요');
+		ho.focus();
+		return false;
+	}
+	 
+	if(usernameVal == ""){
+		alert('세대주명을 입력하세요');
+		username.focus();
+		return false;
+	}
+	
+	if(userphoneVal == ""){
+		alert('핸드폰번호를 입력하세요');
+		userphone.focus();
+		return false;
+	}	
+	
+	if(invalidPhone(empphoneVal)){
+		alert('핸드폰 번호를 양식에 맞게 입력해주세요.');
+		empphone.select();
+		return false;
+	}
+	
+	$(this).submit();
+	//event.preventdefault();
+	return true;
+
+	});
+});
+
+function invalidPhone(value){
+	var invalidP = false;
+
+	var re = /^0(2|1[01689])-[0-9]{4}-[0-9]{4}$/;
+	if(!re.test(value))
+		invalidP = true;
+
+	return invalidP;
+} 
 </script>
 
 <body id="page-top">
@@ -133,19 +207,19 @@ function validation(){
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">입주자등록</h1>
+<h1 class="btn btn-primary btn-icon-split" style=" width:100px; height:30px; text-align:center;">입주자 등록</h1>
 
 <div class="card shadow mb-4">
 <div class="card-body">
 
-<form action="/hiapt/aptenroll" method="post" onsubmit="return validation();">
+<form action="/hiapt/aptenroll" method="post" onsubmit="return validation();" id="aptenroll">
 <!-- <table class="table table-bordered dataTable"> -->
 <table style=" width:1000px; border:0px; padding:20px; margin:auto;" cellpadding="0" cellspacing="1" >
 <tbody>
 	<tr>
 		<th id="button" colspan="2" style="text-align:right;">
-		<input type="reset" value="취소" 
-				class="btn btn-primary btn-icon-split" id="button" style="padding: 3px;"> &nbsp;
+		<input type="button" value="취소"  class="btn btn-primary btn-icon-split" style=" width:50px; height:30px; text-align:center;"
+onclick="location.href='/hiapt/aptlist'">  &nbsp;
 		<input type="submit" value="등록 " 
 				class="btn btn-primary btn-icon-split" id="button" style="padding: 3px;">
 		</th>
@@ -158,12 +232,12 @@ function validation(){
 			<tbody>
 				<tr>
 				<th id="AptMain">입주</th>
-					<td id="AptTitle">동</td>
-					<td id="AptData"><input type="text" name="userid" size="7"></td>
-					<td id="AptTitle">호</td>
-					<td id="AptData"><input type="text" name="userid" size="7"></td>
-					<td id="AptTitle">입주일</td>
-					<td id="AptData"><input type="date" name="userenroll"></td>
+					<td id="AptTitle">동*</td>
+					<td id="AptData"><input type="text" name="userid" id="dong" size="7"></td>
+					<td id="AptTitle">호*</td>
+					<td id="AptData"><input type="text" name="userid" id="ho" size="7"></td>
+					<td id="AptTitle">입주일*</td>
+					<td id="AptData"><input type="date" name="userenroll" id="userenroll" value="<%= sysdate %>"></td>
 				</tr>
 			</tbody>
 			</table>
@@ -177,24 +251,24 @@ function validation(){
 			<tbody>
 				<tr>
 				<th id="AptMain" rowspan="3">세대주</th>
-					<td id="AptTitle">성명</td>
+					<td id="AptTitle">성명*</td>
 					<td id="AptData"><input type="text" name="username"></td>
 					<td id="AptTitle">생년월일</td>
-					<td id="AptData"><input type="date" name="userbirth"></td>
+					<td id="AptData"><input type="date" name="userbirth" value="<%= sysdate %>"></td>
 					<td id="AptTitle"></td>
 					<td id="AptData"></td>
 				</tr>				
 				<tr>
-					<td id="AptTitle">연락처</td>
+					<td id="AptTitle">연락처*</td>
 					<td id="AptData"><input type="text" name="userphone"></td>
 					<td id="AptTitle">이메일</td>
-					<td id="AptData"><input type="email" name="usermail" size="25"></td>
+					<td id="AptData"><input type="email" name="useremail" size="25"></td>
 					<td id="AptTitle"></td>
 					<td id="AptData"></td>
 				</tr>
 				<tr>
 					<td id="AptTitle">기타</td>
-					<td id="AptData" colspan="5"><textarea name="useretc" rows="5" cols="70"></textarea></td>			
+					<td id="AptData" colspan="5"><textarea name="useretc" rows="5" cols="100"></textarea></td>			
 				</tr>				
 			</tbody>
 			</table>
@@ -213,7 +287,7 @@ function validation(){
 					<td id="AptTitle">차량번호</td>
 					<td id="AptData"><input type="text" name="carno"></td>
 					<td id="AptTitle">차량등록일</td>
-					<td id="AptData"><input type="date" name="carenroll"></td>
+					<td id="AptData"><input type="date" name="carenroll" value="1900-01-01"></td>
 				</tr>
 			</tbody>
 			</table>

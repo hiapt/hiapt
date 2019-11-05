@@ -20,7 +20,14 @@ public class MailService {
 		return listCount;
 	}
 	
-	public int getListCountR(String email) {
+	public int getListCount(String email, int mcode) {
+		Connection conn = getConnection();
+		int listCount = mdao.getListCount(conn, email, mcode);
+		close(conn);
+		return listCount;
+	}
+	
+	/*public int getListCountR(String email) {
 		Connection conn = getConnection();
 		int listCount = mdao.getListCountR(conn, email);
 		close(conn);
@@ -53,7 +60,7 @@ public class MailService {
 		int listCount = mdao.getListCountW(conn, email);
 		close(conn);
 		return listCount;
-	}
+	}*/
 
 	public ArrayList<Mailm> selectListA(String email, int startRow, int endRow) {
 		Connection conn = getConnection();
@@ -62,7 +69,14 @@ public class MailService {
 		return list;
 	}
 	
-	public ArrayList<Mailm> selectListR(String email, int startRow, int endRow) {
+	public ArrayList<Mailm> selectList(String email, int mcode, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Mailm> list = mdao.selectList(conn, email, mcode, startRow, endRow);
+		close(conn);
+		return list;
+	}
+	
+	/*public ArrayList<Mailm> selectListR(String email, int startRow, int endRow) {
 		Connection conn = getConnection();
 		ArrayList<Mailm> list = mdao.selectListR(conn, email, startRow, endRow);
 		close(conn);
@@ -95,7 +109,7 @@ public class MailService {
 		ArrayList<Mailm> list = mdao.selectListW(conn, email, startRow, endRow);
 		close(conn);
 		return list;
-	}
+	}*/
 
 	public Mailm selectOne(int mailno) {
 		Connection conn = getConnection();
@@ -288,6 +302,94 @@ public class MailService {
 		close(conn);
 		return mbf;
 	}
+
+	public int moveMailBoxSelf(int mailno) {
+		Connection conn = getConnection();
+		int result = mdao.moveMailBoxSelf(conn, mailno);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int getListCountMy(String email, int mcode) {
+		Connection conn = getConnection();
+		int listCount = mdao.getListCountMy(conn, email, mcode);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Mailm> selectListMy(String email, int mcode, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Mailm> list = mdao.selectListMy(conn, mcode, email, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public int moveMailBoxReceive(int mailno) {
+		Connection conn = getConnection();
+		int result = mdao.moveMailBoxReceive(conn, mailno);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	public int getListCountSearchS(String email, String sender) {
+		Connection conn = getConnection();
+		int listCount = mdao.getListCountSearchS(conn, email, sender);
+		close(conn);
+		return listCount;
+	}
+
+	public ArrayList<Mailm> selectListSearchS(String email, String sender, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Mailm> list = mdao.selectListSearchS(conn, email, sender, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public int getListCountSearchR(String email, String recipient) {
+		Connection conn = getConnection();
+		int listCount = mdao.getListCountSearchR(conn, email, recipient);
+		close(conn);
+		return listCount;
+	}
+	
+	public ArrayList<Mailm> selectListSearchR(String email, String recipient, int startRow, int endRow) {
+		Connection conn = getConnection();
+		ArrayList<Mailm> list = mdao.selectListSearchR(conn, email, recipient, startRow, endRow);
+		close(conn);
+		return list;
+	}
+
+	public MailBoxType selectOneMailBox(String mbox, String email) {
+		Connection conn = getConnection();
+		MailBoxType mbt = mdao.selectOneMailBox(conn, mbox, email);
+		close(conn);
+		return mbt;
+	}
+
+	public int moveMailBox(int mailno, int mcode) {
+		Connection conn = getConnection();
+		int result = mdao.moveMailBox(conn, mailno, mcode);
+		if(result > 0)
+			commit(conn);
+		else
+			rollback(conn);
+		close(conn);
+		return result;
+	}
+
+	
+
+	
+
+	
 
 
 	

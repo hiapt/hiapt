@@ -50,7 +50,7 @@ public class MailBoxTypeList extends HttpServlet {
 					JSONObject job = new JSONObject();
 					job.put("mcode", m.getMailCode());
 					//JSON 에서 한글깨짐 막으려면, java.net.URLEncoder.encode() 메소드로 인코딩 처리
-					job.put("bname", URLEncoder.encode(m.getMailBoxName(), "UTF-8"));
+					job.put("name", URLEncoder.encode(m.getMailBoxName(), "UTF-8"));
 					job.put("email", m.getEmpEmail());
 					
 					jarr.add(job);

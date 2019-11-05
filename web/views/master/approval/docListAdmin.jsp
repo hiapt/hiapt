@@ -9,6 +9,11 @@
 	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
+	int newcount = ((Integer) request.getAttribute("newcount")).intValue();
+	String keyword = (String) request.getAttribute("keyword");
+	String search = (String) request.getAttribute("search");
+	String begin = (String) request.getAttribute("begin");
+	String to = (String) request.getAttribute("to");
 %>
 
 <head>
@@ -88,6 +93,7 @@ table {
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
+<% if(emp.getEmpNo().equals("admin")) { %>
 
 
 <!--///////본문 내용 시작 ///////-------->
@@ -104,7 +110,7 @@ table {
 		</select>
 	</div>
 	<div id="title">
-		<form action="/hiapt/dsearch" method="get" id="searchform">
+		<form action="/hiapt/dsearch.ad" method="get" id="searchform">
 			<input type="hidden" name="search" value="title">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
@@ -119,7 +125,7 @@ table {
 		</form>
 	</div>
 	<div id="writer">
-		<form action="/hiapt/dsearch" method="get" id="searchform2">
+		<form action="/hiapt/dsearch.ad" method="get" id="searchform2">
 			<input type="hidden" name="search" value="writer">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
@@ -135,7 +141,7 @@ table {
 		</form>
 	</div>
 	<div id="date">
-		<form action="/hiapt/dsearch" method="get" id="searchform3">
+		<form action="/hiapt/dsearch.ad" method="get" id="searchform3">
 			<input type="hidden" name="search" value="date">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="date" name="from" id="search"
@@ -154,7 +160,7 @@ table {
 		</form>
 	</div>
 	<div id="formtype">
-		<form action="/hiapt/dsearch" method="get" id="searchform4">
+		<form action="/hiapt/dsearch.ad" method="get" id="searchform4">
 			<input type="hidden" name="search" value="formtype">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
@@ -171,10 +177,26 @@ table {
 	</div>
 </div>
 <br>
-	<h5>
-		전체 문서 :
-		<%=count%>개
-	</h5>
+<div style="display: flex;">
+		<div style="color: #444;">
+		［전체 문서 : <%=count%>개］
+		</div>
+	<% if (newcount != 0) { %>
+		<span class="badge badge-danger badge-counter"  style="padding: 6px;  margin-left: 20px;">
+						결재 대기 문서 : <%= newcount %> 개
+		</span>
+		<% } %>
+</div>
+	<% if(keyword != null) { %>
+	<div align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색어 : <%= keyword %>］
+	</div>
+	<% } else if (begin != null && to != null) { %>
+	<div  align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색 날짜 : <%= begin %> ~ <%= to %>］
+	</div>
+	<% } %>
+	<br>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -187,13 +209,13 @@ table {
          					 <span class="checkmark"></span>
           				 	 </label>
 						</th>
-						<th width="80">첨부파일</th>
+						<th width="80" >첨부파일</th>
 						<th width="100">문서번호</th>
 						<th>제목</th>
 						<th width="125">기안자</th>
-						<th width="100">기안일</th>
+						<th width="110">기안일</th>
 						<th width="120">문서종류</th>
-						<th width="80">진행상태</th>
+						<th width="100">진행상태</th>
 					</tr>
 				<%
 					for (int i = 0; i < list.size(); i++) {
@@ -216,36 +238,45 @@ table {
 				
 						</td>
 						<td><%=d.getDocno()%></td>
-						<% if(d.getProgress().equals("0") || d.getProgress().equals("3")){ %>
-						<td><a href="/hiapt/dsview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
+						<% if(d.getDocstatus().equals("0") || d.getDocstatus().equals("4")){ %>
+						<td><a href="/hiapt/dsview?empno=<%= emp.getEmpNo() %>&docno=<%=d.getDocno()%>"><%=d.getDoctitle()%>
+						</a></td>
 						<% } else { %>
-						<td><a href="/hiapt/dview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
+						<td><a href="/hiapt/dview?empno=<%= emp.getEmpNo() %>&docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
 						<% } %>
 						<td><%=d.getEmpid()%>&nbsp;<%=d.getEmpname()%></td>
 						<td><%=d.getDraftdate()%></td>
 						<td><%=d.getFormname()%></td>
 						<td>
+							<% if (d.getDocstatus().equals("0")) { %> 
+							 대기중
+							<span class="badge badge-danger badge-counter"  style="position: absolute; margin-top: 1.5px; margin-left: 4px;">
+								&nbsp;!&nbsp;
+							</span>
+							<% } else if (d.getDocstatus().equals("1")) { %>
+							 진행중 <input type="hidden" name="count" >
+							<% } else if (d.getDocstatus().equals("2")) { %> 
+							완료됨
+							<% } else if (d.getDocstatus().equals("3")) { %>
+							 반려됨
+							 <%} else if (d.getDocstatus().equals("4")){ %>
+							 보류중 <input type="hidden" name="count" >
+							<span class="badge badge-danger badge-counter"  style="position: absolute; margin-top: 2px; margin-left: 4px;">
+								&nbsp;!&nbsp;
+							</span>
+							 <%} %>
 							<%
-								if (d.getProgress().equals("0")) {
-							%> 대기 <%
-								} else if (d.getProgress().equals("1")) {
-							%> 승인 <%
-								} else if (d.getProgress().equals("2")) {
-							%> 반려 <%
-								} else if (d.getProgress().equals("3")) {
-							%> 보류 <%
 								}
 							%>
 						</td>
 					</tr>
-				<%
-					}
-				%>
 			</table>
 			<div style="float: right;">
 				<input type="button" value="이동" class="btn btn-default btn-xs"
 					style="letter-spacing: 7px; padding-left: 10px;">
 			</div>
+			
+		<% if(keyword == null){ %>
 
 			<div class="col-sm-12">
 				<div class="paging_simple_numbers">
@@ -315,8 +346,81 @@ table {
 					</ul>
 				</div>
 			</div>
+			<% } else {%>
+		<div class="col-sm-12">
+				<div class="paging_simple_numbers">
+					<ul class="pagination" style="justify-content: center;">
+						<li class="paginate_button page-item previous"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=1" aria-controls="dataTable"
+							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
+						<%
+							if ((beginPage - 10) < 1) {
+						%>
+						<li class="paginate_button page-item previous back"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=1" aria-controls="dataTable"
+							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item active back"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&page=<%=beginPage - 10%>"
+							aria-controls="dataTable" data-dt-idx="<%=beginPage - 10%>"
+							tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
+						<%
+							}
+						%>
+						<%
+							for (int p = beginPage; p <= endPage; p++) {
+								if (p == currentPage) {
+						%>
+						<li class="paginate_button page-item active next">
+						<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=p%>"
+							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
+							class="page-link"><%=p%></a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=p%>"
+							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
+							class="page-link"><%=p%></a></li>
+						<%
+							}
+							}
+						%>
+						<%
+							if ((endPage + 10) > maxPage) {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=maxPage%>"
+							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
+							class="page-link">&rsaquo;&rsaquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=endPage + 10%>"
+							aria-controls="dataTable" data-dt-idx="<%=endPage + 10%>"
+							tabindex="0" class="page-link">&rsaquo;&rsaquo;</a></li>
+						<%
+							}
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch.ad?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=maxPage%>"
+							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
+							class="page-link">&rsaquo;</a></li>
+					</ul>
+				</div>
+			</div>
+		<% } %>
 		</div>
 	</div>
+		<% } else { %>
+	<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 목록에 대한 접근 권한이 없습니다. </div>
+	<% } %>
 <script type="text/javascript">
 	$("#checkall").click(function() {
 
@@ -379,6 +483,7 @@ table {
 		    });
 		  
 	});
+	
 </script>
 <!---//// 본문 내용 끝 ///////------------------->
 </div><!-- /.container-fluid -->				

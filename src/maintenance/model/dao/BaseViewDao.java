@@ -11,7 +11,10 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import org.json.simple.JSONObject;
+
 import maintenance.model.vo.BaseView;
+import maintenance.model.vo.Bill;
 
 public class BaseViewDao {
 
@@ -257,6 +260,140 @@ public class BaseViewDao {
 
 		return listCount;
 	}
+	
+	// 고지서 삭제
+	public int deleteBaseView(Connection conn, long merchantUid) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		String query = "delete from base_view where MERCHANT_UID = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			/*pstmt.setLong(1, merchantUid);*/
+			pstmt.setLong(1, merchantUid);
+			
+			result = pstmt.executeUpdate();
+			
+			System.out.println("삭제된 행의 갯수 : " + result );
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+	/*// 기초부과 입력단
+	public int insertImposeView(Connection conn, JSONObject sendJson) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "INSERT INTO BASE_VIEW VALUES(" + 
+				"BILL_SEQ.NEXTVAL, ?, ?, ?, ?, ?, " + 
+				"?, ?, ? )";
+		try {
+			pstmt = conn.prepareStatement(query);
+			
+			pstmt.setString(1, String.valueOf(sendJson.get("imposeStatus")));
+			pstmt.setString(2, String.valueOf(sendJson.get("billYearMonth")));
+			pstmt.setString(3, String.valueOf(sendJson.get("")));
+			pstmt.setDate(2, sendJson.getBillYearMonth());
+			pstmt.setDate(3, sendJson.getCalculateStartDay());
+			pstmt.setDate(4, sendJson.getCalculateEndDay());
+			pstmt.setDate(5, sendJson.getImposeEndDate());
+			pstmt.setDate(6, sendJson.getAcceptDate());
+			pstmt.setDate(7, sendJson.getCutoffDate());
+			pstmt.setInt(8, sendJson.getImposeCount());
+					
+			result = pstmt.executeUpdate();
+			System.out.println("처리된 행의 갯수 :" + result);			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}// end insertBaseView
+*/	
+	// baseView insert
+	public int insertBaseView(Connection conn, BaseView bview) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		
+		String query = "insert into base_view values(BILL_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bview.getImposeStatus());
+			pstmt.setDate(2, bview.getBillYearMonth());
+			pstmt.setDate(3, bview.getCalculateStartDay());
+			pstmt.setDate(4, bview.getCalculateEndDay());
+			pstmt.setDate(5, bview.getImposeEndDate());
+			pstmt.setDate(6, bview.getAcceptDate());
+			pstmt.setDate(7, bview.getCutoffDate());
+			pstmt.setInt(8, bview.getImposeCount());
+
+			result = pstmt.executeUpdate();
+			System.out.println("처리된 행의 갯수 : " + result);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}// insertBaseView
+	
+	// ajax 사용을 위한 top 10
+	public ArrayList<BaseView> selectTop10(Connection conn) {
+		ArrayList<BaseView> list = new ArrayList<BaseView>();
+		
+		Statement stmt = null;
+		ResultSet rset = null;
+		
+		String query = "SELECT * FROM (SELECT ROWNUM RNUM, IMPOSE_STATUS, BILL_YEAR_MONTH, CALCULATE_START_DAY, " + 
+				"				CALCULATE_END_DAY, impose_end_date, ACCEPT_DATE, CUTOFF_DATE, IMPOSE_COUNT, MERCHANT_UID " + 
+				"				from (SELECT * FROM BASE_VIEW " + 
+				"				ORDER BY BILL_YEAR_MONTH DESC, CUTOFF_DATE DESC)) " + 
+				"				where rnum >=1 and rnum <=10";
+		
+		try {
+			 
+			stmt = conn.createStatement();
+			rset = stmt.executeQuery(query);
+			
+			while(rset.next()) {
+				BaseView bview = new BaseView();
+				
+				bview.setMerchantUid(rset.getLong("merchant_uid"));
+				bview.setImposeStatus(rset.getString("impose_status"));
+				bview.setBillYearMonth(rset.getDate("bill_year_month"));
+				bview.setCalculateStartDay(rset.getDate("calculate_start_day"));
+				bview.setCalculateEndDay(rset.getDate("calculate_end_day"));
+				bview.setImposeEndDate(rset.getDate("impose_end_date"));
+				bview.setAcceptDate(rset.getDate("accept_date"));
+				bview.setCutoffDate(rset.getDate("cutoff_date"));
+				bview.setImposeCount(rset.getInt("impose_count"));
+				
+				list.add(bview);
+
+			}			
+			
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(stmt);
+		}
+				
+		return list;
+	}// end selectTop10
 	
 	/*// null 일경우 getlistcount
 	public int getbvListCount(Connection conn) {

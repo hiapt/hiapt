@@ -37,8 +37,8 @@
 
 <center>
 <h2>메일을 성공적으로 보냈습니다.</h2>
-<a href="/hiapt/rlist?empemail=<%=emp.getEmpEmail()%>">받은메일함 가기</a>&nbsp;|&nbsp;
-<a href="/hiapt/views/emp/mail/writemail.jsp">메일쓰기</a>
+<a href="/hiapt/mlist?empemail=<%=emp.getEmpEmail()%>&mcode=1">받은메일함 가기</a>&nbsp;|&nbsp;
+<a href="/hiapt/emlist">메일쓰기</a>
 </center>
 
 </div><!-- /.container-fluid -->				

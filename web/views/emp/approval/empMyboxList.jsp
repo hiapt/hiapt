@@ -150,7 +150,11 @@ table {
 
 	$(function () {
 		$("#add").click(function() {
+			if($("tr").length < 10){
 			$("#myadd").css("display", "block");
+			}else {
+				alert("내문서함은 9개까지만 생성 가능합니다.");
+			}
 
 	});
 		$("#cancel").click(function() {

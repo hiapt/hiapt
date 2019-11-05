@@ -112,7 +112,7 @@ th{
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800"><%= employee.getEmpName() %> 상세정보</h1>
+<h1 class="btn btn-primary btn-icon-split" style=" width:150px; height:30px; text-align:center;">직원 상세정보</h1>
 
 <div class="card shadow mb-4">
 <form action="/hiapt/empupdate" method="post">
@@ -145,8 +145,7 @@ th{
 <td id="employee"><%= employee.getEmpEmail() %></td></tr>
 	 
 <% if(emp != null && emp.getEmpId().equals("관리자")){ %>
-<tr><th style="text-align:center;">부양가족수</th>
-<td id="employee"><%= employee.getEmpFamily() %></td>
+
 	 
 <tr><th style="text-align:center;">기타정보</th>
 <td id="employee"><%= employee.getEmpEtc() %></td></tr>
@@ -156,13 +155,18 @@ th{
 	<% } %>	
 	<th colspan="2">
 		<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
-		<a href="/hiapt/empupdate?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
-		<a href="/hiapt/empdelete?empno=<%= employee.getEmpNo() %>">삭제하기</a>
-		<a href="javascript:history.go(-1);">돌아가기</a>
+		<input type="button" value="수정하기"  class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='/hiapt/empupdate?empno=<%= employee.getEmpNo() %>'"> &nbsp;
+		<input type="button" value="삭제하기"  class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='/hiapt/empdelete?empno=<%= employee.getEmpNo() %>'"> &nbsp;
+		<input type="button" value="이전으로" class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='javascript:history.go(-1);'">
 		<% }else{ %>
 	
-		<a href="/hiapt/myupd?empno=<%= employee.getEmpNo() %>">수정하기</a> &nbsp;
-		<a href="javascript:history.go(-1);">돌아가기</a>
+		<input type="button" value="수정하기"  class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='/hiapt/empupdate?empno=<%= employee.getEmpNo() %>'"> &nbsp;
+		<input type="button" value="이전으로" class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='javascript:history.go(-1);'">
 		<% } %>
 	</th>
 	

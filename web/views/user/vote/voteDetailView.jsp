@@ -4,6 +4,7 @@
 	import="aptuser.model.vo.Aptuser,vote.model.vo.Vote,java.util.*,java.text.*
 ,vote.model.vo.VoteResult"%>
 <%
+	int currentPage = ((Integer)request.getAttribute("currentPage")).intValue();
 	Vote vote = (Vote) request.getAttribute("vote");
 	String vote1 = vote.getVoteOne();
 	String vote2 = vote.getVoteTwo();
@@ -102,33 +103,35 @@
 				return false;
 			});//클릭
 		});//펑션
+		
+		function vList(){
+			window.location.href="/hiapt/vo.list?page=<%= currentPage %>";
+			return false;
+		}
 	</script>
 
 	<section class="section1">
 		<div class="container clearfix">
-
-			<table class="table table-bordered">
-				<tr>
-					<th style="text-align: center" width="300">제목</th>
-					<td style="text-align: center"><%=vote.getVoteTitle()%></td>
-				</tr>
-				<tr>
-					<th style="text-align: center">작성자</th>
-					<td style="text-align: center"><%=vote.getVoteWrite()%></td>
-				</tr>
-				<tr>
-					<th style="text-align: center">작성 날짜</th>
-					<td style="text-align: center"><%=vote.getVoteDate()%></td>
-				</tr>
-				<tr>
-					<th style="text-align: center">조회수</th>
-					<td style="text-align: center"><%=vote.getVoteReadCount()%></td>
-				</tr>
-				<tr>
-					<th style="text-align: center">내용</th>
-					<td style="text-align: center"><%=vote.getVoteContents()%></td>
-				</tr>
-			</table>
+			<div class="content col-lg-12 col-md-12 col-sm-12 clearfix">
+<table class="table table-bordered">
+	<tr align="center">
+		<td width="50"><%= vote.getVoteNo() %></td>
+		<th style="text-align: center"><%= vote.getVoteTitle() %></th>
+		<td width="80">관리자</td>
+		<td width="400">투표 진행일 : <%= vote.getVoteDate() %> ~
+		<%if(vote.getVoteFinalDate().compareTo(today)>=0) {%> 
+		<%= vote.getVoteFinalDate() %>(진행중)
+		<%}else{ %>
+		<%= vote.getVoteFinalDate() %>(마감됨)
+		<%} %></td>
+		<td width="80"><%if(vote.getVoteSecret().equals("Y")) {%>
+		유기명
+		<%}else{ %>
+		무기명
+		<%} %>
+		</td>		
+	<tr align="center"><td colspan="5"><%= vote.getVoteContents() %></td></tr>
+</table>
 
 			<%
 				if (vote.getVoteFinalDate().compareTo(today) >= 0) {
@@ -154,7 +157,6 @@
 				</table>
 					<div align="center">
 						<button id="vbutton">확인</button>&nbsp;&nbsp;&nbsp;&nbsp;
-						<button onclick="javascript:window.history.go(-1);">목록</button>
 					</div>
 				<%
 					} else {
@@ -176,7 +178,8 @@
 				<%}	}%>
 				</table>
 				<div align="right">
-				<button onclick="javascript:window.history.go(-1);">목록</button>
+				<button onclick="vList();">목록</button>
+				</div>
 				</div>
 		</div>
 	</section>

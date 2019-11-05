@@ -112,7 +112,7 @@ th{
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800"><%= aptuser.getUserId() %> 상세정보</h1>
+<h1 class="btn btn-primary btn-icon-split" style=" width:130px; height:30px; text-align:center;">세대주 상세정보</h1>
 
 <div class="card shadow mb-4">
 <form action="/hiapt/empupdate" method="post">
@@ -150,10 +150,13 @@ th{
 <tr>
 	
 	<th colspan="2">
-		<a href="/hiapt/aptupdate?userid=<%= aptuser.getUserId() %>">수정하기</a> &nbsp;
-		<a href="javascript:history.go(-1);">돌아가기</a>
+		<input type="button" value="수정하기"  class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='/hiapt/aptupdate?userid=<%= aptuser.getUserId() %>'"> &nbsp;
+		<input type="button" value="이전으로" class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='javascript:history.go(-1);'">&nbsp;
 		<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
-		<a href="/hiapt/aptdelete?empno=<%= aptuser.getUserId() %>">삭제하기</a>
+		<input type="button" value="삭제하기"  class="btn btn-primary btn-icon-split" style=" width:70px; height:30px; text-align:center;"
+		onclick="location.href='/hiapt/aptdelete?userid=<%= aptuser.getUserId() %>'"> 
 		
 	</th>
 	<% }else{ %>

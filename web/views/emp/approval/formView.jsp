@@ -43,6 +43,31 @@
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
 <script type="text/javascript">
+$(function() {
+	   $("#formselect").change(function(){
+			$.ajax({
+			    url : "fselect",
+			    type : "get",
+			    dataType : "json",
+			    data : { form : $("select[name='formcode']").val() },
+			    success : function(data) {
+			    	var data1 = decodeURIComponent( data.form ).replace(/\+/gi, " ");
+			    	var data2 = data.no;
+			    	console.log("data : " + data2);
+			    	$("#pre").html("<div> <p>" + data1 + "</p> </div>");
+			    	$("#okbtn").click(function(){
+			    		self.close();
+						opener.parent.fpreview(data1, data2);
+			    	});
+			        },
+			        error : function(jqXHR, textStatus, errorThrown){
+						console.log("error : " + textStatus + errorThrown + jqXHR);
+					}
+				});
+			  
+		    });
+});
+
 </script>
 
 <style type="text/css">
@@ -54,7 +79,7 @@ color: #444;
 }
 
 
-textarea {
+div {
 	border-radius: 5px;
 }
 
@@ -65,12 +90,10 @@ textarea {
 
 <!--///////본문 내용 시작 ///////-------->
 
-<div align="center" id="title">문서양식 미리보기</div>
-<form>
-<div>
-문서양식 선택<br>
-<select class="form-control"  style="width: 614px;">
-
+<div style="padding: 10px;">
+<h4>문서양식 선택</h4>
+<select class="form-control"  style="width: 614px;" id="formselect" name="formcode">
+<option>양식 선택</option>
 <%
 for (int i = 0; i < flist.size(); i++) { 
 	 Formbox f = flist.get(i); 
@@ -80,23 +103,21 @@ for (int i = 0; i < flist.size(); i++) {
 <% } %>
 </select>
 </div>
-<div>
+<div align="center">
+<h4>미리보기</h4>
 
-미리보기
-<br>
+<div style="background: white; border: 1px solid #aaa; width: 616px; height: 500px; padding: 20px;" id="pre">
 
-<textarea readonly="readonly" style="resize: none;" cols="75" rows="24">
+</div>
 
-</textarea>
 </div>
 <br>
 <div>
-<button>선택</button> &nbsp;
-<button>취소</button>
+
+<button id="okbtn" class="btn btn-primary btn-icon-split" style="padding: 10px;"> 선 택 </button> &nbsp;&nbsp;
+<button onclick=self.close(); class="btn btn-secondary btn-icon-split" style="padding: 10px;"> 취 소 </button>
+<br><br>
 </div>
-
-
-</form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <!-- select2 javascript cdn -->
@@ -104,6 +125,8 @@ for (int i = 0; i < flist.size(); i++) {
 <script>
 // select2 초기화
 $('select').select2();
+
+
 </script>
 
 <!---//// 본문 내용 끝 ///////------------------->

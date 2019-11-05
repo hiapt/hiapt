@@ -47,4 +47,15 @@ public class MyboxService {
 		close(conn);
 		return result;
 	}
+	public int insertMybox(Mybox mbox) {
+		Connection conn = getConnection();
+		int result = mdao.insertMybox(conn, mbox);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }

@@ -1,6 +1,7 @@
 package draft.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import draft.model.service.DraftService;
 import draft.model.vo.Draft;
+import draft.model.vo.DraftProcess;
 
 /**
  * Servlet implementation class DraftDetailViewServlet
@@ -32,12 +34,18 @@ public class DraftDetailViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int docno = Integer.parseInt(request.getParameter("docno"));
-		Draft draft = new DraftService().selectOne(docno);
-		System.out.println("draft : " + draft);
+		String empno = request.getParameter("empno");
+		DraftService dservice = new DraftService();
+		DraftProcess dp = dservice.selectOne(docno);
+		ArrayList<DraftProcess> dplist = dservice.SignResult(docno);
+		System.out.println("dp : " + dp);
 		RequestDispatcher view = null; 
-		if(draft != null) {
+		if(dp != null) {
 			view = request.getRequestDispatcher("views/emp/approval/draftDetailView.jsp");
-			request.setAttribute("draft", draft);
+			request.setAttribute("dp", dp);
+			request.setAttribute("dplist", dplist);
+			request.setAttribute("empno", empno);
+			
 			
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

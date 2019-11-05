@@ -38,7 +38,7 @@ public class DraftStandbyDocServlet extends HttpServlet {
 
 		String empno = request.getParameter("empno");
 
-		String progress = "0";
+		String docstatus = "0";
 
 		int currentPage = 1;
 		if (request.getParameter("page") != null) {
@@ -48,7 +48,7 @@ public class DraftStandbyDocServlet extends HttpServlet {
 		int limit = 10; // 한 페이지에 출력할 목록 갯수
 		DraftService dservice = new DraftService();
 
-		int listCount = dservice.getListCountProgress(empno, progress); // 테이블의 전체 목록 갯수 조회
+		int listCount = dservice.getListCountdocstatus(empno, docstatus); // 테이블의 전체 목록 갯수 조회
 		// 총 페이지 수 계산
 		int maxPage = listCount / limit;
 		if (listCount % limit > 0)
@@ -57,6 +57,9 @@ public class DraftStandbyDocServlet extends HttpServlet {
 		// currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
 		// 예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
 		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
 		int endPage = beginPage + 9;
 		if (endPage > maxPage)
 			endPage = maxPage;
@@ -65,7 +68,7 @@ public class DraftStandbyDocServlet extends HttpServlet {
 		int startRow = (currentPage * limit) - 9;
 		int endRow = currentPage * limit;
 
-		ArrayList<Draft> list = new DraftService().selectProgress(startRow, endRow, empno, progress);
+		ArrayList<Draft> list = new DraftService().selectdocstatus(startRow, endRow, empno, docstatus);
 		RequestDispatcher view = null;
 
 		view = request.getRequestDispatcher("views/emp/approval/standbyDoc.jsp");

@@ -64,6 +64,11 @@ public class EmpSearchServlet extends HttpServlet {
 				maxPage++;
 
 			int beginPage = (currentPage / limit) * limit + 1;
+			
+			if(currentPage % limit == 0) {
+				beginPage -= limit;
+			}
+			
 			int endPage = beginPage + 9;
 			if(endPage > maxPage)
 				endPage = maxPage;
@@ -99,6 +104,11 @@ public class EmpSearchServlet extends HttpServlet {
 				maxPage2++;
 
 				int beginPage2 = (currentPage / limit) * limit + 1;
+				
+				if(currentPage % limit == 0) {
+					beginPage2 -= limit;
+				}
+				
 				int endPage2 = beginPage2 + 9;
 				if (endPage2 > maxPage2)
 					endPage2 = maxPage2;
@@ -131,6 +141,11 @@ public class EmpSearchServlet extends HttpServlet {
 				maxPage3++;
 
 				int beginPage3 = (currentPage / limit) * limit + 1;
+				
+				if(currentPage % limit == 0) {
+					beginPage3 -= limit;
+				}
+				
 				int endPage3 = beginPage3 + 9;
 				if (endPage3 > maxPage3)
 					endPage3 = maxPage3;

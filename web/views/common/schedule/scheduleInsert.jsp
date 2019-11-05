@@ -49,11 +49,6 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" />  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>  
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
-
-
- -->
-
-
 <!-- 
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>  
  -->
@@ -148,16 +143,23 @@ $(function() {
 
 
 			
-<!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">Schedule</h1>
+<!--///////본문 내용 시작 ///////-------->
+<br>	
+<h4 class="h4 mb-4 text-gray-800">일정 등록</h4>
 <div class="card shadow mb-4">
 <div class="card-body">
-<h2 align="center">일정 등록 페이지</h2>
 <form action="/hiapt/schin" method="post" onsubmit="return save();">
 <input type="hidden" name="year" value="<%=y %>">
 <input type="hidden" name ="month" value="<%=m %>">
-<table align="center" width="400" cellspacing="0" cellpadding="8" border="1">
 
+
+<table text-align="center"class="table table-borderedz">
+<div align="right">
+<input class="btn btn-outline-primary btn-sm" type="submit" value="등록" >
+&nbsp;&nbsp;
+<input class="btn btn-outline-secondary btn-sm" type="button" value="취소" onclick="window.close();">
+</div>
+<br>
 <tr><th>일정 제목</th><td><input type="text" name="title" id="title" required></td></tr>
 <tr><th>일정 구분</th><td>
 <input type="radio" value="work" name="schtype" checked>업무&nbsp;&nbsp;
@@ -193,11 +195,6 @@ $(function() {
 <input type="radio" name="importance" value="2" checked>중&nbsp;
 <input type="radio" name="importance" value="1" >하</td></tr>
 <tr><th>작 성 자</th><td><input type="text" name="writer"value="<%=emp.getEmpNo() %>"></td></tr>
-
-<tr><th colspan="2"><input type="submit" value="일정 등록" >
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="reset" value="다시 작성">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="등록 취소" onclick="window.close();"></th></tr>
 </table>
 </form>
 

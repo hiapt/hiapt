@@ -1,6 +1,8 @@
 package mail.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+
 import mail.model.service.MailService;
+import mail.model.vo.MailBoxType;
 
 /**
  * Servlet implementation class MailTypeEnrollServlet
@@ -35,15 +40,20 @@ public class MailTypeEnrollServlet extends HttpServlet {
 		String mbox = request.getParameter("mbox");
 		String email = request.getParameter("empemail");
 		
-		int result = new MailService().enrollMailBox(mbox, email);
+		MailService mservice = new MailService();
+		int result = mservice.enrollMailBox(mbox, email);
+		MailBoxType mbt = mservice.selectOneMailBox(mbox, email);
 		
-		if(result > 0) {
-			response.sendRedirect("/hiapt/index.jsp");
-		}else {
-			RequestDispatcher view = request.getRequestDispatcher("/hiapt/views/error.jsp");
-			request.setAttribute("message", " 페이지 목록 조회 실패!");
-			view.forward(request, response);
-		}
+		JSONObject job = new JSONObject();
+		job.put("mcode", mbt.getMailCode());
+		job.put("name", URLEncoder.encode(mbt.getMailBoxName(), "UTF-8"));
+		job.put("email", mbt.getEmpEmail());
+
+		response.setContentType("text/html; charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(job.toJSONString());
+		out.flush();
+		out.close();		
 	}
 
 	/**

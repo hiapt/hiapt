@@ -14,17 +14,18 @@ public class Mybox implements java.io.Serializable{
 	private String doccontent;
 	private String originfile;
 	private Date draftdate;
-	private String progress;
+	private String docstatus;
 	private String display;
 	private String empname;
 	private String empid;
 	private String formname;
+	private Date savedate;
 	
 	public Mybox() {}
 
 	public Mybox(String myboxcode, String empno, int docno, String myboxname, int formcode, String doctitle,
-			String doccontent, String originfile, Date draftdate, String progress, String display, String empname,
-			String empid, String formname) {
+			String doccontent, String originfile, Date draftdate, String docstatus, String display, String empname,
+			String empid, String formname, Date savedate) {
 		super();
 		this.myboxcode = myboxcode;
 		this.empno = empno;
@@ -35,11 +36,12 @@ public class Mybox implements java.io.Serializable{
 		this.doccontent = doccontent;
 		this.originfile = originfile;
 		this.draftdate = draftdate;
-		this.progress = progress;
+		this.docstatus = docstatus;
 		this.display = display;
 		this.empname = empname;
 		this.empid = empid;
 		this.formname = formname;
+		this.savedate = savedate;
 	}
 
 	public String getMyboxcode() {
@@ -114,12 +116,12 @@ public class Mybox implements java.io.Serializable{
 		this.draftdate = draftdate;
 	}
 
-	public String getProgress() {
-		return progress;
+	public String getDocstatus() {
+		return docstatus;
 	}
 
-	public void setProgress(String progress) {
-		this.progress = progress;
+	public void setDocstatus(String docstatus) {
+		this.docstatus = docstatus;
 	}
 
 	public String getDisplay() {
@@ -154,15 +156,22 @@ public class Mybox implements java.io.Serializable{
 		this.formname = formname;
 	}
 
+	public Date getSavedate() {
+		return savedate;
+	}
+
+	public void setSavedate(Date savedate) {
+		this.savedate = savedate;
+	}
+
 	@Override
 	public String toString() {
 		return "Mybox [myboxcode=" + myboxcode + ", empno=" + empno + ", docno=" + docno + ", myboxname=" + myboxname
 				+ ", formcode=" + formcode + ", doctitle=" + doctitle + ", doccontent=" + doccontent + ", originfile="
-				+ originfile + ", draftdate=" + draftdate + ", progress=" + progress + ", display=" + display
-				+ ", empname=" + empname + ", empid=" + empid + ", formname=" + formname + "]";
+				+ originfile + ", draftdate=" + draftdate + ", docstatus=" + docstatus + ", display=" + display
+				+ ", empname=" + empname + ", empid=" + empid + ", formname=" + formname + ", savedate=" + savedate
+				+ "]";
 	}
-	
-	
 
 
 }

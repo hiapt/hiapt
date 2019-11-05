@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import draft.model.service.DraftService;
 import draft.model.vo.Draft;
+import mybox.model.service.MyboxService;
+import mybox.model.vo.Mybox;
 
 /**
  * Servlet implementation class DraftListServlet
@@ -43,6 +45,7 @@ public class DraftListServlet extends HttpServlet {
 		
 		int limit = 10;  //한 페이지에 출력할 목록 갯수
 		DraftService dservice = new DraftService();
+		MyboxService mservice = new MyboxService();
 		
 		int listCount = dservice.getListCount(empno);  //테이블의 전체 목록 갯수 조회
 		//총 페이지 수 계산
@@ -53,6 +56,9 @@ public class DraftListServlet extends HttpServlet {
 		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
 		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
 		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
 		int endPage = beginPage + 9;
 		if(endPage > maxPage)
 			endPage = maxPage;
@@ -64,12 +70,15 @@ public class DraftListServlet extends HttpServlet {
 		ArrayList<Draft> list = dservice.selectAll(startRow, endRow, empno);
 		RequestDispatcher view = null; //아래 if else 둘 다에서 사용함 --> 미리 만들어놓음
 	
+		ArrayList<Mybox> mlist = mservice.selectAll(empno);
+		
 		
 		if(list.size() > 0) {
 			
 			view = request.getRequestDispatcher("views/emp/approval/docList.jsp");
 
 			request.setAttribute("list", list);
+			request.setAttribute("mlist", mlist);
 			request.setAttribute("maxPage", maxPage);
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("beginPage", beginPage);

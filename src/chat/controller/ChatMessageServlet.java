@@ -33,34 +33,20 @@ public class ChatMessageServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		
-		String newold = request.getParameter("newold");
-		String empno = request.getParameter("empno");
-		String empno2="";
-		int chatno=0;
+
+		String empno = request.getParameter("empno"); 
+
+		int chatno=Integer.parseInt(request.getParameter("chatno"));
 		ChatService cservice = new ChatService();
+		ArrayList<ChatMessage> cmlist = cservice.selectMessageOne(chatno);
+		String ctitle = cservice.selectTitle(chatno, empno);
 		
 		RequestDispatcher view=request.getRequestDispatcher("views/emp/chat/chatMessage.jsp");
 		request.setAttribute("empno", empno);
-		
-		if(newold.equals("new")) {
-			empno2 = request.getParameter("empno2");
-			chatno = cservice.selectRoom(empno,empno2);//방번호가 0이면 새로운방 방번호가있으면 그번호로..
-			System.out.println(chatno);
-		}else{
-			chatno = Integer.parseInt(request.getParameter("chatno"));
-		}
-		
-
-		if(chatno==0) {
-			cservice.insertNewChatRoom(empno);
-			chatno = cservice.selectNewChatRoom(empno);
-			cservice.insertNewChatRoom2(chatno, empno2);
-		}
-		ArrayList<ChatMessage> cmlist = cservice.selectMessageOne(chatno);
 		request.setAttribute("cmlist", cmlist); //대화내용저장
 		request.setAttribute("chatno", chatno);//방번호저장
-		System.out.println(chatno);
+		request.setAttribute("ctitle", ctitle); //방제목저장
+		
 		view.forward(request, response);
 	}
 

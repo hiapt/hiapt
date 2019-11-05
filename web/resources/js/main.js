@@ -92,7 +92,7 @@ jQuery(document).ready(function($) {
   });
 
   // Hover and Carousel
-  $('.owl-carousel > .item ').each(function() {
+/*  $('.owl-carousel > .item ').each(function() {
     $(this).hoverdir();
   });
   $("#owl-demo").owlCarousel({
@@ -103,7 +103,7 @@ jQuery(document).ready(function($) {
     transitionStyle: "fade",
     navigation: true,
     pagination: false,
-  });
+  });*/
 
   // tooltip demo
   $("[data-toggle=tooltip]").tooltip();
@@ -111,37 +111,23 @@ jQuery(document).ready(function($) {
   // popover demo
   $("[data-toggle=popover]").popover();
 
-  // Chart Effects;
-	$('.chart').easyPieChart({
-		easing: 'easeOutBounce',
-		size : 180,
-		animate : 2000,
-		lineWidth : 10,
-		lineCap : 'square',
-		lineWidth : 18,
-		barColor : '#3498db',
-		trackColor : '#f9f9f9',
-		scaleColor : false,
-		onStep: function(from, to, percent) {
-		$(this.el).find('.percent').text(Math.round(percent)+'%');
-		}
-	});
+  
 
-  // Popular Items Carousel
+ /* // Popular Items Carousel
   $(document).ready(function() {
     $("#popularitems").owlCarousel({
       items: 3,
       lazyLoad: true,
       navigation: false
     });
-  });
+  });*/
 
   // Hover and Carousel on Home #1
   $('.owl-carousel > .item ').each(function() {
     $(this).hoverdir();
   });
 
-  $("#owl-related").owlCarousel({
+  /*$("#owl-related").owlCarousel({
     items: 3,
     autoPlay: 3000, //Set AutoPlay to 3 seconds
     stopOnHover: true,
@@ -149,7 +135,7 @@ jQuery(document).ready(function($) {
     transitionStyle: "fade",
     navigation: true,
     pagination: false,
-  });
+  });*/
 
   // Portfolio
   var $container = $('.portfolio'),
@@ -160,7 +146,7 @@ jQuery(document).ready(function($) {
     portfolioLayout = 'masonry';
   }
 
-  $container.isotope({
+ /* $container.isotope({
     filter: '*',
     animationEngine: 'best-available',
     layoutMode: portfolioLayout,
@@ -171,7 +157,7 @@ jQuery(document).ready(function($) {
     },
     masonry: {}
   }, refreshWaypoints());
-
+*/
   function refreshWaypoints() {
     setTimeout(function() {}, 1000);
   }
@@ -203,17 +189,15 @@ jQuery(document).ready(function($) {
     });
   }
 
-  function setPortfolio() {
+ /* function setPortfolio() {
     setColumns();
     $container.isotope('reLayout');
-  }
+  }*/
 
-  $container.imagesLoaded(function() {
-    setPortfolio();
-  });
-
+ 
+/*
   $(window).on('resize', function() {
     setPortfolio();
-  });
+  });*/
 
 });

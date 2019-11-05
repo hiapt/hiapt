@@ -149,13 +149,23 @@ console.log(momo);
 
 
 			
-<!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">Schedule</h1>
+<!--///////본문 내용 시작 ///////-------->
+<br>
+<h4 class="h4 mb-4 text-gray-800">일정 수정</h4>
 <div class="card shadow mb-4">
 <div class="card-body">
-<h2 align="center">일정 수정 페이지</h2>
+<!-- <h2 align="center">일정 수정</h2> -->
 <form action="/hiapt/schup" method="post" onsubmit="return cc();">
-<table align="center" width="400" cellspacing="0" cellpadding="8" border="1">
+
+<table class="table table-borderedz">
+<div align="right">
+<input class="btn btn-outline-primary btn-sm" type="submit" value="수정" >
+&nbsp;&nbsp;&nbsp;
+<input class="btn btn-outline-info btn-sm" type="button" value="이전 페이지" onclick="history.go(-1);return false;">
+&nbsp;&nbsp;&nbsp;
+<input class="btn btn-outline-secondary btn-sm" type="button" value="취소" onclick="window.close();">
+</div>
+<br>
 <input type="hidden" name="schNo" value="<%= sch.getSchNo()%>">
 <tr><th>일정 제목</th><td>
 <input type="text" name="title" id="title" value="<%= sch.getSchTitle()%>"required></td></tr>
@@ -233,12 +243,6 @@ if(sch.getSchAlarm().equals("Y")){
 <%} %>
 </td></tr>
 <tr><th>작 성 자</th><td><input type="text" name="writer"value="<%=sch.getWriter() %>"></td></tr>
-
-<tr><th colspan="2"><input type="submit" value="일정 수정" >
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="이전 페이지로 " onclick="history.go(-1);return false;">
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="수정 취소" onclick="window.close();"></th></tr>
 </table>
 </form>
 

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import draft.model.service.DraftService;
 import draft.model.vo.Draft;
+import mybox.model.service.MyboxService;
+import mybox.model.vo.Mybox;
 
 /**
  * Servlet implementation class DraftApprovedSearchServlet
@@ -20,196 +22,127 @@ import draft.model.vo.Draft;
 @WebServlet("/dsearchapp")
 public class DraftApprovedSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DraftApprovedSearchServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 제목 검색, 작성자 검색, 작성날짜 검색, 문서형식 검색 기능
-
-				// 1. 인코딩 처리
-				request.setCharacterEncoding("utf-8");
-
-				// 2. 변수에 옮기기
-				String search = request.getParameter("search");
-				String empno = request.getParameter("empno");
-				String progress = "1";
-				
-				// 3.
-				RequestDispatcher view = null;
-				ArrayList<Draft> list = null;
-				DraftService dservice = new DraftService();
-
-				int currentPage = 1;
-
-				if (request.getParameter("page") != null) {
-					currentPage = Integer.parseInt(request.getParameter("page"));
-				}
-				int limit = 10; // 한 페이지에 출력할 목록 갯수
-				
-				// currentPage 에 출력할 목록의 조회할 행 번호 계산
-				int startRow = (currentPage * limit) - 9;
-				int endRow = currentPage * limit;
-
-				switch (search) {
-				case "title":
-
-					String draftTitle = request.getParameter("keyword");
-					
-					int listCount = dservice.getProgressSearchCountT(draftTitle, empno, progress); // 테이블의 전체 목록 갯수 조회
-					// 총 페이지 수 계산
-					int maxPage = listCount / limit;
-					if (listCount % limit > 0)
-						maxPage++;
-
-					// currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
-					// 예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
-					int beginPage = (currentPage / limit) * limit + 1;
-					int endPage = beginPage + 9;
-					if (endPage > maxPage)
-						endPage = maxPage;
-
-
-					list = dservice.draftProgressTitleSearch(draftTitle, empno, startRow, endRow, progress);
-
-					if (list.size() > 0) {
-						view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
-						request.setAttribute("list", list);
-						request.setAttribute("maxPage", maxPage);
-						request.setAttribute("currentPage", currentPage);
-						request.setAttribute("beginPage", beginPage);
-						request.setAttribute("endPage", endPage);
-						request.setAttribute("count", listCount);
-						request.setAttribute("keyword", draftTitle);
-
-					} else {
-						view = request.getRequestDispatcher("views/common/error.jsp");
-						request.setAttribute("message", "해당 제목이 존재하지 않습니다.");
-					}
-
-					view.forward(request, response);	 break;
-					
-				case "writer":
-					String draftWriter = request.getParameter("keyword");
-					
-					int listCount2 = dservice.getProgressSearchCountW(draftWriter, empno, progress); // 테이블의 전체 목록 갯수 조회
-					// 총 페이지 수 계산
-					int maxPage2 = listCount2 / limit;
-						maxPage2++;
-
-					// currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
-					// 예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
-					int beginPage2 = (currentPage / limit) * limit + 1;
-					int endPage2 = beginPage2 + 9;
-					if (endPage2 > maxPage2)
-						endPage2 = maxPage2;
-
-					list = dservice.draftProgressWriterSearch(draftWriter, empno, startRow, endRow, progress);
-
-
-					if (list.size() > 0) {
-						view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
-						request.setAttribute("list", list);
-						request.setAttribute("maxPage", maxPage2);
-						request.setAttribute("currentPage", currentPage);
-						request.setAttribute("beginPage", beginPage2);
-						request.setAttribute("endPage", endPage2);
-						request.setAttribute("count", listCount2);
-						request.setAttribute("keyword", draftWriter);
-						
-					} else {
-						view = request.getRequestDispatcher("views/common/error.jsp");
-						request.setAttribute("message", search + "해당 작성자가 존재하지 않습니다.");
-					}
-
-					view.forward(request, response);	 break;
-					
-				case "date":
-					String beginDate = request.getParameter("from");
-					String toDate = request.getParameter("to");
-					
-					int listCount3 = dservice.getProgressSearchCountD(Date.valueOf(beginDate), Date.valueOf(toDate), empno, progress); // 테이블의 전체 목록 갯수 조회
-					// 총 페이지 수 계산
-					int maxPage3 = listCount3 / limit;
-						maxPage3++;
-
-					// currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
-					// 예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
-					int beginPage3 = (currentPage / limit) * limit + 1;
-					int endPage3 = beginPage3 + 9;
-					if (endPage3 > maxPage3)
-						endPage3 = maxPage3;
-
-					list = dservice.draftProgressDateSearch(Date.valueOf(beginDate), Date.valueOf(toDate), empno, startRow, endRow, progress);
-
-
-					if (list.size() > 0) {
-						view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
-						request.setAttribute("list", list);
-						request.setAttribute("maxPage", maxPage3);
-						request.setAttribute("currentPage", currentPage);
-						request.setAttribute("beginPage", beginPage3);
-						request.setAttribute("endPage", endPage3);
-						request.setAttribute("count", listCount3);
-						request.setAttribute("begin", beginDate.toString());
-						request.setAttribute("to", toDate.toString());
-						
-					} else {
-						view = request.getRequestDispatcher("views/common/error.jsp");
-						request.setAttribute("message", "해당 문서가 존재하지 않습니다.");
-					}
-					view.forward(request, response);	 break;
-					
-					
-				case "formtype":
-					String draftFormname = request.getParameter("keyword");
-					int listCount4 = dservice.getProgressSearchCountF(draftFormname, empno, progress); // 테이블의 전체 목록 갯수 조회
-					// 총 페이지 수 계산
-					int maxPage4 = listCount4 / limit;
-						maxPage4++;
-
-					// currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
-					// 예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
-					int beginPage4 = (currentPage / limit) * limit + 1;
-					int endPage4 = beginPage4 + 9;
-					if (endPage4 > maxPage4)
-						endPage4 = maxPage4;
-
-					list = dservice.draftProgressFormtypeSearch(draftFormname, empno, startRow, endRow, progress);
-
-
-					if (list.size() > 0) {
-						view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
-						request.setAttribute("list", list);
-						request.setAttribute("maxPage", maxPage4);
-						request.setAttribute("currentPage", currentPage);
-						request.setAttribute("beginPage", beginPage4);
-						request.setAttribute("endPage", endPage4);
-						request.setAttribute("count", listCount4);
-						request.setAttribute("keyword", draftFormname);
-						
-					} else {
-						view = request.getRequestDispatcher("views/common/error.jsp");
-						request.setAttribute("message", "해당 문서가 존재하지 않습니다.");
-					}
-					view.forward(request, response);	 break;
-					
-				}
-
+	public DraftApprovedSearchServlet() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+
+		String search = request.getParameter("search");
+		String docstatus = "2";
+		String empno = request.getParameter("empno");
+		String keyword = null;
+		RequestDispatcher view = null;
+		ArrayList<Draft> list = null;
+		DraftService dservice = new DraftService();
+		MyboxService mservice = new MyboxService();
+		ArrayList<Mybox> mlist = mservice.selectAll(empno);
+
+		int currentPage = 1;
+
+		if (request.getParameter("page") != null) {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+
+		int limit = 10;
+		int listCount = 0;
+		int maxPage = 0;
+		int beginPage = 0;
+		int endPage = 0;
+		String beginDate = null;
+		String toDate = null;
+
+		int startRow = (currentPage * limit) - 9;
+		int endRow = currentPage * limit;
+
+		switch (search) {
+		case "title":
+			keyword = request.getParameter("keyword");
+
+			listCount = dservice.getdocstatusSearchCountT(keyword, empno, docstatus); 
+
+			list = dservice.draftdocstatusTitleSearch(keyword, empno, startRow, endRow, docstatus);
+
+			break;
+
+		case "writer":
+			keyword = request.getParameter("keyword");
+
+			listCount = dservice.getdocstatusSearchCountW(keyword, empno, docstatus); 
+
+			list = dservice.draftdocstatusWriterSearch(keyword, empno, startRow, endRow, docstatus);
+			break;
+
+		case "date":
+			beginDate = request.getParameter("from");
+			toDate = request.getParameter("to");
+
+			listCount = dservice.getdocstatusSearchCountD(Date.valueOf(beginDate), Date.valueOf(toDate), empno, docstatus); 
+
+			list = dservice.draftdocstatusDateSearch(Date.valueOf(beginDate), Date.valueOf(toDate), empno, startRow,
+					endRow, docstatus);
+			break;
+
+		case "formtype":
+			String draftFormname = request.getParameter("keyword");
+			listCount = dservice.getdocstatusSearchCountF(draftFormname, empno, docstatus); // 테이블의 전체 목록 갯수 조회
+
+			list = dservice.draftdocstatusFormtypeSearch(draftFormname, empno, startRow, endRow, docstatus);
+			break;
+		}
+		maxPage = listCount / limit;
+		maxPage++;
+
+		beginPage = (currentPage / limit) * limit + 1;
+		if(currentPage % limit == 0) {
+        beginPage -= limit;
+		}
+		endPage = beginPage + 9;
+		if (endPage > maxPage)
+		endPage = maxPage;
+		
+		
+		if (list.size() > 0) {
+			view = request.getRequestDispatcher("views/emp/approval/approvedDoc.jsp");
+			request.setAttribute("list", list);
+			request.setAttribute("mlist", mlist);
+			request.setAttribute("maxPage", maxPage);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("beginPage", beginPage);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("count", listCount);
+			request.setAttribute("keyword", keyword);
+			request.setAttribute("search", search);
+			request.setAttribute("empno", empno);
+			if(beginDate != null && toDate != null) {
+				request.setAttribute("begin", beginDate.toString());
+				request.setAttribute("to", toDate.toString());
+			}
+			
+		} else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", "검색어에 해당하는 문서가 존재하지 않습니다.");
+		}
+		view.forward(request, response);	
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

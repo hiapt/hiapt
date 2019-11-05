@@ -10,6 +10,7 @@
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
 	String keyword = (String) request.getAttribute("keyword");
+	String search = (String) request.getAttribute("search");
 	String begin = (String) request.getAttribute("begin");
 	String to = (String) request.getAttribute("to");
 	String empno = (String) request.getAttribute("empno");
@@ -204,54 +205,48 @@ table {
 
 		<table class="table beauty-table table-hover"
 			style="text-align: center;">
-			<thead>
 				<tr>
 					<th width="10">
 					<label class="check" style="position: relative; top: -8px;">
 					 <input type="checkbox" id="checkall"> <span class="checkmark"></span>
-					</label></th>
+					</label>
+					</th>
+					<th>임시저장번호</th>
 					<th style="text-align: center;">제목</th>
 					<th width="150" style="text-align: center;">작성자</th>
 					<th width="100" style="text-align: center;">임시저장일</th>
 					<th width="150" style="text-align: center;">문서종류</th>
 
 				</tr>
-			</thead>
 			<%
 				for (int i = 0; i < list.size(); i++) {
 					Draft d = list.get(i);
 			%>
-			<tbody>
 				<tr>
-					<td><label class="check"> <input type="checkbox">
+					<td><label class="check"> <input type="checkbox" name="docno" value="<%= d.getDocno() %>" id="chk">
+					<input type="hidden" id="empno" name="empno" value="<%= emp.getEmpNo() %>">
 							<span class="checkmark"></span>
 					</label></td>
-					<td>
-						<% if(d.getOriginfile() != null && !d.getOriginfile().equals("null")) { %>
-						<i class="fa fa-paperclip"></i>
-						<% } else { %>
-							
-						<% } %></td>
 					<td><%=d.getDocno()%></td>
-					<td><a href="/hiapt/dview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
+					<td><a href="/hiapt/dview?empno=<%= emp.getEmpNo() %>&docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
 					<td><%=d.getEmpid()%>&nbsp;<%=d.getEmpname()%></td>
 					<td><%=d.getDraftdate()%></td>
 					<td><%=d.getFormcode()%></td>
 
 				</tr>
-			</tbody>
 			<%
 				}
 			%>
 		</table>
+		<div style="float: right;">
+		<input type="button" value=" 삭 제 " class="btn btn-secondary btn-sm"
+		style="padding-left: 5px;" id="delbtn">
+		</div>
 	</div>
 </div>
 
-<div style="float: right;">
-	<input type="button" value="이동" class="btn btn-default btn-xs"
-		style="letter-spacing: 7px; padding-left: 10px;">
-</div>
 
+<%if(keyword == null){ %>
 <div class="col-sm-12">
 	<div class="paging_simple_numbers">
 		<ul class="pagination" style="justify-content: center;">
@@ -323,21 +318,124 @@ table {
 		</ul>
 	</div>
 </div>
+		<% } else { %>
+			<div class="col-sm-12">
+				<div class="paging_simple_numbers">
+					<ul class="pagination" style="justify-content: center;">
+						<li class="paginate_button page-item previous"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=1" aria-controls="dataTable"
+							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
+						<%
+							if ((beginPage - 10) < 1) {
+						%>
+						<li class="paginate_button page-item previous back"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=1" aria-controls="dataTable"
+							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item active back"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&page=<%=beginPage - 10%>"
+							aria-controls="dataTable" data-dt-idx="<%=beginPage - 10%>"
+							tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
+						<%
+							}
+						%>
+						<%
+							for (int p = beginPage; p <= endPage; p++) {
+								if (p == currentPage) {
+						%>
+						<li class="paginate_button page-item active next">
+						<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=p%>"
+							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
+							class="page-link"><%=p%></a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=p%>"
+							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
+							class="page-link"><%=p%></a></li>
+						<%
+							}
+							}
+						%>
+						<%
+							if ((endPage + 10) > maxPage) {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=maxPage%>"
+							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
+							class="page-link">&rsaquo;&rsaquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=endPage + 10%>"
+							aria-controls="dataTable" data-dt-idx="<%=endPage + 10%>"
+							tabindex="0" class="page-link">&rsaquo;&rsaquo;</a></li>
+						<%
+							}
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearcht?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=maxPage%>"
+							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
+							class="page-link">&rsaquo;</a></li>
+					</ul>
+				</div>
+			</div>
+			<%} %>
 	<% } else { %>
 	<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 목록에 대한 접근 권한이 없습니다. </div>
 	<% } %>
 
 <script type="text/javascript">
-	$("#checkall").click(function() {
-
-		if ($("#checkall").prop("checked")) {
-
-			$("input[type=checkbox]").prop("checked", true);
-		} else {
-			$("input[type=checkbox]").prop("checked", false);
-		}
+$("#checkall").click(function(){
+	 var check = $("#checkall").prop("checked");
+	 if(check) {
+	  $("input[name=docno]").prop("checked", true);
+	 } else {
+	  $("input[name=docno]").prop("checked", false);
+	 }
 	});
+$("input[name=docno]").click(function(){
+	  $("#checkall").prop("checked", false);
+	 });
+	 
 
+$("#delbtn").click(function(){
+	if($("input[name=docno]:checked").length > 0) {
+	  var confirm_del = confirm("해당 문서를 삭제하시겠습니까?");
+	  
+	  if(confirm_del) {
+		var checkArr = []; 
+		  $("input[name=docno]:checked").each(function(){ 
+			    checkArr.push($(this).val());
+	});
+	   console.log(checkArr);
+	   console.log($("input[name=docno]:checked"));
+	   
+	   var data = { docno : checkArr , empno : $("#empno").val()};
+   		console.log(data);
+	   $.ajax({
+	    url : "/hiapt/tempdel",
+	    type : "post",
+	    data : data,
+	    success : function(){
+	     location.href = "/hiapt/dtemp?empno=" + <%= emp.getEmpNo() %> + "&page=1";
+	    },
+	    traditional : true
+	   });
+	  } 
+	}else {
+		alert("삭제할 문서를 선택하십시오.");
+	}
+	 });
+	 
+ 
 	$(function() {
 		showDiv();
 
@@ -388,6 +486,7 @@ table {
 		    });
 		  
 	});
+
 </script>
 
 <!---//// 본문 내용 끝 ///////------------------->

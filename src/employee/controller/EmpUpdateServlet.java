@@ -55,10 +55,22 @@ public class EmpUpdateServlet extends HttpServlet {
 		EmployeeService empservice = new EmployeeService();
 		Employee emp = new EmployeeService().selectEmployee(empNo);
 		
+		Employee family = new Employee();
+		
+		/*String empNo2 = request.getParameter("empno");*/
+		
+		EmployeeService faservice = new EmployeeService();
+		
+		Employee fam = new EmployeeService().selectFamily(empNo);
+		
 		RequestDispatcher view = null;
-		if(emp != null) {
+		if(emp != null && fam != null) {
 			view = request.getRequestDispatcher("views/emp/employee/empUpdate.jsp");
 			request.setAttribute("emp", emp);
+			
+			request.setAttribute("fam", fam);
+			
+			
 			
 			//response.sendRedirect("/hiapt/empdetail?empno=" + empNo);
 		

@@ -15,8 +15,7 @@ public class Draft implements java.io.Serializable{
 	private Date draftdate;
 	private String docstatus;
 	private String display;
-	private String appempno;
-	private Date appdate;
+	private String approver;
 	private String feedback;
 	private String formname;
 	private String empname;
@@ -25,13 +24,14 @@ public class Draft implements java.io.Serializable{
 	private String appid;
 	private Date deadline;
 	private int lineno;
+	private String sresult;
 	
 	public Draft () {}
-	
+
 	public Draft(int docno, String empno, int formcode, String doctitle, String doccontent, String originfile,
-			String renamefile, Date draftdate, String docstatus, String display, String appempno, Date appdate,
-			String feedback, String formname, String empname, String empid, String appname, String appid, Date deadline,
-			int lineno) {
+			String renamefile, Date draftdate, String docstatus, String display, String approver, String feedback,
+			String formname, String empname, String empid, String appname, String appid, Date deadline, int lineno,
+			String sresult) {
 		super();
 		this.docno = docno;
 		this.empno = empno;
@@ -43,8 +43,7 @@ public class Draft implements java.io.Serializable{
 		this.draftdate = draftdate;
 		this.docstatus = docstatus;
 		this.display = display;
-		this.appempno = appempno;
-		this.appdate = appdate;
+		this.approver = approver;
 		this.feedback = feedback;
 		this.formname = formname;
 		this.empname = empname;
@@ -53,6 +52,7 @@ public class Draft implements java.io.Serializable{
 		this.appid = appid;
 		this.deadline = deadline;
 		this.lineno = lineno;
+		this.sresult = sresult;
 	}
 
 	public int getDocno() {
@@ -135,20 +135,12 @@ public class Draft implements java.io.Serializable{
 		this.display = display;
 	}
 
-	public String getAppempno() {
-		return appempno;
+	public String getApprover() {
+		return approver;
 	}
 
-	public void setAppempno(String appempno) {
-		this.appempno = appempno;
-	}
-
-	public Date getAppdate() {
-		return appdate;
-	}
-
-	public void setAppdate(Date appdate) {
-		this.appdate = appdate;
+	public void setApprover(String approver) {
+		this.approver = approver;
 	}
 
 	public String getFeedback() {
@@ -215,15 +207,24 @@ public class Draft implements java.io.Serializable{
 		this.lineno = lineno;
 	}
 
+	public String getSresult() {
+		return sresult;
+	}
+
+	public void setSresult(String sresult) {
+		this.sresult = sresult;
+	}
+
 	@Override
 	public String toString() {
 		return "Draft [docno=" + docno + ", empno=" + empno + ", formcode=" + formcode + ", doctitle=" + doctitle
 				+ ", doccontent=" + doccontent + ", originfile=" + originfile + ", renamefile=" + renamefile
-				+ ", draftdate=" + draftdate + ", docstatus=" + docstatus + ", display=" + display + ", appempno="
-				+ appempno + ", appdate=" + appdate + ", feedback=" + feedback + ", formname=" + formname + ", empname="
-				+ empname + ", empid=" + empid + ", appname=" + appname + ", appid=" + appid + ", deadline=" + deadline
-				+ ", lineno=" + lineno + "]";
+				+ ", draftdate=" + draftdate + ", docstatus=" + docstatus + ", display=" + display + ", approver="
+				+ approver + ", feedback=" + feedback + ", formname=" + formname + ", empname=" + empname + ", empid="
+				+ empid + ", appname=" + appname + ", appid=" + appid + ", deadline=" + deadline + ", lineno=" + lineno
+				+ ", sresult=" + sresult + "]";
 	}
+
 	
 	
 
