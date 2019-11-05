@@ -1,6 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<script>
+$(function(){
+	$.ajax({
+	    url : "/hiapt/ncount",
+	    type : "post",
+	    dataType : "text",
+	    success : function(data) {
+	    	console.log("data : " + data);
+	    	if(data > 0){
+	    		$("#approval").html("결재할 문서 : " + data + "개");
+	        }else {
+	        	$("#approval").html("결재할 문서가 없습니다.");
+	        }	
+	    	},
+	        error : function(jqXHR, textStatus, errorThrown){
+				console.log("error : " + textStatus + errorThrown + jqXHR);
+			}
+		});
+	  
+    });
 
+</script>
 <!-- ================================================================================= -->
 <!---탑 메뉴  시작 =================---------------------------->
 				<nav
@@ -32,6 +53,8 @@
 								class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="alertsDropdown">
 								<h6 class="dropdown-header">알림</h6>
+								
+									
 								<a class="dropdown-item d-flex align-items-center" href="#">
 									<div class="mr-3">
 										<div class="icon-circle bg-warning">
@@ -39,11 +62,10 @@
 										</div>
 									</div>
 									<div>
-										<div class="small text-gray-500">2019, 10.20</div>
-										알림 메세지 샘플1
+										<div class="small text-gray-800">전자결재 알림</div>
+										<div id="approval"></div>
 									</div>
-								</a> <a class="dropdown-item text-center small text-gray-500"
-									href="#">알림 더 읽기</a>
+								</a>
 							</div>
 						</li>
 <!--알림 아이콘 끝-->
@@ -69,15 +91,6 @@
 							<div
 								class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 								aria-labelledby="userDropdown">
-								<a class="dropdown-item" href="#"> <i
-									class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> 개인정보
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i> 설정
-								</a> <a class="dropdown-item" href="#"> <i
-									class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-									Activity Log
-								</a>
-								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="/hiapt/eout"> <i
 									class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 									로그아웃

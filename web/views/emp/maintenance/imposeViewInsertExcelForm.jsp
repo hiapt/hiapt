@@ -28,101 +28,6 @@ function validation(){
 	return true;	
 }
 
-// 팝업창(세대주 정보 조회)
-/* var openWin; */
-
-/* function openChild(){
-	window.name = "parentFrom";
-	openWin = window.open("/hiapt/imvas", "childFrom", "width=570, height=600, resizable = no, scrollbars = no");
-} */
-// pup
-function popup(){
-    var url="/hiapt/imvas";
-    var option="width=570, height=600, resizable = no, scrollbars = no";
-    window.open(url, "", option);
-}
-// 천단위 자동콤마(,) 삽입 및 소수점 표현
-function inputNumberAutoComma(obj){
-	var number = obj.value;
-	var integer = obj.value;
-	var point = number.indexOf('.');
-	var decimal ='';
-	var checkcd ='';
-	
-	//첫번째 수부터 소수점 기호(.)를 사용방지
-	if(number.charAt(0) == '.'){
-		alert("첫번째 수부터 소수점 기호(.)를 사용할 수 없습니다.");
-		obj.value ='';
-		return false;
-	}
-	
-	// 소수점이 존재하면 태우는 분기
-	if(point > 0){
-		// 소수점 앞 자리값만 따로 담는다.
-		integer = number.substr(0, point);
-		
-		// 소수점 아래 자리값만 따로 담는다.
-		decimal = number.substr((point + 1), number.lenght);
-		chekcd = inputNumberisFinit(decimal);
-		
-		if(chekcd == "N"){
-			alert("문자 또는 음수는 입력하실 수 없습니다.");
-			obj.value ='';
-			return false;
-		}
-	}
-	
-	// 정수형 콤마를 제거한다.
-	integer = integer.replace(/\,/g,'');
-	chekcd = inputNumberisFinit(integer);
-	
-	if(chekcd == "N"){
-		alert("문자 또는 음수는 입력하실 수 없습니다.");
-		obj.value =='';
-		return false;
-	}
-	
-	// 정수형 한번더 점검한다.
-	integer = inputNumberWithComma(inputNumberRemoveComma(integer));
-	
-	// 소수가 존재하면 나누었던 콤마 기호를 삽입한다.
-	if(point > 0){
-		obj.value = integer + '.' + decimal;
-	}
-	
-	// 소수가 존재하지 않는다면 콤마값을 넣은 정수만 삽입한다.
-	else {
-		obj.value = integer;
-	}
-	console.log("integer전 : " + integer + ", integer type : " + typeof(integer));
-	console.log("chekcd : " + chekcd);
-	
-}
-
-// 천단위 이상의 숫자에 콤마(,)를 삽입하는 함수
-function inputNumberWithComma(str){
-	str = String(str);
-	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g,"$1,");
-}
-
-// 콤마가 들어간 값에 콤마를 제거하는 함수
-function inputNumberRemoveComma(str){
-	str = String(str);
-	return str.replace(/[^\d]+/g,'');	
-	
-	console.log("n : " + n)
-}
-
-
-// 문자 여부를 확인하고 문자가 존재하면 N, 존재하지 않으면 Y를 리턴한다.
-function inputNumberisFinit(str){
-	if(isFinite(str) == false){
-		return "N";
-	} else {
-		return "Y";
-	}
-}
-
 //당월부과액 합계 내는 함수
 $(document).ready(function(){
 	$("#button_sum").click(function(){
@@ -181,119 +86,120 @@ $(document).ready(function(){
 			<a href="javascript:history.go(-1);" class="btn btn-sm btn-primary shadow-sm" >이전페이지로 이동</a>&nbsp;
 			<br>
 		</div>
-	<table class="table table-bordered" id="myTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th colspan="2">고지서번호 &nbsp;<span class="text-danger">*<small>자동부여</small></span></th>
-                      <th>부과년월</th>
-                      <th colspan="2"><input type="date" name="bill_year_month" ></th>
-                      <th colspan="2"></th>
-                    </tr>
-                  </thead>
-                   <tbody>
-                    <tr>
-                      <th>동/호<span class="text-danger">*</span></th>
-                      <td>
-                      <div class="bt_r2">
-						<label><input type="text" title="동/호" name="userid" class="" id="parentId1" value="">
-						</label>
-						<a href="javascript:popup()" class="btn btn-primary btn-sm shadow-sm">조회</a>
-						
-						<!-- <button type="button" 
-						onclick="openChild()" class="btn btn-primary btn-sm shadow-sm">조회</button> -->
-					</div>
-					  </td>
-                      <th>성명<span class="text-danger">*</span></th>
-                      <td colspan="2"><input type="text" name="username" id="parentId2" requeired></td>
-                    </tr>
-                    <tr>
-                    	<th>부과항목명</th>
-                    	<th>금액</th>
-                    	<th>전기에너지</th>
-                    	<th>금액</th>
-                    	<th>사용량</th>
-                    </tr>
-                    <tr>
-                    	<th>일반관리비</th>
-                    	<td>
-                    	<input type="text" name="general_cost" class="price" 
-                    	onKeyup="inputNumberAutoComma(this);" value="">
-                    	<%--키보드 자체에서 음수가 입력 안되게 막는 것
-                    	 <input type="text" name="general_cost" class="price" 
-                    	onKeyup="inputNumberAutoComma(this);" value=""
-                    	min="0" onkeypress="return (event.charCode == 8 || event.charCode == 0 ) ? null : event.charCode >= 48 && event.charCode <= 57"> --%></td>
-                    	<th>세대전기료</th>
-                    	<td><input type="text" name="electric_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td><input type="text" name="electric_usage" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    </tr>
-                    <tr>
-                    	<th>청소비</th>
-                    	<td><input type="text" name="clean_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<th>공동전기료</th>                    	
-                    	<td><input type="text" name="allelectric_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td></td>
-                    </tr>
-                    <tr>
-                    	<th>소독비</th>
-                    	<td><input type="text" name="disinfect_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<th>TV수신료</th>
-                    	<td><input type="text" name="tv_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td></td>
-                    </tr>
-                    <tr>
-                    	<th>승강기유지비</th>
-                    	<th><input type="text" name="elevator_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></th>
-                    	<th>열에너지</th>                    	
-                    	<th>금액</th>
-                    	<th>사용량</th>
-                    </tr>
-                    <tr>
-                    	<th>수선유지비</th>
-                    	<td><input type="text" name="repair_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<th>난방사용료</th>
-                    	<td><input type="text" name="heating_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td><input type="text" name="heating_usage" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    </tr>
-                    <tr>
-                    	<th>경비비</th>
-                    	<td><input type="text" name="guard_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<th>온수사용료</th>
-                    	<td><input type="text" name="hwater_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td><input type="text" name="hwater_usage" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    </tr>
-                    <tr>
-                    	<th>화재보험료</th>
-                    	<td><input type="text" name="fireinsurance_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<th>수도사용료</th>                    	
-                    	<th>금액</th>
-                    	<th>사용량</th>
-                    </tr>
-                     <tr>
-                    	<th>위탁관리수수료</th>
-                    	<td><input type="text" name="commission" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<th>세대수도료</th>                   	
-                    	<td><input type="text" name="water_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td><input type="text" name="water_usage" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    </tr>
-                    <tr>
-                    	<td colspan="2"></td>
-                    	<th>공동수도료</th>                    	
-                    	<td><input type="text" name="allwater_cost" class="price" onKeyup="inputNumberAutoComma(this);" value=""></td>
-                    	<td></td>
-                    </tr>
-                    
-                    <tr>
-                    	<th>당월부과액
-                    	<button type="button" id="button_sum" class="btn btn-secondary btn-sm"><i class="fas fa-plus"></i></button>
-                    	</th>
-                    	<th><input type="text" name="amount" class="amount" onKeyup="inputNumberAutoComma(this);" value="">
-                    	</th>
-                    	<td colspan="3"></td>
-                    </tr>
-                    
-                    </tbody>
+	
+	<input type="file" id="my_file_input" />
+    <div id='my_file_output'></div>
 
-</table>
+
+<script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.10.3/xlsx.full.min.js"></script>
+<!-- <script lang="javascript" src="dist/xlsx.full.min.js"></script> -->
+<script>
+ 
+var rABS = true; // T : 바이너리, F : 어레이 버퍼
+ 
+// 어레이 버퍼를 처리한다 ( 오직 readAsArrayBuffer 데이터만 가능하다 )
+function fixdata(data) {
+    var o = "", l = 0, w = 10240;
+    for(; l<data.byteLength/w; ++l) o+=String.fromCharCode.apply(null,new Uint8Array(data.slice(l*w,l*w+w)));
+    o+=String.fromCharCode.apply(null, new Uint8Array(data.slice(l*w)));
+    return o;
+}
+ 
+// 데이터를 바이너리 스트링으로 얻는다.
+function getConvertDataToBin($data){
+    var arraybuffer = $data;
+    var data = new Uint8Array(arraybuffer);
+    var arr = new Array();
+    for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+    var bstr = arr.join("");
+ 
+    return bstr;
+}
+function handleFile(e) {
+    var files = e.target.files;
+    var i,f;
+    for (i = 0; i != files.length; ++i) {
+        f = files[i];
+        var reader = new FileReader();
+        var name = f.name;
+ 
+        reader.onload = function(e) {
+            var data = e.target.result;
+ 
+            var workbook;
+ 
+            if(rABS) {
+                /* if binary string, read with type 'binary' */
+                workbook = XLSX.read(data, {type: 'binary'});
+            } else {
+                /* if array buffer, convert to base64 */
+                var arr = fixdata(data);
+                workbook = XLSX.read(btoa(arr), {type: 'base64'});
+            }//end. if
+ 
+            /* 워크북 처리 */
+            workbook.SheetNames.forEach(function(item, index, array) {
+ 
+                // CSV
+                var csv = XLSX.utils.sheet_to_csv(workbook.Sheets[item]); // default : ","
+                var csvToFS = XLSX.utils.sheet_to_csv(workbook.Sheets[item], {FS:"\t"} ); // "Field Separator" delimiter between fields
+                var csvToFSRS = XLSX.utils.sheet_to_csv(workbook.Sheets[item], {FS:":",RS:"|"} ); // "\n" "Record Separator" delimiter between rows
+ 
+                // html
+                var html = XLSX.utils.sheet_to_html(workbook.Sheets[item]);
+                var htmlHF = XLSX.utils.sheet_to_html(workbook.Sheets[item], {header:"<html><title='ImposeView'><body><table class='table table-bordered'>", footer:"</table><body></html>"});
+                var htmlTable = XLSX.utils.sheet_to_html(workbook.Sheets[item], {header:"<table class='table table-bordered'>", footer:"</table>"});
+ 
+                // json
+                var json = XLSX.utils.sheet_to_json(workbook.Sheets[item]);
+ 
+                //formulae
+                var formulae = XLSX.utils.sheet_to_formulae(workbook.Sheets[item]);
+                formulae.filter(function(v,i){return i%13 === 0;});
+ 
+                console.group("CSV");
+                    console.log(csv);
+                    console.log(csvToFS);
+                    console.log(csvToFSRS);
+                console.groupEnd();
+ 
+                console.group("html");
+                    console.log(html);
+                    console.log(htmlHF);
+                    console.log(htmlTable);
+                console.groupEnd();
+ 
+                console.group("json");
+                    console.log(json);
+                console.groupEnd();
+ 
+                console.group("formulae");
+                    console.log(formulae);
+                console.groupEnd();
+ 
+                $("#my_file_output").html(htmlTable);
+            });//end. forEach
+        }; //end onload
+ 
+        if(rABS) reader.readAsBinaryString(f);
+        else reader.readAsArrayBuffer(f);
+ 
+    }//end. for
+}
+ 
+var input_dom_element;
+$(function() {
+    input_dom_element = document.getElementById('my_file_input');
+    if(input_dom_element.addEventListener) {
+        input_dom_element.addEventListener('change', handleFile, false);
+    }
+});
+ 
+//http://sheetjs.com/
+//https://github.com/SheetJS/js-xls
+</script>
+ 
 
 </form>
 

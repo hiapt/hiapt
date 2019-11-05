@@ -12,10 +12,10 @@ public class Employee implements java.io.Serializable {
 	private java.sql.Date empHireDate;
 	private String empPhone;
 	private String empSSN;
-	private int empZipcode;
+	private String empZipcode;
 	private String empAddress;
 	private String empEmail;
-	private int empFamily;
+	private String empGender;
 	private int salary;
 	private int pension;
 	private int insurance;
@@ -27,13 +27,22 @@ public class Employee implements java.io.Serializable {
 	private int minusTot;
 	private int realSalary;
 	private String empEtc;
+	private String fRelation;
+	private String fName;
+	private String fSSN;
+	private String fDisability;
+	private String fDeduction;
+	private String fTogether;
+	private String fTax;
+	private String fChild;
 	
 	public Employee() {}
 
 	public Employee(String empNo, String empPwd, String empName, String empId, Date empHireDate, String empPhone,
-			String empSSN, int empZipcode, String empAddress, String empEmail, int empFamily, int salary, int pension,
-			int insurance, int longIns, int hireIns, int incomeTax, int localTax, int salaryTot, int minusTot,
-			int realSalary, String empEtc) {
+			String empSSN, String empZipcode, String empAddress, String empEmail, String empGender, int salary,
+			int pension, int insurance, int longIns, int hireIns, int incomeTax, int localTax, int salaryTot,
+			int minusTot, int realSalary, String empEtc, String fRelation, String fName, String fSSN,
+			String fDisability, String fDeduction, String fTogether, String fTax, String fChild) {
 		super();
 		this.empNo = empNo;
 		this.empPwd = empPwd;
@@ -45,7 +54,7 @@ public class Employee implements java.io.Serializable {
 		this.empZipcode = empZipcode;
 		this.empAddress = empAddress;
 		this.empEmail = empEmail;
-		this.empFamily = empFamily;
+		this.empGender = empGender;
 		this.salary = salary;
 		this.pension = pension;
 		this.insurance = insurance;
@@ -57,6 +66,14 @@ public class Employee implements java.io.Serializable {
 		this.minusTot = minusTot;
 		this.realSalary = realSalary;
 		this.empEtc = empEtc;
+		this.fRelation = fRelation;
+		this.fName = fName;
+		this.fSSN = fSSN;
+		this.fDisability = fDisability;
+		this.fDeduction = fDeduction;
+		this.fTogether = fTogether;
+		this.fTax = fTax;
+		this.fChild = fChild;
 	}
 
 	public String getEmpNo() {
@@ -115,11 +132,11 @@ public class Employee implements java.io.Serializable {
 		this.empSSN = empSSN;
 	}
 
-	public int getEmpZipcode() {
+	public String getEmpZipcode() {
 		return empZipcode;
 	}
 
-	public void setEmpZipcode(int empZipcode) {
+	public void setEmpZipcode(String empZipcode) {
 		this.empZipcode = empZipcode;
 	}
 
@@ -139,12 +156,12 @@ public class Employee implements java.io.Serializable {
 		this.empEmail = empEmail;
 	}
 
-	public int getEmpFamily() {
-		return empFamily;
+	public String getEmpGender() {
+		return empGender;
 	}
 
-	public void setEmpFamily(int empFamily) {
-		this.empFamily = empFamily;
+	public void setEmpGender(String empGender) {
+		this.empGender = empGender;
 	}
 
 	public int getSalary() {
@@ -235,18 +252,96 @@ public class Employee implements java.io.Serializable {
 		this.empEtc = empEtc;
 	}
 
+	public String getfRelation() {
+		return fRelation;
+	}
+
+	public void setfRelation(String fRelation) {
+		this.fRelation = fRelation;
+	}
+
+	public String getfName() {
+		return fName;
+	}
+
+	public void setfName(String fName) {
+		this.fName = fName;
+	}
+
+	public String getfSSN() {
+		return fSSN;
+	}
+
+	public void setfSSN(String fSSN) {
+		this.fSSN = fSSN;
+	}
+
+	public String getfDisability() {
+		return fDisability;
+	}
+
+	public void setfDisability(String fDisability) {
+		this.fDisability = fDisability;
+	}
+
+	public String getfDeduction() {
+		return fDeduction;
+	}
+
+	public void setfDeduction(String fDeduction) {
+		this.fDeduction = fDeduction;
+	}
+
+	public String getfTogether() {
+		return fTogether;
+	}
+
+	public void setfTogether(String fTogether) {
+		this.fTogether = fTogether;
+	}
+
+	public String getfTax() {
+		return fTax;
+	}
+
+	public void setfTax(String fTax) {
+		this.fTax = fTax;
+	}
+
+	public String getfChild() {
+		return fChild;
+	}
+
+	public void setfChild(String fChild) {
+		this.fChild = fChild;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [empNo=" + empNo + ", empPwd=" + empPwd + ", empName=" + empName + ", empId=" + empId
 				+ ", empHireDate=" + empHireDate + ", empPhone=" + empPhone + ", empSSN=" + empSSN + ", empZipcode="
-				+ empZipcode + ", empAddress=" + empAddress + ", empEmail=" + empEmail + ", empFamily=" + empFamily
+				+ empZipcode + ", empAddress=" + empAddress + ", empEmail=" + empEmail + ", empGender=" + empGender
 				+ ", salary=" + salary + ", pension=" + pension + ", insurance=" + insurance + ", longIns=" + longIns
 				+ ", hireIns=" + hireIns + ", incomeTax=" + incomeTax + ", localTax=" + localTax + ", salaryTot="
-				+ salaryTot + ", minusTot=" + minusTot + ", realSalary=" + realSalary + ", empEtc=" + empEtc + "]";
+				+ salaryTot + ", minusTot=" + minusTot + ", realSalary=" + realSalary + ", empEtc=" + empEtc
+				+ ", fRelation=" + fRelation + ", fName=" + fName + ", fSSN=" + fSSN + ", fDisability=" + fDisability
+				+ ", fDeduction=" + fDeduction + ", fTogether=" + fTogether + ", fTax=" + fTax + ", fChild=" + fChild
+				+ "]";
 	}
 
-	
+	public Employee(String empNo, String fRelation, String fName, String fSSN, String fDisability, String fDeduction,
+			String fTogether, String fTax, String fChild) {
+		super();
+		this.empNo = empNo;
+		this.fRelation = fRelation;
+		this.fName = fName;
+		this.fSSN = fSSN;
+		this.fDisability = fDisability;
+		this.fDeduction = fDeduction;
+		this.fTogether = fTogether;
+		this.fTax = fTax;
+		this.fChild = fChild;
+	}
 
-	
-		
+			
 }

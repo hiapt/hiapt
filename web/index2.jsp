@@ -32,7 +32,7 @@
         <div class="servicebox text-center">
           <div class="service-icon">
             <div class="dm-icon-effect-1" data-effect="slide-left">
-              <a href="#" class=""> <i class="active dm-icon fa fa-search fa-3x"></i> </a>
+              <a href="/hiapt/ublist"> <i class="active dm-icon fa fa-search fa-3x"></i> </a>
             </div>
             <div class="servicetitle">
               <h4>관리비조회</h4>
@@ -50,7 +50,7 @@
         <div class="servicebox text-center">
           <div class="service-icon">
             <div class="dm-icon-effect-1" data-effect="slide-bottom">
-              <a href="#" class=""> <i class="active dm-icon fa fa-credit-card fa-3x"></i> </a>
+              <a href="/hiapt/ublist"> <i class="active dm-icon fa fa-credit-card fa-3x"></i> </a>
             </div>
             <div class="servicetitle">
               <h4>관리비결제</h4>
@@ -68,7 +68,7 @@
         <div class="servicebox text-center">
           <div class="service-icon">
             <div class="dm-icon-effect-1" data-effect="slide-right">
-              <a href="#" class=""> <i class="active dm-icon fa fa-pencil-square-o fa-3x"></i> </a>
+              <a href="/hiapt/co.list"> <i class="active dm-icon fa fa-pencil-square-o fa-3x"></i> </a>
             </div>
             <div class="servicetitle">
               <h4>민원접수</h4>

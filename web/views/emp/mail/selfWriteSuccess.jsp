@@ -38,7 +38,7 @@
 <center>
 <h2>메일이 저장되었습니다.</h2><br>
 <span>내게쓴메일은 [내게쓴메일함]에서 확인할 수 있습니다.</span><br>
-<a href="/hiapt/selfmlist?empemail=<%=emp.getEmpEmail()%>">내게쓴메일함 가기</a>&nbsp;|&nbsp;
+<a href="/hiapt/mlist?empemail=<%=emp.getEmpEmail()%>&mcode=4">내게쓴메일함 가기</a>&nbsp;|&nbsp;
 <a href="/hiapt/views/emp/mail/selfwritemail.jsp">내게쓰기</a>
 </center>
 

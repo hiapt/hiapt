@@ -1,9 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="draft.model.vo.Draft, java.util.ArrayList"%>
+<%@page import="draft.model.vo.DraftProcess, java.util.ArrayList"%>
 
 <%  
-	Draft draft = (Draft) request.getAttribute("draft"); 
+	DraftProcess dp = (DraftProcess) request.getAttribute("dp"); 
+	ArrayList<DraftProcess> dplist = (ArrayList<DraftProcess>) request.getAttribute("dplist");
+	String empno = (String) request.getAttribute("empno");
 %>
 
 <head>
@@ -45,7 +47,6 @@
 <!--// css or jQuery or javaScript 삽입 부분    -->
 <script type="text/javascript" src="/hiapt/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
 
-
 <style type="text/css">
 body {
 	color: #444;
@@ -56,27 +57,27 @@ fieldset {
 }
 
 th {
-	border: solid 1px #fff;
+	border: solid 1.5px #777;
 	border-collapse: collapse;
-	padding: 15px;
+	padding: 7px;
 	text-align: center;
 	font-size: 11pt;
-	height: 60px;
-	background-color: rgba(87, 104, 173, 0.9);
-	color: #f8f9fc;
+	height: 30px;
+	background-color: #eee;
+	color: black;
 }
 
 td {
-	border: solid 1px #fff;
+	border: solid 1.5px #777;
 	border-collapse: collapse;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 7px;
+	padding-bottom: 7px;
 	text-align: center;
 	font-size: 11pt;
-	height: 60px;
-	color: #5a5c69;
+	height: 30px;
+	color: black;
 	font-weight: 600; 
-	background-color: rgba(87, 104, 173, 0.15);
+	background-color: white;
 
 }
 
@@ -104,7 +105,7 @@ legend {
 	color: #5a5c69;
 	line-height: 45px;
 	margin-bottom: 15px;
-	border-bottom: dashed 1px #5a5c69;
+	border-bottom: solid 1px #777;
 	text-align: left;
 }
 </style>
@@ -138,7 +139,6 @@ legend {
 <div class="container-fluid">
 
 <!--///////본문 내용 시작 ///////-------->
-<% if (draft.getDisplay().contains(emp.getEmpNo()) || emp.getEmpNo().equals(draft.getEmpno()) || draft.getAppempno().contains(emp.getEmpNo())) { %>
 
 <button onclick="printDiv();" class="btn btn-secondary btn-icon-split" style="padding: 7px;">&nbsp;인 쇄&nbsp;</button>
 <br>
@@ -146,73 +146,202 @@ legend {
 <div class="card shadow mb-4" id="test">
 		<div class="card-body" align="center">
 <br>
-<div style="text-align: center; width: 900px; color: #214c70; " >
-<h2 ><%= draft.getDocno() %> - <%= draft.getFormname() %></h2><br>
-<h2>제목 : <%= draft.getDoctitle()%></h2> <br>
-<table style="width:900px; height: 50px;" >
-
+<div style="text-align: center; width: 900px; color: #444; " >
+<h2 ><%= dp.getDocno() %> - <%= dp.getFormname() %></h2><br>
+<h2>제목 : <%= dp.getDoctitle()%></h2> <br>
+<table style="width:900px; height: 50px;" id="view">
 <tr>
-
-<th style="width: 120px;">작성자</th>
-<td width="120px;" style="width: 120px;">
-<%= draft.getEmpid() %> <%= draft.getEmpname() %>
+<th style="width: 10%; height: 30px;">작성자</th>
+<td style="width: 16%;">
+ <%= dp.getEmpid() %> <%= dp.getEmpname()%>
 </td>
-<th style="width: 120px;">결재자</th>
-<td width="120px;" style="width: 120px;">
-
-
+<th style="width: 16%;">기안일</th>
+<td style="width: 16%;">
+<%= dp.getDraftdate() %> 
+</td>
+<th style="width: 16%;">결재 기한</th>
+<td style="width: 16%;">
+<%= dp.getDeadline() %> 
 </td>
 </tr>
 <tr>
-<th style="width: 120px;">공개 여부</th>
-<td width="25%">
-<% if(draft.getDisplay().equals("Y")) { %>
-전체 공개
-<% } else { %>
-비공개
+<th rowspan="2">결재</th>
+<td style="height: 120px; font-size: 40pt; padding: 15px 0px 0px 20px;" align="center">
+<%if (dplist.size() > 0){ %>
+<%if(dplist.get(0).getSignresult().equals("1")){ %> 
+<h3 style="margin-left:20px; width: 75px; height: 75px; font-weight: bold; color: #6265aa; border: 4px solid #6265aa; border-radius: 50px; padding-top: 18px;">
+승인 
+<h6 style="margin-right:30px;"><%= dplist.get(0).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(0).getSignresult().equals("2")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #c55656; border: 3px solid #c55656; border-radius: 50px; padding-top: 18px;">
+반려
+<h6 style="margin-right:30px;"><%= dplist.get(0).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(0).getSignresult().equals("3")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #844798; border: 3px solid #844798; border-radius: 50px; padding-top: 18px;">
+보류
+<h6 style="margin-right:30px;"><%= dplist.get(0).getAppdate() %></h6>
+
+</h3>
+<% }} %>
+</td>
+<td style="height: 120px; font-size: 40pt; padding: 10px 0px 0px 20px;">
+<%if (dplist.size() > 1){ %>
+<%if(dplist.get(1).getSignresult().equals("1")){ %> 
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #6265aa; border: 4px solid #6265aa; border-radius: 50px; padding-top: 18px;">
+승인 
+<h6 style="margin-right:30px;"><%= dplist.get(1).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(1).getSignresult().equals("2")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #bf3636; border: 3px solid #bf3636; border-radius: 50px; padding-top: 18px;">
+반려
+<h6 style="margin-right:30px;"><%= dplist.get(1).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(1).getSignresult().equals("3")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #844798; border: 3px solid #844798; border-radius: 50px; padding-top: 18px;">
+보류
+<h6 style="margin-right:30px;"><%= dplist.get(1).getAppdate() %></h6>
+</h3>
+<% } %>
+<%} %>
+</td>
+<td style="height: 120px; font-size: 40pt; padding: 10px 0px 0px 20px;"><%if (dplist.size() > 2){ %>
+<%if(dplist.get(2).getSignresult().equals("1")){ %> 
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #6265aa; border: 4px solid #6265aa; border-radius: 50px; padding-top: 18px;">
+승인 
+<h6 style="margin-right:30px;"><%= dplist.get(2).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(2).getSignresult().equals("2")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #bf3636; border: 3px solid #bf3636; border-radius: 50px; padding-top: 18px;">
+반려
+<h6 style="margin-right:30px;"><%= dplist.get(2).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(2).getSignresult().equals("3")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #844798; border: 3px solid #844798; border-radius: 50px; padding-top: 18px;">
+보류
+<h6 style="margin-right:30px;"><%= dplist.get(2).getAppdate() %></h6>
+</h3>
+<% } %>
+<%} %>
+</td>
+<td style="height: 120px; font-size: 40pt; padding: 10px 0px 0px 20px;">
+<%if (dplist.size() > 3){ %>
+<%if(dplist.get(3).getSignresult().equals("1")){ %> 
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #6265aa; border: 4px solid #6265aa; border-radius: 50px; padding-top: 18px;">
+승인 
+<h6 style="margin-right:30px;"><%= dplist.get(3).getAppdate() %></h6>
+
+</h3>
+<% }else if(dplist.get(3).getSignresult().equals("2")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #bf3636; border: 3px solid #bf3636; border-radius: 50px; padding-top: 18px;">
+반려
+<h6 style="margin-right:30px;"><%= dplist.get(3).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(3).getSignresult().equals("3")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #844798; border: 3px solid #844798; border-radius: 50px; padding-top: 18px;">
+보류
+<h6 style="margin-right:30px;"><%= dplist.get(3).getAppdate() %></h6>
+</h3>
+<% } %>
+<%} %></td>
+<td style="height: 120px; font-size: 40pt; padding: 10px 0px 0px 20px;">
+<%if (dplist.size() > 4){ %>
+<%if(dplist.get(5).getSignresult().equals("1")){ %> 
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #6265aa; border: 4px solid #6265aa; border-radius: 50px; padding-top: 18px;">
+승인 
+<h6 style="margin-right:30px;"><%= dplist.get(4).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(5).getSignresult().equals("2")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #bf3636; border: 3px solid #bf3636; border-radius: 50px; padding-top: 18px;">
+반려
+<h6 style="margin-right:30px;"><%= dplist.get(4).getAppdate() %></h6>
+</h3>
+<% }else if(dplist.get(5).getSignresult().equals("3")) { %>
+<h3 style="margin-left:20px; width: 70px; height: 70px; font-weight: bold; color: #844798; border: 3px solid #844798; border-radius: 50px; padding-top: 18px;">
+보류
+<h6 style="margin-right:30px;"><%= dplist.get(4).getAppdate() %></h6>
+</h3>
+<% } %>
+<%} %></td>
+</tr>
+<tr>
+<td>
+<%if(dp.getAppname1() != null ){ %>
+<%= dp.getAppid1() %> <%= dp.getAppname1() %>
+<%} %>
+</td>
+<td>
+<%if(dp.getAppname2() != null ){ %>
+<%= dp.getAppid2() %> <%= dp.getAppname2() %>
+<%} %>
+</td>
+<td>
+<%if(dp.getAppname3() != null ){ %>
+<%= dp.getAppid3() %> <%= dp.getAppname3() %>
+<%} %>
+</td>
+<td>
+<%if(dp.getAppname4() != null ){ %>
+<%= dp.getAppid4() %> <%= dp.getAppname4() %>
+<%} %>
+</td>
+<td>
+<%if(dp.getAppname5() != null ){ %>
+<%= dp.getAppid5() %> <%= dp.getAppname5() %>
+<%} %>
+</td>
+</tr>
+<tr>
+<th style="height: 30px;">공람자</th>
+<td colspan="5">
+<%if(dp.getDisname1() != null){ %>
+<%=dp.getDisid1()%> <%=dp.getDisname1() %>
+<%} %> 
+<%if(dp.getDisname2() != null){%>
+, <%=dp.getDisid2()%> <%=dp.getDisname2() %>
+<% } %> 
+<%if(dp.getDisname3() != null){%>
+, <%=dp.getDisid3()%> <%=dp.getDisname3() %>
+<% } %>
+<%if(dp.getDisname4() != null){%>
+, <%=dp.getDisid4()%> <%=dp.getDisname4() %>
+<% } %>
+<%if(dp.getDisname5() != null){%>
+, <%=dp.getDisid5()%> <%=dp.getDisname5() %>
 <% } %>
 </td>
-
-<th style="width: 120px;">결재 여부</th>
-<td width="25%" >
-<% if (draft.getDocstatus().equals("0")) { %> 
-	대기
-<% } else if (draft.getDocstatus().equals("1")) { %> 
-	승인
-<% } else if (draft.getDocstatus().equals("2")) { %> 
-	반려 
-<% } else if (draft.getDocstatus().equals("3")) { %> 
-	보류 
-<% }%>
-</td>
-
 
 </tr>
 </table>
 <div style="width:900px; height:450px; background-color: none; margin-top: 15px;" align="center">
-<div id="smarteditor"  style="width:895px; height:1000px; border: 1px solid rgba(87, 104, 173, 0.9); ; resize: none; padding: 30px;">
-<%= draft.getDoccontent() %></div>
+<div id="smarteditor"  style="width:900px; height:1000px; border: 1px solid #777; resize: none; padding: 30px;">
+<%= dp.getDoccontent() %></div>
 </div>
 </div>
 <div id="hide" style="margin-top: 600px;">
-<div style="line-height: 1px; font-weight: bold; color: #5a5c69; float: left; margin-left: 25px;">첨부파일</div><br>
-<hr width="895px" align="center" style="border: 1px dashed #5a5c69;"><br><br>
-<% if (draft.getFeedback() != null) { %>
-<div  style="width:900px; height:180px; background: #9598a3; text-align: center; padding-top: 25px" >
-<div style="color: white; font-size: 12pt; font-weight: bolder; text-shadow: 1px 1px 1px  rgba(0, 0, 0, 0.3);"> 첨삭 및 의견 </div> 
-<textarea style="width:870px; height:	100px; border: none;  ;margin-top: 15px; resize: none; padding: 15px;" readonly="readonly">
-<%= draft.getFeedback() %>
-</textarea>
-</div>
-</div>
+<fieldset style="margin-top: 20px;">
+<legend>첨부파일</legend>
+</fieldset><br>
+<div style="text-align: left; padding-left: 25px; margin-top: -20px;">
+<% if(dp.getOriginfile() != null) {%>
+<a href="/hiapt/dfiled?ofile=<%= dp.getOriginfile() %>&rfile=<%= dp.getRenamefile() %>"><%= dp.getOriginfile() %></a>
+<% } else { %>
+	첨부파일 없음
 <% } %>
+</div>
+<% if (dp.getFeedback() != null) { %>
+<fieldset style="margin-top: 20px;">
+<legend>첨삭 및 의견</legend>
+</fieldset>
+<textarea name="feedback" style="width:900px; height:120px; border: 1px solid #777; resize: none; padding: 15px;" readonly="readonly">
+<%= dp.getFeedback() %>
+</textarea>
+<% } %>
+</div>
 <br>
 </div>
 </div>
-
-<%} else { %>
-<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 문서에 대한 접근 권한이 없습니다. </div>
-<%} %>
 
 <script type="text/javascript">
 function printDiv() {

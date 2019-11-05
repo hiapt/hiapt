@@ -8,6 +8,9 @@
 	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
+	String keyword = (String) request.getAttribute("keyword");
+	String begin = (String) request.getAttribute("begin");
+	String to = (String) request.getAttribute("to");
 %>
     
 <head>
@@ -84,6 +87,12 @@ table {
 <!---탑 메뉴 끝 ------------------------------------------->
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
+<div style="float: left; position: relative; left: 30px; top: 5px;">
+		<input type="button" value=" 등 록 " class="btn btn-info btn-icon-split" style="padding: 6px;" onclick="formadd();"> 
+		&nbsp;&nbsp;
+					<input type="button" value=" 삭 제 " class="btn btn-danger btn-icon-split" style="padding: 6px;">
+			</div>
+			<br><br>
 <div class="container-fluid">
 
 
@@ -92,17 +101,16 @@ table {
 		<select id="searchselect" name="searchselect"
 			style="width: 100px; padding-left: 5px;"
 			class="form-control form-control-sm">
-			<option selected="selected">제목</option>
+			<option selected="selected">양식명</option>
 			<option>양식분류</option>
 		</select>
 	</div>
 	<div id="title">
-		<form action="/hiapt/dsearch" method="get" id="searchform">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
+		<form action="/hiapt/fsearch" method="get" id="searchform">
 			<input type="hidden" name="search" value="title">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="검색할 제목을 입력하세요."
+					class="form-control form-control-sm" placeholder="검색할 양식명을 입력하세요."
 					style="width: 250px;">
 				<div class="input-group-append">
 					<button class="btn btn-primary btn-sm" type="button" id="submitbtn">
@@ -113,12 +121,11 @@ table {
 		</form>
 	</div>
 	<div id="formtype">
-		<form action="/hiapt/dsearch" method="get" id="searchform2">
-			<input type="hidden" name="empno" value="<%=emp.getEmpNo()%>">
+		<form action="/hiapt/fsearch" method="get" id="searchform2">
 			<input type="hidden" name="search" value="formtype">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="검색할 문서형식을 입력하세요."
+					class="form-control form-control-sm" placeholder="검색할 양식 분류를 입력하세요."
 					style="width: 250px;">
 				<div class="input-group-append">
 					<button class="btn btn-primary btn-sm" type="button"
@@ -131,10 +138,19 @@ table {
 	</div>
 </div>
 <br>
-<h5>
-		전체 문서 :
-		<%=count%>개
-	</h5>
+<div style="color: #444;">
+		［전체 문서 : <%=count%>개］
+		</div>
+			<% if(keyword != null) { %>
+	<div align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색어 : <%= keyword %>］
+	</div>
+	<% } else if (begin != null && to != null) { %>
+	<div  align="center" style="color: #644b90; font-size: 11pt; font-weight: bold;">
+		［검색 날짜 : <%= begin %> ~ <%= to %>］
+	</div>
+	<% } %>
+		<br>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
 
@@ -149,7 +165,7 @@ table {
 						</th>
 						<th width="100">양식번호</th>
 						<th>양식명</th>
-						<th width="120">양식분류</th>
+						<th width="150">양식분류</th>
 					</tr>
 				<%
 					for (int i = 0; i < list.size(); i++) {
@@ -171,13 +187,6 @@ table {
 					}
 				%>
 			</table>
-			<div style="float: right;">
-				<input type="button" value="수정" class="btn btn-default btn-xs"
-					style="letter-spacing: 7px; padding-left: 10px;">
-					<input type="button" value="삭제" class="btn btn-default btn-xs"
-					style="letter-spacing: 7px; padding-left: 10px;">
-			</div>
-
 			<div class="col-sm-12">
 				<div class="paging_simple_numbers">
 					<ul class="pagination" style="justify-content: center;">
@@ -248,6 +257,7 @@ table {
 			</div>
 		</div>
 	</div>
+	
 	<script type="text/javascript">
 	$("#checkall").click(function() {
 
@@ -289,6 +299,15 @@ table {
 		    });
 		  
 	});
+
+	function formadd() {
+		var width = '950';
+		var height = '600';
+		var left = Math.ceil((window.screen.width - width) / 2);
+		var top = Math.ceil((window.screen.width - height) / 2);
+		
+		window.open('/hiapt/views/master/approval/formAdd.jsp' , '문서등록', 'width=' + width + ', height=' + height + ', left=' + left + ', top' + top);
+	}
 </script>
 <!---//// 본문 내용 끝 ///////------------------->
 </div><!-- /.container-fluid -->				

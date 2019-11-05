@@ -51,6 +51,9 @@ public class MyLogListServlet extends HttpServlet {
 		//currentPage 가 속한 페이지그룹의 시작페이지숫자와 끝숫자 계산
 		//예, 현재 34페이지이면 31 ~ 40 이 됨. (페이지그룹의 수를 10개로 한 경우)
 		int beginPage = (currentPage / limit) * limit + 1;
+        if(currentPage % limit == 0) {
+            beginPage -= limit;
+         }
 		int endPage = beginPage + 9;
 		if(endPage > maxPage)
 			endPage = maxPage;

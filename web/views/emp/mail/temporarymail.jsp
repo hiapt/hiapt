@@ -8,13 +8,18 @@
 	int beginPage = (Integer)request.getAttribute("beginPage");
 	int endPage = (Integer)request.getAttribute("endPage");
 	int maxPage = (Integer)request.getAttribute("maxPage");
-	String code = new String("temp"); 
-	String allmail = new String("mail");
+	String code = new String("3"); 
 %>
 <!DOCTYPE html>
 <html>
 <!-- head 시작 -->
 <%@ include file ="../../common/emphead.html" %>
+
+<style>
+.search{
+	float : right;
+}
+</style>
 
 <!-- head 시작 -->
 <body id="page-top">
@@ -26,6 +31,64 @@
 
 <%@ include file ="../../common/empnavi.jsp" %>
 
+<script type="text/javascript">
+$(function() {
+	
+	/* 전체선택 / 전체취소 */
+	$("#checkall").click(function() {
+
+		if ($("#checkall").prop("checked")) {
+
+			$("input[type=checkbox]").prop("checked", true);
+		} else {
+			$("input[type=checkbox]").prop("checked", false);
+		}
+		
+	});
+	
+	/* 검색창 */
+	showDiv();
+
+	$("select[name=searchselect]").on("change", function() {
+		showDiv();
+	});
+	
+});
+/* 검색창 변경 */
+function showDiv() {
+	if ($("#searchselect option:eq(0)").is(":selected")) {
+		$("#title").css("display", "inline");
+		$("#sender").css("display", "none");
+		$("#recipient").css("display", "none");
+
+	}
+	if ($("#searchselect option:eq(1)").is(":selected")) {
+		$("#title").css("display", "none");
+		$("#sender").css("display", "inline");
+		$("#recipient").css("display", "none");
+
+	}
+	if ($("#searchselect option:eq(2)").is(":selected")) {
+		$("#title").css("display", "none");
+		$("#sender").css("display", "none");
+		$("#recipient").css("display", "inline");
+
+	}	
+}
+
+// 체크된 메일 번호 반환
+function countno(){
+	var values = document.getElementsByName("mailno");
+    var r = "";
+    for(var i = 0; i<values.length; i++){
+       if(values[i].checked) {
+          r += values[i].value + ",";
+       }
+    }
+    return r;
+}
+
+</script>
 <!-- 왼쪽 메인 메뉴바 끝  --> 
 <!-- ================================================================================= -->
 
@@ -46,11 +109,27 @@
 <!-- 본문 타이틀 들어가는 부분 ---->					
 <!--///////본문 내용 시작 ///////-------->
 
-<h1>임시 보관함</h1>
+<h3>임시 보관함</h3>
 <div class="card shadow mb-4">
 <div class="card-body">
-<input type="search" value="메일검색"> &nbsp;&nbsp; <span>임시보관함/</span><br>
-<input type="checkbox" id="checkall"> &nbsp; 
+<form action="/hiapt/mtsearch" method="post" class="search">
+<input type="search" id="title" name="title">
+<input type="hidden" name="empemail" value="<%= emp.getEmpEmail() %>">
+</form>
+<form action="/hiapt/msenders" method="post" class="search">
+<input type="search" id="sender" name="sender">
+<input type="hidden" name="empemail" value="<%= emp.getEmpEmail() %>">
+</form>
+<form action="/hiapt/mrecipients" method="post" class="search">
+<input type="search" id="recipient" name="recipient">
+<input type="hidden" name="empemail" value="<%= emp.getEmpEmail() %>">
+</form>
+<select id="searchselect" name="searchselect" class="search">
+			<option selected="selected">제목</option>
+			<option>보낸사람</option>
+			<option>받는사람</option>			
+</select>
+ 
 <form method="post" name="form">
 <input type="submit" value="삭제" onclick="javascript: form.action='/hiapt/movew'" class="btn btn-primary btn-sm shadow-sm" >
 <input type="hidden" name="page" value="<%= currentPage %>">
@@ -60,11 +139,8 @@
 					<thead>
 						<tr>
 							<th width="10">
-							<div class="checkbox" style="margin:0px; margin-left: 10px;">
-							<label>
-								<i class="fa fa-square-o small"></i>
-							</label>
-							</div></th>
+							<input type="checkbox" id="checkall">
+							</th>
 							<th width="75" style="text-align: center;">받는사람</th>
 							<!-- <th width="100" style="text-align: center;">제목</th> -->
 							<th style="text-align: center;">제목</th>
@@ -72,7 +148,7 @@
 							
 						</tr>
 						<% for(Mailm m : list){ %>						
-						<tr><td><input type="checkbox"></td>
+						<tr><td><input type="checkbox" name="mailno" value="<%= m.getMailNo() %>"></td>
 						<td><%= m.getRecipient() %></td>
 						<td><a href="/hiapt/mtdetail?mailno=<%= m.getMailNo() %>"><%= m.getMailTitle() %></a></td>
 						<td><%= m.getMailTime() %></td>
@@ -81,66 +157,57 @@
 					</thead>
 					</table>
 </form>
-<div class="col-sm-12">
+<!-- pageing -->
+
+		<div class="col-sm-12">
 			<div class="paging_simple_numbers">
 				<ul class="pagination" style="justify-content: center;">
 					<li class="paginate_button page-item previous disabled"
-						id="dataTable_previous"><a href="/hiapt/tmlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/mlist?page=1&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
 					<% if((beginPage - 10) < 1){ %>
 					<li class="paginate_button page-item previous back"
-						id="dataTable_previous"><a href="/hiapt/tmlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/mlist?page=1&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 					<% } else { %>
 					<li class="paginate_button page-item active back"
-						id="dataTable_previous"><a href="/hiapt/tmlist?page=<%= beginPage -10 %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/mlist?page=<%= beginPage -10 %>&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable"
 						data-dt-idx="<%= beginPage - 10 %>" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
 					<% } %>
-					<% if(currentPage == 0){ %>
+					<% if(endPage == 0){ %>
 					<li class="paginate_button page-item active"
-						id="dataTable_previous"><a href="/hiapt/selfmlist?page=1&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable"
+						id="dataTable_previous"><a href="/hiapt/selfmlist?page=1&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable"
 						data-dt-idx="0" tabindex="0" class="page-link">1</a></li>
 					<% }else{ %>
 					<% for(int p = beginPage; p <= endPage; p++){
 						if(p == currentPage){	
 					%>
-					<li class="paginate_button page-item active next"><a href="/hiapt/amlist?page<%= p %>&empemail=<%= emp.getEmpEmail() %>"
+					<li class="paginate_button page-item active next"><a href="/hiapt/mlist?page<%= p %>&empemail=<%= emp.getEmpEmail() %>&mcode=3"
 						aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
 						class="page-link"><%= p %></a></li>
 					<% } else { %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/amlist?page=<%= p %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
+						href="/hiapt/mlist?page=<%= p %>&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable" data-dt-idx="<%= p %>" tabindex="0"
 						class="page-link"><%= p %></a></li>
 					<% }} %>
 					<% } %>
 					<% if((endPage + 10) > maxPage ) { %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/tmlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
+						href="/hiapt/mlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
 						class="page-link">&rsaquo;&rsaquo;</a></li>
 					<% } else { %>	
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/tmlist?page<%= endPage + 10 %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= endPage + 10 %>" tabindex="0"
+						href="/hiapt/mlist?page<%= endPage + 10 %>&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable" data-dt-idx="<%= endPage + 10 %>" tabindex="0"
 						class="page-link">&rsaquo;&rsaquo;</a></li>
 					<% } %>
 					<li class="paginate_button page-item next" id="dataTable_next"><a
-						href="/hiapt/tmlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
+						href="/hiapt/mlist?page=<%= maxPage %>&empemail=<%= emp.getEmpEmail() %>&mcode=3" aria-controls="dataTable" data-dt-idx="<%= maxPage %>" tabindex="0"
 						class="page-link">&rsaquo;</a></li>
-				</ul>
+				</ul> 
 			</div>
 		</div>	
 		</div>
 </div>
-<script type="text/javascript">
-	$("#checkall").click(function() {
-
-		if ($("#checkall").prop("checked")) {
-
-			$("input[type=checkbox]").prop("checked", true);
-		} else {
-			$("input[type=checkbox]").prop("checked", false);
-		}
-	});
-</script>
 </div><!-- /.container-fluid -->				
 </div><!-- End of Main Content -->	
 <!---//// 본문 내용 끝 ///////------------------->

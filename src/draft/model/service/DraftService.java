@@ -8,6 +8,8 @@ import static common.JDBCTemplate.*;
 
 import draft.model.dao.DraftDao;
 import draft.model.vo.Draft;
+import draft.model.vo.DraftProcess;
+import mybox.model.vo.Mybox;
 
 public class DraftService {
 	private DraftDao ddao = new DraftDao();
@@ -35,24 +37,18 @@ public class DraftService {
 		return result;
 	}
 
-	public Draft selectOne(int docno) {
+	public DraftProcess selectOne(int docno) {
 		Connection conn = getConnection();
-		Draft draft = ddao.selectOne(conn, docno);
+		DraftProcess dp = ddao.selectOne(conn, docno);
 		close(conn);
 		
-		return draft;
+		return dp;
 	}
-
-	public int tempSave(Draft draft) {
+	public ArrayList<DraftProcess> SignResult (int docno) {
 		Connection conn = getConnection();
-		int result = ddao.tempSave(conn, draft);
-		if (result > 0) {
-			commit(conn);
-		} else {
-			rollback(conn);
-		}
+		ArrayList<DraftProcess> list = ddao.SignResult(conn, docno);
 		close(conn);
-		return result;
+		return list; 
 	}
 	
 	public ArrayList<Draft> draftTitleSearch(String keyword, String empno, int startRow, int endRow) {
@@ -141,7 +137,6 @@ public class DraftService {
 		close(conn);
 		return list;
 	}
-
 
 
 	public int getListCountAdmin() {
@@ -393,9 +388,9 @@ public class DraftService {
 		close(conn);
 		return list;
 	}
-	public int signDraft(Draft draft, String docstatus) {
+	public int signDraft(Draft draft, int docno, String appempno, String sresult) {
 		Connection conn = getConnection();
-		int result = ddao.signDraft(conn, draft, docstatus);
+		int result = ddao.signDraft(conn, draft, docno, appempno, sresult);
 		if (result > 0) {
 			commit(conn);
 		} else {
@@ -432,5 +427,26 @@ public class DraftService {
 		close(conn);
 		return listCount;
 	}
+	public int deleteTemp(String docno) {
+		Connection conn = getConnection();
+		int result = ddao.deleteTemp(conn, docno);
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+
+
+
+	public int getNewListCountEmp(String empno) {
+		Connection conn = getConnection();
+		int listCount = ddao.getNewListCountEmp(conn, empno);
+		close(conn);
+		return listCount;
+	}
+	
 
 }

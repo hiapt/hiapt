@@ -38,49 +38,78 @@
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
+<script type="text/javascript" src="/hiapt/resources/smarteditor/js/HuskyEZCreator.js" charset="utf-8"></script>
+<script type="text/javascript">
+$(function(){
+    //전역변수선언
+    var editor_object = [];
+     
+    nhn.husky.EZCreator.createInIFrame({
+        oAppRef: editor_object,
+        elPlaceHolder: "smarteditor",
+        sSkinURI: "/hiapt/resources/smarteditor/SmartEditor2Skin.html", 
+        htParams : {
+            // 툴바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseToolbar : true,             
+            // 입력창 크기 조절바 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseVerticalResizer : false,     
+            // 모드 탭(Editor | HTML | TEXT) 사용 여부 (true:사용/ false:사용하지 않음)
+            bUseModeChanger : true, 
+        }
+    });
+     
+    //전송버튼 클릭이벤트
+    $("#savebutton").click(function(){
+        //id가 smarteditor인 textarea에 에디터에서 대입
+        editor_object.getById["smarteditor"].exec("UPDATE_CONTENTS_FIELD", []);
+         
+        // 이부분에 에디터 validation 검증
+         
+        //폼 submit
+        $("#add").submit();
+    });
+});
+</script>
+
 </head>
 <body id="page-top">
-
-	<!-- Page Wrapper -->
-	<div id="wrapper">
-
-<!-- 왼쪽 메인 메뉴바 시작 --> 
-
-<%@ include file ="../../common/empnavi.jsp" %>
-
-<!-- 왼쪽 메인 메뉴바 끝  --> 
-<!-- ================================================================================= -->
 
 <!--- 중앙 전체 큰 틀 ---------------------------------------------->
 <!-- Content Wrapper -->
 <div id="content-wrapper" class="d-flex flex-column">
 <!-- Main Content -->
-<div id="content">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+			<div class="card-body" align="center">
+			양식등록<br><br>
+<div>
+<select>
+<option></option>
+</select>
+<br><br>
+<input type="text" placeholder="양식명 입력" name= "drafttitle"  required="required"
+style="width: 900px; height: 35px; border: solid 1px #afafaf; border-radius: 5px; padding-left: 10px;"><br><br> 
 
-<!-- ================================================================================= -->
-<!---탑메뉴  시작 =================---------------------------->
-
-<%@ include file ="../../common/empTopNavi.jsp" %>
-<!---탑 메뉴 끝 ------------------------------------------->
-<!--========================================================================================== -->
-<!-- Begin Page Content -->
-<div class="container-fluid">
-
-
-
-
-<!---//// 본문 내용 끝 ///////------------------->
-</div><!-- /.container-fluid -->				
-</div><!-- End of Main Content -->	
-<!---//// 본문 내용 끝 ///////------------------->
-<!-- footer 시작 -->
-<%@ include file = "../../common/empfooter.html" %>
-<!-- footer 시작 -->
-</div>	<!-- End of Content Wrapper -->
+<div style="width:900px; height:950px; background-color: white; margin-top: 15px;">
+<textarea name="doccontent" id="smarteditor" rows="10" cols="100" style="width:897px; height:900px;" required="required"></textarea>
+</div>
+<br>
+<div align="center">
+ 
+		<input type="button" value=" 저 장 " class="btn btn-primary btn-icon-split btn-lg" id="savebutton"
+		
+		style="padding: 7px;">
+		 
+		
+		<input type="button" value=" 취 소 " class="btn btn-secondary btn-icon-split btn-lg" id="tempbutton"
+		
+		style="padding: 7px; margin-left: 25px;">&nbsp;&nbsp;
+</div>
+</div>
+</div>
+</div>
+	<!-- End of Content Wrapper -->
 </div>	<!-- End of Page Wrapper -->	
-<!--========================================================================================== -->
-<!-- top 버튼 -->
-<%@ include file = "../../common/topbutton.html" %>
-<!--========================================================================================== -->
+<br>
 </body>
 </html>

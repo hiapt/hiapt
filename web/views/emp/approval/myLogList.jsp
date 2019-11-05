@@ -200,17 +200,7 @@ table {
 						<td><%=d.getEmpid()%>&nbsp;<%=d.getEmpname()%></td>
 						<td><%=d.getDraftdate()%></td>
 						<td>
-							<%
-								if (d.getProgress().equals("0")) {
-							%> 대기 <%
-								} else if (d.getProgress().equals("1")) {
-							%> 승인 <%
-								} else if (d.getProgress().equals("2")) {
-							%> 반려 <%
-								} else if (d.getProgress().equals("3")) {
-							%> 보류 <%
-								}
-							%>
+						
 						</td>
 					</tr>
 				<%

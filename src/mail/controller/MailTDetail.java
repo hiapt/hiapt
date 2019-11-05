@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import mail.model.service.MailService;
+import mail.model.vo.MailFileBox;
 import mail.model.vo.Mailm;
 
 /**
@@ -31,15 +32,18 @@ public class MailTDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int mailNo = Integer.parseInt(request.getParameter("mailno"));
+		int mailno = Integer.parseInt(request.getParameter("mailno"));
 		
 		Mailm mailm = new Mailm();
-		mailm = new MailService().selectOne(mailNo);
+		MailService mservice = new MailService();
+		mailm = mservice.selectOne(mailno);
+		MailFileBox mbf = mservice.selectFileOne(mailno);
 		
 		RequestDispatcher view = null;
 		if(mailm != null) {
 			view = request.getRequestDispatcher("views/emp/mail/writemailT.jsp");
 			request.setAttribute("mailm", mailm);
+			request.setAttribute("mbf", mbf);
 			view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");

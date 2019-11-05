@@ -37,39 +37,34 @@ public class VoteAdminViewServlet extends HttpServlet {
 		
 		int vNo = Integer.parseInt(request.getParameter("vno"));
 		int currentPage = Integer.parseInt(request.getParameter("page"));
-		HttpSession session = request.getSession();
-		Employee employee = (Employee) session.getAttribute("employee");
+		Employee employee = (Employee) request.getSession().getAttribute("employee");
 		
 		VoteService vservice = new VoteService();
 		vservice.updateReadCount(vNo);
 		Vote vote = vservice.selectView(vNo);
 		VoteResult voteResult = vservice.selectVoteResult(vNo);
 		
+		request.setAttribute("vote", vote);
+		request.setAttribute("voteresult", voteResult);
+		request.setAttribute("currentPage", currentPage);
+		
 		RequestDispatcher view = null;
 		if(employee != null) { //직원이라면
 		if(vote != null) {
 			view = request.getRequestDispatcher("views/master/vote/voteAdminDetailView.jsp");
-			request.setAttribute("vote", vote);
-			request.setAttribute("voteresult", voteResult);
-			request.setAttribute("currentPage", currentPage);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", "상세조회 실패!");
 		}
-		view.forward(request, response);
-		
 		}else {//세대주라면..
 			if(vote != null) {
 				view = request.getRequestDispatcher("views/user/vote/voteDetailView.jsp");
-				request.setAttribute("vote", vote);
-				request.setAttribute("voteresult", voteResult);
-				request.setAttribute("currentPage", currentPage);
 			}else {
 				view = request.getRequestDispatcher("views/common/user404.jsp");
 				request.setAttribute("message", "상세조회 실패!");
 			}
-			view.forward(request, response);
 		}
+		view.forward(request, response);
 	}
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

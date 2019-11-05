@@ -46,6 +46,11 @@
 
 <!--// css or jQuery or javaScript 삽입 부분    -->
 
+<style>
+#intable tr th {
+text-align:center;
+}
+</style>
 <script type="text/javascript"src="/third/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 <% 
@@ -63,10 +68,16 @@ function update(){
 	return false;
 }
 function del(){
-	location.href="/hiapt/schdel?snum=<%= sch.getSchNo() %>";
-	alert("삭제 완료");
+	var returnValue = window.confirm("해당 일정을 삭제하시겠습니까 ?");
+	if(returnValue){
+		location.href="/hiapt/schdel?snum=<%= sch.getSchNo() %>";
+	}else{
+		return;
+	}	
 	self.close();
 	return true;
+	
+	
 }
 
 </script>
@@ -102,11 +113,26 @@ function del(){
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">Schedule</h1>
-<div class="card shadow mb-4">
+<br>
+<h4 class="h4 mb-4 text-gray-800">일정 조회</h4>
+<div text-align="center" class="card shadow mb-4">
 <div class="card-body">
-<h2 align="center">일정 조회 페이지</h2>
-<table align="center" width="400" cellspacing="0" cellpadding="8" border="1">
+<!-- <h2 align="center"></h2> -->
+<table class="table table-borderedz" id="intable">
+<div align="right">
+<%
+if(writer.equals(loginId)){
+%>	
+<button class="btn btn-outline-warning btn-sm" onclick="update();">수정</button>
+&nbsp;&nbsp;&nbsp;
+<button class="btn btn-outline-danger btn-sm" onclick="del();">삭제</button>
+&nbsp;&nbsp;&nbsp;
+
+<%}%>
+<input class="btn btn-outline-secondary btn-sm" type="button" value="닫기" onclick="window.close();">
+
+</div>
+<br>
 <tr><th>일정 제목</th><td> <%= sch.getSchTitle() %></td></tr>
 <tr><th>일정 구분</th><td>
 <%if(type.equals("work")){ %>
@@ -139,7 +165,7 @@ if(alarm.equals("Y")){%>
 	미설정
 <%}%>
 <tr><th>색&nbsp;&nbsp;&nbsp;&nbsp;상</th><td>
-<div style="display:inline; width:15px; height:15px; background-color:<%= sch.getSchBgColor() %>;"></div>
+<div style="display:inline-block; width:15px; height:15px; background-color:<%= sch.getSchBgColor() %>;"></div>
 <%switch(color){
 case "#D25565" :%>빨간색<% break;
 case "#9775fa" :%>보라색<% break;
@@ -160,24 +186,6 @@ case "#4d638c" :%>남   색<% break;
 下
 <%} %></td></tr>
 <tr><th>작 성 자</th><td><%=writer %></td></tr>
-
-<%
-if(writer.equals(loginId)){
-%>	
-<tr><th colspan="2">
-<button onclick="update();">수정</button>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<button onclick="del();">삭제</button>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<input type="button" value="닫기" onclick="window.close();">
-</th></tr>
-<%}else{%>
-<tr><th colspan="2">
-<input type="button" value="닫기" onclick="window.close();">
-</th></tr>
-
-<%}%>
-
 </table>
 	</div>
 	</div>	

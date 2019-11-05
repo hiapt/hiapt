@@ -1,6 +1,7 @@
 package draft.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import draft.model.service.DraftService;
 import draft.model.vo.Draft;
+import draft.model.vo.DraftProcess;
 
 /**
  * Servlet implementation class DraftSignViewServlet
@@ -32,19 +34,24 @@ public class DraftSignViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	int docno = Integer.parseInt(request.getParameter("docno"));
+	String empno = request.getParameter("empno");
+	DraftService dservice = new DraftService();
+	DraftProcess dp = dservice.selectOne(docno);
+	ArrayList<DraftProcess> dplist = dservice.SignResult(docno);
+	System.out.println("dp : " + dp);
+	RequestDispatcher view = null; 
+	if(dp != null) {
+		view = request.getRequestDispatcher("views/master/approval/draftSignView.jsp");
+		request.setAttribute("dp", dp);
+		request.setAttribute("dplist", dplist);
+		request.setAttribute("empno", empno);
 		
-		Draft draft = new DraftService().selectOne(docno);
-		System.out.println("draft : " + draft);
-		RequestDispatcher view = null; 
-		if(draft != null) {
-			view = request.getRequestDispatcher("views/master/approval/draftSignView.jsp");
-			request.setAttribute("draft", draft);
-			
-		}else {
-			view = request.getRequestDispatcher("views/common/error.jsp");
-			request.setAttribute("message", docno + "번 문서 상세보기 실패");
-		}
-		view.forward(request, response);
+		
+	}else {
+		view = request.getRequestDispatcher("views/common/error.jsp");
+		request.setAttribute("message", docno + "번 기안서 상세보기 실패");
+	}
+	view.forward(request, response);
 	}
 
 	/**

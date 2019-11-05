@@ -74,29 +74,22 @@ function voteWrite(){
 		<input type="text" name="titlename">
 		<input type="submit" value="찾기">&nbsp;
 		</form>
-		<%if( employee.getEmpNo().equals("admin")) {%>
-		<button onclick="voteWrite();">작성하기</button>&nbsp;
-		<%} %>
 	</div>
 
 	<table class="table table-bordered" >
 		<tr align="center">
 			<th width = "80">글번호</th>
 			<th>제목</th>
-			<th width = "150" >작성자</th>
-			<th width = "150" >작성일</th>
-			<th width = "200" >투표마감일</th>
+			<th width = "120" >작성자</th>
+			<th width = "140" >작성일</th>
+			<th width = "190" >투표마감일</th>
 			<th width = "80" >조회수</th>
 		</tr>
 		<% for(Vote v : vlist){ %>
 		<tr align="center">
-			<td><%= v.getVoteNo() %></td>
-			<%if( employee.getEmpNo().equals("admin")) {%>
+			<td><%= v.getVoteNo() %></td>		
 			<td><a href="/hiapt/vo.ad.view?vno=<%= v.getVoteNo() %>&page=<%= currentPage %>"><%= v.getVoteTitle() %></a></td>
-			<%}else{ %>
-			<td><a href="/hiapt/vo.view?vno=<%= v.getVoteNo() %>&page=<%= currentPage %>"><%= v.getVoteTitle() %></a></td>
-			<%} %>
-			<td><%= v.getVoteWrite() %></td>
+			<td> 관리자 </td>
 			<td><%= v.getVoteDate() %></td>
  			<%if(v.getVoteFinalDate().compareTo(today)>=0) {%> 
 			<td><%= v.getVoteFinalDate() %>(진행중)</td>
@@ -154,6 +147,13 @@ function voteWrite(){
 <a href="/hiapt/vo.list?page=<%= maxPage %>">▷|</a>
 <%} %>
 </div>
+
+<%if( employee.getEmpNo().equals("admin")) {%>
+<div align="right">
+<button onclick="voteWrite();">작성하기</button>&nbsp;
+</div>
+<%} %>
+
 
 <!-- 테이블틀끝 -->
 </div>

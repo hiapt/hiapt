@@ -1,15 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="draft.model.vo.Draft, java.util.ArrayList, java.sql.Date"%>
+<%@page import="draft.model.vo.Draft, java.util.ArrayList, java.sql.Date, mybox.model.vo.Mybox"%>
 
 <%
 	ArrayList<Draft> list = (ArrayList<Draft>) request.getAttribute("list");
+	ArrayList<Mybox> mlist = (ArrayList<Mybox>) request.getAttribute("mlist");
 	int currentPage = ((Integer) request.getAttribute("currentPage")).intValue();
 	int beginPage = ((Integer) request.getAttribute("beginPage")).intValue();
 	int endPage = ((Integer) request.getAttribute("endPage")).intValue();
 	int maxPage = ((Integer) request.getAttribute("maxPage")).intValue();
 	int count = ((Integer) request.getAttribute("count")).intValue();
 	String keyword = (String) request.getAttribute("keyword");
+	String search = (String) request.getAttribute("search");
 	String begin = (String) request.getAttribute("begin");
 	String to = (String) request.getAttribute("to");
 	String empno = (String) request.getAttribute("empno");
@@ -90,7 +92,6 @@ table {
 <!--========================================================================================== -->
 <!-- Begin Page Content -->
 <div class="container-fluid">
-<% if(emp.getEmpNo().equals(empno)) { %>
 
 <!--///////본문 내용 시작 ///////-------->
 <div style="float: right; display: flex;">
@@ -193,7 +194,19 @@ table {
 	<br>
 	<div class="card shadow mb-4">
 		<div class="card-body" align="center">
-
+				<div id="myadd" style="position: absolute; width: 550px; height: 60px; background: #eaecf1; 
+			left: 20%; top: 35%; border-radius: 5px; padding-top: 15px; display: none; border: 1px solid #ddd;">
+			<select name="myboxcode" id="myboxcode">
+			<% if(mlist != null){
+				for(int i = 0; i < mlist.size(); i++){ 
+				Mybox m = mlist.get(i); %>
+			<option value="<%= m.getMyboxcode()%>"><%= m.getMyboxname() %></option>
+			<%} }%>
+			</select>
+			<input type="submit" value=" 등 록 " class="btn btn-primary btn-icon-split btn-sm" style="padding: 4px; margin-bottom: 2px;" id="addmbox"> &nbsp;
+			<input type="button" value=" 취 소 " id="cancel" class="btn btn-secondary btn-icon-split btn-sm" style="padding: 4px; margin-bottom: 2px;"> 
+			</div>
+			
 			<table class="table beauty-table table-hover"
 				style="text-align: center; ">
 					<tr>
@@ -203,13 +216,14 @@ table {
          					 <span class="checkmark"></span>
           				 	 </label>
 						</th>
-						<th width="80">첨부파일</th>
+						<th width="60">첨부</th>
 						<th width="100">문서번호</th>
 						<th>제목</th>
 						<th width="125">기안자</th>
 						<th width="100">기안일</th>
-						<th width="120">문서종류</th>
-						<th width="80">진행상태</th>
+						<th width="100">기한</th>
+						<th width="80">양식</th>
+						<th width="60">상태</th>
 					</tr>
 				<%
 					for (int i = 0; i < list.size(); i++) {
@@ -218,7 +232,8 @@ table {
 					<tr>
 						<td>
 						<label class="check">
-       				    <input type="checkbox">
+       				    <input type="checkbox" name="docno" value="<%= d.getDocno() %>">
+       				    <input type="hidden" name="empno" value="<%= d.getEmpno() %>">
        					<span class="checkmark"></span>
         			    </label>
 						</td>
@@ -232,9 +247,10 @@ table {
 				
 						</td>
 						<td><%=d.getDocno()%></td>
-						<td><a href="/hiapt/dview?docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
+						<td><a href="/hiapt/dview?empno=<%= emp.getEmpNo() %>&docno=<%=d.getDocno()%>"><%=d.getDoctitle()%></a></td>
 						<td><%=d.getEmpid()%>&nbsp;<%=d.getEmpname()%></td>
 						<td><%=d.getDraftdate()%></td>
+						<td><%=d.getDeadline() %></td>
 						<td><%=d.getFormname()%></td>
 						<td>
 							<%
@@ -245,16 +261,18 @@ table {
 								} else if (d.getDocstatus().equals("2")) {
 							%> 결재완료 <%
 								} else if (d.getDocstatus().equals("3")) {
-							%> 중지 <%
-								}
-							%>
+							%> 반려됨 <%
+								} else if (d.getDocstatus().equals("4")) { %> 
+								 보류중
+							 <% }%>
 						</td>
 					</tr>
 				<%
 					}
 				%>
 			</table>
-
+			
+<% if(keyword == null) { %>
 			<div class="col-sm-12">
 				<div class="paging_simple_numbers">
 					<ul class="pagination" style="justify-content: center;">
@@ -323,27 +341,138 @@ table {
 					</ul>
 				</div>
 			</div>
+		<% } else {%>
+		<div class="col-sm-12">
+				<div class="paging_simple_numbers">
+					<ul class="pagination" style="justify-content: center;">
+						<li class="paginate_button page-item previous"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=1" aria-controls="dataTable"
+							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;</a></li>
+						<%
+							if ((beginPage - 10) < 1) {
+						%>
+						<li class="paginate_button page-item previous back"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=1" aria-controls="dataTable"
+							data-dt-idx="0" tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item active back"
+							id="dataTable_previous">
+							<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&page=<%=beginPage - 10%>"
+							aria-controls="dataTable" data-dt-idx="<%=beginPage - 10%>"
+							tabindex="0" class="page-link">&lsaquo;&lsaquo;</a></li>
+						<%
+							}
+						%>
+						<%
+							for (int p = beginPage; p <= endPage; p++) {
+								if (p == currentPage) {
+						%>
+						<li class="paginate_button page-item active next">
+						<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=p%>"
+							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
+							class="page-link"><%=p%></a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=p%>"
+							aria-controls="dataTable" data-dt-idx="<%=p%>" tabindex="0"
+							class="page-link"><%=p%></a></li>
+						<%
+							}
+							}
+						%>
+						<%
+							if ((endPage + 10) > maxPage) {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=maxPage%>"
+							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
+							class="page-link">&rsaquo;&rsaquo;</a></li>
+						<%
+							} else {
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=endPage + 10%>"
+							aria-controls="dataTable" data-dt-idx="<%=endPage + 10%>"
+							tabindex="0" class="page-link">&rsaquo;&rsaquo;</a></li>
+						<%
+							}
+						%>
+						<li class="paginate_button page-item next" id="dataTable_next">
+						<a href="/hiapt/dsearch?empno=<%= emp.getEmpNo() %>&search=<%=search %>&keyword=<%= keyword%>&page=<%=maxPage%>"
+							aria-controls="dataTable" data-dt-idx="<%=maxPage%>" tabindex="0"
+							class="page-link">&rsaquo;</a></li>
+					</ul>
+				</div>
+			</div>
+		<% } %>
 		</div>
 	</div>
 		<div style="float: right;">
-				<input type="button" value=" 이 동 " class="btn btn-secondary btn-icon-split" style="padding: 5px; padding-left: 6px;">
+				<input type="button" value=" 내문서함에 저장 "  id="mboxbtn"
+				class="btn btn-secondary btn-icon-split" style="padding: 5px; padding-left: 6px;">
 			
 			</div>
-	<% } else { %>
-	<div style="font-size: 40pt; color: #b31" align="center" ><br> 해당 목록에 대한 접근 권한이 없습니다. </div>
-	<% } %>
 	
 <script type="text/javascript">
-	$("#checkall").click(function() {
-
-		if ($("#checkall").prop("checked")) {
-
-			$("input[type=checkbox]").prop("checked", true);
-		} else {
-			$("input[type=checkbox]").prop("checked", false);
-		}
+$("#checkall").click(function(){
+	 var check = $("#checkall").prop("checked");
+	 if(check) {
+	  $("input[name=docno]").prop("checked", true);
+	 } else {
+	  $("input[name=docno]").prop("checked", false);
+	 }
 	});
+$("input[name=docno]").click(function(){
+	  $("#checkall").prop("checked", false);
+	 });
+	 
+$(function () {
+	$("#mboxbtn").click(function() {
+	if($("input[name=docno]:checked").length > 0) {
+		$("#myadd").css("display", "block");
+	}else {
+		alert("저장할 문서를 선택하십시오.");
+	}
 
+});
+	$("#cancel").click(function() {
+		$("#myadd").css("display", "none");
+
+});
+});
+
+
+$("#addmbox").click(function(){
+	  var confirm_del = confirm("해당 문서를 내문서함에 저장하시겠습니까?");
+	  
+	  if(confirm_del) {
+		var checkArr = []; 
+		  $("input[name=docno]:checked").each(function(){ 
+			    checkArr.push($(this).val());
+		});
+	   console.log(checkArr);
+	   console.log($("input[name=docno]:checked"));
+	   
+	   var data = { docno : checkArr , empno : $("input[name=empno]").val(), myboxcode : $("#myboxcode").val()};
+  		console.log(data);
+	   $.ajax({
+	    url : "/hiapt/dmbox",
+	    type : "post",
+	    data : data,
+	    success : function(){
+	     location.href = "/hiapt/mylist.emp?empno=" + <%= emp.getEmpNo() %>  + "&myboxcode=" + $("#myboxcode").val() + "&page=1";
+	    },
+	    traditional : true
+	   });
+	  } 
+	
+	 });
 	$(function() {
 		showDiv();
 

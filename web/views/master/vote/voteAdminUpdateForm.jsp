@@ -29,10 +29,26 @@
 
 <!-- head 시작 -->
 
-<script type="text/javascript"
-	src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" src="/hiapt/resources/js/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-
+function checkSubmit(){
+	var vTitle = document.getElementById("vtitle").value;
+	var vContent = document.getElementById("vcontent").value;
+	
+	if(vTitle.length>31){
+		alert("제목은 30글자 이하만 가능합니다.");
+		$("#vtitle").focus();
+		return false;
+	}
+	
+	if(vContent.length>1001){
+		alert("글내용은 1000글자 이하만 가능합니다.");
+		$("#content").focus();
+		return false;
+	}
+	
+	return true;
+}
 
 </script>
 </head>
@@ -70,13 +86,13 @@
 						<div class="card-body">
 							<!-- 테이블시작 -->
 
-							<form action="/hiapt/vo.ad.update" method="post">
+							<form action="/hiapt/vo.ad.update" method="post" onsubmit="return checkSubmit();">
 							<input type="hidden" name="vrvoteno" value="<%= vote.getVoteNo() %>">
 								<table class="table table-bordered">
 									<tr align="center">
 										<th width="300">제목</th>
 										<td>
-										<input type="text" name= "vrtitle" value="<%=vote.getVoteTitle()%>" required>
+										<input id= "vtitle" type="text" name= "vrtitle" value="<%=vote.getVoteTitle()%>" required>
 										</td>
 									</tr>
 									<tr align="center">
@@ -104,7 +120,7 @@
 									<tr align="center">
 										<th>투표내용</th>
 										<td>
-										<textarea rows="10" cols="50" name="vrcontent"required>
+										<textarea id="vcontent" rows="10" cols="50" name="vrcontent"required>
 										<%=vote.getVoteContents()%>
 										</textarea>
 										</td>

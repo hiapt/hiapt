@@ -44,6 +44,34 @@
 		}
 		return false;
 	}
+	
+	function checkSubmit(){
+		var vTitle = document.getElementById("vtitle").value;
+		var vContent = document.getElementById("vcontent").value;
+		
+		if(vTitle.length>31){
+			alert("제목은 30글자 이하만 가능합니다.");
+			$("#vtitle").focus();
+			return false;
+		}
+		
+		if(vContent.length>1001){
+			alert("글내용은 1000글자 이하만 가능합니다.");
+			$("#content").focus();
+			return false;
+		}
+		
+		for(var i=1; i<6; i++){
+			var voteName = document.getElementById("v"+i).value;
+			if(voteName.length>16){
+				alert("투표"+i+"은(는) 15글자 이하만 가능합니다.");
+				$("#v"+i).focus();
+				return false;
+			}
+		}
+		
+		return true;
+	}
 </script>
 <body id="page-top" >
 
@@ -79,16 +107,16 @@
 	<div class="card shadow mb-4">
 	<div class="card-body">
 	<!-- 테이블시작 -->
-	<form action="/hiapt/vo.ad.write" method="post">
+	<form action="/hiapt/vo.ad.write" method="post" onsubmit="return checkSubmit();">
 		<table class="table table-bordered">
 			<tr>
 				<th>제목</th>
-				<td><input type="text" name="vtitle" required></td>
+				<td><input type="text" name="vtitle" id="vtitle" required></td>
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td><input type="text" name="vwrite" readonly
-					value="<%= employee.getEmpNo() %>"></td>
+				<td>관리자</td>
+				<input type="hidden" name="vwrite" value="<%= employee.getEmpNo() %>">
 			</tr>
 			<tr>
 				<th>투표시작일(작성날짜)</th>
@@ -105,29 +133,29 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="10" cols="50" name="vcontent" required></textarea></td>
+				<td><textarea rows="10" cols="50" name="vcontent" id="vcontent" required></textarea></td>
 			</tr>
 			<tr>
 				<th>투표1</th>
-				<td><input type="text" name="vote1" required></td>
+				<td><input id="v1" type="text" name="vote1" required></td>
 			</tr>
 			<tr>
 				<th>투표2</th>
-				<td><input type="text" name="vote2" required>&nbsp;&nbsp;
+				<td><input id="v2" type="text" name="vote2" required>&nbsp;&nbsp;
 					<input type="button" onclick="voteAddFunction();" value="추가">&nbsp;
 					<input type="button" onclick="voteDeleteFunction();" value="삭제"></td>
 			</tr>
-			<tr id ="de" class="addvote" style="display: none">
+			<tr class="addvote" style="display: none">
 				<th>투표3</th>
-				<td><input class="inputvote" type="text" name="vote3" ></td>
+				<td><input id="v3" class="inputvote" type="text" name="vote3" ></td>
 			</tr>
 			<tr class="addvote" style="display: none">
 				<th>투표4</th>
-				<td><input class="inputvote" type="text" name="vote4" ></td>
+				<td><input id="v4" class="inputvote" type="text" name="vote4" ></td>
 			</tr>
 			<tr class="addvote" style="display: none">
 				<th>투표5</th>
-				<td><input class="inputvote" type="text" name="vote5" ></td>
+				<td><input id="v5" class="inputvote" type="text" name="vote5" ></td>
 			</tr>
 			<tr>
 				<td colspan="2">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
@@ -136,8 +164,6 @@
 					<input type="button" value="이전페이지로" onclick="javascript:window.history.go(-1);">
 				</td>
 			</tr>
-
-
 		</table>
 	</form>
 <!-- 테이블틀끝 -->

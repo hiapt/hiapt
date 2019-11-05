@@ -2,17 +2,17 @@
 DROP TABLE aptuser cascade CONSTRAINTS;
 
 CREATE TABLE aptuser (
-   userid   VARCHAR2(10)      NOT NULL,
+	userid	VARCHAR2(10)		NOT NULL,
   userpwd varchar2(10) not null,
-   username   VARCHAR2(20)      NOT NULL,
-   userenroll   DATE    NOT NULL,
-   userbirth   DATE      NULL,
-   userphone   VARCHAR2(50)      NOT NULL,
-   useremail   varchar2(50)      NULL,
-   useretc   varchar2(500)      NULL,
-   cartype   varchar2(50)      NULL,
-   carno   varchar2(50)      NULL,
-   carenroll   date    NULL,
+	username	VARCHAR2(20)		NOT NULL,
+	userenroll	DATE	DEFAULT SYSDATE	NOT NULL,
+	userbirth	DATE		NULL,
+	userphone	VARCHAR2(50)		NOT NULL,
+	useremail	varchar2(50)		NULL,
+	useretc	varchar2(500)		NULL,
+	cartype	varchar2(50)		NULL,
+	carno	varchar2(50)		NULL,
+	carenroll	date	DEFAULT sysdate	NULL,
   
   CONSTRAINT aptuser_pk PRIMARY KEY (userid)
 );
@@ -39,83 +39,51 @@ COMMENT ON COLUMN aptuser.carno IS '차량번호';
 
 COMMENT ON COLUMN aptuser.carenroll IS '등록일';
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
-values('101-101', '101-101', '입주자1', '2019-10-01', '1992-10-02', '010-6547-3214', 'dlqwnwk@naver.com', '첫번째 입주자입니다.', '티볼리', '32가 3210', sysdate);
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
+values('101-101', '101-101', '입주자1', sysdate, '1992-10-02', '010-6547-3214', 'dlqwnwk@naver.com', '첫번째 입주자입니다.', '티볼리', '32가 3210', sysdate);
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
-values('101-102', '101-102', '구미영', '2019-10-01', '1992-07-30', '010-8989-6209', 'rnaldud89@gmail.com', '두번째 입주자입니다.', 'GV80', '89라 8962', sysdate);
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
+values('101-102', '101-102', '구미영', sysdate, '1992-07-30', '010-8989-6209', 'rnaldud89@gmail.com', '두번째 입주자입니다.', 'GV80', '89라 8962', sysdate);
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
-values('102-101', '102-101', '김은솔', '2019-10-01', '1992-08-05', '010-8431-1257', 'ess5700@naver.com', '세번째 입주자입니다.', '모하비', '84아 3112', sysdate);
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
+values('102-101', '102-101', '김은솔', sysdate, '1992-08-05', '010-8431-1257', 'ess5700@naver.com', '세번째 입주자입니다.', '모하비', '84아 3112', sysdate);
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
 values('201-101', '201-101', '이영수', sysdate, '1992-04-12', '010-6393-9273', 'dldudtn118@naver.com', '네번째 입주자입니다.', '렉스턴', '63고 9392', sysdate);
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
 values('201-201', '201-201', '전로하', sysdate, '1992-05-25', '010-8001-6812', 'dd55555bb@gmail.com', '다섯번째 입주자입니다.', '코나', '80다 0168', sysdate);
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
-values('202-101', '202-101', '허용순', '2019-10-01', '1992-01-14', '010-2685-4111', 'horse4797@naver.com', '여섯번째 입주자입니다.', '스포티지', '85아 8541', sysdate);
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
+values('202-101', '202-101', '허용순', sysdate, '1992-01-14', '010-2685-4111', 'horse4797@naver.com', '여섯번째 입주자입니다.', '스포티지', '85아 8541', sysdate);
 
-insert into aptuser(userid,   userpwd, username,   userenroll,   userbirth,   userphone,   useremail,   useretc,   cartype,   carno,   carenroll)
-VALUES('202-201', '202-201', '홍승희', '2019-10-01', '1992-09-21', '010-2291-5428', 'someday921@nate.com', '일곱번째 입주자입니다.', '코란도', '91다 9154', SYSDATE);
+insert into aptuser(userid,	userpwd, username,	userenroll,	userbirth,	userphone,	useremail,	useretc,	cartype,	carno,	carenroll)
+VALUES('202-201', '202-201', '홍승희', SYSDATE, '1992-09-21', '010-2291-5428', 'someday921@nate.com', '일곱번째 입주자입니다.', '코란도', '91다 9154', SYSDATE);
 
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------
-DROP SEQUENCE SEQ_SECURITY;
-DROP SEQUENCE SEQ_ACCOUNTANCY;
-DROP SEQUENCE SEQ_FACILITY;
-DROP SEQUENCE SEQ_READING;
-
-CREATE SEQUENCE SEQ_SECURITY
-START WITH 10002
-MAXVALUE 29999
-NOCYCLE
-INCREMENT BY 1;
-
-CREATE SEQUENCE SEQ_ACCOUNTANCY
-START WITH 30002
-MAXVALUE 49999
-NOCYCLE
-INCREMENT BY 1;
-
-CREATE SEQUENCE SEQ_FACILITY
-START WITH 50002
-MAXVALUE 69999
-NOCYCLE
-INCREMENT BY 1;
-
-CREATE SEQUENCE SEQ_READING
-START WITH 70002
-MAXVALUE 89999
-NOCYCLE
-INCREMENT BY 1;
 
 DROP TABLE employee cascade CONSTRAINTS;
 
 CREATE TABLE employee (
-   empno   varchar2(20)   NOT NULL,
+	empno	varchar2(20)		NOT NULL,
   emppwd varchar2(20) NOT NULL,
-   empname   varchar2(20)      NOT NULL,
-   empid   varchar2(20)      NOT NULL,
-   emphiredate   date   NOT NULL,
-   empphone   varchar2(50)   UNIQUE   NOT NULL,
-   empssn   varchar2(50)   UNIQUE   NOT NULL,
-  empzipcode number NOT NULL,
-   empaddress   varchar2(100)      NOT NULL,
-   empemail   varchar2(50)      UNIQUE NOT NULL,
+	empname	varchar2(20)		NOT NULL,
+	empid	varchar2(20)		NOT NULL,
+	emphiredate	date	DEFAULT sysdate	NOT NULL,
+	empphone	varchar2(50)		NOT NULL,
+	empssn	varchar2(50)		NOT NULL,
+	empaddress	varchar2(100)		NOT NULL,
+	empemail	varchar2(50)		UNIQUE NOT NULL,
   empfamily number NOT NULL,
-   empetc   varchar2(500)      NULL,
-   salary   number      NOT NULL,
-   pension   number      NULL,
-   insurance   number      NULL,
-   longins   number      NULL,
-   hireins   number      NULL,
-   incometax   number      NULL,
-   localtax   number      NULL,
-   salarytot number null,
-   minustot number null,
-   realsalary number null,
+	empetc	varchar2(500)		NULL,
+	salary	number		NOT NULL,
+	pension	number		NULL,
+	insurance	number		NULL,
+	longins	number		NULL,
+	hireins	number		NULL,
+	incometax	number		NULL,
+	localtax	number		NULL,
   
   CONSTRAINT employee_pk PRIMARY KEY (empno)
 );
@@ -133,8 +101,6 @@ COMMENT ON COLUMN employee.emphiredate IS '입사일';
 COMMENT ON COLUMN employee.empphone IS '휴대전화';
 
 COMMENT ON COLUMN employee.empssn IS '주민번호';
-
-COMMENT ON COLUMN employee.empzipcode IS '우편번호';
 
 COMMENT ON COLUMN employee.empaddress IS '주소';
 
@@ -158,37 +124,30 @@ COMMENT ON COLUMN employee.incometax IS '소득세';
 
 COMMENT ON COLUMN employee.localtax IS '지방소득세';
 
-COMMENT ON COLUMN employee.salarytot IS '지급총액';
+insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empaddress, empemail, empfamily, empetc, 
+salary, pension, insurance, longins, hireins) 
+values('admin', 'admin', '관리자', '관리자', sysdate, '010-1234-5678', '921002-1234567', '서울특별시 테헤란로126', 'abc@naver.com', 0, '관리자입니다.', 
+8500000, 0.045, 0.323, 0.04255, 0.065);
 
-COMMENT ON COLUMN employee.minustot IS '공제총액';
+insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empaddress, empemail, empfamily, empetc, 
+salary, pension, insurance, longins, hireins) 
+values('S001', 'S001', '김보안', '보안직원', sysdate, '010-7410-8520', '891115-9876543', '서울특별시 구로구 54', 'qwrds@daum.net', 0, '보안직원입니다.', 
+3000000, 0.045, 0.323, 0.04255, 0.065);
 
-COMMENT ON COLUMN employee.realsalary IS '실지급액';
+insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empaddress, empemail, empfamily, empetc, 
+salary, pension, insurance, longins, hireins) 
+values('A001', 'A001', '이경리', '경리', sysdate, '010-9876-5432', '900215-4567125', '인천광역시 논현동 21', 'rudfl@daum.net', 0, '경리입니다.', 
+3000000, 0.045, 0.323, 0.04255, 0.065);
 
+insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empaddress, empemail, empfamily, empetc, 
+salary, pension, insurance, longins, hireins) 
+values('F001', 'F001', '박설비', '설비과장', sysdate, '010-2145-5647', '850319-7425632', '경기도 수원시 96', 'tjfql@gmail.com', 0, '설비과장입니다.', 
+3000000, 0.045, 0.323, 0.04255, 0.065);
 
-insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empzipcode, empaddress, empemail, empfamily, empetc, 
-salary, pension, insurance, longins, hireins, salarytot, minustot, realsalary) 
-values('admin', 'admin', '관리자', '관리자', '2019-10-01', '010-1234-5678', '921002-1234567', '15540', '서울특별시 테헤란로126', 'abc@naver.com', 0, '관리자입니다.', 
-8500000, 0.045, 0.323, 0.04255, 0.065, 1, 1, 1);
-
-insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empzipcode, empaddress, empemail, empfamily, empetc, 
-salary, pension, insurance, longins, hireins, salarytot, minustot, realsalary) 
-values('10001', '10001', '김보안', '보안직원', '2019-10-01', '010-7410-8520', '891115-9876543', '15540', '서울특별시 구로구 54', 'qwrds@daum.net', 0, '보안직원입니다.', 
-8500000, 0.045, 0.323, 0.04255, 0.065, 1, 1, 1);
-
-insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empzipcode, empaddress, empemail, empfamily, empetc, 
-salary, pension, insurance, longins, hireins, salarytot, minustot, realsalary) 
-values('30001', '30001', '이경리', '경리', '2019-10-01', '010-9876-5432', '900215-4567125', '15540', '인천광역시 논현동 21', 'rudfl@daum.net', 0, '경리입니다.', 
-8500000, 0.045, 0.323, 0.04255, 0.065, 1, 1, 1);
-
-insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empzipcode, empaddress, empemail, empfamily, empetc, 
-salary, pension, insurance, longins, hireins, salarytot, minustot, realsalary) 
-values('50001', '50001', '박설비', '설비과장', '2019-10-01', '010-2145-5647', '850319-7425632', '15540', '경기도 수원시 96', 'tjfql@gmail.com', 0, '설비과장입니다.', 
-8500000, 0.045, 0.323, 0.04255, 0.065, 1, 1, 1);
-
-insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empzipcode, empaddress, empemail, empfamily, empetc, 
-salary, pension, insurance, longins, hireins, salarytot, minustot, realsalary) 
-values('70001', '70001', '전검침', '검침기사', '2019-10-01', '010-3658-7854', '840522-2365897', '15540', '경상북도 구미시 88', 'rjacla@gmail.com', 0, '검침기사입니다.', 
-8500000, 0.045, 0.323, 0.04255, 0.065, 1, 1, 1);
+insert into employee(empno, emppwd, empname, empid, emphiredate, empphone, empssn, empaddress, empemail, empfamily, empetc, 
+salary, pension, insurance, longins, hireins) 
+values('R001', 'R001', '전검침', '검침기사', sysdate, '010-3658-7854', '840522-2365897', '경상북도 구미시 88', 'rjacla@gmail.com', 0, '검침기사입니다.', 
+3000000, 0.045, 0.323, 0.04255, 0.065);
 
 commit;
 --굼--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -215,7 +174,7 @@ COMMENT ON COLUMN SCHEDULE.SCH_TITLE IS '일정명';
 
 COMMENT ON COLUMN SCHEDULE.SCH_TYPE IS '구분';
 
-COMMENT ON COLUMN SCHEDULE.SCH_START IS '시작일';
+COMMENT ON COLUMN SCHEDULE.SCH_END IS '시작일';
 
 COMMENT ON COLUMN SCHEDULE.SCH_END IS '종료일';
 
@@ -240,82 +199,40 @@ NOMAXVALUE
 NOCYCLE  
 NOCACHE;
 
---굼--------------------------------------------------------------------------------------------------------------------------------------------------
-drop table SCHEDULE;
-
-CREATE TABLE SCHEDULE (
-	SCH_NO  	NUMBER	CONSTRAINT SCH_PK PRIMARY KEY,
-	SCH_TITLE	VARCHAR2(30)		NOT NULL,
-	SCH_TYPE	VARCHAR2(10)	 DEFAULT '업무' NOT NULL,
-	SCH_START	DATE		NOT NULL,
-	SCH_END	DATE 	NOT NULL,
-	SCH_MEMO	VARCHAR2(100)	 NULL,
-	SCH_OPEN	CHAR(1)		DEFAULT 'N' NOT NULL,
-	SCH_ALARM CHAR(1)		DEFAULT 'N' NOT NULL,
-	SCH_COLOR	VARCHAR2(20)		DEFAULT 'GRAY' NOT NULL,
-  IMPORTANCE CHAR(1) DEFAULT '2',
-	EMPNO	VARCHAR2(20)	 NOT NULL,
-  
-  CONSTRAINT EMPNO_FK FOREIGN KEY(EMPNO) REFERENCES EMPLOYEE ON DELETE CASCADE
-);
-COMMENT ON COLUMN SCHEDULE.SCH_NO IS '일정번호';
-
-COMMENT ON COLUMN SCHEDULE.SCH_TITLE IS '일정명';
-
-COMMENT ON COLUMN SCHEDULE.SCH_TYPE IS '구분';
-
-COMMENT ON COLUMN SCHEDULE.SCH_START IS '시작일';
-
-COMMENT ON COLUMN SCHEDULE.SCH_END IS '종료일';
-
-COMMENT ON COLUMN SCHEDULE.SCH_MEMO IS '메모';
-
-COMMENT ON COLUMN SCHEDULE.SCH_OPEN IS '공개여부';
-
-COMMENT ON COLUMN SCHEDULE.SCH_ALARM IS '알람여부';
-
-COMMENT ON COLUMN SCHEDULE.SCH_COLOR IS '색상';
-
-COMMENT ON COLUMN SCHEDULE.EMPNO IS '사번';
-
-COMMENT ON COLUMN SCHEDULE.IMPORTANCE IS '중요도';
-
-DROP SEQUENCE SCH_SEQ;
-
-CREATE SEQUENCE SCH_SEQ
-START WITH 1
-INCREMENT BY 1
-NOMAXVALUE
-NOCYCLE  
-NOCACHE;
-
-
---관리소장
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '입주민회의', DEFAULT, TO_DATE(20191101), TO_DATE(20191101), '11시 3층', 'Y', DEFAULT, '#D25565', DEFAULT, 'admin'); 
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '업체선정회의', DEFAULT, TO_DATE(20191108), TO_DATE(20191108), '11시 3층', 'Y', DEFAULT, '#D25565', DEFAULT, 'admin');
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '관리소장모임', DEFAULT, TO_DATE(20191104), TO_DATE(20191104), '개인일정', DEFAULT, DEFAULT, '#D25565', DEFAULT, 'admin');
---경리
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '구청방문', DEFAULT, TO_DATE(20191105), TO_DATE(20191105), '개인일정', DEFAULT, DEFAULT, '#9775fa', DEFAULT, '30001'); 
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '대청소', DEFAULT, TO_DATE(2019115), TO_DATE(20191115), '4시에시작', 'Y', DEFAULT, '#9775fa', DEFAULT, '30001'); 
---검침
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '101동검침', DEFAULT, TO_DATE(20191107), TO_DATE(20191107), '101동 검침예정', 'Y', DEFAULT, '#ffa94d', DEFAULT, '70001'); 
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '저녁약속', DEFAULT, TO_DATE(20191114), TO_DATE(20191114), '개인일정', DEFAULT, DEFAULT, '#ffa94d', DEFAULT, '70001'); 
---설비
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '2단지 놀이터점검', DEFAULT, TO_DATE(20191111), TO_DATE(20191111), '2단지 설비점검', 'Y', DEFAULT, '#74c0fc', DEFAULT, '50001');
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '큰집 제사', DEFAULT, TO_DATE(20191122), TO_DATE(20191122), '개인일정', DEFAULT, DEFAULT, '#74c0fc', DEFAULT, '50001');
---보안직원
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, 'CCTV점검', DEFAULT, TO_DATE(20191112), TO_DATE(20191112), 'CCTV 점검', 'Y', DEFAULT, '#f06595', DEFAULT, '10001'); 
-INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '적금 만기', DEFAULT, TO_DATE(20191122), TO_DATE(20191122), '개인일정', DEFAULT, DEFAULT, '#f06595', DEFAULT, '10001'); 
+INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '입주민회의', DEFAULT, TO_DATE(20191004), TO_DATE(20191004), '11시 3층', 'Y', DEFAULT, DEFAULT, DEFAULT, 'admin'); 
+INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '구청방문', DEFAULT, TO_DATE(20191001), TO_DATE(20191001), '3시에 외근', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'A001'); 
+INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '101동검침', DEFAULT, TO_DATE(20190930), TO_DATE(20190930), '101동 검침예정', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'R001'); 
+INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, '2단지 놀이터점검', DEFAULT, TO_DATE(20190928), TO_DATE(20190928), '2단지 설비점검', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'F001'); 
+INSERT INTO SCHEDULE VALUES(SCH_SEQ.NEXTVAL, 'CCTV점검', DEFAULT, TO_DATE(20191002), TO_DATE(20191002), 'CCTV 점검', DEFAULT, DEFAULT, DEFAULT, DEFAULT, 'S001'); 
 
 commit;
---  관리비 및 결제  db 시작*********************************************************
---  관리비 및 결제  db 시작*********************************************************
+--전로하-----------------------------------------------------------------------------------------------
+DROP TABLE RECEIPT;
 
-drop table bill cascade constraints;
+DROP TABLE PAYMENT;
+
+DROP TABLE BILL;
+
+DROP TABLE VBANK;
+
+DROP TABLE SMS;
+
+DROP VIEW RECEIPT_VIEW;
+
+DROP VIEW BASE_VIEW;
+
+DROP VIEW IMPOSE_VIEW;
+
+DROP VIEW IMPOSE_END_VIEW;
+
+DROP VIEW BILL_VIEW;
+
+commit;
+
 -- BILL 테이블 생성(NULL로)
 create table bill(
 	MERCHANT_UID NUMBER		NOT NULL,
-  USERID 	VARCHAR2(10)		NULL,
+  USERID 	VARCHAR2(10)		NOT NULL,
 	USERNAME VARCHAR2(20)		NULL,
 	BILL_YEAR_MONTH	DATE NULL,
 	CALCULATE_START_DAY	DATE NULL,
@@ -553,9 +470,8 @@ BILL_SEQ.NEXTVAL,'202-101','허용순','2018/09/01',
   386, 15, 12, 4,DEFAULT, NULL,'110-23-0310818'
 );
 
---================================================================================
-
-DROP TABLE VBANK cascade constraints;
+----------------------------------------------------------------------------
+DROP TABLE vbank;
 -- 가상계좌 테이블 생성
 CREATE TABLE VBANK (
 	VBANK_NUM	VARCHAR2(20) NOT NULL,
@@ -589,10 +505,9 @@ INSERT INTO VBANK VALUES(
 '402172-01-001467', '우체국', DEFAULT, '19/09/30'
 );
 
----=============================================================================
--- SMS 테이블 생성
-
-drop table sms cascade constraints;
+----------------------------------------------------------------------------
+-- SMS 테이블 생성\
+drop table sms;
 
 CREATE TABLE SMS (
 	EMPNO	VARCHAR2(20) NOT NULL,
@@ -646,10 +561,8 @@ INSERT INTO SMS VALUES(
  DEFAULT, '성공', DEFAULT, '2000' 
 );
 
---============================================================================
+------------------------------------------------------------------------------
 -- PAYMENT 테이블 생성
-
-drop table payment cascade constraints;
 
 CREATE TABLE PAYMENT (
 	MERCHANT_UID	NUMBER		NOT NULL,
@@ -753,8 +666,7 @@ INSERT INTO PAYMENT VALUES(
 NULL, '전로하', '010-8001-6812', 'dd55555bb@gmail.com'
 );
 
---=============================================================================
-drop table receipt cascade constraints;
+-------------------------------------------------------------------------------
 -- RECEIPT 테이블 생성
 CREATE TABLE RECEIPT (
 	imp_uid	VARCHAR2(40)		NOT NULL,
@@ -764,8 +676,8 @@ CREATE TABLE RECEIPT (
 	NAME	VARCHAR2(20)	DEFAULT '관리비고지서'	NOT NULL,
 	pay_method	VARCHAR2(30)	DEFAULT 'card'	NOT NULL,
 	PAID_AMOUNT	NUMBER		NOT NULL,
-	PG_PROVIDER	VARCHAR2(40)		NOT NULL,
-	pai_date	DATE		NOT NULL,
+	pg_provider	VARCHAR2(40)		NOT NULL,
+	pai_dat	DATE		NOT NULL,
 	receipt_url	VARCHAR2(100)		NULL,
 	buyer_name	VARCHAR2(20)		NULL,
 	buyer_tel	VARCHAR2(20)		NOT NULL,
@@ -883,10 +795,10 @@ DEFAULT, '카드결제', 270690, '나이스정보통신', '2019/02/10',	NULL, '전로하', '01
 'dd55555bb@gmail.com', DEFAULT, '결제취소' 
 );
 
----============================================================================
--- 결제 내역 출력용 view 쿼리
-DROP VIEW RECEIPT_VIEW;
+------------------------------------------------------------------------------------
+-- view 생성
 
+-- 결제 내역 출력용 view 쿼리
 CREATE VIEW receipt_view
 AS
 SELECT A.USERID, A.USERNAME, L.BILL_YEAR_MONTH, R.PAID_AMOUNT
@@ -895,24 +807,21 @@ WHERE A.USERID = L.USERID AND L.MERCHANT_UID = R.MERCHANT_UID
 with read only;
 
 -------------------------------
-DROP VIEW BASE_VIEW;
 -- 부과기초작업 테이블
 CREATE VIEW BASE_VIEW
 AS
-SELECT MERCHANT_UID, IMPOSE_STATUS, BILL_YEAR_MONTH, 
-CALCULATE_START_DAY, CALCULATE_END_DAY, IMPOSE_END_DATE,
+SELECT MERCHANT_UID, userid, IMPOSE_STATUS, BILL_YEAR_MONTH, 
+CALCULATE_START_DAY, CALCULATE_END_DAY,
 ACCEPT_DATE, CUTOFF_DATE, IMPOSE_COUNT 
 FROM BILL
 WITH CHECK OPTION;
 
 INSERT INTO BASE_VIEW VALUES(
-BILL_SEQ.NEXTVAL,'진행', '2019/11/01',
-'2019/10/01','2019/10/30','2019/10/30',
-'2019/10/30','2019/10/30',1  
+BILL_SEQ.NEXTVAL,'201-201','진행', '2019/10/01',
+'2019/08/01','2019/08/31','2019/08/31','2019/08/31',1  
 );
 
 ---------------------------------
-DROP VIEW IMPOSE_VIEW;
 -- 관리비부과처리 뷰 테이블
 CREATE VIEW impose_VIEW
 AS
@@ -926,8 +835,6 @@ FROM BILL
 WITH CHECK OPTION;
 
 -----------------------------------
-DROP VIEW IMPOSE_END_VIEW;
-
 -- 부과마감등록 샘플 뷰 테이블
 CREATE VIEW impose_end_VIEW
 AS
@@ -940,49 +847,30 @@ FROM BILL
 WITH CHECK OPTION;
 
 ----------------------------------------
-DROP VIEW BILL_VIEW;
 -- 고지서 샘플 뷰 테이블
 CREATE VIEW bill_VIEW
 AS
-SELECT MERCHANT_UID, USERID, 
+SELECT MERCHANT_UID as "고지서번호", USERID "동/호", 
        SUM(GENERAL_COST + CLEAN_COST +	DISINFECT_COST +
         ELEVATOR_COST +	REPAIR_COST + GUARD_COST + 	FIREINSURANCE_COST + 
         COMMISSION + ELECTRIC_COST +	ALLELECTRIC_COAT + TV_COST +
-      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "amount",
-      ARREARS, 
+      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "부과금액",
+      ARREARS as "미납액", 
       SUM(GENERAL_COST + CLEAN_COST +	DISINFECT_COST +
         ELEVATOR_COST +	REPAIR_COST + GUARD_COST + 	FIREINSURANCE_COST + 
         COMMISSION + ELECTRIC_COST +	ALLELECTRIC_COAT + TV_COST +
-      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "before_amount",
-      floor((NVL(ARREARS,0)*1.3)) AS "arrears_fine",
+      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS) AS "납기내금액",
+      floor((NVL(ARREARS,0)*1.3)) AS "후연체료",
       floor((SUM(GENERAL_COST + CLEAN_COST +	DISINFECT_COST +
         ELEVATOR_COST +	REPAIR_COST + GUARD_COST + 	FIREINSURANCE_COST + 
         COMMISSION + ELECTRIC_COST +	ALLELECTRIC_COAT + TV_COST +
-      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS))*1.1) AS "after_amount"      
+      HEATING_COST + 	HWATER_COST +	WATER_COST + ALLWATER_COST + ARREARS))*1.1) AS "납기후금액"      
 FROM BILL
 GROUP BY MERCHANT_UID, USERID, ARREARS
 with read only;
 
---Create Table payment_end();
-
--- 수납처리 테이블 만들기 receiptf
---userId : String
-
--- merchantUid : long
-
--- billYearMonth : Date
-
--- amout : int
-
--- arrears : int
-
--- paidAmount : int
-
--- -status : String
-
--- payMethod : String
-
--- constranits 조건 생성 시작 ==========================================================================
+--------------------------------------------------
+-- fk 조건 생성
 ALTER TABLE bill ADD CONSTRAINT FK_vbank_TO_bill_1 FOREIGN KEY (	vbank_num)
 REFERENCES vbank (	vbank_num);
 
@@ -994,19 +882,16 @@ REFERENCES bill (	merchant_uid) on delete cascade;;
 ALTER TABLE RECEIPT ADD CONSTRAINT FK_PAYMENT_TO_RECEIPT_1 FOREIGN KEY (	MERCHANT_UID)
 REFERENCES payment (	merchant_uid) on delete cascade;
 
--- constranits 조건 생성 끝 ====================================================
-
 
 COMMIT;
---  관리비 및 결제  db 끝*********************************************************
-
-
-
 
 --김은솔-----------------------------------------------------------------------------------------------------------
-DROP TABLE MYBOX; 
+
+DROP TABLE APPROVAL;
 DROP TABLE DRAFT;
 DROP TABLE FORMBOX;
+DROP TABLE MYBOX; 
+
 
 DROP SEQUENCE FORMCODE_SEQ;
 DROP SEQUENCE DOCNO_SEQ;
@@ -1056,6 +941,20 @@ COMMENT ON COLUMN FORMBOX.FORMTYPE IS '문서양식분류';
 COMMENT ON COLUMN FORMBOX.FORMNAME IS '문서양식명';
 COMMENT ON COLUMN FORMBOX.FORMCONTENT IS '문서양식내용';
 
+-- 전자결재 테이블 - 내문서함
+CREATE TABLE MYBOX  (
+ MYBOXCODE CHAR(1)	NOT NULL,
+ EMPNO VARCHAR2(20)	NOT NULL,
+ MYBOXNAME VARCHAR2(30)	NOT NULL,
+ 
+ CONSTRAINT MEMPNO_FK FOREIGN KEY (EMPNO) REFERENCES EMPLOYEE ON DELETE CASCADE,
+ CONSTRAINT MYBOX_PK PRIMARY KEY (MYBOXCODE, EMPNO)
+
+);
+
+COMMENT ON COLUMN MYBOX.MYBOXCODE IS '내문서함코드';
+COMMENT ON COLUMN MYBOX.EMPNO IS '사번';
+COMMENT ON COLUMN MYBOX.MYBOXNAME IS '내문서함명';
 
 -- 전자결재 기안 테이블 
 CREATE TABLE DRAFT  (
@@ -1069,18 +968,16 @@ CREATE TABLE DRAFT  (
  DRAFTDATE DATE	DEFAULT SYSDATE	NOT NULL,
  PROGRESS CHAR(1)	DEFAULT 0	NOT NULL,
  DISPLAY CHAR(1) NOT NULL,
- APPEMPNO VARCHAR2(20) NULL,
- APPDATE DATE DEFAULT SYSDATE NULL,
- FEEDBACK VARCHAR2(2000)	NULL,
+ MYBOXCODE CHAR(1)	NULL,
 
 CONSTRAINT DRAFT_PK PRIMARY KEY (DOCNO),
-CONSTRAINT DEMPNO_FK FOREIGN KEY (EMPNO) REFERENCES EMPLOYEE ON DELETE SET NULL,
-CONSTRAINT FORMCODE_FK FOREIGN KEY (FORMCODE) REFERENCES FORMBOX ON DELETE SET NULL,
-CONSTRAINT APPEMPNO_FK FOREIGN KEY (APPEMPNO) REFERENCES EMPLOYEE ON DELETE SET NULL
+CONSTRAINT DEMPNO_FK FOREIGN KEY (EMPNO) REFERENCES EMPLOYEE ON DELETE CASCADE,
+CONSTRAINT FORMCODE_FK FOREIGN KEY (FORMCODE) REFERENCES FORMBOX ON DELETE CASCADE,
+CONSTRAINT MYBOXCODE_FK FOREIGN KEY (MYBOXCODE, EMPNO) REFERENCES MYBOX ON DELETE SET NULL
 );
 
 COMMENT ON COLUMN DRAFT.DOCNO IS '문서번호';
-COMMENT ON COLUMN DRAFT.EMPNO IS '기안자';
+COMMENT ON COLUMN DRAFT.EMPNO IS '사번';
 COMMENT ON COLUMN DRAFT.FORMCODE IS '문서양식코드';
 COMMENT ON COLUMN DRAFT.DOCTITLE IS '문서제목';
 COMMENT ON COLUMN DRAFT.DOCCONTENT IS '문서내용';
@@ -1089,44 +986,44 @@ COMMENT ON COLUMN DRAFT.RENAMEFILE IS '변경된파일명';
 COMMENT ON COLUMN DRAFT.DRAFTDATE IS '문서작성날짜';
 COMMENT ON COLUMN DRAFT.PROGRESS IS '문서진행상태';
 COMMENT ON COLUMN DRAFT.DISPLAY IS '공개여부';
-COMMENT ON COLUMN DRAFT.APPEMPNO IS '결재자';
-COMMENT ON COLUMN DRAFT.APPDATE IS '결재날짜';
-COMMENT ON COLUMN DRAFT.FEEDBACK IS '첨삭및의견';
+COMMENT ON COLUMN DRAFT.MYBOXCODE IS '내문서함코드';
 
--- 전자결재 테이블 - 내문서함
-CREATE TABLE MYBOX  (
- MYBOXCODE CHAR(1)	NOT NULL,
- EMPNO VARCHAR2(20)	NOT NULL,
- DOCNO NUMBER NULL,
- MYBOXNAME VARCHAR2(30)	NOT NULL,
+
+-- 전자결재 테이블 - 결재완료
+CREATE TABLE APPROVAL  (
+ DOCNO NUMBER	NOT NULL REFERENCES DRAFT,
+ EMPNO VARCHAR2(20)	NOT NULL REFERENCES EMPLOYEE,
+ APPDATE DATE DEFAULT SYSDATE NOT NULL,
+ FEEDBACK VARCHAR2(2000)	NULL,
+ SIGNIMG VARCHAR2(100)	NOT NULL,
  
- CONSTRAINT MEMPNO_FK FOREIGN KEY (EMPNO) REFERENCES EMPLOYEE ON DELETE CASCADE,
- CONSTRAINT MDOCNO_FK FOREIGN KEY (DOCNO) REFERENCES DRAFT ON DELETE CASCADE,
- CONSTRAINT MYBOX_PK PRIMARY KEY (MYBOXCODE, EMPNO)
-
+ CONSTRAINT ADOCNO_FK FOREIGN KEY (DOCNO) REFERENCES  DRAFT ON DELETE CASCADE,
+ CONSTRAINT APPROVAL_PK PRIMARY KEY (DOCNO),
+ CONSTRAINT AEMPNO_FK FOREIGN KEY (EMPNO) REFERENCES EMPLOYEE ON DELETE CASCADE 
 );
 
-COMMENT ON COLUMN MYBOX.MYBOXCODE IS '내문서함코드';
-COMMENT ON COLUMN MYBOX.EMPNO IS '사번';
-COMMENT ON COLUMN MYBOX.DOCNO IS '문서번호';
-COMMENT ON COLUMN MYBOX.MYBOXNAME IS '내문서함명';
+COMMENT ON COLUMN APPROVAL.DOCNO IS '문서번호';
+COMMENT ON COLUMN APPROVAL.EMPNO IS '사번';
+COMMENT ON COLUMN APPROVAL.APPDATE IS '결재일';
+COMMENT ON COLUMN APPROVAL.FEEDBACK IS '첨삭및의견';
+COMMENT ON COLUMN APPROVAL.SIGNIMG IS '서명파일명';
 
 
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '일반 기안서', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '휴가 신청서', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '기타1', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '기타2', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '기타3', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '기타4', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '공용', '기타5', '공용 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '업무일지', '직원 업무일지', '업무일지 양식');
-INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '업무일지', '관리자 업무일지', '업무일지 양식');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 1', '일반 기안서', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 2', '휴가 신청서', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 3', '기타1', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 4', '기타2', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 5', '기타3', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 6', '기타4', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 7', '기타5', '공용');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 8', '직원 업무일지', '업무일지');
+INSERT INTO FORMBOX VALUES (FORMCODE_SEQ.NEXTVAL, '기안서 양식 9', '관리자 업무일지', '업무일지');
 
 
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'10001', 
+'S001', 
 '100', 
 '기안1', 
 '기안내용1', 
@@ -1135,13 +1032,11 @@ NULL,
 SYSDATE, 
 '3', 
 'Y', 
-'admin',
-NULL,
-'보류');
+NULL);
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'30001', 
+'A001', 
 '110', 
 '기안2', 
 '기안내용2', 
@@ -1150,13 +1045,11 @@ NULL,
 SYSDATE, 
 '0', 
 'Y', 
-NULL,
-NULL,
 NULL);
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'10001', 
+'S001', 
 '100', 
 '기안3', 
 '기안내용3', 
@@ -1165,14 +1058,12 @@ NULL,
 SYSDATE, 
 '1', 
 'Y', 
-'admin',
-SYSDATE,
 NULL);
 
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'50001', 
+'F001', 
 '170', 
 '기안4', 
 '기안내용4', 
@@ -1181,14 +1072,12 @@ NULL,
 SYSDATE, 
 '1', 
 'N', 
-'admin',
-SYSDATE,
 NULL);
 
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'70001', 
+'R001', 
 '110', 
 '기안5', 
 '기안내용5', 
@@ -1197,14 +1086,12 @@ NULL,
 SYSDATE, 
 '2', 
 'Y', 
-'admin',
-SYSDATE,
-'피드백');
+NULL);
 
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'30001', 
+'A001', 
 '100', 
 '기안6', 
 '기안내용6', 
@@ -1213,28 +1100,24 @@ NULL,
 SYSDATE, 
 '1', 
 'N', 
-'admin',
-SYSDATE,
-'승인');
+NULL);
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'30001', 
+'A001', 
 '110', 
 '기안7', 
 '기안내용7', 
 NULL, 
 NULL, 
 SYSDATE, 
-'2', 
+'1', 
 'N', 
-'admin', 
-SYSDATE,
-'반려');
+NULL);
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'50001', 
+'R001', 
 '170', 
 '기안8', 
 '기안내용8', 
@@ -1243,13 +1126,11 @@ NULL,
 SYSDATE, 
 '1', 
 'N', 
-'admin',
-SYSDATE,
 NULL);
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'70001', 
+'S001', 
 '170', 
 '기안9', 
 '기안내용9', 
@@ -1258,14 +1139,12 @@ NULL,
 SYSDATE, 
 '0', 
 'N', 
-NULL,
-NULL,
 NULL);
 
 
 INSERT INTO DRAFT VALUES (
 DOCNO_SEQ.NEXTVAL, 
-'50001', 
+'F001', 
 '120', 
 '기안10', 
 '기안내용10', 
@@ -1273,13 +1152,10 @@ NULL,
 NULL, 
 SYSDATE, 
 '0', 
-'N',
-NULL,
-NULL,
+'N', 
 NULL);
 
 COMMIT;
-
 --이영수 -------------------------------------------------------------
 --공지사항
 DROP SEQUENCE NOTICE_SEQ;
@@ -1338,12 +1214,13 @@ DROP TABLE USERVOTE CASCADE CONSTRAINTS;
 CREATE TABLE uservote (
 	vote_no	number CONSTRAINT PK_USERVOTE primary key,
 	vote_title	varchar2(100)		NOT NULL,
+	vote_date	date	DEFAULT sysdate,
   vote_writer	varchar2(20) CONSTRAINT fk_uservote references employee (empno),
-	vote_date	date	 DEFAULT sysdate,
+	vote_start_date	date	 DEFAULT sysdate,
 	vote_final_date	date	 DEFAULT sysdate,
   vote_read_count	number	DEFAULT 0,
-	vote_secret char(1)	DEFAULT 'N'	 check (vote_secret in ('Y','N')),
-  vote_contents	 varchar2(1000)		NOT NULL,
+	vote_secret char(1)	DEFAULT 'N'	 check (vote_secret in ('y','n')),
+  vote_contents	varchar2(500)		NOT NULL,
 	voteone	varchar2(50),
 	votetwo varchar2(50),
 	votethree	varchar2(50),
@@ -1353,8 +1230,9 @@ CREATE TABLE uservote (
 
 COMMENT ON COLUMN uservote.vote_no IS '글번호';
 COMMENT ON COLUMN uservote.vote_title IS '제목';
-COMMENT ON COLUMN uservote.vote_writer IS '작성자';
 COMMENT ON COLUMN uservote.vote_date IS '작성날짜';
+COMMENT ON COLUMN uservote.vote_writer IS '작성자';
+COMMENT ON COLUMN uservote.vote_start_date IS '투표시작일';
 COMMENT ON COLUMN uservote.vote_final_date IS '투표종료일';
 COMMENT ON COLUMN uservote.vote_read_count IS '조회수';
 COMMENT ON COLUMN uservote.vote_secret IS '유기명여부';
@@ -1369,13 +1247,13 @@ COMMENT ON COLUMN uservote.votefive IS '투표5';
 
 DROP TABLE VOTERESULT CASCADE CONSTRAINTS;
 
-CREATE TABLE VOTERESULT (
-	vote_no	number constraint fk_voteresult references uservote (vote_no) ON DELETE CASCADE,
-	voteone_result	number	DEFAULT 0,
-	votetwo_result	number	DEFAULT 0,
-	votethree_result	number	DEFAULT 0,
-	votefour_result	number	DEFAULT 0,
-	votefive_result number		DEFAULT 0
+CREATE TABLE voteresult (
+	vote_no	number constraint fk_voteresult references uservote (vote_no ),
+	voteone_result	number		NULL,
+	votetwo_result	number		NULL,
+	votethree_result	number		NULL,
+	votefour_result	number		NULL,
+	votefive_result number		NULL
 );
 ALTER TABLE voteresult ADD CONSTRAINT PK_VOTERESULT PRIMARY KEY (
 	vote_no
@@ -1393,34 +1271,17 @@ COMMENT ON COLUMN voteresult.votefive_result IS '투표결과5';
 DROP TABLE VOTECHECK CASCADE CONSTRAINTS;
 CREATE TABLE votecheck (
 	userid VARCHAR2(10)	CONSTRAINT FK_VOTECHECK_USERID REFERENCES APTUSER (USERID),
-	vote_no	number CONSTRAINT FK_VOTECHECK_VOTE_NO REFERENCES USERVOTE (VOTE_NO) ON DELETE CASCADE,
+	vote_no	number CONSTRAINT FK_VOTECHECK_VOTE_NO REFERENCES USERVOTE (VOTE_NO),
 	vote_result 	varchar2(50)		NULL
+);
+ALTER TABLE votecheck ADD CONSTRAINT PK_VOTECHECK PRIMARY KEY (
+	userid,
+	vote_no
 );
 
 COMMENT ON COLUMN votecheck.userid IS '동/호수';
 COMMENT ON COLUMN votecheck.vote_no IS '글번호';
 COMMENT ON COLUMN votecheck.vote_result IS '선택한투표값';
-
-create or replace TRIGGER TRIGGER_voteresult 
-AFTER INSERT ON USERVOTE
-FOR EACH ROW
-BEGIN
-  INSERT INTO VOTERESULT
-  VALUES (:NEW.VOTE_NO, DEFAULT, DEFAULT, DEFAULT, DEFAULT, DEFAULT);
-END;
-/
-
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '연습', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, 'zz', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '33', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '44', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '55', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '66', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '77', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '88', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '99', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '1010', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
-INSERT INTO USERVOTE VALUES(VOTE_SEQ.NEXTVAL, '1111', 'admin', DEFAULT, DEFAULT, DEFAULT, DEFAULT, '연습','하나','둘','셋','넨','오');
 
 -----------------------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------------------------------
@@ -1575,8 +1436,7 @@ COMMENT ON COLUMN chatmessage.chatorder IS '글순서';
 COMMENT ON COLUMN chatmessage.chattitle IS '방제목';
 COMMENT ON COLUMN chatmessage.empno IS '사번';
 
-COMMIT;
-
+commit;
 --허용순-----------------------------------------------------------------
 
 -- 메일번호 시퀀스
@@ -1622,26 +1482,23 @@ NOCACHE;
 
 -- 메일함
 drop table mailboxtype cascade CONSTRAINTS;
-drop table mail cascade CONSTRAINTS;
-drop table mailfilebox cascade CONSTRAINTS;
-drop view mailm;
+
 create table mailboxtype(
-    mailcode number unique,
-    mailboxname varchar2(50), 
-    empemail varchar2(50) references employee (empemail),
-    constraint a primary key (mailcode, mailboxname)
+    mailcode number primary key,
+    mailboxname varchar2(50) 
 );
 
-insert into mailboxtype values(mailcode_seq.nextval, '임시편지함', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '내게 쓴 편지함', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '휴지통', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '가족', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '회사', 'abc@naver.com');
-insert into mailboxtype values(mailcode_seq.nextval, '거래처', 'abc@naver.com');
-
---select * from mailboxtype;
+insert into mailboxtype values(mailcode_seq.nextval, '받은편지함');
+insert into mailboxtype values(mailcode_seq.nextval, '보낸편지함');
+insert into mailboxtype values(mailcode_seq.nextval, '임시편지함');
+insert into mailboxtype values(mailcode_seq.nextval, '내게 쓴 편지함');
+insert into mailboxtype values(mailcode_seq.nextval, '휴지통');
+insert into mailboxtype values(mailcode_seq.nextval, '가족');
+insert into mailboxtype values(mailcode_seq.nextval, '회사');
+insert into mailboxtype values(mailcode_seq.nextval, '거래처');
 
 -- 메일
+drop table mail cascade CONSTRAINTS;
 
 create table mail(
   mailno number primary key,
@@ -1650,36 +1507,35 @@ create table mail(
   mailtitle varchar2(50),
   mailtime date default sysdate,
   mailcontents varchar2(600),
-  recipient varchar2(50) references employee (empemail),
-  separator varchar2(50) references employee (empemail)
+  recipient varchar2(50)
 );
 
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '너에게로 가는 길', '19/01/01',
-'너에게로 가는 길엔 자작나무 숲이 있고', 'qwrds@daum.net', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '어머니', '19/01/02',
-'들로 가신 엄마 생각', 'rudfl@daum.net', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '운문사 비밀의 숲', '19/01/03',
-'나, 다시 태어난다면', 'tjfql@gmail.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '성불사의 밤', '19/01/04',
-'성불사 깊은 밤에 그윽한 풍경소리', 'rjacla@gmail.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '사월의 노래', '19/01/05', '사월이 오면 사월이 오며는', NULL, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 1, 'abc@naver.com', '임시 편지함', '19/01/06', '임시편지함 확인용입니다.', 'qwrds@daum.net', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'qwrds@daum.net', '녹슨 경의선', '19/01/07',
-'서울, 부산 신의주까지', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'rudfl@daum.net', '다시 만날까봐', '19/01/08',
-'인스타로 몰래 보는 너의 하루들', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 2, 'abc@naver.com', '내게 쓴편지함', '19/01/09', '내게 쓴 편지함 확인용입니다.', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'qwrds@daum.net', '조금 취했어', '19/01/11',
-'내가 망가지면 니가 나를 볼까 봐','abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, null, 'rudfl@daum.net', '시든 꽃에 물을 주듯', '19/01/21',
-'아무말도 아무것도 여전히 넌 여기 없고', 'abc@naver.com', 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 3, 'abc@naver.com', '휴지통', '19/02/01', '휴지통 확인용 입니다.', null, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 4, 'abc@naver.com', '가족', '19/03/01', '메일 그룹 확인용 입니다.', null, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 5, 'abc@naver.com', '회사', '19/04/01', '메일 그룹 확인용 입니다.', null, 'abc@naver.com');
-insert into mail values(mailno_seq.nextval, 6, 'abc@naver.com', '거래처', '19/05/01', '메일 그룹 확인용 입니다.', null, 'abc@naver.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '너에게로 가는 길', default,
+'너에게로 가는 길엔 자작나무 숲이 있고', 'qwrds@daum.net');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '어머니', default,
+'들로 가신 엄마 생각', 'rudfl@daum.net');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '운문사 비밀의 숲', default,
+'나, 다시 태어난다면', 'tjfql@gmail.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '성불사의 밤', default,
+'성불사 깊은 밤에 그윽한 풍경소리', 'rjacla@gmail.com');
+insert into mail values(mailno_seq.nextval, null, 'abc@naver.com', '사월의 노래', default, '사월이 오면 사월이 오며는', NULL);
+insert into mail values(mailno_seq.nextval, 3, 'abc@naver.com', '임시 편지함', default, '임시편지함 확인용입니다.',null);
+insert into mail values(mailno_seq.nextval, 3, 'qwrds@daum.net', '녹슨 경의선', default,
+'서울, 부산 신의주까지',null);
+insert into mail values(mailno_seq.nextval, 3, 'rudfl@daum.net', '다시 만날까봐', default,
+'인스타로 몰래 보는 너의 하루들',null);
+insert into mail values(mailno_seq.nextval, 4, 'abc@naver.com', '내게 쓴편지함', default, '내게 쓴 편지함 확인용입니다.',null);
+insert into mail values(mailno_seq.nextval, 4, 'qwrds@daum.net', '조금 취했어', default,
+'내가 망가지면 니가 나를 볼까 봐',null);
+insert into mail values(mailno_seq.nextval, 4, 'rudfl@daum.net', '시든 꽃에 물을 주듯', default,
+'아무말도 아무것도 여전히 넌 여기 없고',null);
+insert into mail values(mailno_seq.nextval, 5, 'tjfql@gmail.com', '휴지통', default, '휴지통 확인용 입니다.',null);
+insert into mail values(mailno_seq.nextval, 6, 'tjfql@gmail.com', '가족', default, '메일 그룹 확인용 입니다.',null);
+insert into mail values(mailno_seq.nextval, 7, 'tjfql@gmail.com', '회사', default, '메일 그룹 확인용 입니다.',null);
+insert into mail values(mailno_seq.nextval, 8, 'tjfql@gmail.com', '거래처', default, '메일 그룹 확인용 입니다.',null);
 
 -- 메일 파일함
-
+drop table mailfilebox cascade CONSTRAINTS;
 create table mailfilebox(
   mailno number references mail (mailno),
   originalfile varchar2(50),
@@ -1694,31 +1550,13 @@ insert into mailfilebox values(2, 'c.txt', '201910031200.txt', 200, null);
 insert into mailfilebox values(3, 'd.txt', '201910031300.txt', 300, null);
 insert into mailfilebox values(4, 'e.txt', '201910031400.txt', 1024 * 10, sysdate + 30);
 
-
-
-create view mailm 
-as select mail.mailno, mail.mailcode, mail.empemail, mail.mailtitle, mail.mailtime, mail.mailcontents, mail.recipient, mail.separator, mailboxtype.mailboxname
-from mail left join mailboxtype
-on mail.mailcode = mailboxtype.mailcode and mail.empemail = mailboxtype.empemail;
-
-select * from mailm order by mailno;
-select * from mailm where separator = 'abc@naver.com' and recipient = 'abc@naver.com' and mailcode is null;
-select * from mailm order by mailtime desc;
-select *
-from(select rownum rnum, empemail, mailtitle, mailtime
-       from(select * 
-        from mailm 
-        where separator = 'abc@naver.com' and recipient = 'abc@naver.com' and mailcode is null
-        order by mailtime desc))
- where rnum >= 1 and rnum <= 3;
-
 -- 주소록 그룹
 
 drop table addressbook_type cascade constraints;
 
 CREATE TABLE addressbook_type (
-   addressbook_code   number primary key   NOT NULL,
-   addressbook_name   varchar2(50)   NOT NULL
+	addressbook_code	number primary key	NOT NULL,
+	addressbook_name	varchar2(50)	NOT NULL
 );
 
 insert into addressbook_type values(addressbook_code_seq.nextval, '가족');
@@ -1731,14 +1569,14 @@ insert into addressbook_type values(addressbook_code_seq.nextval, '교회');
 drop table addressbook cascade CONSTRAINTS;
 
 CREATE TABLE addressbook (
-   addressbook_no number primary key   NOT NULL,
-   addressbook_address varchar2(100)   NULL,
-   addressbook_etc   varchar2(100)   NULL,
-   addressbook_name   varchar2(20)   NULL,
-   addressbook_phone   varchar2(20)   NULL,
-   addressbook_mail   varchar2(30)   NULL,
-   addressbook_code   number NOT NULL references addressbook_type (addressbook_code),
-   empno   varchar2(20)   NULL references employee (empno)
+	addressbook_no number primary key	NOT NULL,
+	addressbook_address varchar2(100)	NULL,
+	addressbook_etc	varchar2(100)	NULL,
+	addressbook_name	varchar2(20)	NULL,
+	addressbook_phone	varchar2(20)	NULL,
+	addressbook_mail	varchar2(30)	NULL,
+	addressbook_code	number NOT NULL references addressbook_type (addressbook_code),
+	empno	varchar2(20)	NULL references employee (empno)
 );
 
 insert into addressbook values(addressbook_no_seq.nextval, '경기도 성남시 수정구', '가족', '홍길동', '010-1234-5678', 'tjfql@gmail.com', 1, null);
@@ -1749,3 +1587,4 @@ insert into addressbook values(addressbook_no_seq.nextval, '서울특별시 도봉구', 
 
 
 COMMIT;
+

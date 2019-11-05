@@ -35,14 +35,15 @@ public class MailDetailServlet extends HttpServlet {
 		int mailno = Integer.parseInt(request.getParameter("mailno"));
 		int currentPage = Integer.parseInt(request.getParameter("page"));
 		String code = request.getParameter("code");
-		String allmail = request.getParameter("allmail");
+		/*String mcode = request.getParameter("mcode");*/
 		
-		//3.
+		MailFileBox mbf = new MailFileBox();
 		MailService mservice = new MailService();
 		Mailm mailm = mservice.selectOne(mailno);
-		MailFileBox mbf = mservice.selectFileOne(mailno); 
-
-		
+		String a = mailm.getFileYN();
+		if(a.equals("Y")) {
+			mbf = mservice.selectFileOne(mailno); 
+		}	
 		
 		//4.
 		RequestDispatcher view = null;
@@ -52,8 +53,8 @@ public class MailDetailServlet extends HttpServlet {
 				request.setAttribute("mbf", mbf);
 				request.setAttribute("currentPage", currentPage);
 				request.setAttribute("code", code);
-				request.setAttribute("allmail", allmail);
-				view.forward(request, response);			
+				/*request.setAttribute("mcode", mcode);*/
+				view.forward(request, response);
 		}else {
 			view = request.getRequestDispatcher("views/common/error.jsp");
 			request.setAttribute("message", mailno + "번 게시글 상세조회 실패");
