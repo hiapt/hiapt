@@ -29,9 +29,6 @@
 <!-- Custom fonts for this template-->
 <link href="/hiapt/resources/vendor/fontawesome-free/css/all.min.css"
 	rel="stylesheet" type="text/css">
-<link
-	href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-	rel="stylesheet">
 <!-- Custom styles for this template-->
 <link href="/hiapt/resources/css/sb-admin-2.min.css" rel="stylesheet">
 <link href="/hiapt/resources/css/basic.css" rel="stylesheet">
@@ -71,19 +68,19 @@ $(function() {
 
 function showDiv() {
 	if ($("#searchselect option:eq(0)").is(":selected")) {
-		$("#dong").css("display", "block");
-		$("#no").css("display", "none");
-		$("#id").css("display", "none");
+		$("#dongho").css("display", "block");
+		$("#name").css("display", "none");
+		$("#date").css("display", "none");
 	}
 	if ($("#searchselect option:eq(1)").is(":selected")) {
-		$("#name").css("display", "none");
-		$("#no").css("display", "block");
-		$("#id").css("display", "none");
+		$("#dongho").css("display", "none");
+		$("#name").css("display", "block");
+		$("#date").css("display", "none");
 	}
 	if ($("#searchselect option:eq(2)").is(":selected")) {
+		$("#dongho").css("display", "none");
 		$("#name").css("display", "none");
-		$("#no").css("display", "none");
-		$("#id").css("display", "block");
+		$("#date").css("display", "block");
 	}
 	
 }
@@ -136,7 +133,7 @@ $(function() {
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">세대주 조회</h1>
+<h1 class="btn btn-primary btn-icon-split" style=" width:100px; height:30px; text-align:center;" onclick="location.href='/hiapt/aptlist'">입주자조회</h1>
 <div class="card shadow mb-4">
 <div class="card-body">
 
@@ -146,19 +143,23 @@ $(function() {
 		<select id="searchselect" name="searchselect"
 			style="width: 100px; padding-left: 5px;"
 			class="form-control form-control-sm">
-			<option selected="selected">직원명</option>
-			<option id="opt2">사번</option>
-			<option id="opt3">직급</option>
+			<option selected="selected">동/호수</option>
+			<option id="opt2">세대주명</option>
+			<option id="opt3">입주일</option>
 		</select>
 	</div>
 	
-	<div id="name">
-		<form action="/hiapt/empsearch" method="get" id="searchform">
-			<input type="hidden" name="search" value="name">
+	<div id="dongho">
+		<form action="/hiapt/aptsearch" method="get" id="searchform">
+			<input type="hidden" name="search" value="dongho">
 			<div class="input-group" style="margin-left: 5px;">
-				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="직원명을 입력하세요."
-					style="width: 250px;">
+				<input type="text" name="dong" id="search"
+					class="form-control form-control-sm"
+					style="width: 70px; border-radius: 3px;"> 
+				&nbsp; -  &nbsp;
+				<input type="text" name="ho" id="search"
+					class="form-control form-control-sm"
+					style="width: 70px; border-radius: 3px;">&nbsp;
 				<div class="input-group-append">
 					<button class="btn btn-primary btn-sm" type="button" id="submitbtn">
 						<i class="fas fa-search fa-sm"></i>
@@ -167,13 +168,13 @@ $(function() {
 			</div>
 		</form>
 	</div>
-	<div id="no">
-		<form action="/hiapt/empsearch" method="get" id="searchform2">
-			<input type="hidden" name="search" value="no">
+	<div id="name">
+		<form action="/hiapt/aptsearch" method="get" id="searchform2">
+			<input type="hidden" name="search" value="name">
 			<div class="input-group" style="margin-left: 5px;">
 				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="사번을 입력하세요."
-					style="width: 250px;">
+					class="form-control form-control-sm" placeholder="세대주명을 입력하세요."
+					style="width: 170px;">&nbsp;
 				<div class="input-group-append">
 					<button class="btn btn-primary btn-sm" type="button" id="submitbtn2">
 						<i class="fas fa-search fa-sm"></i>
@@ -182,13 +183,16 @@ $(function() {
 			</div>
 		</form>
 	</div>
-	<div id="id">
-		<form action="/hiapt/empsearch" method="get" id="searchform3">
-			<input type="hidden" name="search" value="id">
+	<div id="date">
+		<form action="/hiapt/aptsearch" method="get" id="searchform3">
+			<input type="hidden" name="search" value="date">
 			<div class="input-group" style="margin-left: 5px;">
-				<input type="text" id="search" name="keyword"
-					class="form-control form-control-sm" placeholder="직급을 입력하세요."
-					style="width: 250px;">
+				<input type="date" name="from" id="search"
+					class="form-control form-control-sm"
+					style="width: 140px; border-radius: 3px;"> &nbsp; ～ &nbsp;
+				<input type="date" name="to" id="search"
+					class="form-control form-control-sm"
+					style="width: 140px; border-radius: 3px;">&nbsp;
 				<div class="input-group-append">
 					<button class="btn btn-primary btn-sm" type="button" id="submitbtn3">
 						<i class="fas fa-search fa-sm"></i>
@@ -250,7 +254,13 @@ $(function() {
 				<td><%= ho[i] %></td>
 				<td><%= e.getUserName() %></td>
 				<td><%= e.getUserEnroll() %></td>
-				<td><%= e.getCarNo() %></td>
+				<td>
+				<% if(e.getCarNo() != null) { %>
+				<%= e.getCarNo() %>
+				<% }else{ %>
+				 미등록
+				<% } %></td>
+				
 				<%-- <td><%= e.getEmpEmail() %></td>
 				<td><a href="/hiapt/salary?empno=<%= e.getEmpNo() %>">보기</a></td> --%>
 				<td><a href="/hiapt/aptdetail?userid=<%= e.getUserId() %>">보기</a></td>

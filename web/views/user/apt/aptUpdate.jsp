@@ -99,7 +99,7 @@ border :  solid 3px #fff;
 
 </style>
 
-</head>
+
 
 <script type="text/javascript" src="/hiapt/resources/js/bootstrap.min.js"></script>
 <script>
@@ -107,6 +107,8 @@ function validation(){
 	return true; //전송함
 }
 </script>
+
+</head>
 
 <body id="page-top">
 
@@ -139,7 +141,7 @@ function validation(){
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800"><%= aptuser.getUserId() %>수정등록</h1>
+<h1 class="btn btn-primary btn-icon-split" style=" width:100px; height:30px; text-align:center;">세대주 수정 등록</h1>
 
 <div class="card shadow mb-4">
 <div class="card-body">
@@ -164,11 +166,11 @@ function validation(){
 			<tbody>
 				<tr>
 				<th id="AptMain">입주</th>
-					<td id="AptTitle">동</td>
-					<td id="AptData"><input type="text" name="userid" size="7" value="<%= useridAll[0] %>"></td>
-					<td id="AptTitle">호</td>
-					<td id="AptData"><input type="text" name="userid" size="7" value="<%= useridAll[1] %>"></td>
-					<td id="AptTitle">입주일</td>
+					<td id="AptTitle">동*</td>
+					<td id="AptData"><input type="text" name="userid" size="7" value="<%= useridAll[0] %>" readonly></td>
+					<td id="AptTitle">호*</td>
+					<td id="AptData"><input type="text" name="userid" size="7" value="<%= useridAll[1] %>" readonly></td>
+					<td id="AptTitle">입주일*</td>
 					<td id="AptData"><input type="date" name="userenroll" value="<%= aptuser.getUserEnroll() %>"></td>
 				</tr>
 			</tbody>
@@ -183,7 +185,7 @@ function validation(){
 			<tbody>
 				<tr>
 				<th id="AptMain" rowspan="3">세대주</th>
-					<td id="AptTitle">성명</td>
+					<td id="AptTitle">성명*</td>
 					<td id="AptData"><input type="text" name="username" value="<%= aptuser.getUserName() %>"></td>
 					<td id="AptTitle">생년월일</td>
 					<td id="AptData"><input type="date" name="userbirth" value="<%= aptuser.getUserBirth() %>"></td>
@@ -191,7 +193,7 @@ function validation(){
 					<td id="AptData"></td>
 				</tr>				
 				<tr>
-					<td id="AptTitle">연락처</td>
+					<td id="AptTitle">연락처*</td>
 					<td id="AptData"><input type="text" name="userphone" value="<%= aptuser.getUserPhone() %>"></td>
 					<td id="AptTitle">이메일</td>
 					<td id="AptData"><input type="email" name="usermail" size="25" value="<%= aptuser.getUserEmail() %>"></td>
@@ -200,7 +202,7 @@ function validation(){
 				</tr>
 				<tr>
 					<td id="AptTitle">기타</td>
-					<td id="AptData" colspan="5"><textarea name="useretc" rows="5" cols="70" value="<%= aptuser.getUserEtc() %>"></textarea></td>			
+					<td id="AptData" colspan="5"><textarea name="useretc" rows="5" cols="70"><%= aptuser.getUserEtc() %></textarea></td>			
 				</tr>				
 			</tbody>
 			</table>

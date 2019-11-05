@@ -133,7 +133,7 @@ $(function() {
 
 			
 <!--///////본문 내용 시작 ///////-------->	
-<h1 class="h3 mb-4 text-gray-800">직원 조회</h1>
+<h1 class="btn btn-primary btn-icon-split" style=" width:100px; height:30px; text-align:center;" onclick="location.href='/hiapt/emplist'">직원 조회</h1>
 <div class="card shadow mb-4">
 <div class="card-body">
 
@@ -240,8 +240,18 @@ $(function() {
 				<td><%= e.getEmpHireDate() %></td>
 				<% }else{ %>
 					<% } %>
-				<td><%= e.getEmpPhone() %></td>
-				<td><%= e.getEmpEmail() %></td>
+				<td>
+				<% if(e.getEmpPhone() != null) { %>
+				<%= e.getEmpPhone() %>
+				<% }else{ %>
+				<% } %></td>
+				<td>
+				<% if(e.getEmpEmail() != null) { %>
+				<%= e.getEmpEmail() %>
+				<% }else{ %>
+				
+				<% } %></td>
+				
 				<% if(emp != null && emp.getEmpId().equals("관리자")){ %>
 				<td><a href="/hiapt/salary?empno=<%= e.getEmpNo() %>">보기</a></td>
 				<td><a href="/hiapt/empdetail?empno=<%= e.getEmpNo() %>">보기</a></td>
@@ -252,8 +262,7 @@ $(function() {
 		</table>
 
 
-</div>
-</div>
+
 
 			<div class="col-sm-12">
 				<div class="paging_simple_numbers">
@@ -323,6 +332,9 @@ $(function() {
 					</ul>
 				</div>
 			</div>
+			
+		</div>
+</div>
 			
 
 </div><!-- /.container-fluid -->				
